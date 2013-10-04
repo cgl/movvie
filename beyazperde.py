@@ -15,7 +15,6 @@ for s in soup.findAll(href=re.compile("filmler/film-[0-9]*\/$")):
 def on_yil(start_page=1):
     # Browse though the movie list paging is 20 movie
     for i in range(start_page,2):
-        print 4
         c = urllib2.urlopen(title_url %i)
         soup = BeautifulSoup(c.read())
         div_content = soup.findAll("div","content")
@@ -24,29 +23,33 @@ def on_yil(start_page=1):
 
 def page(content):
     for s in content:
-        h = s('div')[0]('a')[0]['href']
-        film_title = s('div')[0].getText()
+        try:
+            h = s('div')[0]('a')[0]['href']
+            film_title = s('div')[0].getText()
 #Out[126]: u'/filmler/film-132874/'
-        film_id = int(h.split('/')[2].split('-')[1])
-        film_url = base_url+h+"kullanici-elestirileri/en-yeniler/?page=%d"
-        m = Movie.Movie(film_id,film_title,film_url)
-        film_html = get_html(film_url %1)
-        movie = get_elestiri(film_html,m)
-        pager = film_html.find("div","pager")
-        if pager:
-            li = pager('li')
-            li.reverse()
-            if li and li[0].span:
-                for i in range(2,int(li[0].span.text)+1):
-                    movie = get_elestiri(get_html(film_url %i),movie)
-            else:
-                if li and li[0].a['href']:
-                    movie = get_elestiri(get_html(li[0].a['href']),m)
+            film_id = int(h.split('/')[2].split('-')[1])
+            film_url = base_url+h+"kullanici-elestirileri/en-yeniler/?page=%d"
+            m = Movie.Movie(film_id,film_title,film_url)
+            film_html = get_html(film_url %1)
+            movie = get_elestiri(film_html,m)
+            pager = film_html.find("div","pager")
+            if pager:
+                li = pager('li')
+                li.reverse()
+                if li and li[0].span:
+                    for i in range(2,int(li[0].span.text)+1):
+                        movie = get_elestiri(get_html(film_url %i),movie)
                 else:
-                    print 'error on %s' %film_url
-        if len(m.reviews)>0:
-            m.persist()
-            print counter
+                    if li and li[0].a['href']:
+                        movie = get_elestiri(get_html(li[0].a['href']),m)
+                    else:
+                        print 'error on %s' %film_url
+            if len(m.reviews)>0:
+                m.persist()
+                print counter
+        except IndexError:
+            print "IndexError"
+            print s
 
 def get_elestiri(film_html,movie):
     global counter
