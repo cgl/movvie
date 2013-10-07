@@ -2,6 +2,18 @@
 # -*- Coding: utf-8 -*-
 #Author: Cagil Ulusahin
 #Date: October 7th 2013
+#
+# A small yet fast parser to filter the SNAP 467 million Twitter dataset[1] by language.
+# 
+# For language detection the langid*[2] is used.
+#
+# Sample input and output can be foun within the directory of the github project page.**  
+#
+# [1] J. Yang, J. Leskovec. Temporal Variation in Online Media. ACM International Conference on Web Search and Data Mining (WSDM '11), 2011.
+# [2] Lui, Marco and Timothy Baldwin (2012) langid.py: An Off-the-shelf Language Identification Tool, In Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics (ACL 2012), Demo Session, Jeju, Republic of Korea. Available from www.aclweb.org/anthology/P12-3005
+# * https://github.com/saffsd/langid.py
+# ** https://github.com/cgl/movvie/tree/master/twitnorm
+
 import langid, getopt, sys
 
 def read_tweets(lang='en',infile='snap.sample'):
