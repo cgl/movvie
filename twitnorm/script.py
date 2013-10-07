@@ -60,5 +60,7 @@ def main():
             assert False, "unhandled option!"
     write_tweets(lang=lang,infile=infile,outfile=outfile)
 
+def usage():
+    print 'python script.py [--language="en"] [--input_file="/home/cagil/Datasets/snap/snap.sample"] [--output_file="output_en.txt"]'
 if __name__ == "__main__":
     main()    
