@@ -65,7 +65,6 @@ def main():
     lang='en'
     infile='snap.sample'
     outfile='out.txt'
-    path='./'
     verbose = False
     # Process cmd line options
     for o, a in opts:
@@ -83,16 +82,14 @@ def main():
         elif o in ("-p", "--path"):
             files = gen_walk(a)
             for e,f in enumerate(files):
-                print 'Processing %s' %f
                 folder = '/'.join(f.split("/")[:-1])
-                os.system("mkdir -pv out/%s" %folder )
+                os.system("mkdir -p out/%s" %folder )
                 write_tweets(lang=lang,infile=f,outfile='out/%s' % (f))
             return
         else:
             assert False, "unhandled option!"    
     write_tweets(lang=lang,infile=infile,outfile=outfile)
 
-import os
 def gen_walk(path='.'):
     for dirname, dirnames, filenames in os.walk(path):
         # print path to all subdirectories first.
@@ -111,5 +108,7 @@ def gen_walk(path='.'):
 
 def usage():
     print 'python script.py [--language="en"] [--input_file="/home/cagil/Datasets/snap/snap.sample"] [--output_file="output_en.txt"]'
+    print 'ex: python languagefiltering.py --language="en" --input_file="/home/cagil/Datasets/snap/tweets2009-07.txt" --output_file="output_en_07.txt"'
+    print 'ex: python languagefiltering.py --path=test2/'
 if __name__ == "__main__":
     main()    
