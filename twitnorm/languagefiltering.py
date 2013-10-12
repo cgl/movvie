@@ -20,8 +20,7 @@ FORMAT = '%(asctime)-15s %(host)s -8s %(message)s'
 logging.basicConfig(format=FORMAT,filename='filtering.log',level=logging.DEBUG)
 
 def read_tweets(lang='en',infile='snap.sample'):
-    with open(infile) as f:
-        f.readline()
+    with open(infile) as f:        
         A = None
         U = None
         T = None

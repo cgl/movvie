@@ -11,6 +11,21 @@ do
 done
 }
 
+function traverse_and_move {
+    path=$1
+    echo 'Traversing path: $path'
+    filefrom=''
+    for OUTPUT in $(ls $path);
+    do 
+	fileto=$filefrom
+	filefrom=$path/$OUTPUT;
+	if [ -n "$fileto" ]; then
+	    echo "From $filefrom to $fileto"
+	    move_lines $filefrom $fileto 2
+	 fi
+    done
+}
+
 function move_lines {
    filefrom=$1
    fileto=$2
@@ -27,6 +42,7 @@ echo 'move_lines fromfile tofile numberoflines'
 echo 'move_lines ~/Datasets/snap/splited-07/tweets2009-07-splitedag ~/Datasets/snap/splited-07/tweets2009-07-splitedaf 3'
 echo ''
 echo 'traverse ~/Datasets/snap/splited-07/'
+echo 'traverse_and_move /home/cagil/Datasets/snap/splited/splited-09/'
 echo ''
 
 #move_lines $1 $2 $3
