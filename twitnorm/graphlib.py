@@ -16,6 +16,8 @@ import networkx as nx
 import enchant
 import ast
 import re
+import sys, getopt
+
 class Reader():
     def __init__(self,path=None,format=None):
         self.format=format
@@ -31,7 +33,6 @@ class Reader():
             with open(file) as f: 
                 for line in f:
                     yield ast.literal_eval(line)[2]
-import sys, getopt
 
 def main(argv):
    infile = 'test/test.graphml'
@@ -53,17 +54,17 @@ def main(argv):
       elif opt in ("-p", "--path"):
          path = arg
       
-    r = Reader(path=path)
-    lot  = [unicode(a) for a in r.read(file=infile)]
-    T = Tweet()
-    T.getTweets(lot)
-    for a in T.graph.node:
-        pass #print a
+   r = Reader(path=path)
+   lot  = [unicode(a) for a in r.read(file=infile)]
+   T = Tweet()
+   T.getTweets(lot)
+   for a in T.graph.node:
+       pass #print a
 #    nx.write_gml(T.graph,'test/test-out.gml')
-    nx.write_graphml(T.graph,'test/test.graphml')
+   nx.write_graphml(T.graph,'test/test.graphml')
 #    nx.write_gpickle(T.graph,'test/test-out.pckl')
-    print len(T.graph.node)
-    return T.graph
+   print len(T.graph.node)
+   return T.graph
 
 class Tweet:
     def __init__(self,g=None):
