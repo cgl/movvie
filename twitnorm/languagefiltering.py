@@ -37,7 +37,6 @@ def read_tweets(lang='en',infile='snap.sample'):
                         english = True
             elif english:
                 yield T,U,W
-                print W
                 english=False
 
 def write_tweets(lang='en',infile='snap.sample',outfile='out.txt'):
