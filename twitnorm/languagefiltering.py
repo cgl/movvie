@@ -57,7 +57,7 @@ def write_tweets(lang='en',infile='snap.sample',outfile='out.txt'):
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hliop:v", ["help", "language=", "input_file=", "output_file=","path="])
+        opts, args = getopt.getopt(sys.argv[1:], "hl:i:o:p:v", ["help", "language=", "input_file=", "output_file=","path="])
     except getopt.GetoptError, err:
         print str(err) # will print an error about option not recognized..
         sys.exit(1)
@@ -85,6 +85,7 @@ def main():
                 folder = '/'.join(f.split("/")[:-1])
                 os.system("mkdir -p out/%s" %folder )
                 write_tweets(lang=lang,infile=f,outfile='out/%s' % (f))
+                os.remove(f)
             return
         else:
             assert False, "unhandled option!"    
