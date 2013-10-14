@@ -31,12 +31,13 @@ def read_tweets(lang='en',infile='snap.sample'):
             elif line.split('\t')[0] == 'U':
                 U = line.split('\t')[1].strip('\n')
             elif line.split('\t')[0] == 'W':
-                W = line.split('\t')[1].strip('\n')
+                W = line.split('\t')[1].strip('\n').decode('utf-8')
                 if not (W is None) | (W == 'No Post Title'):
                     if langid.classify(W)[0] == lang:
                         english = True
             elif english:
                 yield T,U,W
+                print W
                 english=False
 
 def write_tweets(lang='en',infile='snap.sample',outfile='out.txt'):

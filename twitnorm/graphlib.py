@@ -14,19 +14,99 @@ import langid, getopt, sys, logging, os, socket
 import CMUTweetTagger
 import networkx as nx
 import enchant
+import ast
+import re
 class Reader():
-    def __init__(path='None',format='None'):
-        this.format=format
-        this.path=path
+    def __init__(self,path=None,format=None):
+        self.format=format
+        self.path=path
 
     # Returns lot
-    def read(file=None):
-        if path:
+    def read(self,file=None):
+        if self.path is not None:
+            print 'Going to proess al files in the path'
             pass
         elif file:
-            with open(infile) as l: 
-                yield l[2]
+            print file
+            with open(file) as f: 
+                for line in f:
+                    yield ast.literal_eval(line)[2]
+
+def main():
+    r = Reader()
+    lot  = [unicode(a) for a in r.read(file='output_en.sample')]
+    T = Tweet()
+    T.getTweets(lot)
+    for a in T.graph.node:
+        pass #print a
+#    nx.write_gml(T.graph,'test-out.gml')
+    nx.write_graphml(T.graph,'test.graphml')
+#    nx.write_gpickle(T.graph,'test-out.pckl')
+    print len(T.graph.node)
+    return T.graph
+
+class Tweet:
+    def __init__(self,g=None):
+        if g is None:
+#            self.graph = nx.read_gml('test.gml')
+            self.graph = nx.read_graphml('test.graphml')
+#            self.graph = nx.read_gpickle('test.pckl')
+            print 'Graph has been read from file'
+        else:
+            self.graph = g
+        self.d = enchant.Dict("en_US")
     
+    def getTweets(self,tweets):
+        lot = CMUTweetTagger.runtagger_parse(tweets)
+        #lot = [[('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)],
+        #       [('example', 'N', 0.979), ('tweet', 'V', 0.7713), ('2', '$', 0.5832)]]
+
+        for tweet in lot:            
+            self.getTweet(tweet)
+
+    def getTweet(self,tweet):
+        #tweet = [('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)]
+        words = []
+
+        for w,t,c in tweet:
+            if (not self.isvalid(w)) or w.startswith("http") or w.startswith("@") or w.startswith("#") or w.isdigit() or not w.isalnum():
+                continue
+            self.addNode(w,t)
+            for x in words:
+                if self.graph.has_edge(w,x):
+                    # we added this one before, just increase the weight by one
+                    self.graph.add_edge(w,x)
+                    self.graph[w][x]['weight'] += 1
+                else:
+                    # new edge. add with weight=1
+                    self.graph.add_edge(w,x, weight=1)
+            words.append(w)
+
+    #adds node with the pos tag t to the self.graph
+    def addNode(self,w,t):
+        if not self.graph.has_node(w):
+            self.graph.add_node(w,ovv=False if self.d.check(w) else True)
+            self.graph.node[w][t]=1
+        else:
+            if(self.graph.node[w].has_key(t)):
+                self.graph.node[w][t] += 1
+            else:
+                self.graph.node[w][t] = 1
+
+    def isvalid(self,w):
+    #return true if string contains any alphanumeric keywors
+        return bool(re.search('[A-Za-z0-9]', w))
+
+if __name__ == "__main__":
+    main()    
+                
+            
+            
+            
+            
+        
+
+'''    
 from graph_tool.all import *
 class WordGraph():
     def createGraph():
@@ -49,49 +129,4 @@ class WordGraph():
     def load():
         g2 = load_graph("my_graph.xml.gz")
         return g2
-
-class Tweet:
-    d = enchant.Dict("en_US")
-    def __init(g)__:
-        this.graph = g
-        pass
-    
-    def getTweets(tweets):
-        lot = CMUTweetTagger.runtagger_parse(tweets)
-        #lot = [[('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)],
-        #       [('example', 'N', 0.979), ('tweet', 'V', 0.7713), ('2', '$', 0.5832)]]
-        for tweet in lot:
-            getTweet(tweet)
-
-    def getTweet(tweet):
-        #tweet = [('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)]
-        words = []
-        for w,t,c in tweet:
-            if ! this.graph.has_node(w):
-                this.graph.add_node(w,ovv=False if d.check(w) else True)
-                this.graph[w][t]=1
-            else:
-                if(this.graph[w].has_key(t)):
-                    this.graph[w][t] +=1
-                else:
-                    this.graph[w][t] =1
-            for x in words:
-                if this.graph.has_edge(w,x):
-                    # we added this one before, just increase the weight by one
-                    G[w][x]['weight'] += 1
-                else:
-                    # new edge. add with weight=1
-                    G.add_edge(subject_id, object_id, weight=1)
-            words.append(w)
-            
-            
-
-    def addNode(w):
-        if(G.node.has_key(w)):
-            return G.node
-                
-            
-            
-            
-            
-        
+'''
