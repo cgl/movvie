@@ -31,26 +31,46 @@ class Reader():
             with open(file) as f: 
                 for line in f:
                     yield ast.literal_eval(line)[2]
+import sys, getopt
 
-def main():
-    r = Reader()
-    lot  = [unicode(a) for a in r.read(file='output_en.sample')]
+def main(argv):
+   infile = 'test/test.graphml'
+   outfile = None
+   path = None
+   try:
+      opts, args = getopt.getopt(argv,"hi:o:p:",["ifile=","ofile=","path="])
+   except getopt.GetoptError:
+      print 'graphlib.py -i <inputfile> -o <outputfile>'
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print 'graphlib.py -i <inputfile> -o <outputfile>'
+         sys.exit()
+      elif opt in ("-i", "--ifile"):
+         infile = arg
+      elif opt in ("-o", "--ofile"):
+         outfile = arg
+      elif opt in ("-p", "--path"):
+         path = arg
+      
+    r = Reader(path=path)
+    lot  = [unicode(a) for a in r.read(file=infile)]
     T = Tweet()
     T.getTweets(lot)
     for a in T.graph.node:
         pass #print a
-#    nx.write_gml(T.graph,'test-out.gml')
-    nx.write_graphml(T.graph,'test.graphml')
-#    nx.write_gpickle(T.graph,'test-out.pckl')
+#    nx.write_gml(T.graph,'test/test-out.gml')
+    nx.write_graphml(T.graph,'test/test.graphml')
+#    nx.write_gpickle(T.graph,'test/test-out.pckl')
     print len(T.graph.node)
     return T.graph
 
 class Tweet:
     def __init__(self,g=None):
         if g is None:
-#            self.graph = nx.read_gml('test.gml')
-            self.graph = nx.read_graphml('test.graphml')
-#            self.graph = nx.read_gpickle('test.pckl')
+#            self.graph = nx.read_gml('test/test.gml')
+            self.graph = nx.read_graphml('test/test.graphml')
+#            self.graph = nx.read_gpickle('test/test.pckl')
             print 'Graph has been read from file'
         else:
             self.graph = g
@@ -98,7 +118,7 @@ class Tweet:
         return bool(re.search('[A-Za-z0-9]', w))
 
 if __name__ == "__main__":
-    main()    
+    main(sys.argv[1:])    
                 
             
             
