@@ -16,7 +16,8 @@
 
 import langid, getopt, sys, logging, os, socket
 d = {'host': socket.gethostname(),}
-FORMAT = '%(asctime)-15s %(host)s -8s %(message)s'
+d = {'clientip': '192.168.0.1', 'user': 'fbloggs'}
+FORMAT = '%(asctime)-15s %(clientip)s %(user)-8s %(message)s'
 logging.basicConfig(format=FORMAT,filename='filtering.log',level=logging.DEBUG)
 
 def read_tweets(lang='en',infile='snap.sample'):

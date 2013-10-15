@@ -17,11 +17,10 @@ import enchant
 import ast
 import re
 import sys, getopt
-from languagefiltering import gen_walk
 import langid
 import logging
 
-FORMAT = '%(asctime)-15s -8s %(message)s'
+FORMAT = '%(asctime)-15s %(message)s'
 logging.basicConfig(format=FORMAT,filename='tweets.log',level=logging.DEBUG)
 
 class Reader():
@@ -155,6 +154,22 @@ class Tweet:
 if __name__ == "__main__":
     main(sys.argv[1:])    
                 
+def gen_walk(path='.'):
+    for dirname, dirnames, filenames in os.walk(path):
+        # print path to all subdirectories first.
+        #for subdirname in dirnames:
+        #            print os.path.join(dirname, subdirname)
+
+        # print path to all filenames.
+        for filename in filenames:
+            yield os.path.join(dirname, filename)
+
+        # Advanced usage:
+        # editing the 'dirnames' list will stop os.walk() from recursing into there.
+        if '.git' in dirnames:
+            # don't go into any .git directories.
+            dirnames.remove('.git')
+
             
             
             

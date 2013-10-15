@@ -22,8 +22,8 @@ class SimpleTest(TestCase):
         lot  = [unicode(a) for a in r.read(file='test/snap.sample')]
         T = Tweet()
         T.getTweets(lot)
-        for a in T.graph.node:
-            print a
+#        for a in T.graph.node:
+#            print a
     #    nx.write_gml(T.graph,'test/test-out.gml')
         nx.write_graphml(T.graph,'test/test.graphml')
     #    nx.write_gpickle(T.graph,'tes/test-out.pckl')
