@@ -19,6 +19,11 @@ import re
 import sys, getopt
 from languagefiltering import gen_walk
 import langid
+import logging
+
+FORMAT = '%(asctime)-15s -8s %(message)s'
+logging.basicConfig(format=FORMAT,filename='tweets.log',level=logging.DEBUG)
+
 class Reader():
     def __init__(self,path=None,format=None):
         self.format=format
@@ -44,6 +49,8 @@ class Reader():
                 yield ast.literal_eval(line)[2]
 
     def readFile_direct(self,infile,lang='en'):
+        logger = logging.getLogger('tweet')
+        logger.info('Started Processing : %s', infile)
         with open(infile) as f:        
             W = None
             for line in f:
@@ -52,6 +59,7 @@ class Reader():
                     if not (W is None) | (W == 'No Post Title'):
                         if langid.classify(W)[0] == lang:                                
                             yield W
+            logger.info('End Processing : %s', infile)
 
 def main(argv):
    infile = 'test/snap.sample'
@@ -108,6 +116,7 @@ class Tweet:
 
         for tweet in lot:            
             self.getTweet(tweet)
+            print '.'
 
     def getTweet(self,tweet):
         #tweet = [('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)]
