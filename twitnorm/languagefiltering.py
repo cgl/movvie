@@ -40,7 +40,7 @@ def read_tweets(lang='en',infile='snap.sample'):
                 english=False
 
 def write_tweets(lang='en',infile='snap.sample',outfile='out.txt'):
-    logger = logging.getLogger('tcpserver')
+    logger = logging.LoggerAdapter(logging.getLogger('langfilt'), log.ExtraInfo()) 
     logger.info('Started Processing : %s', infile , extra=d)
     try:
         tweets = read_tweets(lang=lang,infile=infile)

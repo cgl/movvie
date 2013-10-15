@@ -10,7 +10,7 @@
 # Sample input and output can be foun within the directory of the github project page.**  
 #
 
-import langid, getopt, sys, logging, os, socket
+import langid, getopt, sys, logging, os,
 import CMUTweetTagger
 import networkx as nx
 import enchant
@@ -49,7 +49,7 @@ class Reader():
                 yield ast.literal_eval(line)[2]
 
     def readFile_direct(self,infile,lang='en'):
-        logger = logging.getLogger('tweet')
+        logger = logging.LoggerAdapter(logging.getLogger('tweets'), log.ExtraInfo())
         logger.info('Started Processing : %s', infile)
         with open(infile) as f:        
             W = None
@@ -59,9 +59,10 @@ class Reader():
                     if not (W is None) | (W == 'No Post Title'):
                         if langid.classify(W)[0] == lang:                                
                             yield W
-            logger.info('End Processing : %s', infile)
+        logger.info('End Processing : %s', infile)
 
 def main(argv):
+   logger = logging.LoggerAdapter(logging.getLogger('tweets'), log.ExtraInfo())
    infile = 'test/snap.sample'
    outfile = 'test/test.graphml'
    path = None
@@ -88,7 +89,10 @@ def main(argv):
    lot  = [unicode(a) for a in r.read(file=infile)]
    T = Tweet()
    T.getTweets(lot)
+   print 'Constructed the graph now will write to file'
+   logger.info('Constructed the graph now will write to file : %s', outfile)
    nx.write_graphml(T.graph,outfile)
+   logger.info('Finish write to file : %s', outfile)
 
 '''
 #    nx.write_gml(T.graph,'test/test-out.gml')
@@ -116,7 +120,6 @@ class Tweet:
 
         for tweet in lot:            
             self.getTweet(tweet)
-            print '.'
 
     def getTweet(self,tweet):
         #tweet = [('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)]
