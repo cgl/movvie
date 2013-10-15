@@ -152,7 +152,13 @@ class Tweet:
         return bool(re.search('[A-Za-z0-9]', w))
 
 if __name__ == "__main__":
-    main(sys.argv[1:])    
+    logging.info('Start Processing')
+    try:
+        main(sys.argv[1:])    
+    except Exception, e:
+        logging.error(str(e))
+        return
+    logging.info('End Processing')
                 
 def gen_walk(path='.'):
     for dirname, dirnames, filenames in os.walk(path):
