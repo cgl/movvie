@@ -17,7 +17,8 @@ import enchant
 import ast
 import re
 import sys, getopt
-
+from languagefiltering import gen_walk
+import langid
 class Reader():
     def __init__(self,path=None,format=None):
         self.format=format
@@ -26,17 +27,35 @@ class Reader():
     # Returns lot
     def read(self,file=None):
         if self.path is not None:
-            print 'Going to proess al files in the path'
-            pass
+            files = gen_walk(path)
+            for e,f in enumerate(files):
+                folder = '/'.join(f.split("/")[:-1])
+                os.system("mkdir -p out/%s" %folder )
+                lot = self.readFile_direct(f)
+                os.remove(f)
         elif file:
             print file
-            with open(file) as f: 
-                for line in f:
-                    yield ast.literal_eval(line)[2]
+            lot = self.readFile_direct(file)
+        return lot
+
+    def readFile(self,f):
+        with open(file) as f: 
+            for line in f:
+                yield ast.literal_eval(line)[2]
+
+    def readFile_direct(self,infile,lang='en'):
+        with open(infile) as f:        
+            W = None
+            for line in f:
+                if line.split('\t')[0] == 'W':
+                    W = line.split('\t')[1].strip('\n').decode('utf-8')
+                    if not (W is None) | (W == 'No Post Title'):
+                        if langid.classify(W)[0] == lang:                                
+                            yield W
 
 def main(argv):
-   infile = 'test/test.graphml'
-   outfile = None
+   infile = 'test/snap.sample'
+   outfile = 'test/test.graphml'
    path = None
    try:
       opts, args = getopt.getopt(argv,"hi:o:p:",["ifile=","ofile=","path="])
@@ -46,6 +65,9 @@ def main(argv):
    for opt, arg in opts:
       if opt == '-h':
          print 'graphlib.py -i <inputfile> -o <outputfile>'
+         print 'graphlib.py -p <path> -o <outputfile>'
+         print 'Please check in.grapml, the initial graph will be read from that file'
+         print ''
          sys.exit()
       elif opt in ("-i", "--ifile"):
          infile = arg
@@ -58,19 +80,21 @@ def main(argv):
    lot  = [unicode(a) for a in r.read(file=infile)]
    T = Tweet()
    T.getTweets(lot)
+   nx.write_graphml(T.graph,outfile)
+
+'''
+#    nx.write_gml(T.graph,'test/test-out.gml')
+#    nx.write_gpickle(T.graph,'test/test-out.pckl')
    for a in T.graph.node:
        pass #print a
-#    nx.write_gml(T.graph,'test/test-out.gml')
-   nx.write_graphml(T.graph,'test/test.graphml')
-#    nx.write_gpickle(T.graph,'test/test-out.pckl')
    print len(T.graph.node)
    return T.graph
-
+'''
 class Tweet:
     def __init__(self,g=None):
         if g is None:
 #            self.graph = nx.read_gml('test/test.gml')
-            self.graph = nx.read_graphml('test/test.graphml')
+            self.graph = nx.read_graphml('in.graphml')
 #            self.graph = nx.read_gpickle('test/test.pckl')
             print 'Graph has been read from file'
         else:

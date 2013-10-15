@@ -1,5 +1,14 @@
 #!/bin/bash
 
+function split_files {
+    file=$1
+    outputfilename=$2
+    n=2000000
+    if [ -n "$3" ]; then
+	n=$3
+    fi
+    split -l $n $file $outputfilename
+}
 function traverse {
     path=$1
     echo 'Traversing path: $path'
@@ -26,13 +35,20 @@ function traverse_and_move {
     done
 }
 
+function delete_first_n_line {
+    file=$1
+    outfile=$2
+    n=$3
+    sed -e "1,${n}d" $file > $outfile
+}
+
 function move_lines {
    filefrom=$1
    fileto=$2
    n=$3
    tmpfile=$(date +%s)
-   head -n 2 $filefrom >> $fileto
-   sed -e "1,${n}d" $filefrom > $tmpfile
+   head -n $n $filefrom >> $fileto
+   delete_first_n_line $filefrom $tmpfile $n
    mv $tmpfile $filefrom
 }
 
@@ -44,6 +60,9 @@ echo ''
 echo 'traverse ~/Datasets/snap/splited-07/'
 echo 'traverse_and_move /home/cagil/Datasets/snap/splited/splited-09/'
 echo ''
+echo 'delete_first_n_line test/from.txt test/from2.txt 1'
+echo ''
+echo 'split_files test/from.txt test/from'
 
 #move_lines $1 $2 $3
 #traverse $1

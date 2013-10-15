@@ -21,9 +21,9 @@ logging.basicConfig(format=FORMAT,filename='filtering.log',level=logging.DEBUG)
 
 def read_tweets(lang='en',infile='snap.sample'):
     with open(infile) as f:        
-        A = None
-        U = None
-        T = None
+        W = None #Tweet
+        U = None #User
+        T = None #Time
         english = None
         for line in f:
             if line.split('\t')[0] == 'T':

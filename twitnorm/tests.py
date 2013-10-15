@@ -19,7 +19,7 @@ class SimpleTest(TestCase):
 
     def test_graphlib(self):
         r = Reader()
-        lot  = [unicode(a) for a in r.read(file='test/output_en.sample')]
+        lot  = [unicode(a) for a in r.read(file='test/snap.sample')]
         T = Tweet()
         T.getTweets(lot)
         for a in T.graph.node:
