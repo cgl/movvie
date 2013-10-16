@@ -19,6 +19,7 @@ import re
 import sys, getopt
 import langid
 import logging
+from pymongo import MongoClient
 
 FORMAT = '%(asctime)-15s %(message)s'
 logging.basicConfig(format=FORMAT,filename='tweets.log',level=logging.DEBUG)
@@ -58,6 +59,7 @@ class Reader():
                         if langid.classify(W)[0] == lang:                                
                             yield W
         logging.info('End Processing : %s', infile)
+
 from memory_profiler import profile
 @profile
 def main(argv):
@@ -75,7 +77,7 @@ def main(argv):
          print 'graphlib.py -p <path> -o <outputfile>'
          print 'Please check in.grapml, the initial graph will be read from that file'
          print ''
-         sys.exit()
+         sys.exit(1)
       elif opt in ("-i", "--ifile"):
          infile = arg
       elif opt in ("-o", "--ofile"):
@@ -83,7 +85,7 @@ def main(argv):
       elif opt in ("-p", "--path"):
          path = arg
       
-   T = Tweet()
+   T = MTweet()
    T.getTweets(infile)
    import gc
    print gc.isenabled()
@@ -100,6 +102,67 @@ def main(argv):
    print len(T.graph.node)
    return T.graph
 '''
+class MTweet:
+    def __init__(self):
+        self.d = enchant.Dict("en_US")
+        client = MongoClient('localhost', 27017)
+        db = client.test_database
+        self.nodes = db.nodes
+        self.edges = db.edges
+
+    def getTweets(self,infile):
+        r = Reader()   
+        tweets = [unicode(a) for a in r.read(file=infile)]
+        lot = CMUTweetTagger.runtagger_parse(tweets)
+        #lot = [[('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)],
+        #       [('example', 'N', 0.979), ('tweet', 'V', 0.7713), ('2', '$', 0.5832)]]
+
+        for tweet in lot:            
+            self.getTweet(tweet)
+
+    def getTweet(self,tweet):
+        #tweet = [('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)]
+        words = []
+
+        for w,t,c in tweet:
+            if (not self.isvalid(w)) or w.startswith("http") or w.startswith("@") or w.startswith("#") or w.isdigit() or not w.isalnum():
+                continue
+            self.addNode(w,t)
+            for x in words:
+                self.addEdge(w,x)
+            words.append(w)
+
+    def addEdge(self,n1,n2):
+        pass
+        '''
+        obj = self.edges.find_one({"_id":w})
+        if self.graph.has_edge(w,x):
+            # we added this one before, just increase the weight by one
+            self.graph.add_edge(w,x)
+            self.graph[w][x]['weight'] += 1
+        else:
+            # new edge. add with weight=1
+            self.graph.add_edge(w,x, weight=1)
+            '''
+
+    #adds node with the pos tag t to the self.graph
+    def addNode(self,w,t):
+        tag = "tag_"+t
+        obj = self.nodes.find_one({"_id":w})
+        if obj is None:
+            obj_id = self.nodes.insert({"_id":w,"freq":1,tag:1,"ovv":False if self.d.check(w) else True})
+        else:
+            obj["freq"] += 1
+            if(obj.has_key(tag)):
+                obj[tag] += 1
+            else:
+                obj[tag] = 1
+            self.nodes.save(obj)
+
+    def isvalid(self,w):
+    #return true if string contains any alphanumeric keywors
+        return bool(re.search('[A-Za-z0-9]', w))
+
 class Tweet:
     def __init__(self,g=None):
         if g is None:
@@ -160,7 +223,7 @@ if __name__ == "__main__":
         main(sys.argv[1:])    
     except Exception, e:
         logging.error(str(e))
-        exit
+        sys.exit(0)
     logging.info('End Processing')
                 
 def gen_walk(path='.'):

@@ -7,7 +7,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 
-from graphlib import Reader,Tweet
+from graphlib import Reader,Tweet,MTweet
 import networkx as nx
 
 class SimpleTest(TestCase):
@@ -17,11 +17,15 @@ class SimpleTest(TestCase):
         """
         self.assertEqual(1 + 1, 2)
 
+    def test_graphlib_mongo(self):
+        T = MTweet()
+        T.getTweets('test/snap.sample')
+        return True
+
+
     def test_graphlib(self):
-        r = Reader()
-        lot  = [unicode(a) for a in r.read(file='test/snap.sample')]
         T = Tweet()
-        T.getTweets(lot)
+        T.getTweets('test/snap.sample')
 #        for a in T.graph.node:
 #            print a
     #    nx.write_gml(T.graph,'test/test-out.gml')
