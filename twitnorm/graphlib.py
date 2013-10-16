@@ -58,7 +58,8 @@ class Reader():
                         if langid.classify(W)[0] == lang:                                
                             yield W
         logging.info('End Processing : %s', infile)
-
+from memory_profiler import profile
+@profile
 def main(argv):
    infile = 'test/snap.sample'
    outfile = 'test/test.graphml'
@@ -82,10 +83,10 @@ def main(argv):
       elif opt in ("-p", "--path"):
          path = arg
       
-   r = Reader(path=path)
-   lot  = [unicode(a) for a in r.read(file=infile)]
    T = Tweet()
-   T.getTweets(lot)
+   T.getTweets(infile)
+   import gc
+   print gc.isenabled()
    print 'Constructed the graph now will write to file'
    logging.info('Constructed the graph now will write to file : %s', outfile)
    nx.write_graphml(T.graph,outfile)
@@ -110,7 +111,9 @@ class Tweet:
             self.graph = g
         self.d = enchant.Dict("en_US")
     
-    def getTweets(self,tweets):
+    def getTweets(self,infile):
+        r = Reader()   
+        tweets = [unicode(a) for a in r.read(file=infile)]
         lot = CMUTweetTagger.runtagger_parse(tweets)
         #lot = [[('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)],
         #       [('example', 'N', 0.979), ('tweet', 'V', 0.7713), ('2', '$', 0.5832)]]
@@ -157,7 +160,7 @@ if __name__ == "__main__":
         main(sys.argv[1:])    
     except Exception, e:
         logging.error(str(e))
-        return
+        exit
     logging.info('End Processing')
                 
 def gen_walk(path='.'):
