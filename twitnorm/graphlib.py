@@ -64,7 +64,7 @@ from memory_profiler import profile
 @profile
 def main(argv):
    infile = 'test/snap.sample'
-   outfile = 'test/test.graphml'
+#   outfile = 'test/test.graphml'
    path = None
    try:
       opts, args = getopt.getopt(argv,"hi:o:p:",["ifile=","ofile=","path="])
@@ -80,18 +80,16 @@ def main(argv):
          sys.exit(1)
       elif opt in ("-i", "--ifile"):
          infile = arg
-      elif opt in ("-o", "--ofile"):
-         outfile = arg
+#      elif opt in ("-o", "--ofile"):
+#         outfile = arg
       elif opt in ("-p", "--path"):
          path = arg
       
    T = MTweet()
    T.getTweets(infile)
-   import gc
-   print gc.isenabled()
    print 'Constructed the graph now will write to file'
    logging.info('Constructed the graph now will write to file : %s', outfile)
-   nx.write_graphml(T.graph,outfile)
+#   nx.write_graphml(T.graph,outfile)
    logging.info('Finish write to file : %s', outfile)
 
 '''
@@ -120,20 +118,38 @@ class MTweet:
         for tweet in lot:            
             self.getTweet(tweet)
 
+# t.getTweet([("This",'N', 0.979),("is",'N', 0.97),("@ahterx",'N', 0.979),("^^",'N', 0.979),("my",'N', 0.979),("luv",'N', 0.979)])
     def getTweet(self,tweet):
         #tweet = [('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)]
         words = []
 
         for w,t,c in tweet:
-            if (not self.isvalid(w)) or w.startswith("http") or w.startswith("@") or w.startswith("#") or w.isdigit() or not w.isalnum():
+            if not self.isvalid(w):
+                continue
+            if w.startswith("http") or w.startswith("@") or w.startswith("#") or w.isdigit() or not w.isalnum():
+                words.append('')
                 continue
             self.addNode(w,t)
-            for x in words:
-                self.addEdge(w,x)
+            for e,x in enumerate(reversed(words)):
+                if x is not '':
+                    self.addEdge(w,x,e+1)
             words.append(w)
 
-    def addEdge(self,n1,n2):
-        pass
+    def addEdge(self,n1,n2,d):
+        self.incrementEdgeWeight(n1,n2,d)
+        self.incrementEdgeWeight(n2,n1,d)
+
+    # Creates edge if not present
+    def incrementEdgeWeight(self,n1,n2,d):
+        query = {'_id': n1, "edges.id": n2 , "edges.dis" : d }
+        if self.nodes.find_one(query) is None:
+            self.nodes.update( {'_id': n1 },
+                           { '$addToSet': { "edges" : {"id":n2,"dis":d,'weight':0 }} },False)
+        self.nodes.update( query,
+                       { "$inc" :
+                             { "edges.$.weight" : 1 }
+                         })                                              
+
         '''
         obj = self.edges.find_one({"_id":w})
         if self.graph.has_edge(w,x):
@@ -150,7 +166,7 @@ class MTweet:
         tag = "tag_"+t
         obj = self.nodes.find_one({"_id":w})
         if obj is None:
-            obj_id = self.nodes.insert({"_id":w,"freq":1,tag:1,"ovv":False if self.d.check(w) else True})
+            obj_id = self.nodes.insert({"_id":w,"freq":1,tag:1,"ovv":False if self.d.check(w) else True })
         else:
             obj["freq"] += 1
             if(obj.has_key(tag)):
