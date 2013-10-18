@@ -101,12 +101,12 @@ def main(argv):
    return T.graph
 '''
 class MTweet:
-    def __init__(self):
+    def __init__(self,database='tweets'):
         self.d = enchant.Dict("en_US")
         client = MongoClient('localhost', 27017)
-        db = client.test_database
-        self.nodes = db.nodes
-        self.edges = db.edges
+        db = client[database]
+        self.nodes = db['nodes']
+#        self.edges = db.edges
 
     def getTweets(self,infile):
         r = Reader()   
@@ -141,10 +141,10 @@ class MTweet:
 
     # Creates edge if not present
     def incrementEdgeWeight(self,n1,n2,d):
-        query = {'_id': n1, "edges.id": n2 , "edges.dis" : d }
+        query = {'_id': n1, 'edges': {"$elemMatch": {'dis': d, 'name': n2} }}
         if self.nodes.find_one(query) is None:
             self.nodes.update( {'_id': n1 },
-                           { '$addToSet': { "edges" : {"id":n2,"dis":d,'weight':0 }} },False)
+                           { '$addToSet': { "edges" : {"name":n2,"dis":d,'weight':0 }} },False)
         self.nodes.update( query,
                        { "$inc" :
                              { "edges.$.weight" : 1 }
