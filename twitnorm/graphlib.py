@@ -58,7 +58,7 @@ class Reader():
                     if not (W is None) | (W == 'No Post Title'):
                         if langid.classify(W)[0] == lang:                                
                             yield W
-        logging.info('End Processing : %s', infile)
+        logging.info('File : %s has been yielded', infile)
 
 from memory_profiler import profile
 @profile
@@ -111,7 +111,9 @@ class MTweet:
     def getTweets(self,infile):
         r = Reader()   
         tweets = [unicode(a) for a in r.read(file=infile)]
+        logging.info('Tweets are read from : %s', infile)
         lot = CMUTweetTagger.runtagger_parse(tweets)
+        logging.info('CMUTagger has parsed the tweets')
         #lot = [[('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)],
         #       [('example', 'N', 0.979), ('tweet', 'V', 0.7713), ('2', '$', 0.5832)]]
 
