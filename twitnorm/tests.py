@@ -20,9 +20,11 @@ class SimpleTest(TestCase):
     def test_graphlib_mongo(self):
         T = MTweet(database='test_database')
         T.nodes.remove()
+        T.edges.remove()
         print T.nodes.count()
         T.getTweets('test/snap.sample')
         print T.nodes.count()
+        print T.edges.count()
         return T.nodes.find_one({'weight':0}) is None
 
 '''

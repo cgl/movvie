@@ -87,10 +87,10 @@ def main(argv):
       
    T = MTweet()
    T.getTweets(infile)
-   print 'Constructed the graph now will write to file'
-   logging.info('Constructed the graph now will write to file : %s', outfile)
+#   print 'Constructed the graph now will write to file'
+#   logging.info('Constructed the graph now will write to file : %s', outfile)
 #   nx.write_graphml(T.graph,outfile)
-   logging.info('Finish write to file : %s', outfile)
+#   logging.info('Finish write to file : %s', outfile)
 
 '''
 #    nx.write_gml(T.graph,'test/test-out.gml')
@@ -106,7 +106,7 @@ class MTweet:
         client = MongoClient('localhost', 27017)
         db = client[database]
         self.nodes = db['nodes']
-#        self.edges = db.edges
+        self.edges = db['edges']
 
     def getTweets(self,infile):
         r = Reader()   
@@ -117,6 +117,7 @@ class MTweet:
 
         for tweet in lot:            
             self.getTweet(tweet)
+        logging.info('Finish processing file : %s', outfile)
 
 # t.getTweet([("This",'N', 0.979),("is",'N', 0.97),("@ahterx",'N', 0.979),("^^",'N', 0.979),("my",'N', 0.979),("luv",'N', 0.979)])
     def getTweet(self,tweet):
@@ -130,14 +131,24 @@ class MTweet:
                 words.append('')
                 continue
             self.addNode(w,t)
-            for e,x in enumerate(reversed(words)):
+            for e,x in enumerate(reversed(words[-5:])):
                 if x is not '':
-                    self.addEdge(w,x,e+1)
+                    self.incWeightOrCreateEdge(x,w,e)
             words.append(w)
-
-    def addEdge(self,n1,n2,d):
-        self.incrementEdgeWeight(n1,n2,d)
-        self.incrementEdgeWeight(n2,n1,d)
+        print words
+        
+    def incWeightOrCreateEdge(self,n1,n2,d):
+        query = {'from':n1,'to':n2,'dis':d}
+        query2 = {'from':n2,'to':n1,'dis':d}
+        if self.edges.find_one(query) is None:
+            self.edges.insert({'from':n1,'to':n2,'dis':d, 'weight':1})
+            self.edges.insert({'from':n2,'to':n1,'dis':d, 'weight':1})
+        else:
+            i1 = self.edges.update(query, {"$inc" : {"weight" :1} })
+            i2 = self.edges.update(query2, {"$inc" : {"weight" :1} })
+            if not i2['updatedExisting']:
+                self.edges.insert({'from':n2,'to':n1,'dis':d, 'weight':1})
+            
 
     # Creates edge if not present
     def incrementEdgeWeight(self,n1,n2,d):
