@@ -117,7 +117,7 @@ class MTweet:
 
         for tweet in lot:            
             self.getTweet(tweet)
-        logging.info('Finish processing file : %s', outfile)
+        logging.info('Finish processing file : %s', infile)
 
 # t.getTweet([("This",'N', 0.979),("is",'N', 0.97),("@ahterx",'N', 0.979),("^^",'N', 0.979),("my",'N', 0.979),("luv",'N', 0.979)])
     def getTweet(self,tweet):
@@ -135,7 +135,6 @@ class MTweet:
                 if x is not '':
                     self.incWeightOrCreateEdge(x,w,e)
             words.append(w)
-        print words
         
     def incWeightOrCreateEdge(self,n1,n2,d):
         query = {'from':n1,'to':n2,'dis':d}
