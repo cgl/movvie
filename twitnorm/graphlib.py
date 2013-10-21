@@ -127,11 +127,20 @@ class MTweet:
         words = []
 
         for w,t,c in tweet:
-            if not self.isvalid(w):
+#            if not isvalid(w):
+            if t in [',','E','~']:                
                 continue
-            if w.startswith("http") or w.startswith("@") or w.startswith("#") or w.isdigit() or not w.isalnum():
+            elif t in ['U','$','@',] or isMention(w): # Numeral or url or mention               
                 words.append('')
                 continue
+            elif t in ['#'] or isHashtag(w):
+                words.append(w.strip('#'))
+                continue
+            elif not isvalid(w) and t is not '&' :
+                print '%s : %s' %(t,w)
+                words.append('')
+                continue
+            # 'G','&','P'
             self.addNode(w,t)
             for e,x in enumerate(reversed(words[-5:])):
                 if x is not '':
@@ -187,9 +196,18 @@ class MTweet:
                 obj[tag] = 1
             self.nodes.save(obj)
 
-    def isvalid(self,w):
+def isvalid(w):
     #return true if string contains any alphanumeric keywors
         return bool(re.search('[A-Za-z0-9]', w))
+
+def isMention(w):
+    # 
+    # N @CIRAME --> True
+    # P @       --> False
+    return len(w) > 1 and w.startswith("@")
+
+def isHashtag(w):
+    return w.startswith("#")
 
 class Tweet:
     def __init__(self,g=None):
