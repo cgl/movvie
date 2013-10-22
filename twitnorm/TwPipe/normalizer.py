@@ -27,9 +27,22 @@ class Normalizer:
             for ind,w in enumerate(ovvList):
                 neighbours = tweet[ind-self.m:ind] 
                 for ind2,n in enumerate(neighbours):
-                    candidates = [edge['to'] for edge in self.edges.find({'from':n,'dis': len(neighbours)-ind2 })]
-                    cands = filter(lambda x: self.nodes.find_one({'_id':x, 'ovv':False, 'tag_'+tweet[ind][1] : { '$gt' : 1 } }), candidates)
+                    distance = len(neighbours)-ind2
+                    print distance
+                    print 'from %s ' % n[0]
+  #                  print  self.edges.count()
+#                    for a in self.edges.find({'from':n[0],'dis': distance }):
+ #                       print a
+                                                         
+                    candidates = [edge['to']
+                                  for edge in self.edges.find({'from':n[0]+'|'+n[1],'dis': distance })
+                                    ]
+                    print 'candidates:'
                     print candidates
+                    cands = filter(lambda x: x.endswith('|'+tweet[ind][1]),candidates)
+#                    filter(lambda x: self.nodes.find_one({'tag':, 'ovv':False }), candidates)
+   
+                    print 'Filtered candidates:'
                     print cands
                 neighbours = tweet[ind+1:ind+1+self.m]
                 for ind2,n in enumerate(neighbours):

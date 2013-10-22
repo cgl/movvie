@@ -26,41 +26,6 @@ from tools import *
 FORMAT = '%(asctime)-15s %(message)s'
 logging.basicConfig(format=FORMAT,filename='tweets.log',level=logging.DEBUG)
 
-class Reader():
-    def __init__(self,path=None,format=None):
-        self.format=format
-        self.path=path
-
-    # Returns lot
-    def read(self,file=None):
-        if self.path is not None:
-            files = gen_walk(path)
-            for e,f in enumerate(files):
-                folder = '/'.join(f.split("/")[:-1])
-                os.system("mkdir -p out/%s" %folder )
-                lot = self.readFile_direct(f)
-                os.remove(f)
-        elif file:
-            print file
-            lot = self.readFile_direct(file)
-        return lot
-
-    def readFile(self,f):
-        with open(file) as f: 
-            for line in f:
-                yield ast.literal_eval(line)[2]
-
-    def readFile_direct(self,infile,lang='en'):
-        logging.info('Started Processing : %s', infile)
-        with open(infile) as f:        
-            W = None
-            for line in f:
-                if line.split('\t')[0] == 'W':
-                    W = line.split('\t')[1].strip('\n').decode('utf-8')
-                    if not (W is None) | (W == 'No Post Title'):
-                        if langid.classify(W)[0] == lang:                                
-                            yield W
-        logging.info('File : %s has been yielded', infile)
 
 from memory_profiler import profile
 @profile

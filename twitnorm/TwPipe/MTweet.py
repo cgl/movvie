@@ -23,9 +23,15 @@ class MTweet:
         logging.info('CMUTagger has parsed the tweets')
         #lot = [[('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)],
         #       [('example', 'N', 0.979), ('tweet', 'V', 0.7713), ('2', '$', 0.5832)]]
-
+        '''    
+        from multiprocessing import Process
+        p = Process(target=self.getTweet, args=lot)
+        p.start()
+        p.join()
+        '''
         for tweet in lot:            
             self.getTweet(tweet)
+
         logging.info('Finish processing file : %s', infile)
 
 # t.getTweet([("This",'N', 0.979),("is",'N', 0.97),("@ahterx",'N', 0.979),("^^",'N', 0.979),("my",'N', 0.979),("luv",'N', 0.979)])
@@ -34,6 +40,7 @@ class MTweet:
         words = []
 
         for w,t,c in tweet:
+            w = w.lower()
 #            if not isvalid(w):
             if t in [',','E','~']:                
                 continue
@@ -41,7 +48,7 @@ class MTweet:
                 words.append('')
                 continue
             elif t in ['#'] or isHashtag(w):
-                words.append(w.strip('#'))
+                words.append((w.strip('#'),t,c))
                 continue
             elif not isvalid(w) and t is not '&' :
                 print '%s : %s' %(t,w)
@@ -51,21 +58,31 @@ class MTweet:
             self.addNode(w,t)
             for e,x in enumerate(reversed(words[-5:])):
                 if x is not '':
-                    self.incWeightOrCreateEdge(x,w,e)
-            words.append(w)
+                    self.incWeightOrCreateEdge(w,x[0],-e,x[1],t,(x[2]+c)/2)
+            words.append((w,t,c))
         
-    def incWeightOrCreateEdge(self,n1,n2,d):
-        query = {'from':n1,'to':n2,'dis':d}
-        query2 = {'from':n2,'to':n1,'dis':d}
+    def incWeightOrCreateEdge(self,n1,n2,d,tn1,tn2,w):
+        node1 = n1+'|'+tn1
+        node2 = n2+'|'+tn2
+        query = {'from':node1,'to':node2,'dis':d}
+        query2 = {'from':node2,'to':node1,'dis':-d}
         if self.edges.find_one(query) is None:
-            self.edges.insert({'from':n1,'to':n2,'dis':d, 'weight':1})
-            self.edges.insert({'from':n2,'to':n1,'dis':d, 'weight':1})
+            self.edges.insert({'from':node1,'to':node2,'dis':d, 'weight':w})
+            self.edges.insert({'from':node2,'to':node1,'dis':d, 'weight':w})
         else:
-            i1 = self.edges.update(query, {"$inc" : {"weight" :1} })
-            i2 = self.edges.update(query2, {"$inc" : {"weight" :1} })
+            i1 = self.edges.update(query, {"$inc" : {"weight" :w} })
+            i2 = self.edges.update(query2, {"$inc" : {"weight" :w} })
             if not i2['updatedExisting']:
-                self.edges.insert({'from':n2,'to':n1,'dis':d, 'weight':1})
+                self.edges.insert({'from':node2,'to':node1,'dis':d, 'weight':w})
             
+    #adds node with the pos tag t to the self.graph
+    def addNode(self,w,t):
+        node = w+'|'+t
+        obj = self.nodes.find_one({"_id":node})
+        if obj is None:
+            obj_id = self.nodes.insert({"_id":node,"freq":1,'tag':t,"ovv":False if self.d.check(w) else True })
+        else:
+            self.nodes.update({"_id":node},{'$inc': {"freq" : 1 }})
 
     # Creates edge if not present
     def incrementEdgeWeight(self,n1,n2,d):
@@ -89,19 +106,6 @@ class MTweet:
             self.graph.add_edge(w,x, weight=1)
             '''
 
-    #adds node with the pos tag t to the self.graph
-    def addNode(self,w,t):
-        tag = "tag_"+t
-        obj = self.nodes.find_one({"_id":w})
-        if obj is None:
-            obj_id = self.nodes.insert({"_id":w,"freq":1,tag:1,"ovv":False if self.d.check(w) else True })
-        else:
-            obj["freq"] += 1
-            if(obj.has_key(tag)):
-                obj[tag] += 1
-            else:
-                obj[tag] = 1
-            self.nodes.save(obj)
 
 class Reader():
     def __init__(self,path=None,format=None):
