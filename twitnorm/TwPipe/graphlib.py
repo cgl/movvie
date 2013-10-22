@@ -20,7 +20,7 @@ import sys, getopt
 import langid
 import logging
 from pymongo import MongoClient
-import MTweet
+from MTweet import MTweet
 from tools import *
 
 FORMAT = '%(asctime)-15s %(message)s'
