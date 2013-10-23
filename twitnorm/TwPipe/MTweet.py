@@ -97,18 +97,6 @@ class MTweet:
                              { "edges.$.weight" : 1 }
                          })
 
-        '''
-        obj = self.edges.find_one({"_id":w})
-        if self.graph.has_edge(w,x):
-            # we added this one before, just increase the weight by one
-            self.graph.add_edge(w,x)
-            self.graph[w][x]['weight'] += 1
-        else:
-            # new edge. add with weight=1
-            self.graph.add_edge(w,x, weight=1)
-            '''
-
-
 class Reader():
     def __init__(self,path=None,format=None):
         self.format=format
