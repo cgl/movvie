@@ -16,39 +16,40 @@ class Normalizer:
         self.nodes = db['nodes']
         self.edges = db['edges']
         self.ovvLists = [[ind for ind,t in enumerate(text) if not self.d.check(t[0])] for text in self.texts]
-        
+
     def normAll(self):
-        for ind,tweet in enumerate(self.texts):
+        for ind,tweet in enumerate(self.texts): #ind indicates the tweet id
             if not self.ovvLists[ind]:
                 continue
             self.norm(tweet,self.ovvLists[ind])
-            
+
     def norm(self,tweet,ovvList):
-            for ind,w in enumerate(ovvList):
-                neighbours = tweet[ind-self.m:ind] 
-                for ind2,n in enumerate(neighbours):
-                    distance = len(neighbours)-ind2
-                    print distance
-                    print 'from %s ' % n[0]
-  #                  print  self.edges.count()
-#                    for a in self.edges.find({'from':n[0],'dis': distance }):
- #                       print a
-                                                         
-                    candidates = [edge['to']
-                                  for edge in self.edges.find({'from':n[0]+'|'+n[1],'dis': distance })
-                                    ]
-                    print 'candidates:'
-                    print candidates
-                    cands = filter(lambda x: x.endswith('|'+tweet[ind][1]),candidates)
-#                    filter(lambda x: self.nodes.find_one({'tag':, 'ovv':False }), candidates)
-   
-                    print 'Filtered candidates:'
-                    print cands
-                neighbours = tweet[ind+1:ind+1+self.m]
-                for ind2,n in enumerate(neighbours):
-                    candidates = [edge['to'] for edge in self.edges.find({'from':n,'dis': ind2+1 })]
-                    cands = filter(lambda x: self.nodes.find_one({'_id':x, 'ovv':False, 'tag_'+tweet[ind][1] : { '$gt' : 1 } }), candidates)
-                    print candidates
-                    print cands
-    
-    
+        # ovvList is a list of numbers that indicates the index of the ovv word in the tweet
+        print tweet
+        for ovvInd in ovvList:
+            ovvTag = tweet[ovvInd][1]
+            ovv = tweet[ovvInd][0]
+            print 'ovv tag is %s ' %ovvTag
+            #first we get the words that forms an ngram with the ovv
+            neighbours = tweet[ovvInd-self.m:ovvInd]
+            for ind2,n in enumerate(neighbours):
+                neighNode = n[0].strip()+'|'+n[1]
+                # For each word next to ovv we look to the graph for candidates thatshares same distance and tag with the ovv
+                distance = len(neighbours)-ind2
+                print 'from %s ' % neighNode
+                '''
+                for a in self.edges.find({'from':neighNode,'dis': distance }):
+                    print a
+                    '''
+                # find all the non ovv nodes from the neighbour with same dis
+                candidates = [edge['to']
+                    for edge in self.edges.find({'from':neighNode,'dis': distance })]
+                print 'candidates:'
+                print candidates
+                # filter candidates who has a different tag than ovv
+#                cands = filter(lambda x: x.endswith('|'+ovvTag),candidates)
+                cands = filter(lambda x: self.nodes.find_one({'_id':x,'tag': ovvTag, 'ovv':False }), candidates)
+                print 'Filtered candidates for %s:' %ovv
+                print cands
+
+
