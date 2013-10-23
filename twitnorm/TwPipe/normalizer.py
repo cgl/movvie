@@ -45,11 +45,11 @@ class Normalizer:
                 candidates = [edge['to']
                     for edge in self.edges.find({'from':neighNode,'dis': distance })]
                 print 'candidates:'
-                print candidates
+                print candidates[:100]
                 # filter candidates who has a different tag than ovv
 #                cands = filter(lambda x: x.endswith('|'+ovvTag),candidates)
                 cands = filter(lambda x: self.nodes.find_one({'_id':x,'tag': ovvTag, 'ovv':False }), candidates)
                 print 'Filtered candidates for %s:' %ovv
-                print cands
+                print cands[:100]
 
 
