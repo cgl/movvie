@@ -58,22 +58,22 @@ class MTweet:
             self.addNode(w,t)
             for e,x in enumerate(reversed(words[-5:])):
                 if x is not '':
-                    self.incWeightOrCreateEdge(w,x[0],-e,x[1],t,(x[2]+c)/2)
+                    self.incWeightOrCreateEdge(x[0],w,e,x[1],t,(x[2]+c)/2)
             words.append((w,t,c))
         
     def incWeightOrCreateEdge(self,n1,n2,d,tn1,tn2,w):
         node1 = n1+'|'+tn1
         node2 = n2+'|'+tn2
         query = {'from':node1,'to':node2,'dis':d}
-        query2 = {'from':node2,'to':node1,'dis':-d}
+#        query2 = {'from':node2,'to':node1,'dis':-d}
         if self.edges.find_one(query) is None:
             self.edges.insert({'from':node1,'to':node2,'dis':d, 'weight':w})
-            self.edges.insert({'from':node2,'to':node1,'dis':d, 'weight':w})
+#            self.edges.insert({'from':node2,'to':node1,'dis':-d, 'weight':w})
         else:
             i1 = self.edges.update(query, {"$inc" : {"weight" :w} })
-            i2 = self.edges.update(query2, {"$inc" : {"weight" :w} })
-            if not i2['updatedExisting']:
-                self.edges.insert({'from':node2,'to':node1,'dis':d, 'weight':w})
+#            i2 = self.edges.update(query2, {"$inc" : {"weight" :w} })
+#            if not i2['updatedExisting']:
+#                self.edges.insert({'from':node2,'to':node1,'dis':-d, 'weight':w})
             
     #adds node with the pos tag t to the self.graph
     def addNode(self,w,t):
