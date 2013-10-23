@@ -18,7 +18,7 @@ class Normalizer:
         self.ovvLists = [[ind for ind,t in enumerate(text) if self.isOvv(t[0],t[1])] for text in self.texts]
         print self.ovvLists
 
-    def isOvv(w,t):
+    def isOvv(self,w,t):
 #            if not isvalid(w):
         if t in [',','E','~','@','U']: # punctuation, emoticon, discourse marker, mention, url
             return False
