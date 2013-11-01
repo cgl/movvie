@@ -3,11 +3,11 @@
 #Author: Cagil Ulusahin
 #Date: October 12nd 2013
 #
-# 
-# 
-# 
 #
-# Sample input and output can be foun within the directory of the github project page.**  
+#
+#
+#
+# Sample input and output can be foun within the directory of the github project page.**
 #
 
 import langid, getopt, sys, logging, os
@@ -27,8 +27,6 @@ FORMAT = '%(asctime)-15s %(message)s'
 logging.basicConfig(format=FORMAT,filename='tweets.log',level=logging.DEBUG)
 
 
-from memory_profiler import profile
-@profile
 def main(argv):
    infile = 'test/snap.sample'
 #   outfile = 'test/test.graphml'
@@ -51,7 +49,7 @@ def main(argv):
 #         outfile = arg
       elif opt in ("-p", "--path"):
          path = arg
-      
+
    T = MTweet()
    T.getTweets(infile)
 #   print 'Constructed the graph now will write to file'
@@ -79,15 +77,15 @@ class Tweet:
         else:
             self.graph = g
         self.d = enchant.Dict("en_US")
-    
+
     def getTweets(self,infile):
-        r = Reader()   
+        r = Reader()
         tweets = [unicode(a) for a in r.read(file=infile)]
         lot = CMUTweetTagger.runtagger_parse(tweets)
         #lot = [[('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)],
         #       [('example', 'N', 0.979), ('tweet', 'V', 0.7713), ('2', '$', 0.5832)]]
 
-        for tweet in lot:            
+        for tweet in lot:
             self.getTweet(tweet)
 
     def getTweet(self,tweet):
@@ -126,35 +124,19 @@ class Tweet:
 if __name__ == "__main__":
     logging.info('Start Processing')
     try:
-        main(sys.argv[1:])    
+        main(sys.argv[1:])
     except Exception, e:
         logging.error(str(e))
         sys.exit(0)
     logging.info('End Processing')
-                
-def gen_walk(path='.'):
-    for dirname, dirnames, filenames in os.walk(path):
-        # print path to all subdirectories first.
-        #for subdirname in dirnames:
-        #            print os.path.join(dirname, subdirname)
 
-        # print path to all filenames.
-        for filename in filenames:
-            yield os.path.join(dirname, filename)
 
-        # Advanced usage:
-        # editing the 'dirnames' list will stop os.walk() from recursing into there.
-        if '.git' in dirnames:
-            # don't go into any .git directories.
-            dirnames.remove('.git')
 
-            
-            
-            
-            
-        
 
-'''    
+
+
+
+'''
 from graph_tool.all import *
 class WordGraph():
     def createGraph():
@@ -163,10 +145,10 @@ class WordGraph():
         v2 = g.add_vertex()
         e = g.add_edge(v1, v2)
         vlist = g.add_vertex(10)
-        weight = g.new_edge_property("double") 
+        weight = g.new_edge_property("double")
         weight[e] = 3.1416
         g.edge_properties["weight"] = weight
-    
+
     def iterate(g):
         for v in g.vertices():
             print(v)
