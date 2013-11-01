@@ -106,7 +106,6 @@ class Normalizer:
         neighbours = tweet[ovvInd-self.m:ovvInd]
         for ind2,n in enumerate(neighbours):
             neighNode = n[0].strip()+'|'+n[1]
-            print neighNode
             # For each word next to ovv we look to the graph for candidates thatshares same distance and tag with the ovv
             distance = len(neighbours)-ind2
             # find all the non ovv nodes from the neighbour with same dis
@@ -123,7 +122,6 @@ class Normalizer:
         neighbours = tweet[ovvInd+1:ovvInd+1+self.m]
         for ind2,n in enumerate(neighbours):
             neighNode = n[0].strip()+'|'+n[1]
-            print neighNode
             # For each word next to ovv we look to the graph for candidates thatshares same distance and tag with the ovv
             distance = ind2
             # find all the non ovv nodes from the neighbour with same dis
@@ -137,9 +135,7 @@ class Normalizer:
 
     def score(self, ovvWord, cands_q, n, scores):
         for cand_q in cands_q:
-            print cand_q
             cand = cand_q['to'].split('|')[0]
-            print cand
             lev = Lev.distance(str(ovvWord), str(cand))
             score = (4-n)*cand_q['weight']/ lev
             if scores.has_key(cand):
