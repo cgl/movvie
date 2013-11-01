@@ -45,17 +45,25 @@ class Normalizer:
             results.append(tweet_result)
         return results
 
-    # Given a word and its pos tag normalizes it
+    # Given a word and its pos tag normalizes it IF NECESSARY
     # Given also the whole tweet and word's index within the tweet
     def normalize(self,word, tag, word_ind, tweet):
+        if not self.isOvv(word,tag):
+            return word
         ovvWord = word
         ovvTag = tag
         ovvInd = word_ind
-        scores = self.returnCandRight(tweet,ovvWord,ovvInd, ovvTag)
+        scores = {}
+        scores = self.returnCandRight(tweet,ovvWord,ovvInd, ovvTag,{})
         scores = self.returnCandLeft(tweet,ovvWord,ovvInd, ovvTag,scores)
+        for sug in filter(self.d.check,self.d.suggest(ovvWord)):
+            self.updateScore(scores,sug,len(ovvWord)/Lev.distance(ovvWord,sug))
         scores_sorted = sorted(scores.items(), key= lambda x: x[1], reverse=True)
-        print 'Ovv: %s with tag: %s corrected as: %s with a score %d' %(ovvWord,ovvTag, scores_sorted[1][0], scores_sorted[1][01])
-        return scores_sorted[1][0]
+        if scores_sorted:
+            print 'Ovv: "%s" with tag: %s corrected as: "%s" with a score %d' %(ovvWord,ovvTag, scores_sorted[0][0], scores_sorted[0][1])
+            return scores_sorted[0][0]
+        else:
+            return word
 
 
     def normalize_spell_suggest(self,word, tag, word_ind, tweet):
@@ -101,8 +109,8 @@ class Normalizer:
             normList.append(candidates[0])
         return normList
 
-    def returnCandRight(self,tweet,ovvWord,ovvInd, ovvTag):
-        print 'Ovv: %s with tag %s' %(ovvWord,ovvTag)
+    def returnCandRight(self,tweet,ovvWord,ovvInd, ovvTag,scores):
+#        print 'Ovv: %s with tag %s' %(ovvWord,ovvTag)
         neighbours = tweet[ovvInd-self.m:ovvInd]
         for ind2,n in enumerate(neighbours):
             neighNode = n[0].strip()+'|'+n[1]
@@ -114,11 +122,11 @@ class Normalizer:
             # filter candidates who has a different tag than ovv
             cands_q = filter(lambda x: self.nodes.find_one({'_id':x['to'],'tag': ovvTag, 'ovv':False }), candidates_q)
             n = distance
-            scores = self.score(ovvWord,cands_q,n,{})
+            scores = self.score(ovvWord,cands_q,n,scores)
         return scores
 
     def returnCandLeft(self,tweet,ovvWord,ovvInd, ovvTag,scores):
-        print 'Ovv: %s with tag %s' %(ovvWord,ovvTag)
+#        print 'Ovv: %s with tag %s' %(ovvWord,ovvTag)
         neighbours = tweet[ovvInd+1:ovvInd+1+self.m]
         for ind2,n in enumerate(neighbours):
             neighNode = n[0].strip()+'|'+n[1]
@@ -136,11 +144,16 @@ class Normalizer:
     def score(self, ovvWord, cands_q, n, scores):
         for cand_q in cands_q:
             cand = cand_q['to'].split('|')[0]
-            lev = Lev.distance(str(ovvWord), str(cand))
+            lev = Lev.distance(str(ovvWord), str(cand)) + 0.000001
             score = (4-n)*cand_q['weight']/ lev
-            if scores.has_key(cand):
-                score += scores.get(cand)
-                scores.update({cand:score})
-            else:
-                scores[cand] = score
+            self.updateScore(scores,cand,score)
+        return scores
+
+
+    def updateScore(self,scores,cand,score):
+        if scores.has_key(cand):
+            score += scores.get(cand)
+            scores.update({cand:score})
+        else:
+            scores[cand] = score
         return scores
