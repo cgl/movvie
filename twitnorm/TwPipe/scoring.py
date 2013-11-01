@@ -1,7 +1,7 @@
 import CMUTweetTagger
 from normalizer import Normalizer
 
-def han(infile = '/Users/cagil/work/textNorm/datasets/data/corpus.tweet'):
+def han(infile = 'test/corpus.tweet'):
     results = []
     tweet = []
     lot = []
