@@ -13,3 +13,7 @@ N = normalizer.Normalizer(lot)
 reload(normalizer); N = normalizer.Normalizer(lot) ; b= N.normalizeAll()
 
 reload(normalizer);reload(scoring); lot = scoring.bisi()
+
+from pymongo import MongoClient ;client = MongoClient('localhost', 27017);db = client['tweets']
+db = client.tweets
+db.edges.ensure_index([ ('from', 1), ('to', 1) , ('dis', 1 )] )
