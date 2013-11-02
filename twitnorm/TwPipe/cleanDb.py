@@ -1,14 +1,14 @@
 import normalizer
 import CMUTweetTagger
 
-def update_edges_tag():
+def update_edges_tag(database='tweets_current'):
     tweets = [u"someone is cold game nd he needs to follow me",
           u"only 3mths left in school . i wil always mis my skull , frnds and my teachrs"]
 
 
     lot = CMUTweetTagger.runtagger_parse(tweets)
 
-    N = normalizer.Normalizer(lot)
+    N = normalizer.Normalizer(lot,database)
     tags = N.nodes.distinct('tag')
     for tag in tags:
         nouns = [node['_id'] for node in filter(lambda x: x['freq']> 8, N.nodes.find({'tag':tag}))]

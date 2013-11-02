@@ -7,13 +7,20 @@ tweets = [u"someone is cold game nd he needs to follow me",
 
 import CMUTweetTagger ; lot = CMUTweetTagger.runtagger_parse(tweets)
 
+import normalizer, scoring
+
 N = normalizer.Normalizer(lot)
 
+reload(normalizer) ;N = normalizer.Normalizer(lot,database='tweets_current')
 
 reload(normalizer); N = normalizer.Normalizer(lot) ; b= N.normalizeAll()
 
-reload(normalizer);reload(scoring); lot = scoring.bisi()
+reload(normalizer); reload(scoring); lot = scoring.bisi()
 
 from pymongo import MongoClient ;client = MongoClient('localhost', 27017);db = client['tweets']
-db = client.tweets
+
+db = client['tweets_current']
+
 db.edges.ensure_index([ ('from', 1), ('to', 1) , ('dis', 1 )] )
+db.edges.ensure_index('from_tag', 1)
+db.edges.ensure_index('to_tag', 1)
