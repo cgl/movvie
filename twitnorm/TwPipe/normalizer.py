@@ -47,7 +47,7 @@ class Normalizer:
 
     # Given a word and its pos tag normalizes it IF NECESSARY
     # Given also the whole tweet and word's index within the tweet
-    def normalize(self,word, tag, word_ind, tweet):
+    def normalize(self,word, tag, word_ind, tweet,allCands=False):
         if not self.isOvv(word,tag):
             return word
         ovvWord = word
@@ -61,6 +61,8 @@ class Normalizer:
         scores_sorted = sorted(scores.items(), key= lambda x: x[1], reverse=True)
         if scores_sorted:
             print 'Ovv: "%s" with tag: %s corrected as: "%s" with a score %d' %(ovvWord,ovvTag, scores_sorted[0][0], scores_sorted[0][1])
+            if allCands:
+                return scores_sorted[:20]
             return scores_sorted[0][0]
         else:
             return word
