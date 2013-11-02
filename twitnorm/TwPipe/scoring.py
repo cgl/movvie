@@ -39,6 +39,8 @@ def bisi():
             if results[tweetInd][ind][1] == 'OOV':
                 reference.append(results[tweetInd][ind][2])
                 test.append(our_results[tweetInd][ind][2])
+                if (results[tweetInd][ind][2] != our_results[tweetInd][ind][2]):
+                    print '%s \t %s \t %s ' % (results[tweetInd][ind][0] , our_results[tweetInd][ind][2],results[tweetInd][ind][2])
     from sets import Set
     import nltk
     set_reference = Set(reference)

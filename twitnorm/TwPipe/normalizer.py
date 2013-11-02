@@ -2,6 +2,7 @@ import enchant
 from pymongo import MongoClient
 from tools import isMention, isHashtag, isvalid
 import Levenshtein as Lev
+import fuzzy
 
 
 class Normalizer:
@@ -48,6 +49,8 @@ class Normalizer:
     # Given a word and its pos tag normalizes it IF NECESSARY
     # Given also the whole tweet and word's index within the tweet
     def normalize(self,word, tag, word_ind, tweet,allCands=False):
+        if self.norm_tricks(word,tag):
+            return self.norm_tricks(word,tag)
         if not self.isOvv(word,tag):
             return word
         ovvWord = word
@@ -60,10 +63,10 @@ class Normalizer:
             self.updateScore(scores,sug,len(ovvWord)/Lev.distance(ovvWord,sug))
         scores_sorted = sorted(scores.items(), key= lambda x: x[1], reverse=True)
         if scores_sorted:
-            print 'Ovv: "%s" with tag: %s corrected as: "%s" with a score %d' %(ovvWord,ovvTag, scores_sorted[0][0], scores_sorted[0][1])
+            #print 'Ovv: "%s" with tag: %s corrected as: "%s" with a score %d' %(ovvWord,ovvTag, scores_sorted[0][0], scores_sorted[0][1])
             if allCands:
                 return scores_sorted[:20]
-            return scores_sorted[0][0]
+            return scores_sorted[0][0].lower()
         else:
             return word
 
@@ -119,10 +122,11 @@ class Normalizer:
             # For each word next to ovv we look to the graph for candidates thatshares same distance and tag with the ovv
             distance = len(neighbours)-ind2
             # find all the non ovv nodes from the neighbour with same dis
-            candidates_q = self.edges.find({'from':neighNode,'dis': { '$in' : [distance, (distance - 1)] } })
+            candidates_q = self.edges.find({'from':neighNode, 'to_tag': ovvTag, 'dis': { '$in' : [distance, (distance - 1)] }, 'weight' : { '$gt': 1 } })
 
             # filter candidates who has a different tag than ovv
-            cands_q = filter(lambda x: self.nodes.find_one({'_id':x['to'],'tag': ovvTag, 'ovv':False }), candidates_q)
+            cands_q = [{'to':node['to'], 'weight':node['weight']/self.nodes.find_one({'_id':node['to'],'tag': ovvTag, 'ovv':False })['freq']} for node in candidates_q ]
+            # filter(lambda x: self.nodes.find_one({'_id':x['to'],'tag': ovvTag, 'ovv':False }), candidates_q)
             n = distance
             scores = self.score(ovvWord,cands_q,n,scores)
         return scores
@@ -135,15 +139,16 @@ class Normalizer:
             # For each word next to ovv we look to the graph for candidates thatshares same distance and tag with the ovv
             distance = ind2
             # find all the non ovv nodes from the neighbour with same dis
-            candidates_q = self.edges.find({'to':neighNode,'dis': { '$in' : [distance, (distance - 1)] } })
+            candidates_q = self.edges.find({'to':neighNode, 'from_tag': ovvTag ,'dis': { '$in' : [distance, (distance - 1)] }, 'weight' : { '$gt': 1 } })
 
             # filter candidates who has a different tag than ovv
-            cands_q = filter(lambda x: self.nodes.find_one({'_id':x['from'],'tag': ovvTag, 'ovv':False }), candidates_q)
+            cands_q =  [{'to':node['to'], 'weight':node['weight']/self.nodes.find_one({'_id':node['from'],'tag': ovvTag, 'ovv':False })['freq']} for node in candidates_q ]  #= filter(lambda x: self.nodes.find_one({'_id':x['from'],'tag': ovvTag, 'ovv':False }), candidates_q)
             n = distance
             scores = self.score(ovvWord,cands_q,n,scores)
         return scores
 
     def score(self, ovvWord, cands_q, n, scores):
+        metOvv = set(fuzzy.DMetaphone(4)(ovvWord))
         for cand_q in cands_q:
             cand = cand_q['to'].split('|')[0]
             try:
@@ -151,7 +156,8 @@ class Normalizer:
             except UnicodeEncodeError:
                 lev = len(ovvWord)
                 print 'UnicodeEncodeError: %s' % ovvWord
-            score = (4-n)*cand_q['weight']/ lev
+            met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand))) or 0.000001
+            score = (4-n)*cand_q['weight']/ lev * met
             self.updateScore(scores,cand,score)
         return scores
 
@@ -163,3 +169,13 @@ class Normalizer:
         else:
             scores[cand] = score
         return scores
+
+    def norm_tricks(self,word,tag):
+        if word == 'u' and tag == 'O':
+            return 'you'
+        elif word == 'w' and tag == 'P':
+            return 'with'
+        elif word == 'lol':
+            return 'lol'
+        else:
+            return None

@@ -15,7 +15,7 @@ reload(normalizer) ;N = normalizer.Normalizer(lot,database='tweets_current')
 
 reload(normalizer); N = normalizer.Normalizer(lot) ; b= N.normalizeAll()
 
-reload(normalizer); reload(scoring); lot = scoring.bisi()
+reload(normalizer); reload(scoring); sonuc = scoring.bisi()
 
 from pymongo import MongoClient ;client = MongoClient('localhost', 27017);db = client['tweets']
 
