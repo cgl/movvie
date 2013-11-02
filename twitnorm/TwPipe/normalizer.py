@@ -144,7 +144,11 @@ class Normalizer:
     def score(self, ovvWord, cands_q, n, scores):
         for cand_q in cands_q:
             cand = cand_q['to'].split('|')[0]
-            lev = Lev.distance(str(ovvWord), str(cand)) + 0.000001
+            try:
+                lev = Lev.distance(str(ovvWord), str(cand)) + 0.000001
+            except UnicodeEncodeError:
+                lev = len(ovvWord)
+                print 'UnicodeEncodeError: %s' % ovvWord
             score = (4-n)*cand_q['weight']/ lev
             self.updateScore(scores,cand,score)
         return scores
