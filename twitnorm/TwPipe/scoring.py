@@ -1,7 +1,7 @@
 import CMUTweetTagger
 from normalizer import Normalizer
 
-def han(infile = 'test/corpus.tweet'):
+def han(numOfResults,infile = 'test/corpus.tweet'):
     results = []
     tweet = []
     lot = []
@@ -9,7 +9,9 @@ def han(infile = 'test/corpus.tweet'):
     import codecs
     with codecs.open(infile) as han_file:
         han_file.readline()
-        for line in han_file:
+        for  line in  han_file:
+            if len(lot) >= numOfResults:
+                break
             if not line.strip('\n').isdigit():
                 try:
                     line = line.strip('\n').decode()
@@ -26,8 +28,9 @@ def han(infile = 'test/corpus.tweet'):
                 tweet_text = []
     return lot, results
 
-def bisi():
-    tweets , results = han()
+def bisi(numOfResults=548):
+    tweets , results = han(numOfResults)
+
     lot =  CMUTweetTagger.runtagger_parse(tweets)
     norm = Normalizer(lot)
     our_results = norm.normalizeAll()
