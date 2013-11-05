@@ -73,7 +73,7 @@ def contains(tweets,results,ovv):
                     print '%s :[%s]%s ' % (word[0],index[0],word[2])
                 else:
                     neg += 1
-                lo_candidates.append(candidates)
+                lo_candidates.append({ovv_word : candidates})
     print '%s positive result, %d negative result' % (pos, neg)
     print pos_dict
     return lo_candidates

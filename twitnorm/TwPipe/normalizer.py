@@ -66,7 +66,7 @@ class Normalizer:
         if scores_sorted:
             #print 'Ovv: "%s" with tag: %s corrected as: "%s" with a score %d' %(ovvWord,ovvTag, scores_sorted[0][0], scores_sorted[0][1])
             if allCands:
-                return scores_sorted
+                return scores_sorted[:200]
             return scores_sorted[0][0].lower()
         else:
             return word
@@ -173,7 +173,7 @@ class Normalizer:
                 met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand))) or 0.000001
             except UnicodeEncodeError:
                 met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand.encode('ascii', 'ignore')))) or 0.000001
-                print 'UnicodeEncodeError[met]: %f' % met
+                print 'UnicodeEncodeError[met]: %f %s' % (met,cand.encode('utf-8'))
             score = log(cand_q['weight']) * (1/lev) * met * log(cand_q['freq'])
             self.updateScore(scores,cand,score)
         return scores
