@@ -165,9 +165,9 @@ class Normalizer:
         for cand_q in cands_q:
             cand = cand_q['to'].split('|')[0]
             try:
-                lev = Lev.distance(str(ovvWord), cand) + 0.000001
+                lev = Lev.distance(ovvWord, cand) + 0.000001
             except UnicodeEncodeError:
-                lev = Lev.distance(str(ovvWord), cand.encode('ascii', 'ignore')) + 0.000001
+                lev = Lev.distance(ovvWord.encode('ascii', 'ignore'), cand.encode('ascii', 'ignore')) + 0.000001
                 print 'UnicodeEncodeError[lev]: %s' % ovvWord
             try:
                 met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand))) or 0.000001

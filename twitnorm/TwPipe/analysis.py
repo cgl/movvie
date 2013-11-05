@@ -65,7 +65,7 @@ def contains(tweets,results,ovv):
             if ovv(word[0],word[1]):
                 ovv_word = word[0]
                 tag = tweet_pos_tags[j][1]
-                candidates = N.normalize(ovv_word, tag, j, tweet_pos_tags ,allCands=True)
+                candidates = N.normalize(ovv_word.decode(), tag, j, tweet_pos_tags ,allCands=True)
                 index = [candidates.index(x) for x in candidates if x[0] == word[2]]
                 if index:
                     pos += 1
