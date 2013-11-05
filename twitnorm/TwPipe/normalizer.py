@@ -168,8 +168,12 @@ class Normalizer:
                 lev = Lev.distance(str(ovvWord), str(cand)) + 0.000001
             except UnicodeEncodeError:
                 lev = len(ovvWord)
-                print 'UnicodeEncodeError: %s' % ovvWord
-            met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand))) or 0.000001
+                print 'UnicodeEncodeError[lev]: %s' % ovvWord
+            try:
+                met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand))) or 0.000001
+            except UnicodeEncodeError:
+                met = 0.000001
+                print 'UnicodeEncodeError[met]: %s' % ovvWord
             score = log(cand_q['weight']) * (1/lev) * met * log(cand_q['freq'])
             self.updateScore(scores,cand,score)
         return scores
