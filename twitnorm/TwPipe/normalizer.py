@@ -173,7 +173,7 @@ class Normalizer:
                 met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand))) or 0.000001
             except UnicodeEncodeError:
                 met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand.encode('ascii', 'ignore')))) or 0.000001
-                print 'UnicodeEncodeError[met]: %s' % ovvWord
+                print 'UnicodeEncodeError[met]: %f' % met
             score = log(cand_q['weight']) * (1/lev) * met * log(cand_q['freq'])
             self.updateScore(scores,cand,score)
         return scores
