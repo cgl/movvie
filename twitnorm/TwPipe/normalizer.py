@@ -126,7 +126,13 @@ class Normalizer:
             candidates_q = self.edges.find({'from':neighNode, 'to_tag': ovvTag, 'dis': { '$in' : [distance, (distance - 1)] }, 'weight' : { '$gt': 1 } })
 
             # filter candidates who has a different tag than ovv
-            cands_q = [{'to':node['to'], 'weight':node['weight']/self.nodes.find_one({'_id':node['to'],'tag': ovvTag, 'ovv':False })['freq']} for node in candidates_q ]
+            cands_q = []
+            for node in candidates_q:
+                to_node = self.nodes.find_one({'_id':node['to'],'tag': ovvTag, 'ovv':False })
+                if(to_node):
+                    cands_q.append({'to':node['to'], 'weight': node['weight'] , 'freq' : to_node['freq']})
+
+            #cands_q = [{'to':node['to'], 'weight':node['weight']/self.nodes.find_one({'_id':node['to'],'tag': ovvTag, 'ovv':False })['freq']} for node in candidates_q ]
             # filter(lambda x: self.nodes.find_one({'_id':x['to'],'tag': ovvTag, 'ovv':False }), candidates_q)
             n = distance
             scores = self.score(ovvWord,cands_q,n,scores)
@@ -143,7 +149,13 @@ class Normalizer:
             candidates_q = self.edges.find({'to':neighNode, 'from_tag': ovvTag ,'dis': { '$in' : [distance, (distance - 1)] }, 'weight' : { '$gt': 1 } })
 
             # filter candidates who has a different tag than ovv
-            cands_q =  [{'to':node['to'], 'weight':node['weight']/self.nodes.find_one({'_id':node['from'],'tag': ovvTag, 'ovv':False })['freq']} for node in candidates_q ]  #= filter(lambda x: self.nodes.find_one({'_id':x['from'],'tag': ovvTag, 'ovv':False }), candidates_q)
+            cands_q = []
+            for node in candidates_q:
+                to_node = self.nodes.find_one({'_id':node['from'],'tag': ovvTag, 'ovv':False })
+                if(to_node):
+                    cands_q.append({'to':node['from'], 'weight': node['weight'] , 'freq' : to_node['freq']})
+
+            #cands_q =  [{'to':node['to'], 'weight':node['weight']/self.nodes.find_one({'_id':node['from'],'tag': ovvTag, 'ovv':False })['freq']} for node in candidates_q ]  #= filter(lambda x: self.nodes.find_one({'_id':x['from'],'tag': ovvTag, 'ovv':False }), candidates_q)
             n = distance
             scores = self.score(ovvWord,cands_q,n,scores)
         return scores
@@ -158,7 +170,7 @@ class Normalizer:
                 lev = len(ovvWord)
                 print 'UnicodeEncodeError: %s' % ovvWord
             met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand))) or 0.000001
-            score = (4-n)*log(cand_q['weight'])/ lev * met
+            score = log(cand_q['weight']) * (1/lev) * met * log(cand_q['freq'])
             self.updateScore(scores,cand,score)
         return scores
 
