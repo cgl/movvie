@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from tools import isMention, isHashtag, isvalid
 import Levenshtein as Lev
 import fuzzy
+from math import log
 
 
 class Normalizer:
@@ -49,10 +50,10 @@ class Normalizer:
     # Given a word and its pos tag normalizes it IF NECESSARY
     # Given also the whole tweet and word's index within the tweet
     def normalize(self,word, tag, word_ind, tweet,allCands=False):
-        if self.norm_tricks(word,tag):
-            return self.norm_tricks(word,tag)
-        if not self.isOvv(word,tag):
-            return word
+#        if self.norm_tricks(word,tag):
+#            return self.norm_tricks(word,tag)
+#        if not self.isOvv(word,tag):
+#            return word
         ovvWord = word
         ovvTag = tag
         ovvInd = word_ind
@@ -60,12 +61,12 @@ class Normalizer:
         scores = self.returnCandRight(tweet,ovvWord,ovvInd, ovvTag,{})
         scores = self.returnCandLeft(tweet,ovvWord,ovvInd, ovvTag,scores)
         for sug in filter(self.d.check,self.d.suggest(ovvWord)):
-            self.updateScore(scores,sug,len(ovvWord)/Lev.distance(ovvWord,sug))
+            self.updateScore(scores,sug,len(ovvWord)/(Lev.distance(ovvWord,sug)+0.000001))
         scores_sorted = sorted(scores.items(), key= lambda x: x[1], reverse=True)
         if scores_sorted:
             #print 'Ovv: "%s" with tag: %s corrected as: "%s" with a score %d' %(ovvWord,ovvTag, scores_sorted[0][0], scores_sorted[0][1])
             if allCands:
-                return scores_sorted[:20]
+                return scores_sorted
             return scores_sorted[0][0].lower()
         else:
             return word
@@ -157,7 +158,7 @@ class Normalizer:
                 lev = len(ovvWord)
                 print 'UnicodeEncodeError: %s' % ovvWord
             met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand))) or 0.000001
-            score = (4-n)*cand_q['weight']/ lev * met
+            score = (4-n)*log(cand_q['weight'])/ lev * met
             self.updateScore(scores,cand,score)
         return scores
 
