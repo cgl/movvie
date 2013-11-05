@@ -165,14 +165,14 @@ class Normalizer:
         for cand_q in cands_q:
             cand = cand_q['to'].split('|')[0]
             try:
-                lev = Lev.distance(str(ovvWord), str(cand)) + 0.000001
+                lev = Lev.distance(str(ovvWord), cand) + 0.000001
             except UnicodeEncodeError:
-                lev = len(ovvWord)
+                lev = Lev.distance(str(ovvWord), cand.encode('ascii', 'ignore')) + 0.000001
                 print 'UnicodeEncodeError[lev]: %s' % ovvWord
             try:
                 met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand))) or 0.000001
             except UnicodeEncodeError:
-                met = 0.000001
+                met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand.encode('ascii', 'ignore')))) or 0.000001
                 print 'UnicodeEncodeError[met]: %s' % ovvWord
             score = log(cand_q['weight']) * (1/lev) * met * log(cand_q['freq'])
             self.updateScore(scores,cand,score)
@@ -196,3 +196,5 @@ class Normalizer:
             return 'lol'
         else:
             return None
+
+#UnicodeEncodeError: 'ascii' codec can't encode character u'\xe9' in position 3: ordinal not in range(128) ppl
