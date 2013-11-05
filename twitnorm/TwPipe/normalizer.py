@@ -116,54 +116,55 @@ class Normalizer:
         return normList
 
     def returnCandRight(self,tweet,ovvWord,ovvInd, ovvTag,scores):
-#        print 'Ovv: %s with tag %s' %(ovvWord,ovvTag)
-        neighbours = tweet[ovvInd-self.m:ovvInd]
-        for ind2,n in enumerate(neighbours):
-            neighNode = n[0].strip()+'|'+n[1]
-            # For each word next to ovv we look to the graph for candidates thatshares same distance and tag with the ovv
-            distance = len(neighbours)-ind2
-            # find all the non ovv nodes from the neighbour with same dis
-            candidates_q = self.edges.find({'from':neighNode, 'to_tag': ovvTag, 'dis': { '$in' : [distance, (distance - 1)] }, 'weight' : { '$gt': 1 } })
-
-            # filter candidates who has a different tag than ovv
-            cands_q = []
-            for node in candidates_q:
-                to_node = self.nodes.find_one({'_id':node['to'],'tag': ovvTag, 'ovv':False })
-                if(to_node):
-                    cands_q.append({'to':node['to'], 'weight': node['weight'] , 'freq' : to_node['freq']})
-
-            #cands_q = [{'to':node['to'], 'weight':node['weight']/self.nodes.find_one({'_id':node['to'],'tag': ovvTag, 'ovv':False })['freq']} for node in candidates_q ]
-            # filter(lambda x: self.nodes.find_one({'_id':x['to'],'tag': ovvTag, 'ovv':False }), candidates_q)
-            n = distance
-            scores = self.score(ovvWord,cands_q,n,scores)
-        return scores
+        neigh_start_ind = ovvInd-self.m
+        neigh_end_ind = ovvInd
+        left = False
+        position = 'to'
+        neigh_position = 'from'
+        return self.returnCand(tweet,ovvWord,ovvInd, ovvTag,scores,
+                   neigh_start_ind,neigh_end_ind, left, position,neigh_position)
 
     def returnCandLeft(self,tweet,ovvWord,ovvInd, ovvTag,scores):
+        neigh_start_ind = ovvInd+1
+        neigh_end_ind = ovvInd+1+self.m
+        left = True
+        position = 'from'
+        neigh_position = 'to'
+        return self.returnCand(tweet,ovvWord,ovvInd, ovvTag,scores,
+                   neigh_start_ind,neigh_end_ind, left, position,neigh_position)
+
+    def returnCand(self,tweet,ovvWord,ovvInd, ovvTag,scores,
+                   neigh_start_ind,neigh_end_ind, left, position,neigh_position):
 #        print 'Ovv: %s with tag %s' %(ovvWord,ovvTag)
-        neighbours = tweet[ovvInd+1:ovvInd+1+self.m]
-        for ind2,n in enumerate(neighbours):
-            neighNode = n[0].strip()+'|'+n[1]
-            # For each word next to ovv we look to the graph for candidates thatshares same distance and tag with the ovv
-            distance = ind2
+
+        neighbours = tweet[neigh_start_ind:neigh_end_ind]
+        for ind_neigh,neighbour in enumerate(neighbours):
+            distance = ind_neigh if left else len(neighbours) - ind_neigh
+            neigh_node = neighbour[0].strip()+'|'+neighbour[1]
+            # For each word next to ovv we look to the graph for candidates
+            # thatshares same distance and tag with the ovv
             # find all the non ovv nodes from the neighbour with same dis
-            candidates_q = self.edges.find({'to':neighNode, 'from_tag': ovvTag ,'dis': { '$in' : [distance, (distance - 1)] }, 'weight' : { '$gt': 1 } })
+            candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovvTag,
+                                            'dis': { '$in' : [distance, (distance - 1)] },
+                                            'weight' : { '$gt': 1 } })
 
             # filter candidates who has a different tag than ovv
             cands_q = []
             for node in candidates_q:
+                node_wo_tag = node[position].split('|')[0]
+                if len(node_wo_tag) < 2:
+                    continue
                 to_node = self.nodes.find_one({'_id':node['from'],'tag': ovvTag, 'ovv':False })
                 if(to_node):
-                    cands_q.append({'to':node['from'], 'weight': node['weight'] , 'freq' : to_node['freq']})
-
-            #cands_q =  [{'to':node['to'], 'weight':node['weight']/self.nodes.find_one({'_id':node['from'],'tag': ovvTag, 'ovv':False })['freq']} for node in candidates_q ]  #= filter(lambda x: self.nodes.find_one({'_id':x['from'],'tag': ovvTag, 'ovv':False }), candidates_q)
-            n = distance
-            scores = self.score(ovvWord,cands_q,n,scores)
+                    cands_q.append({'to':node_wo_tag, 'weight': node['weight'] , 'freq' : to_node['freq']})
+            n_ind = distance
+            scores = self.score(ovvWord,cands_q,n_ind,scores)
         return scores
 
     def score(self, ovvWord, cands_q, n, scores):
         metOvv = set(fuzzy.DMetaphone(4)(ovvWord))
         for cand_q in cands_q:
-            cand = cand_q['to'].split('|')[0]
+            cand = cand_q['to']
             try:
                 lev = Lev.distance(ovvWord, cand) + 0.000001
             except UnicodeEncodeError:
