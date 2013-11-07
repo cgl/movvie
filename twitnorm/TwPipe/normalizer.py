@@ -242,18 +242,21 @@ class Normalizer:
 #UnicodeEncodeError: 'ascii' codec can't encode character u'\xe9' in position 3: ordinal not in range(128) ppl
 
 def metaphone_score(ovv_word,word):
-    met_set = set(fuzzy.DMetaphone(4)(ovv_word))
-    try:
-        sim = met_set.intersection(fuzzy.DMetaphone(4)(word))
-    except UnicodeEncodeError:
-        sim = met_set.intersection(fuzzy.DMetaphone(4)(word.encode('ascii', 'ignore')))
-        print 'UnicodeEncodeError[met]: %s %s' % (met_set, word.encode('utf-8'))
+    sim = met_set(ovv_word,word)
     score = 0
     for s in sim:
         if s:
             score += 1
 #    print max(score, salient)
     return max(score, salient)
+def met_set(ovv_word,word):
+    met_s = set(fuzzy.DMetaphone(4)(ovv_word))
+    try:
+        sim = met_s.intersection(fuzzy.DMetaphone(4)(word))
+    except UnicodeEncodeError:
+        sim = met_s.intersection(fuzzy.DMetaphone(4)(word.encode('ascii', 'ignore')))
+        print 'UnicodeEncodeError[met]: %s %s' % (met_set, word.encode('utf-8'))
+    return sim
 
 def lev_score(ovv_word,cand):
     try:
