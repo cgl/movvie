@@ -78,6 +78,21 @@ def contains(tweets,results,ovv):
     print pos_dict
     return lo_candidates
 
+def calc_scores(tweets_str, results, ovv):
+    lo_tweets = CMUTweetTagger.runtagger_parse(tweets_str)
+    lo_candidates = []
+    norm = normalizer.Normalizer(lo_tweets,database='tweets_current')
+    for i in range(0,len(results)):
+        tweet = results[i]
+        tweet_pos_tagged = CMUTweetTagger.runtagger_parse([tweets[i]])[0] # since only 1 tweet
+        for j in range(0,len(tweet)):
+            word = tweet[j]
+            if ovv(word[0],word[1]):
+                ovv_word = word[0]
+                ovv_tag = tweet_pos_tagged[j][1]
+                candidates = norm.get_neighbours_candidates(tweet_pos_tagged,ovv_word,ovv_tag)
+                lo_candidates.append({'ovv_word' : ovv_word , 'tag' : ovv_tag , 'cands' : candidates})
+    return lo_candidates
 
 def repeat_check(results,ovv):
     pass
