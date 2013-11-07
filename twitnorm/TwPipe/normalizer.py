@@ -140,7 +140,26 @@ class Normalizer:
         return self.returnCand(tweet,ovvWord,ovvInd, ovvTag,scores,
                    neigh_start_ind,neigh_end_ind, left, position,neigh_position)
 
-    def returnCand(self,tweet,ovvWord,ovvInd, ovvTag,scores,
+    def get_neighbours(self,tweet_pos_tagged,ovv):
+        froms = []
+        tos = []
+        for ind,(word, tag, acc) in enumerate(tweet_pos_tagged):
+            if word == ovv:
+                froms = tweet_pos_tagged[max(ind-self.m,0):ind]
+                tos = tweet_pos_tagged[ind+1:ind+1+self.m]
+                return froms, tos
+
+    def get_neighbours_candidates(self, tweet_pos_tagged,ovv,ovv_tag):
+        froms,tos= self.get_neighbours(tweet_pos_tagged,ovv)
+        candidates = []
+        for ind,(word, tag, acc) in enumerate(froms):
+            neigh_node = word.strip()+'|'+tag
+            distance = len(froms) - ind
+            cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
+            candidates.append({'neighbour' : neigh_node, 'tag' : tag, 'cands': cands_q})
+        return candidates
+
+    def returnCand(self,tweet,ovvWord, ovvInd, ovvTag,scores,
                    neigh_start_ind,neigh_end_ind, left, position,neigh_position):
 #        print 'Ovv: %s with tag %s' %(ovvWord,ovvTag)
         neighbours = tweet[neigh_start_ind:neigh_end_ind]
@@ -150,42 +169,35 @@ class Normalizer:
             # For each word next to ovv we look to the graph for candidates
             # thatshares same distance and tag with the ovv
             # find all the non ovv nodes from the neighbour with same dis
-            candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovvTag,
-#                                            'dis': { '$in' : [distance, (distance - 1)] },
-                                            'dis': distance ,
-                                            'weight' : { '$gt': 1 } })
-            if candidates_q.count() < 1 :
-                continue
-            # filter candidates who has a different tag than ovv
-            cands_q = []
-            #pdb.set_trace()
-#            print ovvWord
-            for node in candidates_q:
-#                print node
-                node_wo_tag = node[position].split('|')[0]
-                if len(node_wo_tag) < 2:
-                    continue
-                to_node = self.nodes.find_one({'_id':node['from'],'tag': ovvTag, 'ovv':False })
-                if(to_node):
-                    cands_q.append({'to':node_wo_tag, 'weight': node['weight'] , 'freq' : to_node['freq']})
+            cands_q = self.get_cands_with_weigh_freq(ovvWord, ovvTag, position, neigh_position, neigh_node,distance)
             n_ind = distance
             scores = self.score(ovvWord,cands_q,n_ind,scores)
         return scores
 
+    def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, distance):
+        candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovv_tag,
+#                                            'dis': { '$in' : [distance, (distance - 1)] },
+                                            'dis': distance ,
+                                            'weight' : { '$gt': 1 } })
+        if candidates_q.count() < 1 :
+            return []
+        # filter candidates who has a different tag than ovv
+        cands_q = []
+        for node in candidates_q:
+            node_wo_tag = node[position].split('|')[0]
+            if len(node_wo_tag) < 2:
+                continue
+            to_node = self.nodes.find_one({'_id':node['from'],'tag': ovv_tag, 'ovv':False })
+            if(to_node):
+                cands_q.append({'to':node_wo_tag, 'weight': node['weight'] , 'freq' : to_node['freq'],
+                                'lev': lev_score(ovv_word,node_wo_tag) , 'met': metaphone_score(ovv_word,node_wo_tag)})
+        return cands_q
+
     def score(self, ovvWord, cands_q, n, scores):
-        met_set_ovv = set(fuzzy.DMetaphone(4)(ovvWord))
         for cand_q in cands_q:
             cand = cand_q['to']
-            try:
-                lev = Lev.distance(ovvWord, cand) + salient
-            except UnicodeEncodeError:
-                lev = Lev.distance(ovvWord.encode('ascii', 'ignore'), cand.encode('ascii', 'ignore')) + salient
-                print 'UnicodeEncodeError[lev]: %s' % ovvWord
-            try:
-                met = metaphone_score(met_set_ovv,cand)
-            except UnicodeEncodeError:
-                met = metaphone_score(met_set_ovv,cand.encode('ascii', 'ignore'))
-                print 'UnicodeEncodeError[met]: %f %s' % (met,cand.encode('utf-8'))
+            lev = cands_q['lev']
+            met = cands_q['met']
             #self.updateScore(scores,cand,score)
             print '%s: %f %f %f %f' %(cand, cand_q['weight'],cand_q['freq'],lev,met)
             self.updateScore(scores,cand,
@@ -210,7 +222,7 @@ class Normalizer:
             score_set = scores.get(cand)
         else:
             score_set = array([0,0,0,0,0])
-        current_score_set = array([0,weight/freq , (1/lev) , met , freq])
+        current_score_set = array([0,weight , (1/lev) , met , freq])
         current_score_set[0] = current_score_set[1:4].prod()
 #        print current_score_set[0]
         score_set = current_score_set + score_set
@@ -229,11 +241,23 @@ class Normalizer:
 
 #UnicodeEncodeError: 'ascii' codec can't encode character u'\xe9' in position 3: ordinal not in range(128) ppl
 
-def metaphone_score(met_set,word):
-    sim = met_set.intersection(fuzzy.DMetaphone(4)(word))
+def metaphone_score(ovv_word,word):
+    met_set = set(fuzzy.DMetaphone(4)(ovv_word))
+    try:
+        sim = met_set.intersection(fuzzy.DMetaphone(4)(word))
+    except UnicodeEncodeError:
+        sim = met_set.intersection(fuzzy.DMetaphone(4)(word.encode('ascii', 'ignore')))
+        print 'UnicodeEncodeError[met]: %s %s' % (met_set, word.encode('utf-8'))
     score = 0
     for s in sim:
         if s:
             score += 1
 #    print max(score, salient)
     return max(score, salient)
+
+def lev_score(ovv_word,cand):
+    try:
+        return Lev.distance(ovv_word, cand) + salient
+    except UnicodeEncodeError:
+        print 'UnicodeEncodeError[lev]: %s' % ovv_word
+        return Lev.distance(ovv_word.encode('ascii', 'ignore'), cand.encode('ascii', 'ignore')) + salient
