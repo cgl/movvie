@@ -157,6 +157,11 @@ class Normalizer:
             distance = len(froms) - ind
             cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
             candidates.append({'neighbour' : neigh_node, 'tag' : tag, 'cands': cands_q})
+        for ind,(word, tag, acc) in enumerate(tos):
+            neigh_node = word.strip()+'|'+tag
+            distance = ind
+            cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'from', 'to', neigh_node , distance )
+            candidates.append({'neighbour' : neigh_node, 'tag' : tag, 'neighbours_cands': cands_q})
         return candidates
 
     def returnCand(self,tweet,ovvWord, ovvInd, ovvTag,scores,
@@ -189,7 +194,7 @@ class Normalizer:
                 continue
             to_node = self.nodes.find_one({'_id':node['from'],'tag': ovv_tag, 'ovv':False })
             if(to_node):
-                cands_q.append({'to':node_wo_tag, 'weight': node['weight'] , 'freq' : to_node['freq'],
+                cands_q.append({'position': position, 'to':node_wo_tag, 'weight': node['weight'] , 'freq' : to_node['freq'],
                                 'lev': lev_score(ovv_word,node_wo_tag) , 'met': metaphone_score(ovv_word,node_wo_tag)})
         return cands_q
 
