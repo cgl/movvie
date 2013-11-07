@@ -54,8 +54,8 @@ def contains(tweets,results,ovv):
     lo_tweets = CMUTweetTagger.runtagger_parse(tweets)
     N = normalizer.Normalizer(lo_tweets,database='tweets_current');
     pos = 0
-    pos_dict={}
-    lo_candidates=[]
+    pos_dict = {}
+    lo_candidates = []
     neg = 0
     for i in range(0,len(results)):
         tweet = results[i]
@@ -73,7 +73,7 @@ def contains(tweets,results,ovv):
                     print '%s :[%s]%s ' % (word[0],index[0],word[2])
                 else:
                     neg += 1
-                lo_candidates.append({ovv_word : candidates})
+                lo_candidates.append({ovv_word : candidates, 'contains' : True if index else False })
     print '%s positive result, %d negative result' % (pos, neg)
     print pos_dict
     return lo_candidates

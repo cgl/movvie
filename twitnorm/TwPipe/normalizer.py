@@ -4,9 +4,13 @@ from tools import isMention, isHashtag, isvalid
 import Levenshtein as Lev
 import fuzzy
 from math import log
+from  numpy import array
+import pdb
 
 
+salient=0.00000000001
 class Normalizer:
+
     # input is a list s.t.
 #lot = [[('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)],
 #       [('example', 'N', 0.979), ('tweet', 'V', 0.7713), ('2', '$', 0.5832)]]
@@ -60,9 +64,9 @@ class Normalizer:
         scores = {}
         scores = self.returnCandRight(tweet,ovvWord,ovvInd, ovvTag,{})
         scores = self.returnCandLeft(tweet,ovvWord,ovvInd, ovvTag,scores)
-        for sug in filter(self.d.check,self.d.suggest(ovvWord)):
-            self.updateScore(scores,sug,len(ovvWord)/(Lev.distance(ovvWord,sug)+0.000001))
-        scores_sorted = sorted(scores.items(), key= lambda x: x[1], reverse=True)
+#        for sug in filter(self.d.check,self.d.suggest(ovvWord)):
+#            self.updateScore_suggested(scores,sug,ovvWord,ovvTag)
+        scores_sorted = sorted(scores.items(), key= lambda x: x[1][0], reverse=True)
         if scores_sorted:
             #print 'Ovv: "%s" with tag: %s corrected as: "%s" with a score %d' %(ovvWord,ovvTag, scores_sorted[0][0], scores_sorted[0][1])
             if allCands:
@@ -116,7 +120,8 @@ class Normalizer:
         return normList
 
     def returnCandRight(self,tweet,ovvWord,ovvInd, ovvTag,scores):
-        neigh_start_ind = ovvInd-self.m
+#        pdb.set_trace()
+        neigh_start_ind = max(ovvInd-self.m,0)
         neigh_end_ind = ovvInd
         left = False
         position = 'to'
@@ -125,6 +130,7 @@ class Normalizer:
                    neigh_start_ind,neigh_end_ind, left, position,neigh_position)
 
     def returnCandLeft(self,tweet,ovvWord,ovvInd, ovvTag,scores):
+#        pdb.set_trace()
         neigh_start_ind = ovvInd+1
         neigh_end_ind = ovvInd+1+self.m
         left = True
@@ -136,7 +142,6 @@ class Normalizer:
     def returnCand(self,tweet,ovvWord,ovvInd, ovvTag,scores,
                    neigh_start_ind,neigh_end_ind, left, position,neigh_position):
 #        print 'Ovv: %s with tag %s' %(ovvWord,ovvTag)
-
         neighbours = tweet[neigh_start_ind:neigh_end_ind]
         for ind_neigh,neighbour in enumerate(neighbours):
             distance = ind_neigh if left else len(neighbours) - ind_neigh
@@ -145,12 +150,17 @@ class Normalizer:
             # thatshares same distance and tag with the ovv
             # find all the non ovv nodes from the neighbour with same dis
             candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovvTag,
-                                            'dis': { '$in' : [distance, (distance - 1)] },
+#                                            'dis': { '$in' : [distance, (distance - 1)] },
+                                            'dis': distance ,
                                             'weight' : { '$gt': 1 } })
-
+            if candidates_q.count() < 1 :
+                continue
             # filter candidates who has a different tag than ovv
             cands_q = []
+            #pdb.set_trace()
+            print ovvWord
             for node in candidates_q:
+                print node
                 node_wo_tag = node[position].split('|')[0]
                 if len(node_wo_tag) < 2:
                     continue
@@ -162,30 +172,48 @@ class Normalizer:
         return scores
 
     def score(self, ovvWord, cands_q, n, scores):
-        metOvv = set(fuzzy.DMetaphone(4)(ovvWord))
+        met_set_ovv = set(fuzzy.DMetaphone(4)(ovvWord))
         for cand_q in cands_q:
             cand = cand_q['to']
             try:
-                lev = Lev.distance(ovvWord, cand) + 0.000001
+                lev = Lev.distance(ovvWord, cand) + salient
             except UnicodeEncodeError:
-                lev = Lev.distance(ovvWord.encode('ascii', 'ignore'), cand.encode('ascii', 'ignore')) + 0.000001
+                lev = Lev.distance(ovvWord.encode('ascii', 'ignore'), cand.encode('ascii', 'ignore')) + salient
                 print 'UnicodeEncodeError[lev]: %s' % ovvWord
             try:
-                met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand))) or 0.000001
+                met = metaphone_score(met_set_ovv,cand)
             except UnicodeEncodeError:
-                met = len(metOvv.intersection(fuzzy.DMetaphone(4)(cand.encode('ascii', 'ignore')))) or 0.000001
+                met = metaphone_score(met_set_ovv,cand.encode('ascii', 'ignore'))
                 print 'UnicodeEncodeError[met]: %f %s' % (met,cand.encode('utf-8'))
-            score = log(cand_q['weight']) * (1/lev) * met * log(cand_q['freq'])
-            self.updateScore(scores,cand,score)
+            #self.updateScore(scores,cand,score)
+            print '%s: %f %f %f %f' %(cand, cand_q['weight'],cand_q['freq'],lev,met)
+            self.updateScore(scores,cand,
+                             cand_q['weight'] , lev , met , cand_q['freq'])
         return scores
+        #scores_sorted = sorted(scores.items(), key= lambda x: x[1], reverse=True)
 
+    def updateScore_suggested(self,scores,cand,ovv,tag):
+        met_set_ovv = set(fuzzy.DMetaphone(4)(ovv))
+        met =  metaphone_score(met_set_ovv,cand)
+        lev = Lev.distance(ovv,cand) + salient
+        node = self.nodes.find_one({'_id':ovv,'tag': tag, 'ovv':False })
+        freq = node['freq'] if node else 1
+        weight = freq
+        freq = 1
 
-    def updateScore(self,scores,cand,score):
+        self.updateScore(scores,cand,weight,lev,met,freq)
+
+    def updateScore(self,scores,cand,weight,lev,met,freq):
+        #score = log(weight) * (1/lev) * met * log(freq)
         if scores.has_key(cand):
-            score += scores.get(cand)
-            scores.update({cand:score})
+            score_set = scores.get(cand)
         else:
-            scores[cand] = score
+            score_set = array([0,0,0,0,0])
+        current_score_set = array([0,log(weight/freq) , (1/lev) , met , log(freq)])
+        current_score_set[0] = current_score_set[1:4].prod()
+        print current_score_set[0]
+        score_set = current_score_set + score_set
+        scores.update({cand:score_set})
         return scores
 
     def norm_tricks(self,word,tag):
@@ -199,3 +227,12 @@ class Normalizer:
             return None
 
 #UnicodeEncodeError: 'ascii' codec can't encode character u'\xe9' in position 3: ordinal not in range(128) ppl
+
+def metaphone_score(met_set,word):
+    sim = met_set.intersection(fuzzy.DMetaphone(4)(word))
+    score = 0
+    for s in sim:
+        if s:
+            score += 1
+    print max(score, salient)
+    return max(score, salient)

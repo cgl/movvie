@@ -1,6 +1,8 @@
 import normalizer
 import CMUTweetTagger
 
+#use tweets
+#db.copyDatabase("tweets","tweets_current","localhost")
 def update_edges_tag(database='tweets_current'):
     tweets = [u"someone is cold game nd he needs to follow me",
           u"only 3mths left in school . i wil always mis my skull , frnds and my teachrs"]

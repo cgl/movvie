@@ -1,5 +1,9 @@
 import re
 import os
+import fuzzy
+
+salient=0.00000000001
+
 
 def isvalid(w):
     #return true if string contains any alphanumeric keywors
