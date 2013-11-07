@@ -59,6 +59,7 @@ class Normalizer:
 #        if not self.isOvv(word,tag):
 #            return word
         ovvWord = word
+        print ovvWord
         ovvTag = tag
         ovvInd = word_ind
         scores = {}
@@ -158,9 +159,9 @@ class Normalizer:
             # filter candidates who has a different tag than ovv
             cands_q = []
             #pdb.set_trace()
-            print ovvWord
+#            print ovvWord
             for node in candidates_q:
-                print node
+#                print node
                 node_wo_tag = node[position].split('|')[0]
                 if len(node_wo_tag) < 2:
                     continue
@@ -209,9 +210,9 @@ class Normalizer:
             score_set = scores.get(cand)
         else:
             score_set = array([0,0,0,0,0])
-        current_score_set = array([0,log(weight/freq) , (1/lev) , met , log(freq)])
+        current_score_set = array([0,weight/freq , (1/lev) , met , freq])
         current_score_set[0] = current_score_set[1:4].prod()
-        print current_score_set[0]
+#        print current_score_set[0]
         score_set = current_score_set + score_set
         scores.update({cand:score_set})
         return scores
@@ -234,5 +235,5 @@ def metaphone_score(met_set,word):
     for s in sim:
         if s:
             score += 1
-    print max(score, salient)
+#    print max(score, salient)
     return max(score, salient)
