@@ -4,7 +4,7 @@ import enchant
 import ast
 import langid
 from pymongo import MongoClient
-
+from decimal import Decimal
 from tools import *
 
 # tags : http://www.ark.cs.cmu.edu/TweetNLP/gimpel+etal.acl11.pdf
@@ -16,6 +16,7 @@ class MTweet:
         db = client[database]
         self.nodes = db['nodes']
         self.edges = db['edges']
+        self.completed = Decimal(0)
 
     def getTweets(self, infile):
         r = Reader()
@@ -31,10 +32,14 @@ class MTweet:
         p.start()
         p.join()
         '''
-        for tweet in lot:
-            self.getTweet(tweet)
+        try:
+            for tweet in lot:
+                self.getTweet(tweet)
+                self.completed += 1
+        except Exception, e:
+            logging.error('[%d]'%self.completed+str(e),exc_info=True)
 
-        logging.info('Finish processing file : %s',  infile)
+        logging.info('Finish processing file[%d] : %s' %(self.completed, infile))
 
 # t.getTweet([("This", 'N',  0.979), ("is", 'N',  0.97), ("@ahterx", 'N',  0.979), ("^^", 'N',  0.979), ("my", 'N',  0.979), ("luv", 'N',  0.979)])
     def getTweet(self, tweet):
@@ -53,7 +58,7 @@ class MTweet:
                 words.append((w.strip('#'), t, c))
                 continue
             elif not isvalid(w) and t is not '&' :
-                print '%s : %s' %(t, w)
+                #print '%s : %s' %(t, w) , : ... ! ? [ ] ( ) : " all tagged as ","
                 words.append('')
                 continue
             # 'G', '&', 'P'

@@ -164,6 +164,34 @@ class Normalizer:
             candidates.append({'neighbour' : neigh_node, 'tag' : tag, 'neighbours_cands': cands_q})
         return candidates
 
+    def get_candidates_scores(self, tweet_pos_tagged,ovv,ovv_tag):
+        froms,tos= self.get_neighbours(tweet_pos_tagged,ovv)
+        keys = []
+        score_matrix = []
+        for ind,(word, tag, acc) in enumerate(froms):
+            neigh_node = word.strip()+'|'+tag
+            distance = len(froms) - ind
+            cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
+            keys,score_matrix = Normalizer.write_scores(cands_q,keys,score_matrix,ovv)
+        for ind,(word, tag, acc) in enumerate(tos):
+            neigh_node = word.strip()+'|'+tag
+            distance = ind
+            cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'from', 'to', neigh_node , distance )
+            keys,score_matrix = self.write_scores(cands_q,keys,score_matrix,ovv)
+        return keys,score_matrix
+
+    @staticmethod
+    def write_scores(cands_q,keys,score_matrix,ovv):
+        for cand_q in cands_q:
+            new_scores = array([cand_q['weight']/cand_q['freq'],cand_q['lev'],cand_q['met']])
+            if  ovv not in keys:
+                keys.append(cand_q['to'])
+                score_matrix.append(new_scores)
+            else:
+                index = keys.index(ovv)
+                score_matrix[index][0] = score_matrix[index][0] + cand_q['weight']/cand_q['freq']
+        return keys,score_matrix
+
     def returnCand(self,tweet,ovvWord, ovvInd, ovvTag,scores,
                    neigh_start_ind,neigh_end_ind, left, position,neigh_position):
 #        print 'Ovv: %s with tag %s' %(ovvWord,ovvTag)

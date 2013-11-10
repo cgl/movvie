@@ -12,7 +12,6 @@
 
 import langid, getopt, sys, logging, os
 import CMUTweetTagger
-import networkx as nx
 import enchant
 import ast
 import re
@@ -23,8 +22,10 @@ from pymongo import MongoClient
 from MTweet import MTweet
 from tools import *
 
-FORMAT = '%(asctime)-15s %(message)s'
+FORMAT = '%(asctime)-12s (%(process)d) %(message)s'
+ERROR_FORMAT = '%(asctime)-12s (%(process)d) %(message)s'
 logging.basicConfig(format=FORMAT,filename='tweets.log',level=logging.DEBUG)
+
 
 
 def main(argv):
@@ -67,68 +68,15 @@ def main(argv):
 '''
 
 
-class Tweet:
-    def __init__(self,g=None):
-        if g is None:
-#            self.graph = nx.read_gml('test/test.gml')
-            self.graph = nx.read_graphml('in.graphml')
-#            self.graph = nx.read_gpickle('test/test.pckl')
-            print 'Graph has been read from file'
-        else:
-            self.graph = g
-        self.d = enchant.Dict("en_US")
-
-    def getTweets(self,infile):
-        r = Reader()
-        tweets = [unicode(a) for a in r.read(file=infile)]
-        lot = CMUTweetTagger.runtagger_parse(tweets)
-        #lot = [[('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)],
-        #       [('example', 'N', 0.979), ('tweet', 'V', 0.7713), ('2', '$', 0.5832)]]
-
-        for tweet in lot:
-            self.getTweet(tweet)
-
-    def getTweet(self,tweet):
-        #tweet = [('example', 'N', 0.979), ('tweet', 'V', 0.7763), ('1', '$', 0.9916)]
-        words = []
-
-        for w,t,c in tweet:
-            if (not self.isvalid(w)) or w.startswith("http") or w.startswith("@") or w.startswith("#") or w.isdigit() or not w.isalnum():
-                continue
-            self.addNode(w,t)
-            for x in words:
-                if self.graph.has_edge(w,x):
-                    # we added this one before, just increase the weight by one
-                    self.graph.add_edge(w,x)
-                    self.graph[w][x]['weight'] += 1
-                else:
-                    # new edge. add with weight=1
-                    self.graph.add_edge(w,x, weight=1)
-            words.append(w)
-
-    #adds node with the pos tag t to the self.graph
-    def addNode(self,w,t):
-        if not self.graph.has_node(w):
-            self.graph.add_node(w,ovv=False if self.d.check(w) else True)
-            self.graph.node[w][t]=1
-        else:
-            if(self.graph.node[w].has_key(t)):
-                self.graph.node[w][t] += 1
-            else:
-                self.graph.node[w][t] = 1
-
-    def isvalid(self,w):
-    #return true if string contains any alphanumeric keywors
-        return bool(re.search('[A-Za-z0-9]', w))
-
 if __name__ == "__main__":
     logging.info('Start Processing')
     try:
         main(sys.argv[1:])
+        logging.info('End Processing Succesfully')
     except Exception, e:
-        logging.error(str(e))
+        logging.error(str(e),exc_info=True)
+        logging.error('End Processing Failure')
         sys.exit(0)
-    logging.info('End Processing')
 
 
 
