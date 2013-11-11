@@ -78,15 +78,16 @@ def contains(tweets,results,ovv):
     print pos_dict
     return lo_candidates
 
-def calc_score_matrix(tweets_str, results, ovv):
-    lo_tweets = CMUTweetTagger.runtagger_parse(tweets_str)
+def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
+    import pdb
+    pdb.set_trace()
     lo_candidates = []
-    norm = normalizer.Normalizer(lo_tweets,database='tweets')
-    for i in range(0,len(tweets)):
-        tweet_pos_tagged = CMUTweetTagger.runtagger_parse([tweets[i]])[0] # since only 1 tweet
+    norm = normalizer.Normalizer(lo_postagged_tweets,database='tweets')
+    for tweet_ind in range(0,len(lo_postagged_tweets)):
+        tweet_pos_tagged = lo_postagged_tweets[tweet_ind]
         for j in range(0,len(tweet_pos_tagged)):
-            word = tweet_pos_tagged[j]
-            if ovv(word[0],word[1]):
+            word = results[tweet_ind][j]
+            if ovvFunc(word[0],word[1]):
                 ovv_word = word[0]
                 ovv_tag = tweet_pos_tagged[j][1]
                 keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
