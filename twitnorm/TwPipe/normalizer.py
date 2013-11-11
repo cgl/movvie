@@ -164,20 +164,42 @@ class Normalizer:
             candidates.append({'neighbour' : neigh_node, 'tag' : tag, 'neighbours_cands': cands_q})
         return candidates
 
+    def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, distance):
+        print "{'%s':'%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (neigh_position,neigh_node, position , ovv_tag,distance)
+        candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovv_tag,
+#                                            'dis': { '$in' : [distance, (distance - 1)] },
+                                            'dis': distance ,
+                                            'weight' : { '$gt': 1 } })
+        if candidates_q.count() < 1 :
+            return []
+        # filter candidates who has a different tag than ovv
+        cands_q = []
+        for node in candidates_q:
+            node_wo_tag = node[position].split('|')[0]
+            if len(node_wo_tag) < 2:
+                continue
+            to_node = self.nodes.find_one({'_id':node['from'],'tag': ovv_tag, 'ovv':False })
+            if(to_node):
+                cands_q.append({'position': position, 'to':node_wo_tag, 'weight': node['weight'] , 'freq' : to_node['freq'],
+                                'lev': lev_score(ovv_word,node_wo_tag) , 'met': metaphone_score(ovv_word,node_wo_tag)})
+        return cands_q
+
     def get_candidates_scores(self, tweet_pos_tagged,ovv,ovv_tag):
         froms,tos= self.get_neighbours(tweet_pos_tagged,ovv)
         keys = []
         score_matrix = []
         for ind,(word, tag, acc) in enumerate(froms):
-            neigh_node = word.strip()+'|'+tag
-            distance = len(froms) - ind
-            cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
-            keys,score_matrix = self.write_scores(cands_q, keys, score_matrix)
+            if tag not in [',','@']:
+                neigh_node = word.strip()+'|'+tag
+                distance = len(froms) - ind
+                cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
+                keys,score_matrix = self.write_scores(cands_q, keys, score_matrix)
         for ind,(word, tag, acc) in enumerate(tos):
-            neigh_node = word.strip()+'|'+tag
-            distance = ind
-            cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'from', 'to', neigh_node , distance )
-            keys,score_matrix = self.write_scores(cands_q,keys,score_matrix)
+            if tag not in [',','@']:
+                neigh_node = word.strip()+'|'+tag
+                distance = ind
+                cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'from', 'to', neigh_node , distance )
+                keys,score_matrix = self.write_scores(cands_q,keys,score_matrix)
         return keys,score_matrix
 
     @staticmethod
@@ -206,26 +228,6 @@ class Normalizer:
             n_ind = distance
             scores = self.score(ovvWord,cands_q,n_ind,scores)
         return scores
-
-    def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, distance):
-        print "{'%s':'%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (neigh_position,neigh_node, position , ovv_tag,distance)
-        candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovv_tag,
-#                                            'dis': { '$in' : [distance, (distance - 1)] },
-                                            'dis': distance ,
-                                            'weight' : { '$gt': 1 } })
-        if candidates_q.count() < 1 :
-            return []
-        # filter candidates who has a different tag than ovv
-        cands_q = []
-        for node in candidates_q:
-            node_wo_tag = node[position].split('|')[0]
-            if len(node_wo_tag) < 2:
-                continue
-            to_node = self.nodes.find_one({'_id':node['from'],'tag': ovv_tag, 'ovv':False })
-            if(to_node):
-                cands_q.append({'position': position, 'to':node_wo_tag, 'weight': node['weight'] , 'freq' : to_node['freq'],
-                                'lev': lev_score(ovv_word,node_wo_tag) , 'met': metaphone_score(ovv_word,node_wo_tag)})
-        return cands_q
 
     def score(self, ovvWord, cands_q, n, scores):
         for cand_q in cands_q:
