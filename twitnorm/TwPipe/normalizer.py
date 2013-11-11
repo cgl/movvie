@@ -6,7 +6,7 @@ import fuzzy
 from math import log
 from  numpy import array
 import pdb
-
+import logging
 
 salient=0.00000000001
 class Normalizer:
@@ -165,7 +165,7 @@ class Normalizer:
         return candidates
 
     def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, distance):
-        print "{'%s':'%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (neigh_position,neigh_node, position , ovv_tag,distance)
+        logging.info("{'%s':'%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (neigh_position,neigh_node, position , ovv_tag,distance))
         candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovv_tag,
 #                                            'dis': { '$in' : [distance, (distance - 1)] },
                                             'dis': distance ,

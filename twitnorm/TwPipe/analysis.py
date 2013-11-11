@@ -7,8 +7,12 @@ import CMUTweetTagger
 
 tweets,results = han(548)
 ovv = lambda x,y : True if y == 'OOV' else False
+import logging
 
 def main(index=False):
+    FORMAT = '%(asctime)-12s (%(process)d) %(message)s'
+    logging.basicConfig(format=FORMAT,filename='norm.log',level=logging.INFO)
+
     results = han(548)[1]
     ovv = lambda x,y : True if y == 'OOV' else False
     in_suggestions(results,ovv,index_count=index)
@@ -79,8 +83,6 @@ def contains(tweets,results,ovv):
     return lo_candidates
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
-    import pdb
-    pdb.set_trace()
     lo_candidates = []
     norm = normalizer.Normalizer(lo_postagged_tweets,database='tweets')
     for tweet_ind in range(0,len(lo_postagged_tweets)):
