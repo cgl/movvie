@@ -19,19 +19,14 @@ class MTweet:
         self.completed = Decimal(0)
 
     def getTweets(self, infile):
-        r = Reader()
-        tweets = [unicode(a) for a in r.read(file=infile)]
+        rdr = Reader()
+        tweets = [unicode(a) for a in rdr.read(file=infile)]
         logging.info('Tweets are read from : %s',  infile)
         lot = CMUTweetTagger.runtagger_parse(tweets)
         logging.info('CMUTagger has parsed the tweets')
         #lot = [[('example',  'N',  0.979),  ('tweet',  'V',  0.7763),  ('1',  '$',  0.9916)],
         #       [('example',  'N',  0.979),  ('tweet',  'V',  0.7713),  ('2',  '$',  0.5832)]]
-        '''
-        from multiprocessing import Process
-        p = Process(target=self.getTweet,  args=lot)
-        p.start()
-        p.join()
-        '''
+
         try:
             for tweet in lot:
                 self.getTweet(tweet)
@@ -41,7 +36,8 @@ class MTweet:
 
         logging.info('Finish processing file[%d] : %s' %(self.completed, infile))
 
-# t.getTweet([("This", 'N',  0.979), ("is", 'N',  0.97), ("@ahterx", 'N',  0.979), ("^^", 'N',  0.979), ("my", 'N',  0.979), ("luv", 'N',  0.979)])
+    # t.getTweet([("This", 'N',  0.979), ("is", 'N',  0.97), ("@ahterx", 'N',  0.979),
+    #("^^", 'N',  0.979), ("my", 'N',  0.979), ("luv", 'N',  0.979)])
     def getTweet(self, tweet):
         #tweet = [('example',  'N',  0.979),  ('tweet',  'V',  0.7763),  ('1',  '$',  0.9916)]
         words = []

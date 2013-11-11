@@ -172,23 +172,23 @@ class Normalizer:
             neigh_node = word.strip()+'|'+tag
             distance = len(froms) - ind
             cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
-            keys,score_matrix = Normalizer.write_scores(cands_q,keys,score_matrix,ovv)
+            keys,score_matrix = self.write_scores(cands_q, keys, score_matrix)
         for ind,(word, tag, acc) in enumerate(tos):
             neigh_node = word.strip()+'|'+tag
             distance = ind
             cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'from', 'to', neigh_node , distance )
-            keys,score_matrix = self.write_scores(cands_q,keys,score_matrix,ovv)
+            keys,score_matrix = self.write_scores(cands_q,keys,score_matrix)
         return keys,score_matrix
 
     @staticmethod
-    def write_scores(cands_q,keys,score_matrix,ovv):
+    def write_scores(cands_q,keys,score_matrix):
         for cand_q in cands_q:
             new_scores = array([cand_q['weight']/cand_q['freq'],cand_q['lev'],cand_q['met']])
-            if  ovv not in keys:
+            if cand_q['to']  not in keys:
                 keys.append(cand_q['to'])
                 score_matrix.append(new_scores)
             else:
-                index = keys.index(ovv)
+                index = keys.index(cand_q['to'])
                 score_matrix[index][0] = score_matrix[index][0] + cand_q['weight']/cand_q['freq']
         return keys,score_matrix
 

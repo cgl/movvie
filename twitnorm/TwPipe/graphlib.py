@@ -51,7 +51,7 @@ def main(argv):
       elif opt in ("-p", "--path"):
          path = arg
 
-   T = MTweet()
+   T = MTweet(database='tweets')
    T.getTweets(infile)
 #   print 'Constructed the graph now will write to file'
 #   logging.info('Constructed the graph now will write to file : %s', outfile)
