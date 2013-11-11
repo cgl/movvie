@@ -11,7 +11,26 @@ def update_edges_tag(database='tweets'):
     lot = CMUTweetTagger.runtagger_parse(tweets)
 
     norm = normalizer.Normalizer(lot,database)
-    tags = norm.nodes.distinct('tag')
+#    tags = norm.nodes.distinct('tag')
+    tags = [u'A',
+            u'N',
+            u'^',
+            u'V',
+            u'!',
+            u'O',
+            u'G',
+            u'S',
+            u'R',
+            u',',
+            u'P',
+            u'Z',
+            u'L',
+            u'D',
+            u'&',
+            u'T',
+            u'X',
+            u'Y',
+            u'M']
     for tag in tags:
         nouns = [node['_id'] for node in filter(lambda x: x['freq']> 8, norm.nodes.find({'tag':tag}))]
         norm.edges.update({'from': { '$in' : nouns}},{'$set' : {u'from_tag':tag } },multi=True)

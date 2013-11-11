@@ -147,7 +147,7 @@ class Normalizer:
             if word == ovv:
                 froms = tweet_pos_tagged[max(ind-self.m,0):ind]
                 tos = tweet_pos_tagged[ind+1:ind+1+self.m]
-                return froms, tos
+        return froms, tos
 
     def get_neighbours_candidates(self, tweet_pos_tagged,ovv,ovv_tag):
         froms,tos= self.get_neighbours(tweet_pos_tagged,ovv)

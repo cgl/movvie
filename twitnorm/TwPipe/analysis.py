@@ -84,9 +84,9 @@ def calc_score_matrix(tweets_str, results, ovv):
     norm = normalizer.Normalizer(lo_tweets,database='tweets')
     for i in range(0,len(results)):
         tweet = results[i]
-        tweet_pos_tagged = CMUTweetTagger.runtagger_parse([tweets[i]])[0] # since only 1 tweet
-        for j in range(0,len(tweet)):
-            word = tweet[j]
+        tweet_pos_tagged = CMUTweetTagger.runtagger_parse([tweet])[0] # since only 1 tweet
+        for j in range(0,len(tweet_pos_tagged)):
+            word = tweet_pos_tagged[j]
             if ovv(word[0],word[1]):
                 ovv_word = word[0]
                 ovv_tag = tweet_pos_tagged[j][1]
