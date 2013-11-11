@@ -208,6 +208,7 @@ class Normalizer:
         return scores
 
     def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, distance):
+        print "{'%s':'%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (neigh_position,neigh_node, position , ovv_tag,distance)
         candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovv_tag,
 #                                            'dis': { '$in' : [distance, (distance - 1)] },
                                             'dis': distance ,
