@@ -8,7 +8,7 @@ from  numpy import array
 import pdb
 import logging
 
-salient=0.00000000001
+salient=0.001
 class Normalizer:
 
     # input is a list s.t.
