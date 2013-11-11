@@ -3,7 +3,7 @@ import CMUTweetTagger
 
 #use tweets
 #db.copyDatabase("tweets","tweets_current","localhost")
-def update_edges_tag(database='tweets_current'):
+def update_edges_tag(database='tweets'):
     tweets = [u"someone is cold game nd he needs to follow me",
           u"only 3mths left in school . i wil always mis my skull , frnds and my teachrs"]
 
@@ -17,7 +17,7 @@ def update_edges_tag(database='tweets_current'):
         norm.edges.update({'from': { '$in' : nouns}},{'$set' : {u'from_tag':tag } },multi=True)
         norm.edges.update({'to': { '$in' : nouns}},{'$set' : {u'to_tag':tag } },multi=True)
 
-def ensure_indexes(database='tweets_current'):
+def ensure_indexes(database='tweets'):
     from pymongo import MongoClient
     client = MongoClient('localhost', 27017)
     db = client[database]

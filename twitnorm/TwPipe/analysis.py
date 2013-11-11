@@ -52,7 +52,7 @@ def metaphone_match(results,ovv):
 
 def contains(tweets,results,ovv):
     lo_tweets = CMUTweetTagger.runtagger_parse(tweets)
-    N = normalizer.Normalizer(lo_tweets,database='tweets_current');
+    N = normalizer.Normalizer(lo_tweets,database='tweets');
     pos = 0
     pos_dict = {}
     lo_candidates = []
@@ -81,7 +81,7 @@ def contains(tweets,results,ovv):
 def calc_score_matrix(tweets_str, results, ovv):
     lo_tweets = CMUTweetTagger.runtagger_parse(tweets_str)
     lo_candidates = []
-    norm = normalizer.Normalizer(lo_tweets,database='tweets_current')
+    norm = normalizer.Normalizer(lo_tweets,database='tweets')
     for i in range(0,len(results)):
         tweet = results[i]
         tweet_pos_tagged = CMUTweetTagger.runtagger_parse([tweets[i]])[0] # since only 1 tweet
@@ -97,7 +97,7 @@ def calc_score_matrix(tweets_str, results, ovv):
 def calc_each_neighbours_score(tweets_str, results, ovv):
     lo_tweets = CMUTweetTagger.runtagger_parse(tweets_str)
     lo_candidates = []
-    norm = normalizer.Normalizer(lo_tweets,database='tweets_current')
+    norm = normalizer.Normalizer(lo_tweets,database='tweets')
     for i in range(0,len(results)):
         tweet = results[i]
         tweet_pos_tagged = CMUTweetTagger.runtagger_parse([tweets[i]])[0] # since only 1 tweet
