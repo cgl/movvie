@@ -120,12 +120,12 @@ def calc_lev_sndx(mat,ind):
 def show_results(mat):
     for ind in range (0,len(mat)):
         res_list = calc_lev_sndx(mat,ind)
-    if res_list:
-        for ind in range (0,len(res_list)):
-            res_list[ind].append(0.3*res_list[ind][1]-0.35*res_list[ind][2]+0.35*res_list[ind][3])
-        res_list.sort(key=lambda x: -float(x[4]))
-        print res_list[:2]
-    print '-------------------------'
+        if res_list:
+            for ind in range (0,len(res_list)):
+                res_list[ind].append(0.3*res_list[ind][1]-0.35*res_list[ind][2]+0.35*res_list[ind][3])
+            res_list.sort(key=lambda x: -float(x[4]))
+            print res_list[:2]
+        print '-------------------------'
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
     logger.info('Started')
