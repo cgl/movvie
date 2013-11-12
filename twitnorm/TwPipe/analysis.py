@@ -109,7 +109,6 @@ def calc_lev_sndx(mat,ind):
         return
     for cand in [cand for cand in matrix[1] if Levenshtein.distance(ovv_snd,soundex.soundex(cand)) < 2]:
         sumof = 0
-        print cand
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
         line = [cand,sumof, Levenshtein.distance(ovv_snd,soundex.soundex(cand))]
