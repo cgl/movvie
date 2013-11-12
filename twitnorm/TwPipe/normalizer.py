@@ -87,6 +87,55 @@ class Normalizer:
         else:
             return word
 
+    def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, distance):
+        logger.info("%s|%s: {'%s':'%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (ovv_word,ovv_tag,neigh_position,neigh_node, position , ovv_tag,distance))
+        candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovv_tag,
+#                                            'dis': { '$in' : [distance, (distance - 1)] },
+                                            'dis': distance ,
+                                            'weight' : { '$gt': 1 } })
+        if candidates_q.count() < 1 :
+            return []
+        # filter candidates who has a different tag than ovv
+        cands_q = []
+        for node in candidates_q:
+            node_wo_tag = node[position].split('|')[0]
+            if len(node_wo_tag) < 2:
+                continue
+            to_node = self.nodes.find_one({'_id':node['from'],'tag': ovv_tag, 'ovv':False })
+            if(to_node):
+                cands_q.append({'position': position, 'to':node_wo_tag, 'weight': node['weight'] ,
+                                'freq' : to_node['freq']})
+        return cands_q
+
+    def get_candidates_scores(self, tweet_pos_tagged,ovv,ovv_tag):
+        froms,tos= self.get_neighbours(tweet_pos_tagged,ovv)
+        keys = []
+        score_matrix = []
+        for ind,(word, tag, acc) in enumerate(froms):
+            if tag not in [',','@']:
+                neigh_node = word.strip()+'|'+tag
+                distance = len(froms) - ind
+                cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
+                keys,score_matrix = self.write_scores(neigh_node,cands_q, keys, score_matrix)
+        for ind,(word, tag, acc) in enumerate(tos):
+            if tag not in [',','@']:
+                neigh_node = word.strip()+'|'+tag
+                distance = ind
+                cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'from', 'to', neigh_node , distance )
+                keys,score_matrix = self.write_scores(neigh_node,cands_q,keys,score_matrix)
+        return keys,score_matrix
+
+    @staticmethod
+    def write_scores(neigh,cands_q,keys,score_matrix):
+        for cand_q in cands_q:
+            new_scores = [array([cand_q['weight'],cand_q['freq']]),neigh]
+            if cand_q['to']  not in keys:
+                keys.append(cand_q['to'])
+                score_matrix.append([new_scores])
+            else:
+                index = keys.index(cand_q['to'])
+                score_matrix[index].append(new_scores)
+        return keys,score_matrix
 
     def normalize_spell_suggest(self,word, tag, word_ind, tweet):
         if self.d.check(word):
@@ -164,16 +213,16 @@ class Normalizer:
         for ind,(word, tag, acc) in enumerate(froms):
             neigh_node = word.strip()+'|'+tag
             distance = len(froms) - ind
-            cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
+            cands_q = self.get_cands_with_weigh_freq_lev_met(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
             candidates.append({'neighbour' : neigh_node, 'tag' : tag, 'cands': cands_q})
         for ind,(word, tag, acc) in enumerate(tos):
             neigh_node = word.strip()+'|'+tag
             distance = ind
-            cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'from', 'to', neigh_node , distance )
+            cands_q = self.get_cands_with_weigh_freq_lev_met(ovv , ovv_tag, 'from', 'to', neigh_node , distance )
             candidates.append({'neighbour' : neigh_node, 'tag' : tag, 'neighbours_cands': cands_q})
         return candidates
 
-    def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, distance):
+    def get_cands_with_weigh_freq_lev_met(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, distance):
         logger.info("%s|%s: {'%s':'%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (ovv_word,ovv_tag,neigh_position,neigh_node, position , ovv_tag,distance))
         candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovv_tag,
 #                                            'dis': { '$in' : [distance, (distance - 1)] },
@@ -193,35 +242,6 @@ class Normalizer:
                                 'lev': lev_score(ovv_word,node_wo_tag) , 'met': metaphone_score(ovv_word,node_wo_tag)})
         return cands_q
 
-    def get_candidates_scores(self, tweet_pos_tagged,ovv,ovv_tag):
-        froms,tos= self.get_neighbours(tweet_pos_tagged,ovv)
-        keys = []
-        score_matrix = []
-        for ind,(word, tag, acc) in enumerate(froms):
-            if tag not in [',','@']:
-                neigh_node = word.strip()+'|'+tag
-                distance = len(froms) - ind
-                cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
-                keys,score_matrix = self.write_scores(cands_q, keys, score_matrix)
-        for ind,(word, tag, acc) in enumerate(tos):
-            if tag not in [',','@']:
-                neigh_node = word.strip()+'|'+tag
-                distance = ind
-                cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'from', 'to', neigh_node , distance )
-                keys,score_matrix = self.write_scores(cands_q,keys,score_matrix)
-        return keys,score_matrix
-
-    @staticmethod
-    def write_scores(cands_q,keys,score_matrix):
-        for cand_q in cands_q:
-            new_scores = array([cand_q['weight']/cand_q['freq'],cand_q['lev'],cand_q['met']])
-            if cand_q['to']  not in keys:
-                keys.append(cand_q['to'])
-                score_matrix.append(new_scores)
-            else:
-                index = keys.index(cand_q['to'])
-                score_matrix[index][0] = score_matrix[index][0] + cand_q['weight']/cand_q['freq']
-        return keys,score_matrix
 
     def returnCand(self,tweet,ovvWord, ovvInd, ovvTag,scores,
                    neigh_start_ind,neigh_end_ind, left, position,neigh_position):
