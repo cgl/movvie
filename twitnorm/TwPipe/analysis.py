@@ -122,10 +122,10 @@ def show_results(mat,mapp):
     for ind in range (0,len(mat)):
         res_list = calc_lev_sndx(mat,ind)
         if res_list:
-            print mapp[ind][1]
             for ind in range (0,len(res_list)):
                 res_list[ind].append(0.3*res_list[ind][1]-0.35*res_list[ind][2]+0.35*res_list[ind][3])
             res_list.sort(key=lambda x: -float(x[4]))
+            print "[%s] : Found[%s]" % (mapp[ind][1],mapp[ind][1])
             if res_list[0][0] == mapp[ind][1]:
                 print 'correct'
                 pos += 1
