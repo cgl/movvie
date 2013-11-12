@@ -8,6 +8,17 @@ from  numpy import array
 import pdb
 import logging
 
+logger = logging.getLogger('norm_logger')
+logger.setLevel(logging.DEBUG)
+# create file handler which logs even debug messages
+fh = logging.FileHandler('norm.log')
+fh.setLevel(logging.DEBUG)
+# create formatter and add it to the handlers
+formatter = logging.Formatter('%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+fh.setFormatter(formatter)
+# add the handlers to logger
+logger.addHandler(fh)
+logger.propagate = False
 salient=0.001
 class Normalizer:
 
@@ -121,7 +132,6 @@ class Normalizer:
         return normList
 
     def returnCandRight(self,tweet,ovvWord,ovvInd, ovvTag,scores):
-#        pdb.set_trace()
         neigh_start_ind = max(ovvInd-self.m,0)
         neigh_end_ind = ovvInd
         left = False
@@ -131,7 +141,6 @@ class Normalizer:
                    neigh_start_ind,neigh_end_ind, left, position,neigh_position)
 
     def returnCandLeft(self,tweet,ovvWord,ovvInd, ovvTag,scores):
-#        pdb.set_trace()
         neigh_start_ind = ovvInd+1
         neigh_end_ind = ovvInd+1+self.m
         left = True
@@ -165,7 +174,7 @@ class Normalizer:
         return candidates
 
     def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, distance):
-        logging.info("{'%s':'%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (neigh_position,neigh_node, position , ovv_tag,distance))
+        logger.info("%s|%s: {'%s':'%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (ovv_word,ovv_tag,neigh_position,neigh_node, position , ovv_tag,distance))
         candidates_q = self.edges.find({neigh_position:neigh_node, position+'_tag': ovv_tag,
 #                                            'dis': { '$in' : [distance, (distance - 1)] },
                                             'dis': distance ,

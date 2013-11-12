@@ -9,10 +9,24 @@ tweets,results = han(548)
 ovv = lambda x,y : True if y == 'OOV' else False
 import logging
 
-def main(index=False):
-    FORMAT = '%(asctime)-12s (%(process)d) %(message)s'
-    logging.basicConfig(format=FORMAT,filename='norm.log',level=logging.INFO)
+logger = logging.getLogger('analysis_logger')
+logger.setLevel(logging.DEBUG)
+# create file handler which logs even debug messages
+fh = logging.FileHandler('analysis.log')
+fh.setLevel(logging.DEBUG)
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.ERROR)
+# create formatter and add it to the handlers
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+ch.setFormatter(formatter)
+fh.setFormatter(formatter)
+# add the handlers to logger
+logger.addHandler(fh)
+logger.propagate = False
+#FORMAT = '%(asctime)-12s (%(process)d) %(message)s'
 
+def main(index=False):
     results = han(548)[1]
     ovv = lambda x,y : True if y == 'OOV' else False
     in_suggestions(results,ovv,index_count=index)
@@ -83,6 +97,7 @@ def contains(tweets,results,ovv):
     return lo_candidates
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
+    logger.info('Started')
     lo_candidates = []
     norm = normalizer.Normalizer(lo_postagged_tweets,database='tweets')
     for tweet_ind in range(0,len(lo_postagged_tweets)):
@@ -94,6 +109,7 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
                 ovv_tag = tweet_pos_tagged[j][1]
                 keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
                 lo_candidates.append([ovv_word,keys,score_matrix])
+    logger.info('Finished')
     return lo_candidates
 
 def calc_each_neighbours_score(tweets_str, results, ovv):

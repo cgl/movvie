@@ -28,3 +28,8 @@ db.edges.ensure_index('to_tag', 1)
 N.get_neighbours_candidates(lot[0],'nd','&')
 
 N.get_cands_with_weigh_freq('hve' , 'V', 'to', 'from', 'should|V' , 1 )
+
+
+ind = 4; ovv = mat2[ind][0]; ovv_snd = soundex.soundex(ovv) ; print ovv ; print len(mat[ind][1])
+for ind_cand in range(0,len(mat[ind][1])):
+    print mat[ind][1][ind_cand], mat[ind][2][ind_cand][0], mat[ind][2][ind_cand][1], mat[ind][2][ind_cand][2] if mat[ind][2][ind_cand][2] > 0.1 else 0, Levenshtein.distance(ovv_snd,soundex.soundex(mat[ind][1][ind_cand]))
