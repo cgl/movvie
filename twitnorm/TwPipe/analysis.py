@@ -111,7 +111,8 @@ def calc_lev_sndx(mat,ind):
         sumof = 0
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
-        line = [cand,sumof, Levenshtein.distance(ovv_snd,soundex.soundex(cand))]
+        line = [cand,sumof, Levenshtein.distance(ovv_snd,soundex.soundex(cand)),
+                sum([cand.count(c) for c in set(ovv)])]
         result_list.append(line)
         result_list.sort(key=lambda x: -float(x[1]))
     return result_list
