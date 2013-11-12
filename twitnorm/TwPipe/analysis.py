@@ -2,11 +2,12 @@ from scoring import han
 import enchant
 from fuzzy import DMetaphone
 import normalizer
-
+import soundex
+import Levenshtein
 import CMUTweetTagger
 
 tweets,results = han(548)
-ovv = lambda x,y : True if y == 'OOV' else False
+ovvFunc = lambda x,y : True if y == 'OOV' else False
 import logging
 
 logger = logging.getLogger('analysis_logger')
@@ -95,6 +96,26 @@ def contains(tweets,results,ovv):
     print '%s positive result, %d negative result' % (pos, neg)
     print pos_dict
     return lo_candidates
+
+def calc_lev_sndx(mat,ind):
+    result_list = []
+    matrix = mat[ind]
+    ovv = matrix[0]
+    ovv_snd = soundex.soundex(ovv)
+    print ovv
+    length = len(matrix[1])
+    print length
+    if length < 1:
+        return
+    for cand in [cand for cand in matrix[1] if Levenshtein.distance(ovv_snd,soundex.soundex(cand)) < 2]:
+        sumof = 0
+        print cand
+        for a,b in matrix[2][matrix[1].index(cand)]:
+            sumof += a[0]/a[1]
+        line = [cand,sumof, Levenshtein.distance(ovv_snd,soundex.soundex(cand))]
+        result_list.append(line)
+        result_list.sort(key=lambda x: -float(x[1]))
+    return result_list
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
     logger.info('Started')
