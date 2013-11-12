@@ -122,7 +122,8 @@ def show_results(mat,mapp):
     for ind in range (0,len(mat)):
         res_list = calc_lev_sndx(mat,ind)
         if res_list:
-            if res_list[0] == mapp[ind]:
+            print mapp[ind][1]
+            if res_list[0] == mapp[ind][1]:
                 print 'correct'
                 pos += 1
             for ind in range (0,len(res_list)):
