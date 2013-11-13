@@ -5,9 +5,11 @@ import normalizer
 import soundex
 import Levenshtein
 import CMUTweetTagger
+import enchant
 
 tweets,results = han(548)
 ovvFunc = lambda x,y : True if y == 'OOV' else False
+dic= enchant.Dict("en_US")
 import logging
 
 logger = logging.getLogger('analysis_logger')
@@ -103,21 +105,38 @@ def calc_lev_sndx(mat,ind,verbose=True):
     ovv = matrix[0]
     ovv_snd = soundex.soundex(ovv)
     length = len(matrix[1])
+    suggestions = [word for word in dic.suggest(ovv) if dic.check(word) and len(word)>2]
+    suggestions_found = []
     if verbose:
         print '%s: found %d candidate' %(ovv,length)
-    if length < 1:
-        return
     for cand in [cand for cand in matrix[1] if Levenshtein.distance(ovv_snd,soundex.soundex(cand)) < 2]:
         sumof = 0
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
-        line = [cand,sumof, Levenshtein.distance(ovv_snd,soundex.soundex(cand)),
-                float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand))))]
+        if cand in suggestions:
+            suggestion_score = 1/1+suggestions.index(cand)
+            suggestions_found.append(cand)
+        else:
+            suggestion_score = 0
+        line = [cand, sumof,
+                Levenshtein.distance(ovv_snd,soundex.soundex(cand)),
+                float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
+                suggestion_score
+        ]
         result_list.append(line)
-        result_list.sort(key=lambda x: -float(x[1]))
+    result_list.extend([[sug, 0,
+                         Levenshtein.distance(ovv_snd,soundex.soundex(sug)),
+                         float(len(set(ovv).intersection(set(sug)))) / float(len(set(ovv).union(set(sug)))),
+                         1.0/(1.0+suggestions.index(sug))]
+                        for sug in suggestions[:12]
+                        if sug not in suggestions_found
+                        and
+                        Levenshtein.distance(ovv_snd,soundex.soundex(sug)) < 2 ])
+    print ovv,suggestions
+    result_list.sort(key=lambda x: -float(x[1]))
     return result_list
 
-def show_results(mat,mapp,d1 = 0.3, d2 = 0.35, d3 = 0.35,verbose=True):
+def show_results(mat,mapp,d1 = 0.3, d2 = 0.1, d3 = 0.3, d4 = 0.3 ,verbose=True):
     results = []
     pos = 0
     for ind in range (0,len(mat)):
@@ -126,7 +145,8 @@ def show_results(mat,mapp,d1 = 0.3, d2 = 0.35, d3 = 0.35,verbose=True):
         if res_list:
             for res_ind in range (0,len(res_list)):
                 res_list[res_ind].append(
-                    d1 * res_list[res_ind][1] + (d2 *(1- res_list[res_ind][2])) + d3* res_list[res_ind][3] )
+                    d1 * res_list[res_ind][1] + (d2 *(1 - res_list[res_ind][2])) +
+                    d3 * res_list[res_ind][3] + d4 * res_list[res_ind][4])
             res_list.sort(key=lambda x: -float(x[4]))
             if res_list[0][0] == mapp[ind][1]:
                 correct = True
