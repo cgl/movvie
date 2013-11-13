@@ -126,7 +126,7 @@ def show_results(mat,mapp,d1 = 0.3, d2 = 0.35, d3 = 0.35,verbose=True):
         if res_list:
             for res_ind in range (0,len(res_list)):
                 res_list[res_ind].append(
-                    d1 * res_list[res_ind][1] - d2 * res_list[res_ind][2] + d3* res_list[res_ind][3] )
+                    d1 * res_list[res_ind][1] + (d2 *(1- res_list[res_ind][2])) + d3* res_list[res_ind][3] )
             res_list.sort(key=lambda x: -float(x[4]))
             if res_list[0][0] == mapp[ind][1]:
                 correct = True
