@@ -1,3 +1,4 @@
+# http://wwwhomes.uni-bielefeld.de/gibbon/Forms/Python/SEARCH/soundex.html
 import re
 def soundex(name):
 #Render as upper case

@@ -97,14 +97,14 @@ def contains(tweets,results,ovv):
     print pos_dict
     return lo_candidates
 
-def calc_lev_sndx(mat,ind):
+def calc_lev_sndx(mat,ind,verbose=True):
     result_list = []
     matrix = mat[ind]
     ovv = matrix[0]
     ovv_snd = soundex.soundex(ovv)
-    print ovv
     length = len(matrix[1])
-    print length
+    if verbose:
+        print '%s: found %d candidate' %(ovv,length)
     if length < 1:
         return
     for cand in [cand for cand in matrix[1] if Levenshtein.distance(ovv_snd,soundex.soundex(cand)) < 2]:
@@ -117,21 +117,27 @@ def calc_lev_sndx(mat,ind):
         result_list.sort(key=lambda x: -float(x[1]))
     return result_list
 
-def show_results(mat,mapp):
+def show_results(mat,mapp,d1 = 0.3, d2 = 0.35, d3 = 0.35,verbose=True):
+    results = []
     pos = 0
     for ind in range (0,len(mat)):
-        res_list = calc_lev_sndx(mat,ind)
+        correct = False
+        res_list = calc_lev_sndx(mat,ind,verbose=verbose)
         if res_list:
             for res_ind in range (0,len(res_list)):
-                res_list[res_ind].append(0.3*res_list[res_ind][1]-0.35*res_list[res_ind][2]+0.35*res_list[res_ind][3])
+                res_list[res_ind].append(
+                    d1 * res_list[res_ind][1] - d2 * res_list[res_ind][2] + d3* res_list[res_ind][3] )
             res_list.sort(key=lambda x: -float(x[4]))
-            print "[%s] : Found[%s]" % (mapp[ind][1],res_list[0][0] )
             if res_list[0][0] == mapp[ind][1]:
-                print 'correct'
+                correct = True
                 pos += 1
-            print res_list[:2]
-        print '-------------------------'
-    print pos
+            if verbose:
+                print '%s : %s [%s]' % ('Found' if correct else '', mat[ind][0],mapp[ind][1])
+        results.append(res_list)
+    print 'Number of correct answers %s' % pos
+    return results
+
+
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
     logger.info('Started')
