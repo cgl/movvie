@@ -132,7 +132,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
                         if sug not in suggestions_found
                         and
                         Levenshtein.distance(ovv_snd,soundex.soundex(sug)) < 2 ])
-    print ovv,suggestions
+#    print ovv,suggestions
     result_list.sort(key=lambda x: -float(x[1]))
     return result_list
 
@@ -147,7 +147,7 @@ def show_results(mat,mapp,d1 = 0.3, d2 = 0.1, d3 = 0.3, d4 = 0.3 ,verbose=True):
                 res_list[res_ind].append(
                     d1 * res_list[res_ind][1] + (d2 *(1 - res_list[res_ind][2])) +
                     d3 * res_list[res_ind][3] + d4 * res_list[res_ind][4])
-            res_list.sort(key=lambda x: -float(x[4]))
+            res_list.sort(key=lambda x: -float(x[-1]))
             if res_list[0][0] == mapp[ind][1]:
                 correct = True
                 pos += 1
