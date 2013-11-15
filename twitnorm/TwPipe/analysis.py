@@ -78,8 +78,9 @@ def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
     try:
         lev = Levenshtein.distance(unicode(ovv_snd),soundex.soundex(cand.decode("utf-8","ignore")))
     except UnicodeEncodeError:
-        print 'UnicodeEncodeError[ovv_snd]: %s %s' % (ovv_snd.encode('utf-8',"ignore"),cand.decode("utf-8","ignore"))
-        lev = Levenshtein.distance(ovv_snd.encode('utf-8',"ignore"),soundex.soundex(cand))
+        print ovv_snd
+        print 'UnicodeEncodeError[ovv_snd]: %s %s' % (ovv_snd.encode('ascii',"ignore"),cand.decode("utf-8","ignore"))
+        lev = Levenshtein.distance(ovv_snd.encode('ascii',"ignore"),soundex.soundex(cand))
     except UnicodeDecodeError:
         print 'UnicodeDecodeError'
         lev = Levenshtein.distance(ovv_snd,soundex.soundex(cand.decode("utf-8","ignore")))
