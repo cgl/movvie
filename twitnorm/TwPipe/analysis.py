@@ -88,7 +88,7 @@ def get_score_line(cand,sumof,ovv,ovv_tag, ovv_snd,suggestions):
     except TypeError:
         print 'TypeError[ovv_snd]: %s %s' % (ovv_snd,cand)
         lev = 10.
-    node =  tools.get_node(ovv,tag=ovv_tag)
+    node =  tools.get_node(cand,tag=ovv_tag)
     freq = node['freq'] if node else 0.
     line = [cand, sumof,
             float(lev),
