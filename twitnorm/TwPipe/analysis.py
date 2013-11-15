@@ -43,10 +43,12 @@ def calc_lev_sndx(mat,ind,verbose=True):
     result_list = []
     matrix = mat[ind]
     ovv = matrix[0].encode('utf-8')
+    ovv_tag = tools.get_tag(ind,ovv)
     ovv_snd = soundex.soundex(ovv)
     length = len(matrix[1])
     suggestions = [word for word in dic.suggest(ovv)
-                   if dic.check(word) and len(word)>2 and tools.get_node(word.decode("utf-8","ignore"))]
+                   if dic.check(word) and len(word)>2 and
+                   tools.get_node(word.decode("utf-8","ignore"),tag=ovv_tag) ]
     suggestions_found = []
     if verbose:
         print '%s: found %d candidate' %(ovv,length)
@@ -55,11 +57,11 @@ def calc_lev_sndx(mat,ind,verbose=True):
         sumof = 0.
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
-        line, in_sugs = get_score_line(cand,sumof,ovv,ovv_snd,suggestions)
+        line, in_sugs = get_score_line(cand,sumof,ovv,ovv_tag,ovv_snd,suggestions)
         if in_sugs:
             suggestions_found.append(cand)
         result_list.append(line)
-    result_list.extend([get_score_line(sug, 0. ,ovv, ovv_snd, suggestions)[0]
+    result_list.extend([get_score_line(sug, 0. ,ovv,ovv_tag, ovv_snd, suggestions)[0]
                         for sug in suggestions[:10]
                         if sug not in suggestions_found
                         and
@@ -68,7 +70,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
     result_list.sort(key=lambda x: -float(x[1]))
     return result_list
 
-def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
+def get_score_line(cand,sumof,ovv,ovv_tag, ovv_snd,suggestions):
     if cand in suggestions:
         suggestion_score = 1./(1.+suggestions.index(cand))
         found = True
@@ -86,10 +88,14 @@ def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
     except TypeError:
         print 'TypeError[ovv_snd]: %s %s' % (ovv_snd,cand)
         lev = 10.
+    node =  tools.get_node(ovv,tag=ovv_tag)
+    freq = node['freq'] if node else 0.
     line = [cand, sumof,
             float(lev),
             float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
-            suggestion_score ]
+            suggestion_score ,
+            freq
+    ]
     for ind in range(1,len(line)):
         line[ind] = round(line[ind],8)
     return line , found
@@ -101,18 +107,19 @@ def iter_calc_lev_sndx(mat,verbose=False):
         mat_scored.append(res_list)
     return mat_scored
 
-def show_results(res_mat,mapp, d1 = 0.3, d2 = 0.1, d3 = 0.3, d4 = 0.3 ,verbose=True):
+def show_results(res_mat,mapp, dim =[ 0.3, 0.1, 0.3, 0.3 , 0.1], verbose=True):
     results = []
     pos = 0
     for ind in range (0,len(res_mat)):
         correct = False
-        max_val = [ 0.9472,  1.        ,  1.        ,  1.        ,  0.86099657]
+        max_val = [ 0.9472,  1.        ,  1.        ,  1.      , 1. , 0.86099657]
         #[  0.59405118,   1.        ,   1.        ,  13.]
         res_list = res_mat[ind]
         if res_list:
             for res_ind in range (0,len(res_list)):
-                score = d1 * (res_list[res_ind][1]/max_val[0]) + (d2 *(1 - res_list[res_ind][2]))
-                score +=  d3 * res_list[res_ind][3] + d4 * res_list[res_ind][4]
+                score  = dim[0] * (res_list[res_ind][1]/max_val[0]) + (dim[1] *(1 - res_list[res_ind][2]))
+                score += dim[2] * res_list[res_ind][3] + dim[3] * res_list[res_ind][4]
+                score += dim[4] * res_list[res_ind][5]/max_val[4]
                 res_list[res_ind].append(round(score,7))
             res_list.sort(key=lambda x: -float(x[-1]))
             if res_list[0][0] == mapp[ind][1]:

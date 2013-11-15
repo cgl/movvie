@@ -41,6 +41,9 @@ def get_node(word,tag=None,ovv=False):
     else:
         return DB.nodes.find_one({'_id':word+"|"+tag})
 
+def get_tag(ind,word):
+    return [pos[1] for pos in constants.pos_tagged[ind] if pos[0] == word][0]
+
 def max_values(res):
     correct_results = []
     for ind in range(0,len(res)):
