@@ -104,7 +104,8 @@ def show_results(res_mat,mapp, d1 = 0.3, d2 = 0.1, d3 = 0.3, d4 = 0.3 ,verbose=T
     pos = 0
     for ind in range (0,len(res_mat)):
         correct = False
-        max_val = [  0.59405118,   1.        ,   1.        ,  13.]
+        max_val = [ 0.94721099,  1.        ,  1.        ,  1.        ,  0.86099657]
+        #[  0.59405118,   1.        ,   1.        ,  13.]
         res_list = res_mat[ind]
         if res_list:
             for res_ind in range (0,len(res_list)):
