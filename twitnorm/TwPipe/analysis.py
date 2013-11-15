@@ -46,7 +46,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
     ovv_snd = soundex.soundex(ovv)
     length = len(matrix[1])
     suggestions = [word for word in dic.suggest(ovv)
-                   if dic.check(word) and len(word)>2 and tools.get_node(word.decode())]
+                   if dic.check(word) and len(word)>2 and tools.get_node(word.decode("utf-8","ignore"))]
     suggestions_found = []
     if verbose:
         print '%s: found %d candidate' %(ovv,length)
