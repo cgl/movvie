@@ -103,7 +103,7 @@ class Normalizer:
                 continue
             to_node = self.nodes.find_one({'_id':node['from'],'tag': ovv_tag, 'ovv':False })
             if(to_node):
-                if node_wo_tag == 'trippn':
+                if node_wo_tag == 'trippin':
                     import pdb
                     pdb.set_trace()
 
