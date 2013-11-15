@@ -331,3 +331,10 @@ def lev_score(ovv_word,cand):
     except UnicodeEncodeError:
         print 'UnicodeEncodeError[lev]: %s' % ovv_word
         return Lev.distance(ovv_word.encode('ascii', 'ignore'), cand.encode('ascii', 'ignore')) + salient
+
+def get_norm():
+    tweets = [u"someone is cold game nd he needs to follow me",
+              u"only 3mths left in school . i wil always mis my skull , frnds and my teachrs"]
+    lot = CMUTweetTagger.runtagger_parse(tweets)
+    norm = Normalizer(lot,database='tweets')
+    return norm

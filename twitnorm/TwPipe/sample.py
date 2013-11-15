@@ -42,7 +42,7 @@ with open('matrix.txt', 'wb') as file:
 
 sss = [matrix1.append(a) for a in mat4]
 
-with open('matrix.txt', 'rb') as file:
+with open('matrix2.txt', 'rb') as file:
     matrix1 = pickle.load(file)
 
 for ind in range(0,len(matrix2)):

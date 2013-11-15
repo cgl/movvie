@@ -46,7 +46,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
     ovv_snd = soundex.soundex(ovv)
     length = len(matrix[1])
     suggestions = [word for word in dic.suggest(ovv)
-                   if dic.check(word) and len(word)>2 and tools.get_node(word)]
+                   if dic.check(word) and len(word)>2 and tools.get_node(word.decode())]
     suggestions_found = []
     if verbose:
         print '%s: found %d candidate' %(ovv,length)
@@ -80,7 +80,7 @@ def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
                 float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
                 suggestion_score ], found
 
-def iter_calc_lev_sndx(mat,verbose=True):
+def iter_calc_lev_sndx(mat,verbose=False):
     mat_scored = []
     for ind in range (0,len(mat)):
         res_list = calc_lev_sndx(mat,ind,verbose=verbose)

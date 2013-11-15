@@ -3,7 +3,6 @@ import os
 import fuzzy
 import constants
 import CMUTweetTagger
-from normalizer import Normalizer
 from pymongo import MongoClient
 
 CLIENT = MongoClient('localhost', 27017)
@@ -29,13 +28,6 @@ def top_n(res,n=100):
                     index_list[ind] = index_list_n
     print 'Out of %d, %d has an normalization, we^ve %d of those correct normalizations in our list with indexes %s' % (len(res),total_ill, in_top_n,[(a, index_list[a][0]) for a in index_list])
     return index_list
-
-def get_norm():
-    tweets = [u"someone is cold game nd he needs to follow me",
-              u"only 3mths left in school . i wil always mis my skull , frnds and my teachrs"]
-    lot = CMUTweetTagger.runtagger_parse(tweets)
-    norm = Normalizer(lot,database='tweets')
-    return norm
 
 def get_node(word,tag=None):
     if tag is None:
