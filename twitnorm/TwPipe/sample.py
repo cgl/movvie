@@ -48,3 +48,10 @@ with open('matrix.txt', 'rb') as file:
 for ind in range(0,len(matrix2)):
     if matrix2[ind][0] != constants.mapping[ind][0]:
         print matrix2[ind][0] , constants.mapping[ind][0]
+
+correct_results = []
+for ind in range(0,len(res)):
+    if res[ind]:
+        if res[ind][0][0] == constants.mapping[ind][1]:
+            correct_result = res[ind][0]
+            correct_results.append(correct_result[1:])

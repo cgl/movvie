@@ -102,14 +102,15 @@ def contains(tweets,results,ovv):
 def calc_lev_sndx(mat,ind,verbose=True):
     result_list = []
     matrix = mat[ind]
-    ovv = matrix[0]
+    ovv = matrix[0].encode('utf-8')
     ovv_snd = soundex.soundex(ovv)
     length = len(matrix[1])
     suggestions = [word for word in dic.suggest(ovv) if dic.check(word) and len(word)>2]
     suggestions_found = []
     if verbose:
         print '%s: found %d candidate' %(ovv,length)
-    for cand in [cand for cand in matrix[1] if Levenshtein.distance(ovv_snd,soundex.soundex(cand)) < 2]:
+    for cand in [cand for cand in matrix[1]
+                 if Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode('utf-8'))) < 2]:
         sumof = 0
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
@@ -119,7 +120,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
         else:
             suggestion_score = 0
         line = [cand, sumof,
-                Levenshtein.distance(ovv_snd,soundex.soundex(cand)),
+                Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode('utf-8'))),
                 float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
                 suggestion_score
         ]
