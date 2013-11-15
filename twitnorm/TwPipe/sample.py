@@ -55,9 +55,38 @@ for ind in range(0,len(res)):
         if res[ind][0][0] == constants.mapping[ind][1]:
             correct_result = res[ind][0]
             correct_results.append(correct_result[1:])
+
 arr = numpy.array(correct_results)
 print arr.max(axis=0)
 print arr.max(axis=1)
 print arr.max(axis=2)
 print arr.max(axis=3)
 print arr.max(axis=4)
+
+max = [  0.59405118,   1.        ,   1.        ,  13.        ,   2.94004814]
+
+Kaç tanesi listede var?
+
+i = 0 ; j = 0; index_list = {}
+for res_ind in range(0,len(res)):
+    answer = constants.mapping[res_ind][1]
+    ovv = constants.mapping[res_ind][0]
+    if answer != ovv:
+        j += 1
+        if res[res_ind]:
+            res_list = [a[0] for a in res[res_ind]]
+            if answer in res_list:
+                i += 1
+                ind = res_list.index(answer)
+                index_list_n = index_list.get(ind,[0,[]])
+                index_list_n[0] += 1
+                index_list_n[1].append(res_ind)
+                index_list[ind] = index_list_n
+
+print 'Out of %d, %d has an normalization, we have %d of those correct normalizations in our list with indexes %s' %(len(res),j,i,[(a, index_list[a][0]) for a in index_list])
+
+kim hangi sırada geliyor:
+
+for a in index_list:
+    if a != 0:
+        print  [ (b,a,res[b][a][0]) for b in index_list[a][1]]

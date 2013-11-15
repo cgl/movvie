@@ -115,12 +115,18 @@ class Normalizer:
             if tag not in [',','@']:
                 neigh_node = word.strip()+'|'+tag
                 distance = len(froms) - ind
+                if ovv == 'trippn':
+                    import pdb
+                    pdb.set_trace()
                 cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'to', 'from', neigh_node , distance )
                 keys,score_matrix = self.write_scores(neigh_node,cands_q, keys, score_matrix)
         for ind,(word, tag, acc) in enumerate(tos):
             if tag not in [',','@']:
                 neigh_node = word.strip()+'|'+tag
                 distance = ind
+                if ovv == 'trippn':
+                    import pdb
+                    pdb.set_trace()
                 cands_q = self.get_cands_with_weigh_freq(ovv , ovv_tag, 'from', 'to', neigh_node , distance )
                 keys,score_matrix = self.write_scores(neigh_node,cands_q,keys,score_matrix)
         return keys,score_matrix
