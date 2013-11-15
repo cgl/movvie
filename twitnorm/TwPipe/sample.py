@@ -55,3 +55,9 @@ for ind in range(0,len(res)):
         if res[ind][0][0] == constants.mapping[ind][1]:
             correct_result = res[ind][0]
             correct_results.append(correct_result[1:])
+arr = numpy.array(correct_results)
+print arr.max(axis=0)
+print arr.max(axis=1)
+print arr.max(axis=2)
+print arr.max(axis=3)
+print arr.max(axis=4)
