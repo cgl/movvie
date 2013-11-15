@@ -76,7 +76,7 @@ def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
         suggestion_score = 0
         found = False
     return [cand, sumof,
-                Levenshtein.distance(unicode(ovv_snd),soundex.soundex(cand.decode("utf-8","ignore"))),
+                Levenshtein.distance(ovv_snd.encode('utf-8'),soundex.soundex(cand.decode("utf-8","ignore"))),
                 float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
                 suggestion_score ], found
 
