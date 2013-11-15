@@ -87,7 +87,7 @@ def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
         print 'TypeError[ovv_snd]: %s %s' % (ovv_snd,cand)
         lev = 10.
     line = [cand, sumof,
-            lev,
+            float(lev),
             float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
             suggestion_score ]
     return [round(l,8) for l in line] , found
