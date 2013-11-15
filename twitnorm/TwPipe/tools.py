@@ -4,6 +4,7 @@ import fuzzy
 import constants
 import CMUTweetTagger
 from pymongo import MongoClient
+from numpy import array
 
 CLIENT = MongoClient('localhost', 27017)
 DB = CLIENT['tweets']
@@ -34,6 +35,16 @@ def get_node(word,tag=None):
         return [DB.nodes.find_one({'_id':word+"|"+a}) for a in constants.tags if DB.nodes.find_one({'_id':word+"|"+a})]
     else:
         return DB.nodes.find_one({'_id':word+"|"+tag})
+
+def max_values(res):
+    correct_results = []
+    for ind in range(0,len(res)):
+        if res[ind]:
+            if res[ind][0][0] == constants.mapping[ind][1]:
+                correct_result = res[ind][0]
+                correct_results.append(correct_result[1:])
+    arr = array(correct_results)
+    return arr.max(axis=0)
 
 def isvalid(w):
     #return true if string contains any alphanumeric keywors
