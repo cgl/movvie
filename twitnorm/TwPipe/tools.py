@@ -52,7 +52,7 @@ def max_values(res):
                 correct_result = res[ind][0]
                 correct_results.append(correct_result[1:])
     arr = array(correct_results)
-    return arr.max(axis=0)
+    return [round(val,6) for val in arr.max(axis=0)]
 
 def dump_to_file(matrix,filename="matrix2.txt"):
     with open(filename, 'wb') as mfile:
