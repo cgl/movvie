@@ -101,11 +101,12 @@ class Normalizer:
             node_wo_tag = node[position].split('|')[0]
             if len(node_wo_tag) < 2:
                 continue
-            if ovv_word == 'trippn':
-                    import pdb
-                    pdb.set_trace()
             to_node = self.nodes.find_one({'_id':node['from'],'tag': ovv_tag, 'ovv':False })
             if(to_node):
+                if ovv_word == 'trippn':
+                    import pdb
+                    pdb.set_trace()
+
                 cands_q.append({'position': position, 'to':node_wo_tag, 'weight': node['weight'] ,
                                 'freq' : to_node['freq']})
         return cands_q
