@@ -105,18 +105,19 @@ def show_results(res_mat,mapp, d1 = 0.3, d2 = 0.1, d3 = 0.3, d4 = 0.3 ,verbose=T
     for ind in range (0,len(res_mat)):
         correct = False
         max_val = [  0.59405118,   1.        ,   1.        ,  13.]
-        if res_mat:
-            for res_ind in range (0,len(res_mat)):
-                res_mat[res_ind].append(
-                    d1 * (res_mat[res_ind][1]/max_val[0]) + (d2 *(1 - res_mat[res_ind][2])) +
-                    d3 * res_mat[res_ind][3] + d4 * (res_mat[res_ind][4]/max_val[3]))
-            res_mat.sort(key=lambda x: -float(x[-1]))
-            if res_mat[0][0] == mapp[ind][1]:
+        res_list = res_mat[ind]
+        if res_list:
+            for res_ind in range (0,len(res_list)):
+                res_list[res_ind].append(
+                    d1 * (res_list[res_ind][1]/max_val[0]) + (d2 *(1 - res_list[res_ind][2])) +
+                    d3 * res_list[res_ind][3] + d4 * (res_list[res_ind][4]/max_val[3]))
+            res_list.sort(key=lambda x: -float(x[-1]))
+            if res_list[0][0] == mapp[ind][1]:
                 correct = True
                 pos += 1
             if verbose:
-                print '%s : %s [%s]' % ('Found' if correct else '', res_mat[ind][0],mapp[ind][1])
-        results.append(res_mat)
+                print '%s : %s [%s]' % ('Found' if correct else '', res_list[ind][0],mapp[ind][1])
+        results.append(res_list)
     print 'Number of correct answers %s' % pos
     return results
 
