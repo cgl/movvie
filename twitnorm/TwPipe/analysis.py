@@ -6,6 +6,7 @@ import soundex
 import Levenshtein
 import CMUTweetTagger
 import enchant
+import tools
 
 tweets,results = han(548)
 ovvFunc = lambda x,y : True if y == 'OOV' else False
@@ -36,6 +37,109 @@ def main(index=False):
 
 if __name__ == "__main__ ":
     main()
+
+
+def calc_lev_sndx(mat,ind,verbose=True):
+    result_list = []
+    matrix = mat[ind]
+    ovv = matrix[0].encode('utf-8')
+    ovv_snd = soundex.soundex(ovv)
+    length = len(matrix[1])
+    suggestions = [word for word in dic.suggest(ovv)
+                   if dic.check(word) and len(word)>2 and tools.get_node(word)]
+    suggestions_found = []
+    if verbose:
+        print '%s: found %d candidate' %(ovv,length)
+    for cand in [cand for cand in matrix[1]
+                 if Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode('utf-8'))) < 2]:
+        sumof = 0
+        for a,b in matrix[2][matrix[1].index(cand)]:
+            sumof += a[0]/a[1]
+        line, in_suggestions = get_score_line(cand,sumof,ovv_snd,ovv,suggestions)
+        if in_suggestions:
+            suggestions_found.append(cand)
+        result_list.append(line)
+    result_list.extend([get_score_line(sug, 0,ovv, ovv_snd, suggestions)
+                        for sug in suggestions[:10]
+                        if sug not in suggestions_found
+                        and
+                        Levenshtein.distance(ovv_snd,soundex.soundex(sug)) < 2 ])
+#    print ovv,suggestions
+    result_list.sort(key=lambda x: -float(x[1]))
+    return result_list
+
+def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
+    if cand in suggestions:
+        suggestion_score = 1./(1.+suggestions.index(cand))
+        found = True
+    else:
+        suggestion_score = 0
+        found = False
+    return [cand, sumof,
+                Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode('utf-8'))),
+                float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
+                suggestion_score ], found
+
+def iter_calc_lev_sndx(mat,verbose=True):
+    mat_scored = []
+    for ind in range (0,len(mat)):
+        res_list = calc_lev_sndx(mat,ind,verbose=verbose)
+        mat_scored.append(res_list)
+    return mat_scored
+
+def show_results(res_mat,mapp, d1 = 0.3, d2 = 0.1, d3 = 0.3, d4 = 0.3 ,verbose=True):
+    results = []
+    pos = 0
+    for ind in range (0,len(res_mat)):
+        correct = False
+        max_val = [  0.59405118,   1.        ,   1.        ,  13.]
+        if res_mat:
+            for res_ind in range (0,len(res_mat)):
+                res_mat[res_ind].append(
+                    d1 * (res_mat[res_ind][1]/max_val[0]) + (d2 *(1 - res_mat[res_ind][2])) +
+                    d3 * res_mat[res_ind][3] + d4 * (res_mat[res_ind][4]/max_val[3]))
+            res_mat.sort(key=lambda x: -float(x[-1]))
+            if res_mat[0][0] == mapp[ind][1]:
+                correct = True
+                pos += 1
+            if verbose:
+                print '%s : %s [%s]' % ('Found' if correct else '', res_mat[ind][0],mapp[ind][1])
+        results.append(res_mat)
+    print 'Number of correct answers %s' % pos
+    return results
+
+
+def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
+    logger.info('Started')
+    lo_candidates = []
+    norm = normalizer.Normalizer(lo_postagged_tweets,database='tweets')
+    for tweet_ind in range(0,len(lo_postagged_tweets)):
+        tweet_pos_tagged = lo_postagged_tweets[tweet_ind]
+        for j in range(0,len(tweet_pos_tagged)):
+            word = results[tweet_ind][j]
+            if ovvFunc(word[0],word[1]):
+                ovv_word = word[0]
+                ovv_tag = tweet_pos_tagged[j][1]
+                keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
+                lo_candidates.append([ovv_word,keys,score_matrix])
+    logger.info('Finished')
+    return lo_candidates
+
+def calc_each_neighbours_score(tweets_str, results, ovv):
+    lo_tweets = CMUTweetTagger.runtagger_parse(tweets_str)
+    lo_candidates = []
+    norm = normalizer.Normalizer(lo_tweets,database='tweets')
+    for i in range(0,len(results)):
+        tweet = results[i]
+        tweet_pos_tagged = CMUTweetTagger.runtagger_parse([tweets[i]])[0] # since only 1 tweet
+        for j in range(0,len(tweet)):
+            word = tweet[j]
+            if ovv(word[0],word[1]):
+                ovv_word = word[0]
+                ovv_tag = tweet_pos_tagged[j][1]
+                candidates = norm.get_neighbours_candidates(tweet_pos_tagged,ovv_word,ovv_tag)
+                lo_candidates.append({'ovv_word' : ovv_word , 'tag' : ovv_tag , 'cands' : candidates})
+    return lo_candidates
 
 def in_suggestions(results,ovv,index_count=False):
     pos = {} if index_count else 0
@@ -97,100 +201,6 @@ def contains(tweets,results,ovv):
                 lo_candidates.append({ovv_word : candidates, 'contains' : True if index else False })
     print '%s positive result, %d negative result' % (pos, neg)
     print pos_dict
-    return lo_candidates
-
-def calc_lev_sndx(mat,ind,verbose=True):
-    result_list = []
-    matrix = mat[ind]
-    ovv = matrix[0].encode('utf-8')
-    ovv_snd = soundex.soundex(ovv)
-    length = len(matrix[1])
-    suggestions = [word for word in dic.suggest(ovv) if dic.check(word) and len(word)>2]
-    suggestions_found = []
-    if verbose:
-        print '%s: found %d candidate' %(ovv,length)
-    for cand in [cand for cand in matrix[1]
-                 if Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode('utf-8'))) < 2]:
-        sumof = 0
-        for a,b in matrix[2][matrix[1].index(cand)]:
-            sumof += a[0]/a[1]
-        if cand in suggestions:
-            suggestion_score = 1/1+suggestions.index(cand)
-            suggestions_found.append(cand)
-        else:
-            suggestion_score = 0
-        line = [cand, sumof,
-                Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode('utf-8'))),
-                float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
-                suggestion_score
-        ]
-        result_list.append(line)
-    result_list.extend([[sug, 0,
-                         Levenshtein.distance(ovv_snd,soundex.soundex(sug)),
-                         float(len(set(ovv).intersection(set(sug)))) / float(len(set(ovv).union(set(sug)))),
-                         1.0/(1.0+suggestions.index(sug))]
-                        for sug in suggestions[:12]
-                        if sug not in suggestions_found
-                        and
-                        Levenshtein.distance(ovv_snd,soundex.soundex(sug)) < 2 ])
-#    print ovv,suggestions
-    result_list.sort(key=lambda x: -float(x[1]))
-    return result_list
-
-def show_results(mat,mapp,d1 = 0.3, d2 = 0.1, d3 = 0.3, d4 = 0.3 ,verbose=True):
-    results = []
-    pos = 0
-    for ind in range (0,len(mat)):
-        correct = False
-        res_list = calc_lev_sndx(mat,ind,verbose=verbose)
-        max_val = [  0.59405118,   1.        ,   1.        ,  13.]
-        if res_list:
-            for res_ind in range (0,len(res_list)):
-                res_list[res_ind].append(
-                    d1 * (res_list[res_ind][1]/max_val[0]) + (d2 *(1 - res_list[res_ind][2])) +
-                    d3 * res_list[res_ind][3] + d4 * (res_list[res_ind][4]/max_val[3]))
-            res_list.sort(key=lambda x: -float(x[-1]))
-            if res_list[0][0] == mapp[ind][1]:
-                correct = True
-                pos += 1
-            if verbose:
-                print '%s : %s [%s]' % ('Found' if correct else '', mat[ind][0],mapp[ind][1])
-        results.append(res_list)
-    print 'Number of correct answers %s' % pos
-    return results
-
-
-
-def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
-    logger.info('Started')
-    lo_candidates = []
-    norm = normalizer.Normalizer(lo_postagged_tweets,database='tweets')
-    for tweet_ind in range(0,len(lo_postagged_tweets)):
-        tweet_pos_tagged = lo_postagged_tweets[tweet_ind]
-        for j in range(0,len(tweet_pos_tagged)):
-            word = results[tweet_ind][j]
-            if ovvFunc(word[0],word[1]):
-                ovv_word = word[0]
-                ovv_tag = tweet_pos_tagged[j][1]
-                keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
-                lo_candidates.append([ovv_word,keys,score_matrix])
-    logger.info('Finished')
-    return lo_candidates
-
-def calc_each_neighbours_score(tweets_str, results, ovv):
-    lo_tweets = CMUTweetTagger.runtagger_parse(tweets_str)
-    lo_candidates = []
-    norm = normalizer.Normalizer(lo_tweets,database='tweets')
-    for i in range(0,len(results)):
-        tweet = results[i]
-        tweet_pos_tagged = CMUTweetTagger.runtagger_parse([tweets[i]])[0] # since only 1 tweet
-        for j in range(0,len(tweet)):
-            word = tweet[j]
-            if ovv(word[0],word[1]):
-                ovv_word = word[0]
-                ovv_tag = tweet_pos_tagged[j][1]
-                candidates = norm.get_neighbours_candidates(tweet_pos_tagged,ovv_word,ovv_tag)
-                lo_candidates.append({'ovv_word' : ovv_word , 'tag' : ovv_tag , 'cands' : candidates})
     return lo_candidates
 
 def repeat_check(results,ovv):

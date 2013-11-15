@@ -39,7 +39,7 @@ def get_norm():
 
 def get_node(word,tag=None):
     if tag is None:
-        return [DB.nodes.find_one({'_id':word+a}) for a in constants.tags]
+        return [DB.nodes.find_one({'_id':word+"|"+a}) for a in constants.tags if DB.nodes.find_one({'_id':word+"|"+a})]
     else:
         return DB.nodes.find_one({'_id':word+"|"+tag})
 
