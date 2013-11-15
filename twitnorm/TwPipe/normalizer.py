@@ -101,7 +101,7 @@ class Normalizer:
             node_wo_tag = node[position].split('|')[0]
             if len(node_wo_tag) < 2:
                 continue
-            to_node = self.nodes.find_one({'_id':node['from'],'tag': ovv_tag, 'ovv':False })
+            to_node = self.nodes.find_one({'_id':node[position],'tag': ovv_tag, 'ovv':False })
             if(to_node):
                 if node_wo_tag == 'trippin':
                     import pdb
