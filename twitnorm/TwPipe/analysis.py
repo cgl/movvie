@@ -59,7 +59,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
         if in_suggestions:
             suggestions_found.append(cand)
         result_list.append(line)
-    result_list.extend([get_score_line(sug, 0,ovv, ovv_snd, suggestions)
+    result_list.extend([get_score_line(sug, 0,ovv, ovv_snd, suggestions)[0]
                         for sug in suggestions[:10]
                         if sug not in suggestions_found
                         and
@@ -78,23 +78,13 @@ def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
     try:
         lev = Levenshtein.distance(unicode(ovv_snd),soundex.soundex(cand.decode("utf-8","ignore")))
     except UnicodeEncodeError:
-        print ovv_snd
-        print cand
-        print 'UnicodeEncodeError[ovv_snd]: %s %s' % (ovv_snd,cand.encode("ascii","ignore"))
+        print 'UnicodeEncodeError[ovv_snd]: %s %s' % (ovv_snd,cand)
         lev = Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode("ascii","ignore")))
     except UnicodeDecodeError:
-        print 'UnicodeDecodeError'
+        print 'UnicodeDecodeError[ovv_snd]: %s %s' % (ovv_snd,cand)
         lev = Levenshtein.distance(ovv_snd,soundex.soundex(cand.decode("ascii","ignore")))
     except TypeError:
-        print ovv_snd
-        print type(ovv_snd)
-        print cand
-        print type(cand)
-        print ovv_snd.encode('utf-8',"ignore")
-        print type(ovv_snd.encode('utf-8',"ignore"))
-        print cand.decode("utf-8","ignore")
-        print type(cand.decode("utf-8","ignore"))
-        print "---"
+        print 'TypeError[ovv_snd]: %s %s' % (ovv_snd,cand)
         lev = 10
 
     return [cand, sumof,
