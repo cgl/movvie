@@ -35,9 +35,9 @@ def top_n(res,n=100,verbose=False):
                 print  [ (b,a,res[b][a][0]) for b in index_list[a][1]]
     return index_list
 
-def get_node(word,tag=None):
+def get_node(word,tag=None,ovv=False):
     if tag is None:
-        return [DB.nodes.find_one({'_id':word+"|"+a}) for a in constants.tags if DB.nodes.find_one({'_id':word+"|"+a})]
+        return [DB.nodes.find_one({'_id':word+"|"+a, 'ovv': ovv }) for a in constants.tags if DB.nodes.find_one({'_id':word+"|"+a})]
     else:
         return DB.nodes.find_one({'_id':word+"|"+tag})
 
