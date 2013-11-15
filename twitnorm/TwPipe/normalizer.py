@@ -182,7 +182,7 @@ class Normalizer:
         return normList
 
     def returnCandRight(self,tweet,ovvWord,ovvInd, ovvTag,scores):
-        neigh_start_ind = max(ovvInd-self.m,0.)
+        neigh_start_ind = max(ovvInd-self.m,0)
         neigh_end_ind = ovvInd
         left = False
         position = 'to'
@@ -204,7 +204,7 @@ class Normalizer:
         tos = []
         for ind,(word, tag, acc) in enumerate(tweet_pos_tagged):
             if word == ovv:
-                froms = tweet_pos_tagged[max(ind-self.m,0.):ind]
+                froms = tweet_pos_tagged[max(ind-self.m,0):ind]
                 tos = tweet_pos_tagged[ind+1:ind+1+self.m]
         return froms, tos
 
