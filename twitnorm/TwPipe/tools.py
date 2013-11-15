@@ -42,7 +42,7 @@ def get_node(word,tag=None,ovv=False):
         return DB.nodes.find_one({'_id':word+"|"+tag})
 
 def get_tag(ind,word):
-    return [pos[1] for pos in constants.pos_tagged[ind] if pos[0] == word][0]
+    return constants.mapping[ind][2]
 
 def max_values(res):
     correct_results = []
@@ -92,3 +92,12 @@ def gen_walk(path='.'):
         if '.git' in dirnames:
             # don't go into any .git directories.
             dirnames.remove('.git')
+
+def build_mappings(results,pos_tagged):
+    mapp = []
+    for i in range(0,len(results)):
+        for (word_ind ,(a,b,c)) in enumerate(constants.results[i]):
+            if b == 'OOV':
+                tag = pos_tagged[i][word_ind][1]
+                mapp.append([a,c,tag])
+    return mapp
