@@ -75,10 +75,17 @@ def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
     else:
         suggestion_score = 0
         found = False
+    try:
+        lev = Levenshtein.distance(ovv_snd,soundex.soundex(cand))
+    except UnicodeEncodeError:
+        lev = Levenshtein.distance(ovv_snd.encode('utf-8',"ignore"),soundex.soundex(cand))
+    except UnicodeDecodeError:
+        lev = Levenshtein.distance(ovv_snd,soundex.soundex(cand.decode("utf-8","ignore")))
+
     return [cand, sumof,
-                Levenshtein.distance(ovv_snd.encode('utf-8'),soundex.soundex(cand.decode("utf-8","ignore"))),
-                float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
-                suggestion_score ], found
+            lev,
+            float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
+            suggestion_score ], found
 
 def iter_calc_lev_sndx(mat,verbose=False):
     mat_scored = []
