@@ -90,7 +90,9 @@ def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
             float(lev),
             float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
             suggestion_score ]
-    return [round(l,8) for l in line] , found
+    for ind in range(1,len(line)):
+        line[ind] = round(line[ind],8)
+    return line , found
 
 def iter_calc_lev_sndx(mat,verbose=False):
     mat_scored = []
