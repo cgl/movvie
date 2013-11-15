@@ -98,15 +98,12 @@ class Normalizer:
         # filter candidates who has a different tag than ovv
         cands_q = []
         for node in candidates_q:
-            node_wo_tag = node[position].split('|')[0]
+            node_w_tag = node[position]
+            node_wo_tag = node_w_tag.split('|')[0]
             if len(node_wo_tag) < 2:
                 continue
-            to_node = self.nodes.find_one({'_id':node[position],'tag': ovv_tag, 'ovv':False })
+            to_node = self.nodes.find_one({'_id':node_w_tag,'tag': ovv_tag, 'ovv':False })
             if(to_node):
-                if node_wo_tag == 'trippin':
-                    import pdb
-                    pdb.set_trace()
-
                 cands_q.append({'position': position, 'to':node_wo_tag, 'weight': node['weight'] ,
                                 'freq' : to_node['freq']})
         return cands_q
@@ -237,10 +234,11 @@ class Normalizer:
         # filter candidates who has a different tag than ovv
         cands_q = []
         for node in candidates_q:
-            node_wo_tag = node[position].split('|')[0]
+            node_w_tag = node[position]
+            node_wo_tag = node_w_tag.split('|')[0]
             if len(node_wo_tag) < 2:
                 continue
-            to_node = self.nodes.find_one({'_id':node['from'],'tag': ovv_tag, 'ovv':False })
+            to_node = self.nodes.find_one({'_id':node_wo_tag,'tag': ovv_tag, 'ovv':False })
             if(to_node):
                 cands_q.append({'position': position, 'to':node_wo_tag, 'weight': node['weight'] , 'freq' : to_node['freq'],
                                 'lev': lev_score(ovv_word,node_wo_tag) , 'met': metaphone_score(ovv_word,node_wo_tag)})
