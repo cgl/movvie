@@ -55,8 +55,8 @@ def calc_lev_sndx(mat,ind,verbose=True):
         sumof = 0
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
-        line, in_suggestions = get_score_line(cand,sumof,ovv_snd,ovv,suggestions)
-        if in_suggestions:
+        line, in_sugs = get_score_line(cand,sumof,ovv,ovv_snd,suggestions)
+        if in_sugs:
             suggestions_found.append(cand)
         result_list.append(line)
     result_list.extend([get_score_line(sug, 0,ovv, ovv_snd, suggestions)[0]
