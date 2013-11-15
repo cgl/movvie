@@ -62,7 +62,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
             suggestions_found.append(cand)
         result_list.append(line)
     result_list.extend([get_score_line(sug, 0. ,ovv,ovv_tag, ovv_snd, suggestions)[0]
-                        for sug in suggestions[:10]
+                        for sug in suggestions[:15]
                         if sug not in suggestions_found
                         and
                         Levenshtein.distance(ovv_snd,soundex.soundex(sug)) < 2 ])
@@ -107,19 +107,17 @@ def iter_calc_lev_sndx(mat,verbose=False):
         mat_scored.append(res_list)
     return mat_scored
 
-def show_results(res_mat,mapp, dim =[ 0.3, 0.1, 0.3, 0.3 , 0.1],max_val=[0.594051, 1. , 1. ,13.,100.], verbose=True):
+def show_results(res_mat,mapp, dim =[ 0.3, 0.1, 0.3, 0.3 , 0.1],max_val=[0.503476, 1.0, 1.0, 1.0, 146234.0,], verbose=True):
     results = []
     pos = 0
     for ind in range (0,len(res_mat)):
         correct = False
-#        max_val = [ 0.9472,  1.        ,  1.        ,  1.      , 1. , 0.86099657]
-        #[  0.59405118,   1.        ,   1.        ,  13.]
+        #max_val = [ 0.9472,  1.        ,  1.        ,  1.      , 1. , 0.86099657]
+        #[0.503476, 1.0, 1.0, 1.0, 146234.0,]
         res_list = res_mat[ind]
         if res_list:
             for res_ind in range (0,len(res_list)):
-                score  = dim[0] * (res_list[res_ind][1]/max_val[0]) + (dim[1] *(1 - res_list[res_ind][2]))
-                score += dim[2] * res_list[res_ind][3] + dim[3] * res_list[res_ind][4]
-                score += dim[4] * res_list[res_ind][5]/max_val[4]
+                score = calculate_score(res_list[res_ind],dim,max_val)
                 res_list[res_ind].append(round(score,7))
             res_list.sort(key=lambda x: -float(x[-1]))
             if res_list[0][0] == mapp[ind][1]:
@@ -130,7 +128,11 @@ def show_results(res_mat,mapp, dim =[ 0.3, 0.1, 0.3, 0.3 , 0.1],max_val=[0.59405
         results.append(res_list)
     print 'Number of correct answers %s' % pos
     return results
-
+def calculate_score(res_vec,dim,max_val):
+    score  = dim[0] * (res_vec[1]/max_val[0]) + (dim[1] *(1 - res_vec[2]))
+    score += dim[2] * res_vec[3] + dim[3] * res_vec[4]
+    score += dim[4] * res_vec[5]/max_val[4]
+    return score
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
     logger.info('Started')
