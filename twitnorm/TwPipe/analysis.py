@@ -52,14 +52,14 @@ def calc_lev_sndx(mat,ind,verbose=True):
         print '%s: found %d candidate' %(ovv,length)
     for cand in [cand for cand in matrix[1]
                  if Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode('utf-8'))) < 2]:
-        sumof = 0
+        sumof = 0.
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
         line, in_sugs = get_score_line(cand,sumof,ovv,ovv_snd,suggestions)
         if in_sugs:
             suggestions_found.append(cand)
         result_list.append(line)
-    result_list.extend([get_score_line(sug, 0,ovv, ovv_snd, suggestions)[0]
+    result_list.extend([get_score_line(sug, 0. ,ovv, ovv_snd, suggestions)[0]
                         for sug in suggestions[:10]
                         if sug not in suggestions_found
                         and
@@ -73,7 +73,7 @@ def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
         suggestion_score = 1./(1.+suggestions.index(cand))
         found = True
     else:
-        suggestion_score = 0
+        suggestion_score = 0.
         found = False
     try:
         lev = Levenshtein.distance(unicode(ovv_snd),soundex.soundex(cand.decode("utf-8","ignore")))
@@ -85,12 +85,12 @@ def get_score_line(cand,sumof,ovv,ovv_snd,suggestions):
         lev = Levenshtein.distance(ovv_snd,soundex.soundex(cand.decode("ascii","ignore")))
     except TypeError:
         print 'TypeError[ovv_snd]: %s %s' % (ovv_snd,cand)
-        lev = 10
-
-    return [cand, sumof,
+        lev = 10.
+    line = [cand, sumof,
             lev,
             float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
-            suggestion_score ], found
+            suggestion_score ]
+    return [round(l,8) for l in line] , found
 
 def iter_calc_lev_sndx(mat,verbose=False):
     mat_scored = []
@@ -104,14 +104,14 @@ def show_results(res_mat,mapp, d1 = 0.3, d2 = 0.1, d3 = 0.3, d4 = 0.3 ,verbose=T
     pos = 0
     for ind in range (0,len(res_mat)):
         correct = False
-        max_val = [ 0.94721099,  1.        ,  1.        ,  1.        ,  0.86099657]
+        max_val = [ 0.9472,  1.        ,  1.        ,  1.        ,  0.86099657]
         #[  0.59405118,   1.        ,   1.        ,  13.]
         res_list = res_mat[ind]
         if res_list:
             for res_ind in range (0,len(res_list)):
-                res_list[res_ind].append(
-                    d1 * (res_list[res_ind][1]/max_val[0]) + (d2 *(1 - res_list[res_ind][2])) +
-                    d3 * res_list[res_ind][3] + d4 * (res_list[res_ind][4]/max_val[3]))
+                score = d1 * (res_list[res_ind][1]/max_val[0]) + (d2 *(1 - res_list[res_ind][2]))
+                score +=  d3 * res_list[res_ind][3] + d4 * res_list[res_ind][4]
+                res_list[res_ind].append(round(score,7))
             res_list.sort(key=lambda x: -float(x[-1]))
             if res_list[0][0] == mapp[ind][1]:
                 correct = True
