@@ -113,8 +113,7 @@ def distance(ovv,cand):
 
 def common_letter_score(ovv,cand):
     ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
-    return float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
-
+    return float(len(set(ovv).intersection(set(cand)))) / len(set(ovv).union(set(cand)))
 
 def lcsr(ovv,cand):
     lcs = LCS(ovv,cand)
@@ -125,7 +124,6 @@ def lcsr(ovv,cand):
             word = word.replace(vowel, '')
     ed = editex(remove_vowels(ovv),remove_vowels(cand))
     simcost = lcsr/ed
-    print lcs, lcsr , simcost
     return simcost
 
 def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
@@ -137,7 +135,6 @@ def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
         t_c_check = sum(editdist_edits(ovv,cand)[1]) >= edit_dis
         t_p_check = metaphone_distance_filter(ovv,cand,met_dis)
     except Exception, e:
-        print ovv,cand, e
         return False
     return t_c_check and t_p_check
 
@@ -148,8 +145,13 @@ def metaphone_distance_filter(ovv,cand,met_dis):
         if met:
             for met2 in met_set_cand:
                 if met2:
-                    if editdist_edits(met,met2) <= met_dis:
+                    try:
+                        dist = sum(editdist_edits(met,met2)[1])
+                    except IndexError:
+                        dist = sum(editdist_edits(met+".",met2+".")[1])
+                    if  dist <= met_dis:
                         return True
+
     return False
 
 def soundex_distance(ovv_snd,cand):

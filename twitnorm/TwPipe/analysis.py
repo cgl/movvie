@@ -53,7 +53,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
     if verbose:
         print '%s: found %d candidate' %(ovv,length)
     for cand in [cand for cand in matrix[1]
-                 if tools.filter_cand(cand,ovv)]:
+                 if tools.filter_cand(ovv,cand)]:
         sumof = 0.
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
