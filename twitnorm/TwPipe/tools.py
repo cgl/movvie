@@ -147,8 +147,9 @@ def metaphone_distance_filter(ovv,cand,met_dis):
     for met in met_set_ovv:
         if met:
             for met2 in met_set_cand:
-                if met2 and editdist_edits(met,met2) <= met_dis:
-                    return True
+                if met2:
+                    if editdist_edits(met,met2) <= met_dis:
+                        return True
     return False
 
 def soundex_distance(ovv_snd,cand):
