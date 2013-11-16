@@ -133,8 +133,12 @@ def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
     #re.sub(r'([a-z])\1+', r'\1', 'ffffffbbbbbbbqqq')
     ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
     #cand = re.sub(r'(.)\1+', r'\1\1', cand)
-    t_c_check = sum(editdist_edits(ovv,cand)[1]) >= edit_dis
-    t_p_check = metaphone_distance_filter(ovv,cand,met_dis)
+    try:
+        t_c_check = sum(editdist_edits(ovv,cand)[1]) >= edit_dis
+        t_p_check = metaphone_distance_filter(ovv,cand,met_dis)
+    except Exception, e:
+        print ovv,cand, e
+        return False
     return t_c_check and t_p_check
 
 def metaphone_distance_filter(ovv,cand,met_dis):
