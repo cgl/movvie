@@ -241,7 +241,7 @@ class Normalizer:
             to_node = self.nodes.find_one({'_id':node_wo_tag,'tag': ovv_tag, 'ovv':False })
             if(to_node):
                 cands_q.append({'position': position, 'to':node_wo_tag, 'weight': node['weight'] , 'freq' : to_node['freq'],
-                                'lev': lev_score(ovv_word,node_wo_tag) , 'met': metaphone_score(ovv_word,node_wo_tag)})
+                                'lev': lev_score(ovv_word,node_wo_tag) , 'met': metaphone_intersection_score(ovv_word,node_wo_tag)})
         return cands_q
 
 
@@ -274,7 +274,7 @@ class Normalizer:
 
     def updateScore_suggested(self,scores,cand,ovv,tag):
         met_set_ovv = set(fuzzy.DMetaphone(4)(ovv))
-        met =  metaphone_score(met_set_ovv,cand)
+        met =  metaphone_intersection_score(met_set_ovv,cand)
         lev = Lev.distance(ovv,cand) + salient
         node = self.nodes.find_one({'_id':ovv,'tag': tag, 'ovv':False })
         freq = node['freq'] if node else 1
@@ -308,7 +308,7 @@ class Normalizer:
 
 #UnicodeEncodeError: 'ascii' codec can't encode character u'\xe9' in position 3: ordinal not in range(128) ppl
 
-def metaphone_score(ovv_word,word):
+def metaphone_intersection_score(ovv_word,word):
     sim = met_set(ovv_word,word)
     score = 0.
     for s in sim:
@@ -331,6 +331,8 @@ def lev_score(ovv_word,cand):
     except UnicodeEncodeError:
         print 'UnicodeEncodeError[lev]: %s' % ovv_word
         return Lev.distance(ovv_word.encode('ascii', 'ignore'), cand.encode('ascii', 'ignore')) + salient
+
+import CMUTweetTagger
 
 def get_norm():
     tweets = [u"someone is cold game nd he needs to follow me",

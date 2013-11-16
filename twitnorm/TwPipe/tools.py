@@ -1,11 +1,16 @@
 import re
 import os
-import fuzzy
 import constants
 import CMUTweetTagger
 from pymongo import MongoClient
 from numpy import array
 import pickle
+import Levenshtein
+import soundex
+from stringcmp import editdist_edits, editdist, editex, lcs as LCS
+from fuzzy import DMetaphone
+
+vowels = ('a', 'e', 'i', 'o', 'u', 'y')
 
 CLIENT = MongoClient('localhost', 27017)
 DB = CLIENT['tweets']
@@ -101,3 +106,57 @@ def build_mappings(results,pos_tagged):
                 tag = pos_tagged[i][word_ind][1]
                 mapp.append([a,c,tag])
     return mapp
+
+def distance(ovv,cand):
+    ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
+    return editdist(ovv,cand)
+
+def common_letter_score(ovv,cand):
+    ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
+    return float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
+
+
+def lcsr(ovv,cand):
+    lcs = LCS(ovv,cand)
+    max_length = max(len(ovv),len(cand))
+    lcsr = lcs/max_length
+    def remove_vowels(word):
+        for vowel in vowels:
+            word = word.replace(vowel, '')
+    ed = editex(remove_vowels(ovv),remove_vowels(cand))
+    simcost = lcsr/ed
+    print lcs, lcsr , simcost
+    return simcost
+
+def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
+    #repetition removal
+    #re.sub(r'([a-z])\1+', r'\1', 'ffffffbbbbbbbqqq')
+    ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
+    #cand = re.sub(r'(.)\1+', r'\1\1', cand)
+    t_c_check = sum(editdist_edits(ovv,cand)[1]) >= edit_dis
+    t_p_check = metaphone_distance_filter(ovv,cand,met_dis)
+    return t_c_check and t_p_check
+
+def metaphone_distance_filter(ovv,cand,met_dis):
+    met_set_ovv = DMetaphone(4)(ovv)
+    met_set_cand = DMetaphone(4)(cand)
+    for met in met_set_ovv:
+        for met2 in met_set_cand:
+            if editdist_edits(met,met2) <= met_dis:
+                return True
+    return False
+
+def soundex_distance(ovv_snd,cand):
+    try:
+        lev = Levenshtein.distance(unicode(ovv_snd),soundex.soundex(cand.decode("utf-8","ignore")))
+    except UnicodeEncodeError:
+        print 'UnicodeEncodeError[ovv_snd]: %s %s' % (ovv_snd,cand)
+        lev = Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode("ascii","ignore")))
+    except UnicodeDecodeError:
+        print 'UnicodeDecodeError[ovv_snd]: %s %s' % (ovv_snd,cand)
+        lev = Levenshtein.distance(ovv_snd,soundex.soundex(cand.decode("ascii","ignore")))
+    except TypeError:
+        print 'TypeError[ovv_snd]: %s %s' % (ovv_snd,cand)
+        lev = 10.
+    snd_dis = lev
+    return snd_dis

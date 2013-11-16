@@ -53,7 +53,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
     if verbose:
         print '%s: found %d candidate' %(ovv,length)
     for cand in [cand for cand in matrix[1]
-                 if Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode('utf-8'))) < 2]:
+                 if tools.filter_cand(cand,ovv)]:
         sumof = 0.
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
@@ -65,7 +65,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
                         for sug in suggestions[:15]
                         if sug not in suggestions_found
                         and
-                        Levenshtein.distance(ovv_snd,soundex.soundex(sug)) < 2 ])
+                        tools.filter_cand(ovv,sug) ])
 #    print ovv,suggestions
     result_list.sort(key=lambda x: -float(x[1]))
     return result_list
@@ -77,24 +77,16 @@ def get_score_line(cand,sumof,ovv,ovv_tag, ovv_snd,suggestions):
     else:
         suggestion_score = 0.
         found = False
-    try:
-        lev = Levenshtein.distance(unicode(ovv_snd),soundex.soundex(cand.decode("utf-8","ignore")))
-    except UnicodeEncodeError:
-        print 'UnicodeEncodeError[ovv_snd]: %s %s' % (ovv_snd,cand)
-        lev = Levenshtein.distance(ovv_snd,soundex.soundex(cand.encode("ascii","ignore")))
-    except UnicodeDecodeError:
-        print 'UnicodeDecodeError[ovv_snd]: %s %s' % (ovv_snd,cand)
-        lev = Levenshtein.distance(ovv_snd,soundex.soundex(cand.decode("ascii","ignore")))
-    except TypeError:
-        print 'TypeError[ovv_snd]: %s %s' % (ovv_snd,cand)
-        lev = 10.
+
     node =  tools.get_node(cand,tag=ovv_tag)
     freq = node['freq'] if node else 0.
-    line = [cand, sumof,
-            float(lev),
-            float(len(set(ovv).intersection(set(cand)))) / float(len(set(ovv).union(set(cand)))),
+    line = [cand,
+            sumof,
+            tools.lcsr(ovv,cand),
+            tools.distance(ovv,cand),
+            tools.common_letter_score(ovv,cand),
             suggestion_score ,
-            freq
+            freq,
     ]
     for ind in range(1,len(line)):
         line[ind] = round(line[ind],8)
@@ -107,7 +99,7 @@ def iter_calc_lev_sndx(mat,verbose=False):
         mat_scored.append(res_list)
     return mat_scored
 
-def show_results(res_mat,mapp, dim =[ 0.3, 0.1, 0.3, 0.3 , 0.1],max_val=[0.503476, 1.0, 1.0, 1.0, 146234.0,], verbose=True):
+def show_results(res_mat,mapp, dim =[ 0.1, 0.1, 0.1, 0.1 , 0.1, 0.1],max_val=[0.503476, 1.0, 1.0, 1.0, 146234.0,], verbose=True):
     results = []
     pos = 0
     for ind in range (0,len(res_mat)):
@@ -129,9 +121,12 @@ def show_results(res_mat,mapp, dim =[ 0.3, 0.1, 0.3, 0.3 , 0.1],max_val=[0.50347
     print 'Number of correct answers %s' % pos
     return results
 def calculate_score(res_vec,dim,max_val):
-    score  = dim[0] * (res_vec[1]/max_val[0]) + (dim[1] *(1 - res_vec[2]))
-    score += dim[2] * res_vec[3] + dim[3] * res_vec[4]
-    score += dim[4] * res_vec[5]/max_val[4]
+    score  = dim[0] * (res_vec[1]/max_val[0]) # weight
+    score += dim[1] * res_vec[2]              # lcsr
+    score += dim[2] * res_vec[3]              # distance
+    score += dim[3] * res_vec[4]              # common letter
+    score += dim[4] * res_vec[5]/max_val[4]   # suggestion score
+    score += dim[5] * res_vec[6]              # freq
     return score
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
