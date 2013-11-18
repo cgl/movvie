@@ -243,3 +243,11 @@ def get_dict():
             if query:
                 query["_id"] = word
                 db_dict.dic.insert(query)
+
+def get_slangs():
+    slang = {}
+    with open('noslang.txt', 'rb') as file:
+        for line in file:
+            line_splited = line.split("  -")
+            slang[line_splited[0].strip()] = line_splited[1]
+    return slang
