@@ -20,6 +20,7 @@ def top_n(res,n=100,verbose=False):
     in_top_n = 0
     total_ill = 0
     index_list = {}
+    not_in_list = []
     for res_ind in range(0,len(res)):
         answer = constants.mapping[res_ind][1]
         ovv = constants.mapping[res_ind][0]
@@ -34,12 +35,14 @@ def top_n(res,n=100,verbose=False):
                     index_list_n[0] += 1
                     index_list_n[1].append(res_ind)
                     index_list[ind] = index_list_n
+                else:
+                    not_in_list.append((ovv,answer))
     print 'Out of %d normalization, we^ve %d of those correct normalizations in our list with indexes \n %s' % (total_ill, in_top_n,[(a, index_list[a][0]) for a in index_list])
     if verbose:
         for a in index_list:
             if a != 0:
                 print  [ (b,a,res[b][a][0]) for b in index_list[a][1]]
-    return index_list
+    return index_list,not_in_list
 
 def pretty_top_n(res,ind_word,max_val,last=10):
     ind = ind_word
