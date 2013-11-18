@@ -229,7 +229,11 @@ def get_dict():
         if db_dict.dic.find_one({"_id":word}) is not None:
             continue
         else:
-            met_set = DMetaphone(4)(word)
+            try:
+                met_set = DMetaphone(4)(word)
+            except UnicodeEncodeError:
+                print 'UnicodeEncodeError[get_dict]: %s' % (word)
+                met_set = DMetaphone(4)(word.encode("ascii","ignore"))
             query = {}
             for met_ind in range(0,len(met_set)):
                 if met_set[met_ind]:
