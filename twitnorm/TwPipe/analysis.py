@@ -92,7 +92,7 @@ def get_score_line(cand,sumof,ovv,ovv_tag, ovv_snd,suggestions):
         line[ind] = round(line[ind],8)
     return line , found
 
-def iter_calc_lev_sndx(mat,verbose=False):
+def iter_calc_lev_sndx(mat,edit_dis=2,met_dis=1,verbose=False):
     mat_scored = []
     for ind in range (0,len(mat)):
         res_list = calc_lev_sndx(mat,ind,verbose=verbose)

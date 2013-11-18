@@ -34,7 +34,7 @@ def top_n(res,n=100,verbose=False):
                     index_list_n[0] += 1
                     index_list_n[1].append(res_ind)
                     index_list[ind] = index_list_n
-    print 'Out of %d, %d has an normalization, we^ve %d of those correct normalizations in our list with indexes %s' % (len(res),total_ill, in_top_n,[(a, index_list[a][0]) for a in index_list])
+    print 'Out of %d normalization, we^ve %d of those correct normalizations in our list with indexes \n %s' % (total_ill, in_top_n,[(a, index_list[a][0]) for a in index_list])
     if verbose:
         for a in index_list:
             if a != 0:
