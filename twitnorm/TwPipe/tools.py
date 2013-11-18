@@ -189,15 +189,22 @@ def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
 def metaphone_distance_filter(ovv,cand,met_dis):
     met_set_ovv = DMetaphone(4)(ovv)
     met_set_cand = DMetaphone(4)(cand)
+    lcs = 0
+    met_len = 0
     for met in met_set_ovv:
         if met:
             for met2 in met_set_cand:
                 if met2:
                     try:
                         dist = sum(editdist_edits(met,met2)[1])
+                        lcs = max(longest(met,met2),lcs)
+                        met_len = max(len(met),len(met2))
                     except IndexError:
                         dist = sum(editdist_edits(met+".",met2+".")[1])
                     if  dist <= met_dis:
+                        return True
+                    elif lcs >= met_len - 1:
+                        print "met_len : ", ovv,cand
                         return True
 
     return False
