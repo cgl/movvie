@@ -72,7 +72,7 @@ def calc_lev_sndx(mat,ind,edit_dis=2,met_dis=1,verbose=True):
     return result_list
 
 def get_score_line(cand,sumof,ovv,ovv_tag, ovv_snd,suggestions):
-    if cand in suggestions:
+    if suggestions and cand in suggestions:
         suggestion_score = 1./(1.+suggestions.index(cand))
         found = True
     else:
