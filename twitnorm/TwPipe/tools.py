@@ -45,7 +45,7 @@ def top_n(res,n=100,verbose=False):
                 else:
                     not_in_list.append((res_ind,ovv,answer))
             else:
-                no_result.append((res_ind,ovv,answer))
+                no_result.append((res_ind,ovv,answer,constants.mapping[res_ind][2]))
     print 'Out of %d normalization, we^ve %d of those correct normalizations in our list with indexes \n %s' % (total_ill, in_top_n,[(a, index_list[a][0]) for a in index_list])
     if verbose:
         for a in index_list:
@@ -242,6 +242,7 @@ def get_dict():
                     pass
             if query:
                 query["_id"] = word
+                query["ovv"] = node['ovv']
                 db_dict.dic.insert(query)
 
 def get_slangs():
@@ -249,5 +250,40 @@ def get_slangs():
     with open('noslang.txt', 'rb') as file:
         for line in file:
             line_splited = line.split("  -")
-            slang[line_splited[0].strip()] = line_splited[1]
+            slang[line_splited[0].strip()] = line_splited[1].strip()
     return slang
+
+def find_slang(nil,slang):
+    i = 0
+    slang = get_slangs()
+    for a in nil:
+        if slang.has_key(a[1]) and slang.get(a[1]).strip() == a[2]: # strip sil
+            #print a[1],a[2]
+            i+=1
+        elif sum(editdist_edits(a[1],a[2])[1]) > 3:
+            print a[1],a[2],editdist_edits(a[1],a[2])
+    print i
+
+
+def get_from_dict(word,met_map,met_dis=1):
+    client_tabi = MongoClient("79.123.176.205", 27017)
+    client_shark = MongoClient("79.123.177.251", 27017)
+    db_tweets = client_shark['tweets']
+    db_dict = client_tabi['dictionary']
+    met_word_list = DMetaphone(4)(word)
+    for met_word in met_word_list:
+        if not met_word:
+            continue
+        if met_map.has_key(met_word):
+            pass
+        else:
+            all_mets = set(db_dict.dic.distinct('met0')).union(set(db_dict.dic.distinct('met1')))
+            all_mets.remove(None)
+            for met in all_mets:
+                if sum(editdist_edits(met_word,met)[1]) <= met_dis:
+                    met_map[met_word] = met_map.get(met_word,[])
+                    met_map[met_word].append(met)
+        mets = met_map[met_word]
+        cursor = db_dict.dic.find({ "$or": [ {"met0": {"$in" : mets}}, {"met1": {"$in" : mets}}] })
+        if cursor:
+            return [node["_id"] for node in cursor if sum(editdist_edits(word,node["_id"])[1]) > 3] ,met_map
