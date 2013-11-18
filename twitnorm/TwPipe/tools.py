@@ -158,7 +158,7 @@ def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
     ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
     #cand = re.sub(r'(.)\1+', r'\1\1', cand)
     try:
-        t_c_check = sum(editdist_edits(ovv,cand)[1]) >= edit_dis
+        t_c_check = sum(editdist_edits(ovv,cand)[1]) <= edit_dis
         t_p_check = metaphone_distance_filter(ovv,cand,met_dis)
     except Exception, e:
         return False
