@@ -50,8 +50,8 @@ def pretty_max_min(res,feat_mat1):
     maxes = max_values(res)[:len(dims)]
     mins = min_values(res)[:len(dims)]
     print "%8.8s %8.8s %8.8s %8.8s %8.8s %8.8s" % (dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],)
-    print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.6f" % (mins[0], mins[1], mins[2], mins[3], mins[4], mins[5],)
-    print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.6f" % (maxes[0], maxes[1], maxes[2], maxes[3], maxes[4], maxes[5],)
+    print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.2f" % (mins[0], mins[1], mins[2], mins[3], mins[4], mins[5],)
+    print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.2f" % (maxes[0], maxes[1], maxes[2], maxes[3], maxes[4], maxes[5],)
 
 def get_node(word,tag=None,ovv=False):
     if tag is None:

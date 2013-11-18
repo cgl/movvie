@@ -81,10 +81,10 @@ def get_score_line(cand,sumof,ovv,ovv_tag, ovv_snd,suggestions):
     node =  tools.get_node(cand,tag=ovv_tag)
     freq = node['freq'] if node else 0.
     line = [cand,
-            sumof,
-            tools.lcsr(ovv,cand),
-            tools.distance(ovv,cand),
-            tools.common_letter_score(ovv,cand),
+            sumof,                                # weight
+            tools.lcsr(ovv,cand),                 # lcsr
+            tools.distance(ovv,cand),             # distance
+            tools.common_letter_score(ovv,cand),  # shared letter
             suggestion_score ,
             freq,
     ]
@@ -99,7 +99,7 @@ def iter_calc_lev_sndx(mat,verbose=False):
         mat_scored.append(res_list)
     return mat_scored
 
-def show_results(res_mat,mapp, dim =[ 0.1, 0.1, 0.1, 0.1 , 0.1, 0.1],max_val=[0.503476, 1.0, 1.0, 1.0, 146234.0,], verbose=True):
+def show_results(res_mat,mapp, dim = [ 0.1, 0.1, 0.1, 0.1 , 0.1, 0.1], max_val = [0.503476, 1.0, 1.0, 1.0, 146234.0,], verbose=True):
     results = []
     pos = 0
     for ind in range (0,len(res_mat)):
@@ -121,12 +121,12 @@ def show_results(res_mat,mapp, dim =[ 0.1, 0.1, 0.1, 0.1 , 0.1, 0.1],max_val=[0.
     print 'Number of correct answers %s' % pos
     return results
 def calculate_score(res_vec,dim,max_val):
-    score  = dim[0] * (res_vec[1]/max_val[0]) # weight
-    score += dim[1] * res_vec[2]              # lcsr
-    score += dim[2] * res_vec[3]              # distance
-    score += dim[3] * res_vec[4]              # common letter
-    score += dim[4] * res_vec[5]/max_val[4]   # suggestion score
-    score += dim[5] * res_vec[6]              # freq
+    score  = dim[0] * res_vec[1] * max_val[0]  # weight
+    score += dim[1] * res_vec[2] * max_val[1]  # lcsr
+    score += dim[2] * res_vec[3] * max_val[2]  # distance
+    score += dim[3] * res_vec[4] * max_val[3]  # common letter
+    score += dim[4] * res_vec[5] * max_val[4]  # suggestion score
+    score += dim[5] * res_vec[6] * max_val[5]  # freq
     return score
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
