@@ -154,8 +154,8 @@ def common_letter_score(ovv,cand):
     return float(len(set(ovv).intersection(set(cand)))) / len(set(ovv).union(set(cand)))
 
 def longest(ovv,cand):
-    ovv_int = [char_map[x] for x in ovv]
-    cand_int = [char_map[y] for y in cand]
+    ovv_int = [char_map[x] for x in ovv.lower()]
+    cand_int = [char_map[y] for y in cand.lower()]
     try:
         lcs = mlpy.lcs_std(ovv_int,cand_int)[0]
     except Exception, e:
