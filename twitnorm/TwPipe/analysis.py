@@ -39,7 +39,7 @@ if __name__ == "__main__ ":
     main()
 
 
-def calc_lev_sndx(mat,ind,verbose=True):
+def calc_lev_sndx(mat,ind,edit_dis=2,met_dis=1,verbose=True):
     result_list = []
     matrix = mat[ind]
     ovv = matrix[0].encode('utf-8')
@@ -53,7 +53,7 @@ def calc_lev_sndx(mat,ind,verbose=True):
     if verbose:
         print '%s: found %d candidate' %(ovv,length)
     for cand in [cand for cand in matrix[1]
-                 if tools.filter_cand(ovv,cand)]:
+                 if tools.filter_cand(ovv,cand,edit_dis=edit_dis,met_dis=met_dis)]:
         sumof = 0.
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]

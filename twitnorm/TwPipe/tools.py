@@ -11,6 +11,7 @@ from stringcmp import editdist_edits, editdist, editex, lcs as LCS
 from fuzzy import DMetaphone
 
 vowels = ('a', 'e', 'i', 'o', 'u', 'y')
+dims = ['weight', 'lcsr', 'distance', "com chars", "suggestion", "freq"]
 
 CLIENT = MongoClient('localhost', 27017)
 DB = CLIENT['tweets']
@@ -40,13 +41,15 @@ def top_n(res,n=100,verbose=False):
                 print  [ (b,a,res[b][a][0]) for b in index_list[a][1]]
     return index_list
 
-def pretty_top_n(res,ind_word,last=10):
+def pretty_top_n(res,ind_word,max_val,last=10):
     ind = ind_word
-    for vec in res[ind][:last]:
-        print "%10.5s\t %7.6f %7.6f %7.6f %7.6f %7.6f %7.6f" % (vec[0],vec[1],vec[2],vec[3],vec[4],vec[5],vec[6])
+    ovv = constants.mapping[ind_word][0]+"|"+constants.mapping[ind_word][2]
+    print "%10.5s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s" % (ovv, dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],)
+    for vec_pre in res[ind][:last]:
+        vec = [round(a,4) for a in array(vec_pre[1:len(max_val)+1]) * array(max_val)]
+        print "%10.5s %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f" % (vec_pre[0],vec[0],vec[1],vec[2],vec[3],vec[4],vec[5])
 
 def pretty_max_min(res,feat_mat1):
-    dims = ['weight', 'lcsr', 'distance', "com chars", "suggestion", "freq"]
     maxes = max_values(res)[:len(dims)]
     mins = min_values(res)[:len(dims)]
     print "%8.8s %8.8s %8.8s %8.8s %8.8s %8.8s" % (dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],)
