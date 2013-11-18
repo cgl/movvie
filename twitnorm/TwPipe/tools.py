@@ -222,7 +222,8 @@ def get_dict():
     client_shark = MongoClient("79.123.177.251", 27017)
     db_tweets = client_shark['tweets']
     db_dict = client_tabi['dictionary']
-    cursor = db_tweets.nodes.find({"freq":{"$gt": 100}}).sort("freq",-1).limit(100)
+    cursor = db_tweets.nodes.find({"freq":{"$gt": 100}}).sort("freq",-1)
+    print cursor.count()
     for node in cursor:
         word = node['_id'].split("|")[0]
         if db_dict.dic.find_one({"_id":word}) is not None:
