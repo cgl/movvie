@@ -9,10 +9,16 @@ import Levenshtein
 import soundex
 from stringcmp import editdist_edits, editdist, editex, lcs as LCS
 from fuzzy import DMetaphone
+from pymongo import MongoClient
+import string
+import difflib
+import mlpy
 
 vowels = ('a', 'e', 'i', 'o', 'u', 'y')
 dims = ['weight', 'lcsr', 'distance', "com chars", "suggestion", "freq"]
-
+chars = string.lowercase + string.digits + string.punctuation
+char_ind = [ord(x) for x in chars]
+char_map = dict(zip(chars,char_ind))
 CLIENT = MongoClient('localhost', 27017)
 DB = CLIENT['tweets']
 
@@ -21,6 +27,7 @@ def top_n(res,n=100,verbose=False):
     total_ill = 0
     index_list = {}
     not_in_list = []
+    no_result = []
     for res_ind in range(0,len(res)):
         answer = constants.mapping[res_ind][1]
         ovv = constants.mapping[res_ind][0]
@@ -36,13 +43,15 @@ def top_n(res,n=100,verbose=False):
                     index_list_n[1].append(res_ind)
                     index_list[ind] = index_list_n
                 else:
-                    not_in_list.append((ovv,answer))
+                    not_in_list.append((res_ind,ovv,answer))
+            else:
+                no_result.append((res_ind,ovv,answer))
     print 'Out of %d normalization, we^ve %d of those correct normalizations in our list with indexes \n %s' % (total_ill, in_top_n,[(a, index_list[a][0]) for a in index_list])
     if verbose:
         for a in index_list:
             if a != 0:
                 print  [ (b,a,res[b][a][0]) for b in index_list[a][1]]
-    return index_list,not_in_list
+    return index_list,not_in_list, no_result
 
 def pretty_top_n(res,ind_word,max_val,last=10):
     ind = ind_word
@@ -144,8 +153,18 @@ def common_letter_score(ovv,cand):
     ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
     return float(len(set(ovv).intersection(set(cand)))) / len(set(ovv).union(set(cand)))
 
+def longest(ovv,cand):
+    ovv_int = [char_map[x] for x in ovv]
+    cand_int = [char_map[y] for y in cand]
+    try:
+        lcs = mlpy.lcs_std(ovv_int,cand_int)[0]
+    except Exception, e:
+        print(ovv,cand,e)
+        lcs = difflib.SequenceMatcher(None, ovv,cand).find_longest_match(0, len(ovv), 0, len(cand))[2]
+    return lcs
+
 def lcsr(ovv,cand):
-    lcs = LCS(ovv,cand)
+    lcs = longest(ovv,cand)
     max_length = max(len(ovv),len(cand))
     lcsr = lcs/max_length
     def remove_vowels(word):
@@ -197,3 +216,28 @@ def soundex_distance(ovv_snd,cand):
         lev = 10.
     snd_dis = lev
     return snd_dis
+
+def get_dict():
+    client_tabi = MongoClient("79.123.176.205", 27017)
+    client_shark = MongoClient("79.123.177.251", 27017)
+    db_tweets = client_shark['tweets']
+    db_dict = client_tabi['dictionary']
+    cursor = db_tweets.nodes.find({"freq":{"$gt": 100}}).sort("freq",-1).limit(100)
+    for node in cursor:
+        word = node['_id'].split("|")[0]
+        if db_dict.dic.find_one({"_id":word}) is not None:
+            print 'no'
+            continue
+        else:
+            met_set = DMetaphone(4)(word)
+            query = {}
+            for met_ind in range(0,len(met_set)):
+                if met_set[met_ind]:
+                    query["met%d" %met_ind] =  met_set[met_ind]
+                else:
+                    pass
+            if query:
+                query["_id"] = word
+                db_dict.dic.insert(query)
+                print 'ok'
+                print query

@@ -92,6 +92,18 @@ for a in index_list:
     if a != 0:
         print  [ (b,a,res[b][a][0]) for b in index_list[a][1]]
 
-sys.path.append("/Users/cagil/work/movvie/twitnorm/TwPipe/febrl-0.4.2/")
 
 ones = [1. for a in range (0,len(dims))]
+
+edit_dis=2 ; met_dis=1 ;feat_mat = analysis.iter_calc_lev_sndx(matrix1); feat_mat1 = copy.deepcopy(feat_mat)
+ res = analysis.show_results(feat_mat1,constants.mapping, dim=dim , max_val=max_val , verbose=False)
+
+import sys; sys.path.append("/Users/cagil/work/movvie/twitnorm/TwPipe/febrl-0.4.2/")
+
+import sys ; sys.path.append("/home/cagil/repos/movvie/twitnorm/TwPipe/febrl-0.4.2/")
+
+import tools, analysis, constants,copy
+matrix1 = tools.load_from_file()
+edit_dis=3 ; met_dis=1 ;feat_mat = analysis.iter_calc_lev_sndx(matrix1,edit_dis= edit_dis, met_dis=met_dis)
+
+feat_mat1 = copy.deepcopy(feat_mat)
