@@ -40,6 +40,19 @@ def top_n(res,n=100,verbose=False):
                 print  [ (b,a,res[b][a][0]) for b in index_list[a][1]]
     return index_list
 
+def pretty_top_n(res,ind_word,last=10):
+    ind = ind_word
+    for vec in res[ind][:last]:
+        print "%10.5s\t %7.6f %7.6f %7.6f %7.6f %7.6f %7.6f" % (vec[0],vec[1],vec[2],vec[3],vec[4],vec[5],vec[6])
+
+def pretty_max_min(res,feat_mat1):
+    dims = ['weight', 'lcsr', 'distance', "com chars", "suggestion", "freq"]
+    maxes = max_values(res)[:len(dims)]
+    mins = min_values(res)[:len(dims)]
+    print "%8.8s %8.8s %8.8s %8.8s %8.8s %8.8s" % (dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],)
+    print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.6f" % (mins[0], mins[1], mins[2], mins[3], mins[4], mins[5],)
+    print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.6f" % (maxes[0], maxes[1], maxes[2], maxes[3], maxes[4], maxes[5],)
+
 def get_node(word,tag=None,ovv=False):
     if tag is None:
         return [DB.nodes.find_one({'_id':word+"|"+a, 'ovv': ovv }) for a in constants.tags if DB.nodes.find_one({'_id':word+"|"+a})]

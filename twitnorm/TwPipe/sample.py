@@ -1,3 +1,4 @@
+
 ## to fill in the db
 import graphlib
 import soundex
@@ -90,3 +91,7 @@ kim hangi sırada geliyor:
 for a in index_list:
     if a != 0:
         print  [ (b,a,res[b][a][0]) for b in index_list[a][1]]
+
+sys.path.append("/Users/cagil/work/movvie/twitnorm/TwPipe/febrl-0.4.2/")
+
+ones = [1. for a in range (0,len(dims))]
