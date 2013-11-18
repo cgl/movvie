@@ -101,6 +101,7 @@ edit_dis=2 ; met_dis=1 ;feat_mat = analysis.iter_calc_lev_sndx(matrix1); feat_ma
 import sys; sys.path.append("/Users/cagil/work/movvie/twitnorm/TwPipe/febrl-0.4.2/")
 
 import sys ; sys.path.append("/home/cagil/repos/movvie/twitnorm/TwPipe/febrl-0.4.2/")
+sys.path.append("/usr/lib/python2.7/dist-packages/")
 
 import tools, analysis, constants,copy
 matrix1 = tools.load_from_file()

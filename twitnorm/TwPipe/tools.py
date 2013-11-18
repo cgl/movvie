@@ -226,7 +226,6 @@ def get_dict():
     for node in cursor:
         word = node['_id'].split("|")[0]
         if db_dict.dic.find_one({"_id":word}) is not None:
-            print 'no'
             continue
         else:
             met_set = DMetaphone(4)(word)
@@ -239,5 +238,3 @@ def get_dict():
             if query:
                 query["_id"] = word
                 db_dict.dic.insert(query)
-                print 'ok'
-                print query
