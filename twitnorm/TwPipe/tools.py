@@ -59,6 +59,16 @@ def max_values(res):
     arr = array(correct_results)
     return [round(val,6) for val in arr.max(axis=0)]
 
+def min_values(res):
+    correct_results = []
+    for ind in range(0,len(res)):
+        if res[ind]:
+            if res[ind][0][0] == constants.mapping[ind][1]:
+                correct_result = res[ind][0]
+                correct_results.append(correct_result[1:])
+    arr = array(correct_results)
+    return [round(val,6) for val in arr.min(axis=0)]
+
 def dump_to_file(matrix,filename="matrix2.txt"):
     with open(filename, 'wb') as mfile:
         pickle.dump(matrix,mfile)
