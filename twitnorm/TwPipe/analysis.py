@@ -159,10 +159,10 @@ def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.2, 0.2], max_val =
     results = []
     pos = 0
     slang = tools.get_slangs()
-    is_ovv = is_ovv(mapp,slang)
+    not_ovv = is_ovv(mapp,slang)
     for ind in range (0,len(res_mat)):
-        if is_ovv[ind]:
-            res_list = [[is_ovv[ind],0,0,0,0,0,0]]
+        if not_ovv[ind]:
+            res_list = [[not_ovv[ind],0,0,0,0,0,0]]
         else:
             res_dict = copy.deepcopy(res_mat[ind])
             res_list = []
