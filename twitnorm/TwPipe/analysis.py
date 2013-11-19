@@ -125,7 +125,6 @@ def is_ovv(mapp,slang):
         elif ovv.isdigit():
             not_ovv.append(ovv)
         elif not ovv.isalnum():
-            print "Not alnum",ovv
             not_ovv.append(ovv)
         else:
             not_ovv.append('')
@@ -161,6 +160,7 @@ def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.2, 0.2], max_val =
     slang = tools.get_slangs()
     not_ovv = is_ovv(mapp,slang)
     for ind in range (0,len(res_mat)):
+        correct = False
         if not_ovv[ind]:
             res_list = [[not_ovv[ind],0,0,0,0,0,0]]
         else:
@@ -173,7 +173,9 @@ def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.2, 0.2], max_val =
                     res_list.append([cand])
                     res_list[res_ind].extend(res_dict[cand])
                 res_list.sort(key=lambda x: -float(x[-1]))
-        if res_list[0][0] == mapp[ind][1] or res_list[0][0].lower == mapp[ind][1].lower() : #lower
+        answer = res_list[0][0]
+        correct_answer = mapp[ind][1]
+        if answer == correct_answer or answer.lower() == correct_answer.lower() : #lower
             correct = True
             pos += 1
         if verbose:
