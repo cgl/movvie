@@ -260,9 +260,16 @@ def find_slang(nil,slang):
         if slang.has_key(a[1]) and slang.get(a[1]).strip() == a[2]: # strip sil
             #print a[1],a[2]
             i+=1
-        elif sum(editdist_edits(a[1],a[2])[1]) > 3:
+        elif in_edit_dis(a[1],a[2],3):
             print a[1],a[2],editdist_edits(a[1],a[2])
     print i
+
+def in_edit_dis(word1,word2,dis):
+    try:
+        return sum(editdist_edits(word1,word2)[1]) <= dis
+    except IndexError, i:
+        print 'in_edit_dis [IndexError]', word1,word2
+        return sum(editdist_edits(word1.replace('-',''),word2.replace('-',''))[1]) <= dis
 
 
 def get_from_dict(word,met_map,met_dis=1):
@@ -286,4 +293,5 @@ def get_from_dict(word,met_map,met_dis=1):
         mets = met_map[met_word]
         cursor = db_dict.dic.find({ "$or": [ {"met0": {"$in" : mets}}, {"met1": {"$in" : mets}}] })
         if cursor:
-            return [node["_id"] for node in cursor if sum(editdist_edits(word,node["_id"])[1]) > 3] ,met_map
+             return [node["_id"] for node in cursor
+                    if in_edit_dis(word,node["_id"],3)] ,met_map
