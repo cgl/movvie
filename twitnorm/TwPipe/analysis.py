@@ -40,6 +40,7 @@ if __name__ == "__main__ ":
     main()
 
 def find_more_results(ovv,ovv_tag):
+    cands = []
     try:
         cands,met_map = tools.get_from_dict(ovv,{})
     except IndexError, e:
