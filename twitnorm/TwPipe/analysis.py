@@ -118,9 +118,7 @@ def is_ovv(slang):
     for ind in range (0,len(mapp)):
         ovv = mapp[ind][0]
         ovv_reduced = re.sub(r'(.)\1+', r'\1', ovv).lower()
-        if dic.check(ovv.capitalize()):
-            not_ovv.append(ovv.capitalize())
-        elif slang.has_key(ovv_reduced):
+        if slang.has_key(ovv_reduced):
             sl = slang.get(ovv_reduced)
             if len(sl.split(" ")) >  1:
                 not_ovv.append(ovv)
@@ -128,6 +126,8 @@ def is_ovv(slang):
                 not_ovv.append('')
         elif ovv.isdigit():
             not_ovv.append(ovv)
+        elif dic.check(ovv.capitalize()):
+            not_ovv.append(ovv.capitalize())
         elif not ovv.isalnum():
             not_ovv.append(ovv)
         else:
