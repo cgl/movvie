@@ -181,6 +181,7 @@ def get_suggestions(ovv,ovv_tag):
     return [word for word in dic.suggest(ovv)
                    if dic.check(word) and len(word)>2 and
                    get_node(word.decode("utf-8","ignore"),tag=ovv_tag) ]
+    # check this tools.filter_cand(ovv,sug) ]
 
 def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
     #repetition removal

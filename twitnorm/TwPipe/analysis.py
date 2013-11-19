@@ -52,7 +52,7 @@ def find_more_results(ovv,ovv_tag):
         print "No new cand for %s" %ovv
     scores = []
     for cand in cands:
-        scores.append(get_score_line(cand,0,ovv,ovv_tag,None,None)[0])
+        scores.append(get_score_line(cand,0,ovv,ovv_tag))
     return scores
 
 def calc_lev_sndx(mat,ind,edit_dis=2,met_dis=1,verbose=True):
@@ -62,52 +62,43 @@ def calc_lev_sndx(mat,ind,edit_dis=2,met_dis=1,verbose=True):
     ovv_tag = tools.get_tag(ind,ovv)
     ovv_snd = soundex.soundex(ovv)
     length = len(matrix[1])
-    suggestions = tools.get_suggestions(ovv,ovv_tag)
-    suggestions_found = []
+    #suggestions = tools.get_suggestions(ovv,ovv_tag)
+
     if verbose:
         print '%s: found %d candidate' %(ovv,length)
+    result_list = get_candidates_from_graph(matrix,ovv,ovv_tag,edit_dis,met_dis)
+    if not result_list:
+        result_list = find_more_results(ovv,ovv_tag)
+
+    #    print ovv,suggestions
+    result_list.sort(key=lambda x: -float(x[1]))
+    return result_list
+
+def get_candidates_from_graph(matrix,ovv,ovv_tag,edit_dis,met_dis):
+    result_list = []
     for cand in [cand for cand in matrix[1]
                  if tools.filter_cand(ovv,cand,edit_dis=edit_dis,met_dis=met_dis)]:
         sumof = 0.
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
-        line, in_sugs = get_score_line(cand,sumof,ovv,ovv_tag,ovv_snd,suggestions)
-        if in_sugs:
-            suggestions_found.append(cand)
+        line = get_score_line(cand,sumof,ovv,ovv_tag)
         result_list.append(line)
-    if not result_list:
-        result_list = find_more_results(ovv,ovv_tag)
-
-    result_list.extend([get_score_line(sug, 0. ,ovv,ovv_tag, ovv_snd, suggestions)[0]
-                        for sug in suggestions[:15]
-                        if sug not in suggestions_found
-                        and
-                        tools.filter_cand(ovv,sug) ])
-    #    print ovv,suggestions
-    result_list.sort(key=lambda x: -float(x[1]))
     return result_list
 
-def get_score_line(cand,sumof,ovv,ovv_tag, ovv_snd,suggestions):
-    if suggestions and cand in suggestions:
-        suggestion_score = 1./(1.+suggestions.index(cand))
-        found = True
-    else:
-        suggestion_score = 0.
-        found = False
+def get_score_line(cand,sumof,ovv,ovv_tag):
     node =  tools.get_node(cand,tag=ovv_tag)
     freq = node['freq'] if node else 0.
-    line = [cand,
+    line = [ #cand,
             sumof,                                # weight
             tools.lcsr(ovv,cand),                 # lcsr
             tools.distance(ovv,cand),             # distance
             tools.common_letter_score(ovv,cand),  # shared letter
-            suggestion_score ,
-            freq,
             0,                                    # 7 : is_in_slang
+            freq,
     ]
-    for ind in range(1,len(line)):
+    for ind in range(0,len(line)):
         line[ind] = round(line[ind],8)
-    return line , found
+    return line
 
 def iter_calc_lev_sndx(mat,edit_dis=2,met_dis=1,verbose=False):
     mat_scored = []
@@ -116,46 +107,44 @@ def iter_calc_lev_sndx(mat,edit_dis=2,met_dis=1,verbose=False):
         mat_scored.append(res_list)
     return mat_scored
 
-def add_slangs(res_mat,mapp,slang):
-    for ind in range (0,len(res_mat)):
-        ovv = mapp[ind][0]
+def add_slangs(mat,mapp,slang):
+    res_mat = []
+    for ind in range (0,len(mat)):
+        ovv = mat[ind][0]
         ovv_reduced = re.sub(r'(.)\1+', r'\1\1', ovv).lower()
+        cands = {}
         if slang.has_key(ovv_reduced):
             sl = slang.get(ovv_reduced)
-            if len(sl.split(" ")) > 1:
-                continue
-            found = False
-            for res_line in res_mat[ind]:
-                if res_line[0] == sl:
-                    res_line[7] = 1
-                    found = True
-            if not found:
+            if len(sl.split(" ")) <=  1:
                 ovv_tag = mapp[ind][2]
-                res_line = get_score_line(sl,0,ovv,ovv_tag,None,None)[0]
-                res_line[7] = 1
-                res_mat[ind].append(res_line)
+                res_line = get_score_line(sl,0,ovv,ovv_tag)
+                res_line[4] = 1
+                cands[sl] = res_line
+                print ind,ovv,"[",mapp[ind][1],"]",sl,cands[sl]
+        res_mat.append(cands)
     return res_mat
 
-def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.1, 0.2], max_val = [1,1,1,1,0,1/1739259.0], verbose=False):
+def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.2, 0.2], max_val = [1,1,1,1,1,1/1739259.0], verbose=False):
     results = []
     pos = 0
     for ind in range (0,len(res_mat)):
-        if mapp[ind][0] == mapp[ind][1]:
-            continue
         correct = False
         #max_val = [ 0.9472,  1.        ,  1.        ,  1.      , 1. , 0.86099657]
         #[0.503476, 1.0, 1.0, 1.0, 146234.0,]
-        res_list = res_mat[ind]
-        if res_list:
-            for res_ind in range (0,len(res_list)):
-                score = calculate_score(res_list[res_ind],dim,max_val)
-                res_list[res_ind].append(round(score,7))
+        res_dict = copy.deepcopy(res_mat[ind])
+        res_list = []
+        if res_dict:
+            for res_ind,cand in enumerate(res_dict):
+                score = calculate_score(res_dict[cand],dim,max_val)
+                res_dict[cand].append(round(score,7))
+                res_list.append([cand])
+                res_list[res_ind].extend(res_dict[cand])
             res_list.sort(key=lambda x: -float(x[-1]))
             if res_list[0][0] == mapp[ind][1]:
                 correct = True
                 pos += 1
             if verbose:
-                print '%s : %s [%s]' % ('Found' if correct else '', res_list[ind][0],mapp[ind][1])
+                print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
         results.append(res_list)
     print 'Number of correct answers %s' % pos
     return results
@@ -163,13 +152,12 @@ def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.1, 0.2], max_val =
 
 def calculate_score(res_vec,dim,max_val):
     try:
-        score  = dim[0] * res_vec[1] * max_val[0]  # weight
-        score += dim[1] * res_vec[2] * max_val[1]  # lcsr
-        score += dim[2] * res_vec[3] * max_val[2]  # distance
-        score += dim[3] * res_vec[4] * max_val[3]  # common letter
-        score += dim[4] * res_vec[5] * max_val[4]  # suggestion score
-        score += dim[5] * res_vec[6] * max_val[5]  # freq
-        score += dim[6] * res_vec[7] * max_val[6]  # slang
+        score  = dim[0] * res_vec[0] * max_val[0]  # weight
+        score += dim[1] * res_vec[1] * max_val[1]  # lcsr
+        score += dim[2] * res_vec[2] * max_val[2]  # distance
+        score += dim[3] * res_vec[3] * max_val[3]  # common letter
+        score += dim[4] * res_vec[4] * max_val[4]  # slang
+        score += dim[5] * res_vec[5] * max_val[5]  # freq
         return score
     except IndexError, i:
         print res_vec,i
@@ -284,6 +272,8 @@ def check(results,ovv,method):
                 method(results,ovv)
 
 def run(matrix1,feat_mat,slang):
+    if not matrix1:
+        matrix1 = tools.load_from_file()
     from constants import mapping as mapp
     if not slang:
         slang = tools.get_slangs()
