@@ -157,8 +157,8 @@ def common_letter_score(ovv,cand):
 
 def longest(ovv,cand):
     try:
-        ovv_int = [char_map[x] for x in ovv.lower()]
-        cand_int = [char_map[y] for y in cand.lower()]
+        ovv_int = [char_map[x] for x in ovv.encode('ascii',"ignore").lower()]
+        cand_int = [char_map[y] for y in cand.encode('ascii',"ignore").lower()]
         lcs = mlpy.lcs_std(ovv_int,cand_int)[0]
     except Exception, e:
         print(ovv,cand,e)
@@ -188,8 +188,8 @@ def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
     ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
     #cand = re.sub(r'(.)\1+', r'\1\1', cand)
     try:
-        t_c_check = in_edit_dis(ovv,cand,edit_dis)
-        t_p_check = metaphone_distance_filter(ovv,cand,met_dis)
+        t_c_check = in_edit_dis(ovv.encode('ascii',"ignore"),cand,edit_dis)
+        t_p_check = metaphone_distance_filter(ovv.encode('ascii',"ignore"),cand,met_dis)
     except Exception, e:
         return False
     return t_c_check and t_p_check

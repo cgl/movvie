@@ -295,6 +295,6 @@ def run(matrix1,feat_mat,slang):
     feat_mat1 = copy.deepcopy(feat_mat)
     res = show_results(feat_mat1, mapp,
                        dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2, 1] ,
-                       max_val=[1, 1, 1, 1, 0,1/1739259.0, 1])
+                       max_val=[1, 1, 1, 1, 0, 1./1739259 , 1])
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
     return feat_mat,res
