@@ -180,7 +180,7 @@ def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
     ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
     #cand = re.sub(r'(.)\1+', r'\1\1', cand)
     try:
-        t_c_check = sum(editdist_edits(ovv,cand)[1]) <= edit_dis
+        t_c_check = in_edit_dis(ovv,cand,edit_dis)
         t_p_check = metaphone_distance_filter(ovv,cand,met_dis)
     except Exception, e:
         return False
@@ -287,7 +287,7 @@ def get_from_dict(word,met_map,met_dis=1):
             all_mets = set(db_dict.dic.distinct('met0')).union(set(db_dict.dic.distinct('met1')))
             all_mets.remove(None)
             for met in all_mets:
-                if sum(editdist_edits(met_word,met)[1]) <= met_dis:
+                if in_edit_dis(met_word,met,met_dis):
                     met_map[met_word] = met_map.get(met_word,[])
                     met_map[met_word].append(met)
         mets = met_map[met_word]
