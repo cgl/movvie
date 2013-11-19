@@ -10,6 +10,7 @@ import tools
 import mlpy
 import re
 import copy
+import traceback
 
 tweets,results = han(548)
 ovvFunc = lambda x,y : True if y == 'OOV' else False
@@ -169,10 +170,12 @@ def calculate_score(res_vec,dim,max_val):
         score += dim[4] * res_vec[5] * max_val[4]  # suggestion score
         score += dim[5] * res_vec[6] * max_val[5]  # freq
         score += dim[6] * res_vec[7] * max_val[6]  # slang
-
         return score
     except IndexError, i:
         print res_vec,i
+    except TypeError, e:
+        print res_vec
+        print traceback.format_exc()
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
     logger.info('Started')
