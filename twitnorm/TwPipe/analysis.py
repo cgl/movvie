@@ -76,6 +76,7 @@ def calc_lev_sndx(mat,ind,edit_dis=2,met_dis=1,verbose=True):
         result_list.append(line)
     if not result_list:
         result_list = find_more_results(ovv,ovv_tag)
+
     result_list.extend([get_score_line(sug, 0. ,ovv,ovv_tag, ovv_snd, suggestions)[0]
                         for sug in suggestions[:15]
                         if sug not in suggestions_found
@@ -167,6 +168,7 @@ def calculate_score(res_vec,dim,max_val):
         score += dim[3] * res_vec[4] * max_val[3]  # common letter
         score += dim[4] * res_vec[5] * max_val[4]  # suggestion score
         score += dim[5] * res_vec[6] * max_val[5]  # freq
+        score += dim[6] * res_vec[7] * max_val[6]  # slang
 
         return score
     except IndexError, i:
@@ -289,8 +291,8 @@ def run(matrix1,feat_mat,slang):
     feat_mat1 = copy.deepcopy(feat_mat)
     feat_mat_slanged = add_slangs(feat_mat1,mapp,slang)
     res = show_results(feat_mat_slanged, mapp,
-                       dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2] ,
-                       max_val=[1, 1, 1, 1, 0,1/1739259.0])
+                       dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2, 1] ,
+                       max_val=[1, 1, 1, 1, 0,1/1739259.0, 1])
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
     feat_mat1 = copy.deepcopy(feat_mat)
     return feat_mat1
