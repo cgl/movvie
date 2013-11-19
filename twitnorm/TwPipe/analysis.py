@@ -138,6 +138,8 @@ def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.1, 0.2], max_val =
     results = []
     pos = 0
     for ind in range (0,len(res_mat)):
+        if mapp[ind][0] == mapp[ind][1]:
+            continue
         correct = False
         #max_val = [ 0.9472,  1.        ,  1.        ,  1.      , 1. , 0.86099657]
         #[0.503476, 1.0, 1.0, 1.0, 146234.0,]
