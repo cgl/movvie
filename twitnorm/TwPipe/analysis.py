@@ -173,7 +173,7 @@ def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.2, 0.2], max_val =
                     res_list.append([cand])
                     res_list[res_ind].extend(res_dict[cand])
                 res_list.sort(key=lambda x: -float(x[-1]))
-        answer = res_list[0][0]
+        answer = res_list[0][0] if res_list else mapp[ind][0]
         correct_answer = mapp[ind][1]
         if answer == correct_answer or answer.lower() == correct_answer.lower() : #lower
             correct = True
