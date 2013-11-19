@@ -40,7 +40,10 @@ if __name__ == "__main__ ":
     main()
 
 def find_more_results(ovv,ovv_tag):
-    cands,met_map = tools.get_from_dict(ovv,{})
+    try:
+        cands,met_map = tools.get_from_dict(ovv,{})
+    except IndexError, e:
+        print ovv,"IndexError",e
     scores = []
     for cand in cands:
         scores.append(get_score_line(cand,0,ovv,ovv_tag,None,None))
