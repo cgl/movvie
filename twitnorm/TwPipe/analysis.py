@@ -332,7 +332,7 @@ def run(matrix1,feat_mat,slang):
         #feat_mat = iter_calc_lev_sndx(matrix1)
         #feat_mat = add_slangs(feat_mat,mapp,slang)
     feat_mat1 = fm
-    res = show_results(feat_mat1, mapp, not_ovv = not_ovv
+    res = show_results(feat_mat1, mapp, not_ovv = not_ovv,
                        dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2, 1] ,
                        max_val=[1, 1, 1, 1, 1, 1, 1./1739259])
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
