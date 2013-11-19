@@ -125,7 +125,7 @@ def add_slangs(res_mat,mapp,slang):
                 continue
             found = False
             for res_line in res_mat[ind]:
-                if res_line[0] == mapp[ind][0]:
+                if res_line[0] == sl:
                     res_line[7] = 1
                     found = True
             if not found:
