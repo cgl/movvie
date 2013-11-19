@@ -288,11 +288,10 @@ def run(matrix1,feat_mat,slang):
     met_dis=1
     if not feat_mat:
         feat_mat = iter_calc_lev_sndx(matrix1)
+        feat_mat = add_slangs(feat_mat,mapp,slang)
     feat_mat1 = copy.deepcopy(feat_mat)
-    feat_mat_slanged = add_slangs(feat_mat1,mapp,slang)
-    res = show_results(feat_mat_slanged, mapp,
+    res = show_results(feat_mat1, mapp,
                        dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2, 1] ,
                        max_val=[1, 1, 1, 1, 0,1/1739259.0, 1])
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
-    feat_mat1 = copy.deepcopy(feat_mat)
-    return feat_mat1,res
+    return feat_mat,res
