@@ -45,6 +45,8 @@ def find_more_results(ovv,ovv_tag):
         cands,met_map = tools.get_from_dict(ovv,{})
     except IndexError, e:
         print ovv,"IndexError",e
+    except TypeError, e:
+        print "No new cand for %s" %ovv
     scores = []
     for cand in cands:
         scores.append(get_score_line(cand,0,ovv,ovv_tag,None,None))
