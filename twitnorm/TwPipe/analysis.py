@@ -164,7 +164,7 @@ def show_results(res_mat,mapp, not_ovv = is_ovv(slang),dim = [ 0.2, 0.2, 0.2, 0.
     slang = tools.get_slangs()
     for ind in range (0,len(res_mat)):
         correct = False
-        if not_ovv[ind]:
+        if not_ovv and not_ovv[ind]:
             res_list = [[not_ovv[ind],0,0,0,0,0,0]]
         else:
             res_dict = copy.deepcopy(res_mat[ind])
