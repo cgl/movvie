@@ -302,3 +302,25 @@ def get_from_dict(word,met_map,met_dis=1):
         if cursor:
              return [node["_id"] for node in cursor
                     if in_edit_dis(word,node["_id"],3)] ,met_map
+
+def slang_analysis(slang):
+    mapp = constants.mapping
+    i = 0
+    for tup in mapp:
+        multi = False
+        correct_answer = False
+        ill = False
+        sl = None
+        ovv = re.sub(r'(.)\1+', r'\1\1', tup[0]).lower()
+        if slang.has_key(ovv):
+            sl = slang.get(ovv)
+            if len(sl.split(" ")) > 1:
+                multi = True
+            elif  sl  == tup[1]:
+                i += 1
+                correct_answer = True
+            elif tup[0] != tup[1]:
+                #print tup[0],tup[1],sl
+                ill = True
+        print "%s [%s] :\t %s , %r, %r, %r" %(tup[0],tup[1],sl,multi,ill,correct_answer)
+    print "Corrected %d word" %i

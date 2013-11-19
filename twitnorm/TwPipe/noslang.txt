@@ -1,7 +1,7 @@
-$#!+  -  s**t
+$#!+  -  shit
 $$  -  money
 $46  -  money for sex
-$h!t  -  s**t
+$h!t  -  shit
 $xy  -  sexy
 /.  -  Slashdot
 *4u  -  Kiss for you
@@ -17,7 +17,7 @@ $xy  -  sexy
 12b  -  wannabe
 1337  -  elite
 133t  -  elite
-13itch  -  b***h
+13itch  -  bitch
 143  -  I love you
 187  -  murder
 1ab  -  wannabe
@@ -99,7 +99,7 @@ $xy  -  sexy
 4ever  -  forever
 4evr  -  for ever
 4evs  -  forever
-4fs  -  for f**k's sake
+4fs  -  for fuck's sake
 4g8  -  forget
 4gai  -  forget about it
 4geit  -  forget it
@@ -110,13 +110,13 @@ $xy  -  sexy
 4gv  -  forgive
 4head  -  forehead
 4hoa  -  four horsemen of the apocalypse
-4ker  -  f**ker
-4king  -  f**king
+4ker  -  fucker
+4king  -  fucking
 4lyf3  -  for life
 4lyfe  -  for life
 4m  -  form
 4n  -  Phone
-4q  -  f**k you
+4q  -  fuck you
 4r3al  -  for real
 4rm  -  from
 4sho  -  for sure
@@ -130,18 +130,18 @@ $xy  -  sexy
 4yeo  -  For Your Eyes Only
 5-oh  -  cop
 53x  -  sex
-5h17  -  s**t
+5h17  -  shit
 5n  -  fine
 5o  -  police
 6flx  -  X-Rated movie (sex flick)
 6up  -  cops in area
 6y  -  sexy
 7734  -  hell
-7uck  -  f**k
+7uck  -  fuck
 8008  -  boob
 8008135  -  boobies
 80085  -  Boobs
-81tc#  -  b***h
+81tc#  -  bitch
 9009l3  -  Google
 911sc  -  emergency let's stop chatting
 9t  -  night
@@ -150,15 +150,15 @@ $xy  -  sexy
 ?up  -  what's up?
 ?^  -  what's up?
 @  -  at
-@$$  -  a**
-@$$ #013  -  a** hole
-@$$hole  -  a**h**e
-@h  -  a**h**e
+@$$  -  ass
+@$$ #013  -  ass hole
+@$$hole  -  asshole
+@h  -  asshole
 ^5  -  high five
 :)book  -  facebook
 >3  -  LOVE
 ?4u  -  Question for you
-a$$  -  a**
+a$$  -  ass
 a&f  -  always and forever
 a'ight  -  alright
 a.i.m.  -  aol instant messanger
@@ -177,14 +177,14 @@ aamof  -  as a matter of fact
 aatf  -  always and totally forever
 abd  -  Already Been Done
 abend  -  absent by enforced net deprivation
-abft  -  About f**king Time
+abft  -  About fucking Time
 aboot  -  about
 absnt  -  absent
 abt  -  about
 abwt  -  about
 acc  -  account
 acct  -  account
-acgaf  -  Absolutely couldn't give a f**k
+acgaf  -  Absolutely couldn't give a fuck
 ack  -  acknowledged
 addy  -  address
 adhd  -  Attention Deficit Hyperactivity Disorder
@@ -207,8 +207,8 @@ afg  -  away from game
 afk  -  away from keyboard
 afkb  -  away from keyboard
 agn  -  again
-ah  -  a** hole
-ahole  -  a**h**e
+ah  -  ass hole
+ahole  -  asshole
 ai  -  Artificial Intelligence
 aiadw  -  ALL IN A DAYS WORK
 aiamu  -  and I'm a monkey's uncle
@@ -237,9 +237,9 @@ alrite  -  Alright
 alrt  -  alright
 alryt  -  alright
 ama  -  ask me anything
-amf  -  adios motherf**ker
+amf  -  adios motherfucker
 amiic  -  ask me if i care
-amiigaf  -  ask me if i give a f**k
+amiigaf  -  ask me if i give a fuck
 aml  -  All My Love
 amsp  -  ask me something personal
 anim8  -  animate
@@ -270,17 +270,17 @@ apu  -  as per usual
 aqap  -  as quick as possible
 ar  -  are
 arnd  -  around
-arse  -  a**
+arse  -  ass
 arsed  -  bothered
 arvo  -  afternoon
-asafp  -  as soon as f**king possible
+asafp  -  as soon as fucking possible
 asaik  -  as soon as I know
 asap  -  as soon as possible
 asarbambtaa  -  All submissions are reviewed by a moderator before they are added.
 asbmaetp  -  Acronyms should be memorable and easy to pronounce
 ase  -  age, sex, ethnicity
-ashl  -  a**h**e
-ashole  -  a**h**e
+ashl  -  asshole
+ashole  -  asshole
 asic  -  application specific integrated circuit
 asl  -  age, sex, location
 aslo  -  age sex location orientation
@@ -289,9 +289,9 @@ aslp  -  age, sex, location, picture
 aslr  -  age sex location race
 aslrp  -  age, sex, location, race, picture
 asr  -  age sex race
-asshle  -  a**h**e
+asshle  -  asshole
 atb  -  all the best
-atfp  -  answer the f**king phone
+atfp  -  answer the fucking phone
 atl  -  atlanta
 atm  -  at the moment
 ato  -  against the odds
@@ -304,8 +304,8 @@ attotp  -  At The Time Of This Post
 atw  -  All the way
 aty  -  according to you
 audy  -  Are you done yet?
-aufm  -  are you f**king mental
-aufsm  -  are you f**king shiting me
+aufm  -  are you fucking mental
+aufsm  -  are you fucking shiting me
 aup  -  acceptable use policy
 av7x  -  avenged sevenfold
 avgn  -  Angry Video Game Nerd
@@ -330,10 +330,10 @@ ayc  -  awaiting your comments
 ayd  -  are you done
 aydy  -  are you done yet
 ayec  -  at your earliest convenience
-ayfk  -  are you f**king kidding
-ayfkm  -  are you f**king kidding me
+ayfk  -  are you fucking kidding
+ayfkm  -  are you fucking kidding me
 ayfr  -  are you for real
-ayfs  -  Are You f**king Serious
+ayfs  -  Are You fucking Serious
 ayk  -  are you kidding
 aykm  -  are you kidding me
 ayl  -  are you listening
@@ -346,19 +346,19 @@ aysm  -  are you shitting me?
 ayst  -  are you still there
 ayt  -  are you there
 ayte  -  alright
-aytf  -  are you there f**ker
+aytf  -  are you there fucker
 ayty  -  are you there yet
 ayw  -  as you wish
-azhol  -  a**h**e
+azhol  -  asshole
 azn  -  asian
-azz  -  a**
+azz  -  ass
 bi  -  bye
 b&  -  banned
 b'day  -  birthday
 b-cuz  -  because
 b-day  -  birthday
 b.f.f.  -  best friend forever
-b.s.  -  bulls**t
+b.s.  -  bullshit
 b/c  -  because
 b/cos  -  because
 b/g  -  background
@@ -368,7 +368,7 @@ b/w  -  between
 b00n  -  new person
 b00t  -  boot
 b0rked  -  broken
-b1tch  -  b***h
+b1tch  -  bitch
 b2b  -  business to business
 b2u  -  back to you
 b2w  -  Back to work
@@ -380,7 +380,7 @@ b8  -  bait
 b82rez  -  Batteries
 b8rez  -  Batteries
 b@  -  banned
-bab  -  Big a** Boobs
+bab  -  Big ass Boobs
 babi  -  baby
 baf  -  bring a friend
 baggkyko  -  be a good girl, keep your knickers on
@@ -389,8 +389,8 @@ bai  -  Bye
 bak  -  back
 bakk  -  back
 balz  -  balls
-bamf  -  bad a** mother f**ker
-bamofo  -  b***h a** mother f**ker
+bamf  -  bad ass mother fucker
+bamofo  -  bitch ass mother fucker
 bau  -  back at you
 bb  -  bye bye
 bb4h  -  bros before hoes
@@ -435,7 +435,7 @@ bbwl  -  be back way later
 bby  -  baby
 bbz  -  babes
 bc  -  because
-bch  -  b***h
+bch  -  bitch
 bck  -  back
 bcnu  -  be seeing you
 bcnul8r  -  be seeing you later
@@ -446,25 +446,25 @@ bd  -  birthday
 bday  -  birthday
 bdfl  -  Benevolent Dictator For Life
 be4  -  before
-beatch  -  b***h
+beatch  -  bitch
 bebe  -  baby
 becuse  -  because
 becuz  -  because
-beech  -  b***h
-beeoch  -  b***h
-beezy  -  b***h
-beotch  -  b***h
+beech  -  bitch
+beeoch  -  bitch
+beezy  -  bitch
+beotch  -  bitch
 besos  -  kisses
 bestie  -  best friend
-betch  -  b***h
+betch  -  bitch
 betcha  -  bet you
 bettr  -  better
 bewb  -  boob
 bewbs  -  boobs
 bewbz  -  boobs
 bewt  -  boot
-beyatch  -  b***h
-beyotch  -  b***h
+beyatch  -  bitch
+beyotch  -  bitch
 bezzie  -  best friend
 bf  -  boyfriend
 bf's  -  boyfriend's
@@ -473,8 +473,8 @@ bf4e  -  best friends for ever
 bf4eva  -  Best Friends forever
 bf4l  -  best friends for life
 bfam  -  brother from another mother
-bfd  -  big f**king deal
-bfe  -  Bum f**k Egypt
+bfd  -  big fucking deal
+bfe  -  Bum fuck Egypt
 bff  -  best friend forever
 bffa  -  best friends for always
 bffaa  -  Best Friends Forever And Always
@@ -486,41 +486,41 @@ bffene  -  Best Friends For Ever And Ever
 bffl  -  best friends for life
 bffn  -  best friends for now
 bfftddup  -  best friends forever till death do us part
-bfg  -  big f**king gun
-bfh  -  b***h from hell
+bfg  -  big fucking gun
+bfh  -  bitch from hell
 bfhd  -  big fat hairy deal
 bfitww  -  best friend in the whole world
 bfn  -  bye for now
 bfs  -  Boyfriends
-bft  -  big f**king tits
+bft  -  big fucking tits
 bg  -  background
 bh  -  bloody hell
 bhwu  -  back home with you
 biab  -  back in a bit
-biach  -  b***h
+biach  -  bitch
 biaf  -  Back In A Few
-biatch  -  b***h
+biatch  -  bitch
 bibi  -  bye bye
 bibifn  -  bye bye for now
 bicbw  -  but I could be wrong
-bich  -  b***h
+bich  -  bitch
 bigd  -  big deal
 bii  -  bye
-bilf  -  brother i'd like to f**k
+bilf  -  brother i'd like to fuck
 bilu  -  baby i love you
 bion  -  Believe it or not.
-biotch  -  b***h
-bioya  -  blow it out your a**
-bish  -  b***h
+biotch  -  bitch
+bioya  -  blow it out your ass
+bish  -  bitch
 bitd  -  back in the day
 biw  -  boss is watching
 biwm  -  bisexual white male
 biz  -  Business
-bizatch  -  b***h
+bizatch  -  bitch
 bizi  -  Busy
-biznatch  -  b***h
-biznitch  -  b***h
-bizzle  -  b***h
+biznatch  -  bitch
+biznitch  -  bitch
+bizzle  -  bitch
 bj  -  blowjob
 bk  -  back
 bka  -  better known as
@@ -546,7 +546,7 @@ bmay  -  between me and you
 bmf  -  be my friend
 bmfe  -  best mates forever
 bmfl  -  best mates for life
-bmha  -  bite my hairy a**
+bmha  -  bite my hairy ass
 bml  -  bless my life
 bmoc  -  Big Man On Campus
 bmttveot  -  best mates till the very end of time
@@ -583,16 +583,16 @@ bpot  -  big pair of tits
 br  -  bathroom
 brb  -  be right back
 brbbrb  -  br right back bath room break
-brbf  -  Be Right Back f**ker
+brbf  -  Be Right Back fucker
 brbg2p  -  be right back, got to pee
 brbigtp  -  be right back, i got to pee.
 brbl  -  be right back later
-brbmf  -  be right back mother f**ker
+brbmf  -  be right back mother fucker
 brbn2gbr  -  Be right back, I need to go to the bathroom
 brbs  -  be right back soon
-brbts  -  be right back taking s**t
+brbts  -  be right back taking shit
 brd  -  bored
-brfb  -  be right f**king back
+brfb  -  be right fucking back
 brgds  -  best regards
 brh  -  be right here
 bro  -  brother
@@ -605,29 +605,29 @@ bruhh  -  Brother
 bruv  -  brother
 bruva  -  brother
 bruz  -  brothers
-bs  -  bulls**t
+bs  -  bullshit
 bsmfh  -  b*****d System Manager From Hell
 bsod  -  blue screen of death
 bsomn  -  blowing stuff out my nose
-bstfu  -  b***h shut the f**k up
+bstfu  -  bitch shut the fuck up
 bstrd  -  b*****d
 bsx  -  bisexual
 bsxc  -  be sexy
 bt  -  bit torrent
 btb  -  by the by
-btch  -  b***h
+btch  -  bitch
 btcn  -  Better than Chuck Norris
 btd  -  bored to death
 btdt  -  been there done that
 btdtgtts  -  Been there, done that, got the T-shirt
 btfl  -  beautiful
-btfo  -  back the f**k off
-btfw  -  by the f**king way
+btfo  -  back the fuck off
+btfw  -  by the fucking way
 btias  -  Be there in a second
 btm  -  bottom
 btr  -  better
 bts  -  be there soon
-btsoom  -  Beats The s**t Out Of Me
+btsoom  -  Beats The shit Out Of Me
 bttt  -  been there, tried that
 bttyl  -  be talking to you later
 btw  -  by the way
@@ -660,7 +660,7 @@ byob  -  Bring your own Beer
 byoc  -  bring our own computer
 byself  -  by myself
 bytabm  -  beat you to a bloody mess
-bytch  -  b***h
+bytch  -  bitch
 bz  -  busy
 bzns  -  buisness
 bzy  -  busy
@@ -670,7 +670,7 @@ c 2 c  -  cam to cam (webcams)
 c&c  -  Command and Conquer
 c'mon  -  Come On
 c-p  -  sleepy
-c.y.a  -  cover your a**
+c.y.a  -  cover your ass
 c/b  -  comment back
 c/t  -  can't talk
 c14n  -  canonicalization
@@ -687,9 +687,9 @@ cayc  -  call at your convenience
 cb  -  come back
 cba  -  can't be arsed
 cbb  -  can't be bothered
-cbf  -  cant be f**ked
-cbfa  -  can't be f**king arsed
-cbfed  -  can't be f**ked
+cbf  -  cant be fucked
+cbfa  -  can't be fucking arsed
+cbfed  -  can't be fucked
 cbi  -  can't believe it
 ccl  -  Couldn't Care Less
 ccna  -  Cisco Certified Network Associate
@@ -699,10 +699,10 @@ cex  -  sex
 cexy  -  sexy
 cfas  -  care for a secret?
 cfid  -  check for identification
-cfm  -  come f**k me
+cfm  -  come fuck me
 cg  -  Congratulations
 cgad  -  couldn't give a d**n
-cgaf  -  couldn't give a f**k
+cgaf  -  couldn't give a fuck
 cgf  -  cute guy friend
 ch@  -  chat
 champs  -  champions
@@ -725,7 +725,7 @@ cig  -  cigarette
 cigs  -  cigarettes
 cihswu  -  can i have sex with you
 cihyn  -  can i have your number
-cilf  -  child i'd like to f**k
+cilf  -  child i'd like to fuck
 cing  -  seeing
 cis  -  computer information science
 ciwwaf  -  cute is what we aim for
@@ -734,8 +734,8 @@ clm  -  Cool Like Me
 clt  -  Cool Like That
 cluebie  -  clueless newbie
 cm  -  call me
-cma  -  Cover My a**
-cmao  -  Crying My a** Off
+cma  -  Cover My ass
+cmao  -  Crying My ass Off
 cmar  -  cry me a river
 cmb  -  comment me back
 cmbo  -  combo
@@ -797,7 +797,7 @@ crazn  -  crazy asian
 cre8or  -  creator
 crm  -  customer relationship management
 crp  -  crap
-crs  -  can't remember s**t
+crs  -  can't remember shit
 crunk  -  combination of crazy and drunk
 crzy  -  crazy
 cs  -  Counter-Strike
@@ -808,9 +808,9 @@ csl  -  can't stop laughing
 ct  -  can't talk
 ctc  -  call the cell
 ctf  -  capture the flag
-ctfd  -  calm the f**k down
-ctfo  -  chill the f**k out
-ctfu  -  cracking the f**k up
+ctfd  -  calm the fuck down
+ctfo  -  chill the fuck out
+ctfu  -  cracking the fuck up
 ctm  -  chuckle to myself
 ctn  -  can't talk now
 ctnbos  -  can't talk now boss over shoulder
@@ -826,7 +826,7 @@ cu2nit  -  see you tonight
 cu46  -  see you for sex
 cubi  -  can you believe it
 cud  -  could
-cuic  -  see you in cla**
+cuic  -  see you in class
 cul  -  see you later
 cul83r  -  See you later
 cul8er  -  see you later
@@ -857,7 +857,7 @@ cybl  -  call you back later
 cybr  -  cyber
 cybseckz  -  cyber sex
 cye  -  Close Your Eyes
-cyff  -  change your font, f**ker
+cyff  -  change your font, fucker
 cyl  -  see you later
 cyl,a  -  see ya later, alligator
 cyl8  -  see you later
@@ -871,14 +871,14 @@ cyu  -  see you
 c|n>k  -  coffee through nose into keyboard
 d&c  -  divide and conquer
 d&df  -  drug & disease free
-d.t.f  -  down to f**k
+d.t.f  -  down to fuck
 d.w  -  don't worry
 d/c  -  disconnected
 d/l  -  download
 d/m  -  Doesn't Matter
 d/w  -  don't worry
 d00d  -  dude
-d1ck  -  d**k
+d1ck  -  dick
 d2  -  Diablo 2
 d2m  -  dead to me
 d2t  -  drink to that
@@ -886,13 +886,13 @@ d8  -  date
 da  -  the
 da2  -  Dragon Age 2
 dadt  -  Don't ask. Don't tell.
-dafs  -  do a f**king search
+dafs  -  do a fucking search
 dah  -  dumb as hell
 daii  -  day
 damhik  -  don't ask me how I know
 damhikijk  -  Don't Ask Me How I Know - I Just Know
 damhikt  -  don't ask me how I know this
-dass  -  dumb a**
+dass  -  dumb ass
 dat  -  that
 dats  -  that's
 dawg  -  Friend
@@ -900,7 +900,7 @@ dayum  -  d**n
 dayumm  -  d**n
 db  -  database
 db4l  -  drinking buddy for life
-dbab  -  don't be a b***h
+dbab  -  don't be a bitch
 dbafwtt  -  Don't Be A Fool Wrap The Tool
 dbag  -  d****ebag
 dbeyr  -  don't believe everything you read
@@ -912,7 +912,7 @@ dbz  -  DragonBall Z
 dc  -  don't care
 dc'd  -  disconnected
 dctnry  -  dictionary
-dcw  -  Doing Cla** Work
+dcw  -  Doing Class Work
 dd  -  don't die
 ddf  -  Drug and Disease Free
 ddg  -  Drop Dead Gorgeous
@@ -930,22 +930,22 @@ dernoe  -  I don't know
 detai  -  don't even think about it
 dewd  -  Dude
 dey  -  they
-df  -  Dumb f**k
-dfc  -  DON'T f**kING CARE
-dfo  -  dumb f**king operator
+df  -  Dumb fuck
+dfc  -  DON'T fuckING CARE
+dfo  -  dumb fucking operator
 dftba  -  don't forget to be awesome
 dftc  -  down for the count
-dfu  -  don't f**k up
+dfu  -  don't fuck up
 dfw  -  down for whatever
-dfw/m  -  Don't f**k with Me
-dfwm  -  Don't f**k with Me
-dfwmt  -  Don't f**king waste my time
+dfw/m  -  Don't fuck with Me
+dfwm  -  Don't fuck with Me
+dfwmt  -  Don't fucking waste my time
 dg  -  don't go
 dga  -  don't go anywhere
 dgac  -  don't give a crap
-dgaf  -  don't give a f**k
-dgara  -  don't give a rats a**
-dgas  -  Don't give a s**t
+dgaf  -  don't give a fuck
+dgara  -  don't give a rats ass
+dgas  -  Don't give a shit
 dgms  -  Don't get me started
 dgoai  -  don't go on about it
 dgt  -  don't go there
@@ -961,17 +961,17 @@ dic  -  do i care
 dick  -  penis
 diez  -  dies
 diff  -  difference
-dih  -  d**k in hand
+dih  -  dick in hand
 dikhed  -  dickhead
 diku  -  do i know you
 diky  -  Do I know you
 dil  -  Daughter in law
-dilf  -  dad i'd like to f**k
+dilf  -  dad i'd like to fuck
 dillic  -  Do I look like I care
-dillifc  -  do I look like I f**king care
+dillifc  -  do I look like I fucking care
 dilligad  -  do I look like I give a d**n
-dilligaf  -  do I look like I give a f**k
-dilligas  -  do i look like i give a s**t
+dilligaf  -  do I look like I give a fuck
+dilligas  -  do i look like i give a shit
 din  -  didn't
 din't  -  didn't
 dirl  -  Die in real life
@@ -987,7 +987,7 @@ dlibu  -  Dont let it bother you
 dln  -  don't look now
 dm  -  deathmatch
 dmaf  -  do me a favor
-dmba*  -  dumba**
+dmba*  -  dumbass
 dmi  -  don't mention it
 dmn  -  d**n
 dmu  -  don't mess up
@@ -999,7 +999,7 @@ dndp  -  Do not double post
 dnimb  -  dancing naked in my bra
 dno  -  don't know
 dnrta  -  did not read the article
-dnrtfa  -  did not read the f**king article
+dnrtfa  -  did not read the fucking article
 dns  -  Domain Name System
 dnt  -  don't
 dnw  -  Do not want
@@ -1089,18 +1089,18 @@ e-ok  -  Electronically OK
 e.g.  -  example
 e4u2s  -  easy for you to say
 eabod  -  eat a bag of dicks
-ead  -  eat a d**k
+ead  -  eat a dick
 ebitda  -  earnings before interest, taxes, depreciation and amortization
 ecf  -  error carried forward
 edumacation  -  education
 eedyat  -  idiot
 eejit  -  idiot
-ef  -  f**k
-ef-ing  -  f**king
+ef  -  fuck
+ef-ing  -  fucking
 efct  -  effect
 efffl  -  extra friendly friends for life
-effin  -  f**king
-effing  -  f**king
+effin  -  fucking
+effing  -  fucking
 eg  -  evil grin
 ehlp  -  help
 eil  -  explode into laughter
@@ -1130,14 +1130,14 @@ eq  -  Everquest
 eq2  -  Everquest2
 ere  -  here
 errythin  -  everything
-esad  -  eat s**t and die
-esadyffb  -  eat s**t and die you fat f**king b*****d
+esad  -  eat shit and die
+esadyffb  -  eat shit and die you fat fucking b*****d
 esbm  -  Everyone sucks but me
 esc  -  escape
-esl  -  eat s**t loser
+esl  -  eat shit loser
 eta  -  Estimated Time of Arrival
 etla  -  extended three letter acronym
-etmda  -  Explain it to my dumb a**
+etmda  -  Explain it to my dumb ass
 etp  -  eager to please
 eula  -  end user license agreement
 ev1  -  everyone
@@ -1158,16 +1158,16 @@ ey  -  hey
 eyez  -  eyes
 ez  -  Easy
 ezi  -  easy
-f u  -  f**k you
-f#cking  -  f**king
+f u  -  fuck you
+f#cking  -  fucking
 f&e  -  forever and ever
-f'n  -  f**king
-f-ing  -  f**king
+f'n  -  fucking
+f-ing  -  fucking
 f.b.  -  facebook
-f.m.l.  -  f**k my life
-f.u.  -  f**k you
-f/o  -  f**k off
-f00k  -  f**k.
+f.m.l.  -  fuck my life
+f.u.  -  fuck you
+f/o  -  fuck off
+f00k  -  fuck.
 f2f  -  face to face
 f2p  -  free to play
 f2t  -  Free to talk
@@ -1178,7 +1178,7 @@ f4m  -  female for male
 f8  -  fate
 f9  -  fine
 f@  -  fat
-fa-q  -  f**k you
+fa-q  -  fuck you
 faa  -  forever and always
 fab  -  fabulous
 faggit  -  faggot
@@ -1190,128 +1190,128 @@ fao  -  for attention of
 fap  -  masturbate
 fapping  -  masterbating
 faq  -  frequently asked question
-farg  -  f**k
+farg  -  fuck
 fashizzle  -  for sure
 fav  -  Favorite
 fave  -  favorite
-fawk  -  f**k
+fawk  -  fuck
 fbimcl  -  Fall Back In My Chair Laughing
 fbk  -  facebook
 fbtw  -  Fine Be That Way
 fc  -  fruit cake
 fcbk  -  facebook
 fcfs  -  first come first served
-fck  -  f**k
-fckd  -  f**ked
-fckin  -  f**king
-fcking  -  f**king
-fckm3hdbayb  -  f**k Me Hard Baby
-fcku  -  f**k you
+fck  -  fuck
+fckd  -  fucked
+fckin  -  fucking
+fcking  -  fucking
+fckm3hdbayb  -  fuck Me Hard Baby
+fcku  -  fuck you
 fcol  -  for crying out loud
-fcuk  -  f**k
+fcuk  -  fuck
 fe  -  fatal error
-feck  -  f**k
+feck  -  fuck
 fer  -  for
 ferr  -  For
 ff  -  friendly fire
 ffa  -  free for all
 ffcl  -  falling from chair laughing
 ffr  -  for future reference
-ffs  -  for f**k's sake
+ffs  -  for fuck's sake
 fft  -  food for thought
 ffxi  -  Final Fantasy 11
-fg  -  f**king gay
-fgi  -  f**king google it
+fg  -  fucking gay
+fgi  -  fucking google it
 fgs  -  for God's sake
 fgssu  -  For Gods sake shut up
 fgt  -  faggot
-fi  -  f**k it
+fi  -  fuck it
 fi9  -  fine
-fibijar  -  f**k it buddy, I'm just a reserve
+fibijar  -  fuck it buddy, I'm just a reserve
 fifo  -  first in, first out
 fify  -  Fixed It For You
-figjam  -  f**k I'm good, just ask me
+figjam  -  fuck I'm good, just ask me
 figmo  -  F*ck it - got my orders
-fiic  -  f**ked If I Care
-fiik  -  f**ked If I Know
+fiic  -  fucked If I Care
+fiik  -  fucked If I Know
 fimh  -  forever in my heart
 fio  -  figure it out
 fitb  -  fill in the blank
 fiv  -  five
-fk  -  f**k
-fker  -  f**ker
-fkin  -  f**king
-fking  -  f**king
-fkn  -  f**king
-fku  -  f**k you
+fk  -  fuck
+fker  -  fucker
+fkin  -  fucking
+fking  -  fucking
+fkn  -  fucking
+fku  -  fuck you
 flamer  -  angry poster
 flames  -  angry comments
 flicks  -  pictures
 floabt  -  for lack of a better term
-fm  -  f**k me
-fmah  -  f**k my a** hole
-fmao  -  freezing my a** of
-fmb  -  f**k me b***h
-fmbb  -  f**k Me Baby
-fmbo  -  f**k my brains out
-fmfl  -  f**k my f**king life
-fmflth  -  f**k My f**king Life To Hell
-fmh  -  f**k me hard
-fmhb  -  f**k me hard b***h
+fm  -  fuck me
+fmah  -  fuck my ass hole
+fmao  -  freezing my ass of
+fmb  -  fuck me bitch
+fmbb  -  fuck Me Baby
+fmbo  -  fuck my brains out
+fmfl  -  fuck my fucking life
+fmflth  -  fuck My fucking Life To Hell
+fmh  -  fuck me hard
+fmhb  -  fuck me hard bitch
 fmi  -  for my information
 fmir  -  family member in room
-fmita  -  f**k me in the a**
-fml  -  f**k my life
-fmltwia  -  f**k me like the w***e I am
-fmn  -  f**k me now
-fmnb  -  f**k me now b***h
-fmnkml  -  f**k me now kiss me later
-fmph  -  f**k my p***y hard
-fmq  -  f**k me quick
-fmr  -  f**k me runnig
-fmsh  -  f**k me so hard
-fmth  -  f**k me to hell
-fmuta  -  f**k me up the a**
-fmutp  -  f**k me up the p***y
+fmita  -  fuck me in the ass
+fml  -  fuck my life
+fmltwia  -  fuck me like the w***e I am
+fmn  -  fuck me now
+fmnb  -  fuck me now bitch
+fmnkml  -  fuck me now kiss me later
+fmph  -  fuck my p***y hard
+fmq  -  fuck me quick
+fmr  -  fuck me runnig
+fmsh  -  fuck me so hard
+fmth  -  fuck me to hell
+fmuta  -  fuck me up the ass
+fmutp  -  fuck me up the p***y
 fn  -  first name
 fnar  -  For No Apparent Reason
 fnci  -  fancy
 fnny  -  funny
 fnpr  -  for no particular reason
 fny  -  funny
-fo  -  f**k off
+fo  -  fuck off
 fo shizzle  -  for sure
 fo sho  -  for sure
-foa  -  f**k off a**h**e
-foad  -  f**k off and die
+foa  -  fuck off asshole
+foad  -  fuck off and die
 foaf  -  friend of a friend
-foah  -  f**k off a**h**e
+foah  -  fuck off asshole
 fob  -  fresh off the boat
 focl  -  Falling Off Chair Laughing.
 fofl  -  fall on the floor laughing
 foia  -  freedom of information act
 fol  -  farting out loud
 folo  -  Follow
-fomofo  -  f**k off mother f**ker
+fomofo  -  fuck off mother fucker
 fone  -  phone
 foo  -  fool
-foobar  -  f**ked up beyond all recognition
+foobar  -  fucked up beyond all recognition
 foocl  -  falls out of chair laughing
-fook  -  f**k
+fook  -  fuck
 for sheeze  -  for sure
-fos  -  full of s**t
+fos  -  full of shit
 foshizzle  -  for sure
 fosho  -  for sure
 foss  -  free, open source software
 fotcl  -  fell off the chair laughing
 fotm  -  Flavour of the month
-fouc  -  f**k off you c**t 
+fouc  -  fuck off you c**t 
 fov  -  Field of View
-foyb  -  f**k off you b***h
+foyb  -  fuck off you bitch
 fo`  -  for
 fp  -  first post
-fpmitap  -  federal pound me in the a** prison
-fpos  -  f**king piece of s**t
+fpmitap  -  federal pound me in the ass prison
+fpos  -  fucking piece of shit
 fps  -  First Person Shooter
 frag  -  kill
 fragged  -  killed
@@ -1327,71 +1327,71 @@ frnds  -  friends
 fs  -  For Sure
 fsho  -  for sure
 fsm  -  flying spaghetti monster
-fsob  -  f**king son of a b***h
+fsob  -  fucking son of a bitch
 fsod  -  frosn screen of death
 fsr  -  for some reason
 fst  -  fast
-ft  -  f**k THAT
+ft  -  fuck THAT
 ft2t  -  From time to time
 fta  -  From The Article
-ftb  -  f**k That b***h
+ftb  -  fuck That bitch
 ftbfs  -  Failed to build from source
 ftf  -  face to face
-ftfa  -  From The f**king Article
-ftfw  -  For the f**king win!
+ftfa  -  From The fucking Article
+ftfw  -  For the fucking win!
 ftfy  -  Fixed that for you
 ftio  -  fun time is over
 ftk  -  For the Kill
 ftl  -  For The Lose
 ftlog  -  for the love of god
 ftlt  -  For the last time
-ftmfw  -  for the mother f**king win
+ftmfw  -  for the mother fucking win
 ftmp  -  For the most part
 ftp  -  file transfer protocol
 ftr  -  For The Record
-fts  -  f**k that s**t
+fts  -  fuck that shit
 fttp  -  for the time being
 ftw  -  For the win!
-fu  -  f**k you
-fua  -  f**k you all
-fuah  -  f**k you a** hole
-fub  -  f**k you b***h
-fubah  -  f**ked up beyond all hope
-fubalm  -  f**ked up beyond all local maintenance
-fubar  -  f**ked up beyond all recognition
-fubb  -  f**ked up beyond belief
-fubh  -  f**ked up beyond hope
-fubohic  -  f**k you Bend over here it comes
-fubr  -  f**ked Up Beyond Recognition
-fucken  -  f**king
-fucktard  -  f**king retard
-fuctard  -  f**king retard
+fu  -  fuck you
+fua  -  fuck you all
+fuah  -  fuck you ass hole
+fub  -  fuck you bitch
+fubah  -  fucked up beyond all hope
+fubalm  -  fucked up beyond all local maintenance
+fubar  -  fucked up beyond all recognition
+fubb  -  fucked up beyond belief
+fubh  -  fucked up beyond hope
+fubohic  -  fuck you Bend over here it comes
+fubr  -  fucked Up Beyond Recognition
+fucken  -  fucking
+fucktard  -  fucking retard
+fuctard  -  fucking retard
 fud  -  fear, uncertainty and doubt
-fudh  -  f**k you d**k head
-fudie  -  f**k you and die
-fugly  -  f**king ugly
-fuh-q  -  f**k you
+fudh  -  fuck you dick head
+fudie  -  fuck you and die
+fugly  -  fucking ugly
+fuh-q  -  fuck you
 fuhget  -  forget
-fuk  -  f**k
-fukin  -  f**king
-fukk  -  f**k
-fukkin  -  f**king
-fukn  -  f**king
-fukr  -  f**ker
+fuk  -  fuck
+fukin  -  fucking
+fukk  -  fuck
+fukkin  -  fucking
+fukn  -  fucking
+fukr  -  fucker
 fulla  -  Full of
-fumfer  -  f**k you mother f**ker
+fumfer  -  fuck you mother fucker
 funee  -  funny
 funner  -  more fun
 funy  -  funny
-fuq  -  f**k you
-fus  -  f**k yourself
-fut  -  f**k You Too
-fuu  -  f**k you up
-fux  -  f**k
-fuxing  -  f**king
-fuxor  -  f**ker
-fuxored  -  f**ked
-fvck  -  f**k
+fuq  -  fuck you
+fus  -  fuck yourself
+fut  -  fuck You Too
+fuu  -  fuck you up
+fux  -  fuck
+fuxing  -  fucking
+fuxor  -  fucker
+fuxored  -  fucked
+fvck  -  fuck
 fwb  -  Friends with Benefits
 fwd  -  forward
 fwiw  -  for what it's worth
@@ -1399,22 +1399,22 @@ fwm  -  Fine With Me
 fwob  -  friends with occasional benefits
 fxe  -  foxy
 fxp  -  file exchange protocol
-fy  -  f**k you
+fy  -  fuck you
 fya  -  for your attention
-fyad  -  f**k you and die
-fyah  -  f**k you a**h**e
-fyb  -  f**k you b***h
-fyc  -  f**k your couch
+fyad  -  fuck you and die
+fyah  -  fuck you asshole
+fyb  -  fuck you bitch
+fyc  -  fuck your couch
 fye  -  For Your Entertainment
 fyeo  -  For your eyes only
-fyf  -  f**k your face
-fyfi  -  For Your f**king Information
+fyf  -  fuck your face
+fyfi  -  For Your fucking Information
 fyi  -  for your information
 fyk  -  for your knowledge
 fyl  -  For your Love
-fym  -  f**k your mom
+fym  -  fuck your mom
 fyp  -  fixed your post
-fyrb  -  f**k you right back
+fyrb  -  fuck you right back
 *g*  -  grin
 g'nite  -  good night
 g/f  -  girlfriend
@@ -1441,7 +1441,7 @@ g2gpc  -  got 2 go parents coming
 g2gpp  -  got to go pee pee
 g2gs  -  got to go sorry
 g2h  -  go to hell
-g2hb  -  go to hell b***h
+g2hb  -  go to hell bitch
 g2k  -  good to know
 g2p  -  got to pee
 g2t2s  -  got to talk to someone
@@ -1453,13 +1453,13 @@ g9  -  good night
 g@y  -  gay
 ga  -  go ahead
 gaalma  -  go away and leave me alone
-gaf  -  good as f**k
+gaf  -  good as fuck
 gafi  -  get away from it
-gafl  -  get a f**king life
+gafl  -  get a fucking life
 gafm  -  Get away from me
-gagf  -  go and get f**ked
+gagf  -  go and get fucked
 gagp  -  go and get pissed
-gah  -  gay a** homo
+gah  -  gay ass homo
 gai  -  gay
 gaj  -  get a job
 gal  -  get a life
@@ -1472,7 +1472,7 @@ gawd  -  god
 gb  -  Go back
 gb2  -  go back to
 gba  -  game boy advance
-gbioua  -  Go blow it out your a**
+gbioua  -  Go blow it out your ass
 gbnf  -  Gone but not forgotten 
 gbtw  -  go back to work
 gbu  -  god bless you
@@ -1489,8 +1489,8 @@ gdgd  -  good good
 gdi  -  God d**n it
 gdiaf  -  go die in a fire
 gdih  -  Go die in hell
-gdilf  -  Grandad I'd Like To f**k
-gdmfpos  -  god d**n mother f**king piece of s**t
+gdilf  -  Grandad I'd Like To fuck
+gdmfpos  -  god d**n mother fucking piece of shit
 gdr  -  grinning, ducking, running
 gemo  -  gay emo
 getcha  -  get you
@@ -1498,33 +1498,33 @@ geto  -  ghetto
 gewd  -  good
 gey  -  gay
 gf  -  girlfriend
-gfad  -  go f**k a duck
-gfadh  -  go f**k a dead horse
+gfad  -  go fuck a duck
+gfadh  -  go fuck a dead horse
 gfak  -  go fly a kite
-gfam  -  Go f**k A Monkey
+gfam  -  Go fuck A Monkey
 gfar2cu  -  go find a rock to crawl under
-gfas  -  go f**k a sheep
-gfd  -  god f**king damnit
+gfas  -  go fuck a sheep
+gfd  -  god fucking damnit
 gfe  -  Girl Friend experience
 gfe2e  -  grinning from ear to ear
-gfg  -  good f**king game
-gfgi  -  go f**king google it
-gfi  -  good f**king idea
-gfj  -  good f**king job
+gfg  -  good fucking game
+gfgi  -  go fucking google it
+gfi  -  good fucking idea
+gfj  -  good fucking job
 gfl  -  grounded for life
-gfo  -  go f**k off
-gfu  -  go f**k yourself
-gfurs  -  go f**k yourself
-gfus  -  go f**k yourself
+gfo  -  go fuck off
+gfu  -  go fuck yourself
+gfurs  -  go fuck yourself
+gfus  -  go fuck yourself
 gfx  -  graphics
 gfy  -  good for you
-gfyd  -  go f**k your dad
-gfym  -  go f**k your mom
-gfys  -  go f**k yourself
+gfyd  -  go fuck your dad
+gfym  -  go fuck your mom
+gfys  -  go fuck yourself
 gg  -  good game
 gga  -  good game all
 ggal  -  go get a life
-ggf  -  go get f**ked
+ggf  -  go get fucked
 ggg  -  Go, go, go! 
 ggnore  -  good game no rematch
 ggp  -  gotta go pee
@@ -1535,7 +1535,7 @@ ghei  -  Gay
 ghey  -  gay
 gigig  -  get it got it good
 gigo  -  garbage in garbage out
-gilf  -  Grandma I'd like to f**k
+gilf  -  Grandma I'd like to fuck
 gim  -  google instant messanger
 gimme  -  give me
 gimmie  -  give me
@@ -1569,10 +1569,10 @@ gm  -  good morning
 gma  -  grandma
 gmab  -  give me a break
 gmabj  -  give me a blowjob
-gmafb  -  give me a f**king break
-gmao  -  Giggling my a** off
-gmfao  -  Giggling My f**king a** Off
-gmilf  -  grandmother i'd like to f**k
+gmafb  -  give me a fucking break
+gmao  -  Giggling my ass off
+gmfao  -  Giggling My fucking ass Off
+gmilf  -  grandmother i'd like to fuck
 gmod  -  Global Moderator
 gmta  -  great minds think alike
 gmtyt  -  good morning to you too
@@ -1612,12 +1612,12 @@ good9  -  goodnite
 gooh  -  get out of here!
 goomh  -  get out of my head
 gork  -  God only really knows
-gosad  -  go suck a d**k
+gosad  -  go suck a dick
 gotc  -  get on the computer
 gotcha  -  got you
 gotta  -  got to
 gow  -  gears of war
-goya  -  Get Off Your a**
+goya  -  Get Off Your ass
 goyhh  -  get off your high horse
 gp  -  good point
 gpb  -  gotta pee bad
@@ -1635,29 +1635,29 @@ grog  -  beer
 grrl  -  Girl
 grtg  -  Getting ready to go
 grvy  -  groovy
-gsad  -  go suck a d**k
+gsad  -  go suck a dick
 gsave  -  global struggle against violent extremists
-gsd  -  getting s**t done
-gsfg  -  Go search f**king google
+gsd  -  getting shit done
+gsfg  -  Go search fucking google
 gsi  -  go suck it
 gsoh  -  Good Sense of Humor
 gsp  -  get some p***y
 gsta  -  Gangster
 gt  -  get
 gta  -  Grand Theft Auto
-gtas  -  go take a s**t
+gtas  -  go take a shit
 gtb  -  Go To Bed
-gtf  -  get the f**k
-gtfa  -  Go The f**k Away
-gtfbtw  -  get the f**k back to work
-gtfh  -  go to f**king hell
-gtfo  -  get the f**k out
-gtfoi  -  get the f**k over it
-gtfon  -  Get the f**k out noob
-gtfooh  -  get the f**k out of here
-gtfoomf  -  get the f**k out of my face
-gtfu  -  grow the f**k up
-gtfuotb  -  get the f**k up out this b***h
+gtf  -  get the fuck
+gtfa  -  Go The fuck Away
+gtfbtw  -  get the fuck back to work
+gtfh  -  go to fucking hell
+gtfo  -  get the fuck out
+gtfoi  -  get the fuck over it
+gtfon  -  Get the fuck out noob
+gtfooh  -  get the fuck out of here
+gtfoomf  -  get the fuck out of my face
+gtfu  -  grow the fuck up
+gtfuotb  -  get the fuck up out this bitch
 gtg  -  got to go
 gtgbb  -  got to go bye bye
 gtgfn  -  got to go for now
@@ -1670,11 +1670,11 @@ gtgtpirio  -  got to go the price is right is on
 gtgtwn  -  Got to go to work now
 gth  -  go to hell
 gtha  -  go the hell away
-gthb  -  go to hell b***h
-gthmf  -  go to hell mothaf**ka
+gthb  -  go to hell bitch
+gthmf  -  go to hell mothafucka
 gtho  -  get the hell out
 gthu  -  grow the heck up
-gthyfah  -  go to hell you f**king a**h**e
+gthyfah  -  go to hell you fucking asshole
 gtk  -  good to know
 gtm  -  giggling to myself
 gtn  -  getting
@@ -1702,7 +1702,7 @@ gwytose  -  go waste your time on someone else
 gy  -  gay
 gyal  -  girl
 gypo  -  Get Your Penis Out
-roflmfao  -  rolling on the floor laughing my f**king a** off
+roflmfao  -  rolling on the floor laughing my fucking ass off
 h&k  -  hugs and kisses
 h*r  -  homestar runner
 h+k  -  hugs and kisses
@@ -1751,7 +1751,7 @@ hags  -  have a great summer
 hai  -  hello
 hait  -  hate
 hak  -  here's a kiss
-hakas  -  have a kick a** summer
+hakas  -  have a kick ass summer
 hammrd  -  hammered
 han  -  how about now
 hau  -  How Are You
@@ -1777,7 +1777,7 @@ hayd  -  how are you doing
 hb  -  hurry back
 hb4b  -  hoes before bros
 hbd  -  happy birthday
-hbic  -  head b***h in charge
+hbic  -  head bitch in charge
 hbii  -  how big is it
 hbu  -  how about you
 hby  -  how about you
@@ -1796,9 +1796,9 @@ heyt  -  hate
 heyy  -  hello
 heyya  -  hello
 hf  -  have fun
-hfn  -  Hell f**king no
-hfs  -  holy f**king s**t!
-hfsbm  -  holy f**king s**t batman
+hfn  -  Hell fucking no
+hfs  -  holy fucking shit!
+hfsbm  -  holy fucking shit batman
 hfwt  -  have fun with that
 hg  -  HockeyGod
 hght  -  height
@@ -1828,10 +1828,10 @@ hlm  -  he loves me
 hlo  -  hello
 hlp  -  help
 hly  -  holy
-hlysht  -  Holy s**t
+hlysht  -  Holy shit
 hmb  -  hold me back
 hmewrk  -  homework
-hmfic  -  head mother f**ker in charge
+hmfic  -  head mother fucker in charge
 hml  -  hate my life
 hmoj  -  holy mother of jesus
 hmu  -  Hit Me Up
@@ -1856,7 +1856,7 @@ hott  -  hot
 howdey  -  hello
 howz  -  hows
 hpb  -  high ping b*****d
-hpoa  -  Hot Piece of a**
+hpoa  -  Hot Piece of ass
 hppy  -  Happy
 hpy  -  happy
 hpybdy  -  happy birthday
@@ -1870,12 +1870,12 @@ hs  -  headshot
 hsd  -  high school dropout
 hsik  -  how should i know
 hsr  -  homestar runner
-hss  -  horse s**t and splinters
+hss  -  horse shit and splinters
 hswm  -  Have Sex With me
 ht  -  Heard Through
 htc  -  hit the cell
-htf  -  how the f**k
-htfu  -  Hurry the f**k up
+htf  -  how the fuck
+htfu  -  Hurry the fuck up
 hth  -  hope that helps
 hthu  -  Hurry the hell up
 htr  -  hater
@@ -1912,7 +1912,7 @@ i8u  -  i hate you
 i<3 u  -  i love you
 i<3u  -  I love you
 iab  -  I Am Bored
-iafh  -  I Am f**king Hot
+iafh  -  I Am fucking Hot
 iafi  -  I am from India
 iag  -  it's all good
 iah  -  i am horny
@@ -1937,7 +1937,7 @@ iawy  -  I agree with you
 ib  -  I'm back
 ibbl  -  I'll be back later
 ibcd  -  Idiot between chair & desk
-ibs  -  Internet b***h Slap 
+ibs  -  Internet bitch Slap 
 ibt  -  I'll be there
 ibtl  -  In Before The Lock
 ibw  -  I'll be waiting
@@ -1972,16 +1972,16 @@ idc  -  I don't care
 iddi  -  I didn't do it
 idec  -  I don't even care
 idek  -  I don't even know
-idfc  -  i don't f**king care
-idfk  -  i don't f**king know
-idfts  -  I don't f**king think so
+idfc  -  i don't fucking care
+idfk  -  i don't fucking know
+idfts  -  I don't fucking think so
 idgac  -  i don't give a crap
 idgad  -  I don't give a d**n
-idgaf  -  i don't give a f**k
-idgaff  -  I don't give a flying f**k
-idgafs  -  I don't give a f**king s**t
-idgara  -  I don't give a rat's a**
-idgas  -  i don't give a s**t
+idgaf  -  i don't give a fuck
+idgaff  -  I don't give a flying fuck
+idgafs  -  I don't give a fucking shit
+idgara  -  I don't give a rat's ass
+idgas  -  i don't give a shit
 idgi  -  I don't get it
 idjit  -  idiot
 idk  -  I don't know
@@ -2014,8 +2014,8 @@ idop  -  it depends on price
 idot  -  idiot
 idr  -  I don't remember
 idrc  -  i don't really care
-idrfk  -  I don't really f**king know
-idrgaf  -  I don't really give a f**k
+idrfk  -  I don't really fucking know
+idrgaf  -  I don't really give a fuck
 idrk  -  i don't really know
 idrts  -  I don't really think so
 idsw  -  i don't see why
@@ -2033,9 +2033,9 @@ idyat  -  idiot
 iebkac  -  issue exists between keyboard and chair
 ietf  -  internet engineering task force
 iff  -  if and only if
-ifhu  -  I f**king hate you
-ifhy  -  i f**king hate you
-iflu  -  i f**king love you
+ifhu  -  I fucking hate you
+ifhy  -  i fucking hate you
+iflu  -  i fucking love you
 ifthtb  -  i find that hard to belive
 ifttt  -  if this then that 
 ifwis  -  I forgot what I said
@@ -2046,17 +2046,17 @@ igahp  -  I've got a huge penis
 igalboc  -  I've got a lovely bunch of cocnuts
 igg  -  i gotta go
 ight  -  alright
-igkymfa  -  I'm gonna kick your mother f**king a**
+igkymfa  -  I'm gonna kick your mother fucking ass
 igs  -  I guess so
 igt  -  I Got This
 igtg  -  i've got to go
 igtgt  -  I got to go tinkle
-igtkya  -  im going to kick your a**
+igtkya  -  im going to kick your ass
 igu  -  i give up
 igyb  -  I Got Your Back
 ih  -  it happens
 ih2gp  -  I have to go pee
-ih2p  -  i'll have to pa**
+ih2p  -  i'll have to pass
 ih8  -  i hate
 ih8mls  -  I hate my little sister 
 ih8p  -  I hate parents
@@ -2071,10 +2071,10 @@ ihiwydt  -  I hate it when you do that
 ihml  -  I hate my life
 ihmp  -  i hate my parents
 ihnc  -  i have no clue
-ihnfc  -  I have no f**king clue
+ihnfc  -  I have no fucking clue
 ihni  -  i have no idea
 iht  -  I heard that
-ihtfp  -  I hate this f**king place
+ihtfp  -  I hate this fucking place
 ihtgttbwijd  -  I have to go to the bathroom, wait I just did.
 ihtp  -  I Have To Poop
 ihtsm  -  i hate this so much
@@ -2082,7 +2082,7 @@ ihtutbr  -  I have to use the bathroom
 ihu  -  I hate you
 ihurg  -  i hate your guts
 ihusb  -  i hate you so bad 
-ihusfm  -  i hate you so f**king much
+ihusfm  -  i hate you so fucking much
 ihusm  -  i hate you so much
 ihy  -  i hate you
 ihya  -  i hate you all
@@ -2128,18 +2128,18 @@ ilbcnu  -  i'll be seeing you
 ilcul8r  -  I'll see you later
 ilhsm  -  i love him/her so much
 ili  -  i love it
-ilk2fku  -  I would like to f**k you
+ilk2fku  -  I would like to fuck you
 ilml  -  I Love My Life
 ilms  -  I love my self
 ilotibinlirl  -  I'm laughing on the internet, but I'm not laughing in real life
 ilshipmp  -  I laughed so hard I peed my pants
-iltf  -  i love to f**k
+iltf  -  i love to fuck
 ilu  -  I love you
 ilu2  -  I love you too
 iluaaf  -  i love you as a friend
 ilulafklc  -  I love you like a fat kid loves cake.
 ilum  -  i love you more
-ilusfm  -  I love you so f**king much
+ilusfm  -  I love you so fucking much
 ilusm  -  I love you So much
 iluvm  -  I Love You Very Much
 iluvu  -  i love you
@@ -2152,7 +2152,7 @@ ily4e  -  i love you forever
 ily4ev  -  i love you forever
 ilyaas  -  I Love You As A Sister
 ilyal  -  I like you a lot
-ilyb  -  i love you b***h
+ilyb  -  i love you bitch
 ilybby  -  i love you baby
 ilybtid  -  I Love You But Then I Don't
 ilyf  -  I'll Love You Forever
@@ -2167,8 +2167,8 @@ ilylc  -  i love you like crazy
 ilym  -  i love you more
 ilymtyk  -  i love you more than you know
 ilymtylm  -  i love you more than you love me
-ilysfm  -  i love you so f**king much
-ilysfmb  -  i love you so f**king much baby
+ilysfm  -  i love you so fucking much
+ilysfmb  -  i love you so fucking much baby
 ilysm  -  i love you so much
 ilysmih  -  i love you so much it hurts
 ilysmm  -  i love you so much more
@@ -2184,8 +2184,8 @@ imao  -  in my arrogant opinion
 imb  -  I am back
 imcdo  -  in my conceited dogmatic opinion
 imed  -  instant messaged
-imfao  -  In My f**king Arrogant Opinion
-imfo  -  in my f**king opinion
+imfao  -  In My fucking Arrogant Opinion
+imfo  -  in my fucking opinion
 imh  -  I am here
 imhbco  -  In my humble but correct opinion
 imhe  -  in my humble experience
@@ -2194,7 +2194,7 @@ imm  -  instant message me
 imma  -  I'm going to
 imnerho  -  In my not even remotely humble opinion
 imnl  -  I'm not laughing
-imnshmfo  -  In My Not So Humble Mother f**king Opinion
+imnshmfo  -  In My Not So Humble Mother fucking Opinion
 imnsho  -  in my not so humble opinion
 imo  -  in my opinion
 imoo  -  in my own opinion
@@ -2211,7 +2211,7 @@ imwtk  -  Inquiring minds want to know
 imy  -  I miss you
 imy2  -  i miss you to
 imya  -  i miss you already
-imysfm  -  i miss you so f**king much
+imysfm  -  i miss you so fucking much
 in2  -  into
 inb4  -  in before
 inbd  -  it's no big deal
@@ -2244,12 +2244,12 @@ iono  -  I don't know
 iotd  -  image of the day
 iou  -  i owe you
 iow  -  in other words
-ioya  -  I'd Own Your a**
+ioya  -  I'd Own Your ass
 ioyk  -  if only you knew
 ip  -  internet protocol
 irc  -  internet relay chat
 irdc  -  I really don't care
-irdgaf  -  i really don't give a f**k
+irdgaf  -  i really don't give a fuck
 irdk  -  I really don't know
 irgtgbtw  -  I've really got to get back to work
 irhtgttbr  -  I really have to go to the bathroom
@@ -2263,7 +2263,7 @@ isb  -  I'm so bored.
 isbya  -  im sorry but you asked
 isd  -  internet slang dictionary
 ise  -  internal server error
-isfly  -  i so f**king love you
+isfly  -  i so fucking love you
 isg  -  I speak geek
 ishii  -  i see how it is
 isianmtu  -  I swear I am not making this up
@@ -2290,15 +2290,15 @@ iukwim  -  if you know what i mean
 iunno  -  I don't know
 iuno  -  i dunno
 ive  -  i have
-iw2f  -  i want to f**k
-iw2fu  -  i want to f**k you
+iw2f  -  i want to fuck
+iw2fu  -  i want to fuck you
 iw2mu  -  I want to meet you
 iwaa  -  It was an accident
 iwbrbl@r  -  I will be right back later
 iwc  -  In Which Case
-iwfusb  -  i wanna f**k you so bad
-iwfy  -  I want to f**k you
-iwfybo  -  i will f**k your brains out
+iwfusb  -  i wanna fuck you so bad
+iwfy  -  I want to fuck you
+iwfybo  -  i will fuck your brains out
 iwg  -  it was good
 iwhi  -  I would hit it
 iwhswu  -  I want to have sex with you
@@ -2310,8 +2310,8 @@ iwmy  -  i will miss you
 iws  -  i want sex
 iwsn  -  i want sex now
 iwsul8r  -  I will see you later
-iwtfu  -  i want to f**k you
-iwtfy  -  i want to f**k you
+iwtfu  -  i want to fuck you
+iwtfy  -  i want to fuck you
 iwthswy  -  i want to have sex with you
 iwtly  -  i want to love you
 iwu  -  i want you
@@ -2364,29 +2364,29 @@ jbu  -  just between us
 jc  -  just curious
 jcam  -  just checking away message
 jcath  -  Just chilling at the house
-jdfi  -  Just f**king do it
+jdfi  -  Just fucking do it
 jebus  -  Jesus
 jeomk  -  Just ejaculated on my keyboard
 jf  -  just fooling
-jfc  -  Jesus f**king Christ
-jfdi  -  Just f**king Do It!
+jfc  -  Jesus fucking Christ
+jfdi  -  Just fucking Do It!
 jff  -  just for fun
 jfg  -  just for giggles
-jfgi  -  just f**king google it
+jfgi  -  just fucking google it
 jfi  -  just forget it
 jfj  -  jump for joy
-jfk  -  Just f**king kidding
+jfk  -  Just fucking kidding
 jfl  -  just for laughs
 jflts  -  just felt like typing something
 jfn  -  just for now
-jfo  -  just f**k off
+jfo  -  just fuck off
 jfr  -  Just for reference
 jftr  -  just for the record
 jfu  -  just for you
-jfwy  -  just f**king with you
+jfwy  -  just fucking with you
 jg2h  -  just go to hell
 jgiyn  -  Just google it you noob
-jgtfooh  -  just get the f**k out of here
+jgtfooh  -  just get the fuck out of here
 jh  -  Just hanging
 jhm  -  just hold me
 jho  -  just hanging out
@@ -2429,7 +2429,7 @@ jsyn  -  just so you know
 jtay  -  just thinking about you
 jtbs  -  Just To Be Sure
 jtc  -  Join the club
-jtfo  -  joke the f**k out
+jtfo  -  joke the fuck out
 jtluk  -  just to let you know
 jtlyk  -  just to let you know
 jtoi  -  just thought of it
@@ -2453,10 +2453,10 @@ jwtlyk  -  Just wanted to let you know
 jyfihp  -  jam your finger in her p***y
 k  -  ok
 k3wl  -  cool
-ka  -  Kick a**
-kafn  -  kill all f**king noobs
+ka  -  Kick ass
+kafn  -  kill all fucking noobs
 kah  -  kisses and hugs
-kaw  -  kick a** work
+kaw  -  kick ass work
 kay  -  okay
 kb  -  KiloBite
 kcco  -  keep calm chive on
@@ -2477,7 +2477,7 @@ kir  -  kid in room
 kis  -  keep it simple
 kisa  -  knight in shining armor
 kit  -  keep in touch
-kitfo  -  knock it the f**k off
+kitfo  -  knock it the fuck off
 kitteh  -  kitten
 kiu  -  Keep it up
 kiwf  -  Kill It With Fire
@@ -2487,19 +2487,19 @@ kkthnxbye  -  okay thanks bye
 kky  -  kinky
 kl  -  cool
 km  -  kiss me
-kma  -  kiss my a**
-kmag  -  kiss my a** goodbye
-kmao  -  kick my a** off
+kma  -  kiss my ass
+kmag  -  kiss my ass goodbye
+kmao  -  kick my ass off
 kmb  -  kiss my butt
-kmfa  -  kiss my f**king a**
-kmhba  -  kiss my hairy big a**
+kmfa  -  kiss my fucking ass
+kmhba  -  kiss my hairy big ass
 kmn  -  kill me now
 kmp  -  kill me please
 kmsl  -  killing myself laughing
 kmswl  -  killing myself with laughter
 knackered  -  drunk
 knewb  -  new player
-knn  -  f**k your mother
+knn  -  fuck your mother
 kno  -  know
 knw  -  know
 ko  -  knock out
@@ -2510,14 +2510,14 @@ kos  -  kid over shoulder
 kotc  -  kiss on the cheek
 kotl  -  kiss on the lips
 kotor  -  Knights of the old republic
-kots  -  keep on talking s**t
+kots  -  keep on talking shit
 kpc  -  keeping parents clueless
 ks  -  kill steal
 kss  -  kiss
 kssd  -  kissed
 kt  -  keep talking
 ktc  -  kill the cat
-ktfo  -  knocked the f**k out
+ktfo  -  knocked the fuck out
 kthanxbi  -  Okay, thanks. Bye.
 kthnxbai  -  Okay, thanks, bye
 kthnxbye  -  Okay, thanks, bye
@@ -2542,8 +2542,8 @@ kwit  -  quit
 kwiz  -  quiz
 kwl  -  cool
 kwtsds  -  Kiss where the sun don't shine
-kyag  -  Kiss Your a** Goodbye
-kyfag  -  kiss your f**king a** goodbye
+kyag  -  Kiss Your ass Goodbye
+kyfag  -  kiss your fucking ass goodbye
 kyfc  -  keep your fingers crossed
 kyko  -  keep your knickers on
 kys  -  kill yourself
@@ -2576,11 +2576,11 @@ lak  -  love and kisses
 lal  -  laughing a little
 lalol  -  lots and lots of laughs
 lam  -  leave a message
-lamf  -  like a motherf**ker
+lamf  -  like a motherfucker
 lan  -  local area network
 lappy  -  Laptop
 larp  -  live action role-play
-lasb  -  Lame a** Stupid b***h
+lasb  -  Lame ass Stupid bitch
 lat  -  laugh at that
 lata  -  later
 lates  -  later
@@ -2620,13 +2620,13 @@ lf  -  looking for
 lf1m  -  Looking for one more
 lf2m  -  looking for 2 more
 lfg  -  Looking for group
-lfl  -  let's f**k later
+lfl  -  let's fuck later
 lfm  -  looking for mate
 lfnar  -  laughing for no aparent reason
 lfp  -  looking for p***y
 lfr  -  Laughing for real
 lgb  -  lesbian/gay/bisexual
-lgbnaf  -  lets get butt naked and f**k
+lgbnaf  -  lets get butt naked and fuck
 lgbtq  -  Lesbien, Gay, Bisexual, Transgender and Queer.
 lgf  -  little green footballs
 lggd  -  let's go get drunk
@@ -2635,7 +2635,7 @@ lgo  -  life goes on
 lgot  -  let's go out tonight
 lgr  -  little girls room
 lgs  -  let's go shopping!
-lhao  -  laughing her a** off
+lhao  -  laughing her ass off
 lhs  -  lets have sex
 lhsrn  -  let's have sex right now
 lic  -  like i care
@@ -2643,9 +2643,9 @@ liec  -  like i even care
 liek  -  like
 liekz  -  likes
 lifo  -  last in first out
-ligaff  -  like I give a flying f**k
-ligafs  -  like I give a flying s**t
-ligas  -  like I give a s**t
+ligaff  -  like I give a flying fuck
+ligafs  -  like I give a flying shit
+ligas  -  like I give a shit
 lih  -  Laugh in head
 liita  -  love is in the air
 lik  -  like
@@ -2660,47 +2660,47 @@ liyf  -  laughing in your face
 lj  -  live journal
 lk  -  like
 lke  -  like
-llab  -  Laughing like a b***h.
+llab  -  Laughing like a bitch.
 llap  -  live long and prosper
 llc  -  laughing like crazy
-llf  -  laugh like f**k
+llf  -  laugh like fuck
 llol  -  literally laughing out loud
 lltnt  -  live like theres no tomorrow 
 lm4aq  -  Let's meet for a quickie.
 lma  -  leave me alone
-lmamf  -  leave me alone mother f**ker
-lmao  -  laughing my a** off
-lmaol  -  laughing my a** out loud
-lmaomtoaoa  -  Laugh my a** off many times over and over again
-lmaonade  -  laughing my a** off
-lmaool  -  laughing my a** off out loud 
-lmaootf  -  Laughing my a** off on the floor 
-lmaorof  -  Laughing my a** off Rolling on the floor
-lmaorotf  -  laughing my a** off rolling on the floor
-lmaowrotf  -  Laughing my a** of while rolling on the floor
-lmaowtntpm  -  laughing my a** off whilst trying not to piss myself
-lmaoxh  -  laughing my a** off extremely hard
+lmamf  -  leave me alone mother fucker
+lmao  -  laughing my ass off
+lmaol  -  laughing my ass out loud
+lmaomtoaoa  -  Laugh my ass off many times over and over again
+lmaonade  -  laughing my ass off
+lmaool  -  laughing my ass off out loud 
+lmaootf  -  Laughing my ass off on the floor 
+lmaorof  -  Laughing my ass off Rolling on the floor
+lmaorotf  -  laughing my ass off rolling on the floor
+lmaowrotf  -  Laughing my ass of while rolling on the floor
+lmaowtntpm  -  laughing my ass off whilst trying not to piss myself
+lmaoxh  -  laughing my ass off extremely hard
 lmap  -  leave me alone please
 lmb  -  lick my balls
-lmbao  -  laughing my black a** off
-lmbfwao  -  laughing my big fat white a** off
+lmbao  -  laughing my black ass off
+lmbfwao  -  laughing my big fat white ass off
 lmbo  -  laughing my butt off
-lmcao  -  laughing my crazy a** off
-lmclao  -  laughing my cute little a** off
-lmd  -  Lick My d**k
-lmfao  -  laughing my f**king a** off
-lmfbo  -  laugh my f**king butt off
-lmffao  -  laughing my f**king fat a** off
-lmffo  -  Laughing my f**king face off
-lmfho  -  laughing my f**king head off
+lmcao  -  laughing my crazy ass off
+lmclao  -  laughing my cute little ass off
+lmd  -  Lick My dick
+lmfao  -  laughing my fucking ass off
+lmfbo  -  laugh my fucking butt off
+lmffao  -  laughing my fucking fat ass off
+lmffo  -  Laughing my fucking face off
+lmfho  -  laughing my fucking head off
 lmfo  -  laughing my face off
-lmfpo  -  laughing my f**king p***y off
+lmfpo  -  laughing my fucking p***y off
 lmfr  -  Lets Meet For Real
-lmfto  -  laughing my f**kin tits off
+lmfto  -  laughing my fuckin tits off
 lmg  -  let me guess
-lmgdao  -  Laughing My God d**n a** Off
+lmgdao  -  Laughing My God d**n ass Off
 lmgtfy  -  Let me Google that for you
-lmhao  -  laughing my hairy a** off
+lmhao  -  laughing my hairy ass off
 lmho  -  laughing my heiny off
 lmip  -  LETS MEET IN PERSON
 lmirl  -  Let's meet in real life
@@ -2708,30 +2708,30 @@ lmk  -  let me know
 lmks  -  Let Me Know Soon
 lmkwut  -  let me know what you think
 lml  -  love my life
-lmmfao  -  laughing my mother f**king a** off
-lmmfaos  -  laughing my mother f**king a** off silly
-lmmfas  -  laugh my mother f**kin a** off
-lmmffao  -  laughing my mother f**king fat a** off
+lmmfao  -  laughing my mother fucking ass off
+lmmfaos  -  laughing my mother fucking ass off silly
+lmmfas  -  laugh my mother fuckin ass off
+lmmffao  -  laughing my mother fucking fat ass off
 lmo  -  Leave Me One
-lmoao  -  Laughing my Other a** Off
+lmoao  -  Laughing my Other ass Off
 lmp  -  lick my p***y
 lmpo  -  laughing my panties off
 lms  -  leave me some
-lmsao  -  laughing my sexy a** off
+lmsao  -  laughing my sexy ass off
 lmso  -  laughing my socks off
 lmtd  -  limited
-lmtfa  -  leave me the f**k alone
+lmtfa  -  leave me the fuck alone
 lmto  -  laughing my tits off
 lmtus  -  let me tell you something
 lmty  -  laughing more than you
 lmvo  -  laugh my vagina off
 ln  -  last name
 lnk  -  Link
-lobfl  -  Laugh Out Bloody f**king Loud
+lobfl  -  Laugh Out Bloody fucking Loud
 lof  -  Laughing on floor
 lofi  -  uncool
-lofl  -  laugh out f**king loud
-loflmao  -  laying on floor laughing my a** off
+lofl  -  laugh out fucking loud
+loflmao  -  laying on floor laughing my ass off
 loi  -  laughing on the inside
 lol  -  laughing out loud
 lol'd  -  laughed out loud
@@ -2788,7 +2788,7 @@ lq2m  -  laughing quietly to myself
 lqtm  -  Laugh quietly to myself
 lqtms  -  Laughing quietly to myself
 lqts  -  laughing quietly to self
-lrfl  -  Laughing really f**king loud
+lrfl  -  Laughing really fucking loud
 lrh  -  laughing really hard
 lrqtms  -  laughing really quietly to myself
 lrt  -  last retweet
@@ -2796,7 +2796,7 @@ lsfw  -  Less Safe For Work
 lshic  -  laughing so hard i'm crying
 lshid  -  laugh so hard i die
 lshipmp  -  Laughing so Hard I Piss My Pants
-lshismp  -  laughed so hard I s**t my pants
+lshismp  -  laughed so hard I shit my pants
 lshiwms  -  laughing so hard I wet myself
 lshmson  -  laughing so hard milk shot out nose
 lshrn  -  laughing so hard right now
@@ -2854,10 +2854,10 @@ ly2  -  love you to
 lya  -  love you always
 lyaab  -  Love you as a brother
 lyaaf  -  Love you as a friend
-lyao  -  laugh your a** off
+lyao  -  laugh your ass off
 lybo  -  laugh your butt off
 lyf  -  life
-lyfao  -  laughing your f**king a** off
+lyfao  -  laughing your fucking ass off
 lyfe  -  life
 lyk  -  like
 lyk3  -  like
@@ -2873,7 +2873,7 @@ lylasa  -  love you like a sister always
 lylno  -  Love you like no other
 lyls  -  love you lots
 lymi  -  love you mean it
-lysfm  -  love you so f**king much
+lysfm  -  love you so fucking much
 lysm  -  love you so much
 lyt  -  love you too
 lyvm  -  love you very much
@@ -2904,7 +2904,7 @@ mabby  -  maybe
 mabe  -  Maybe
 mah  -  my
 mai  -  my
-mao  -  my a** off
+mao  -  my ass off
 marvy  -  marvelous
 masterb8  -  masterbate
 mastrb8  -  masturbate.
@@ -2925,16 +2925,16 @@ meeh  -  me
 mego  -  my eyes glaze over
 meh  -  whatever
 messg  -  message
-mf  -  motherf**ker
+mf  -  motherfucker
 mf2f4sx  -  meet face to face for sex
-mfa  -  mother f**king a**h**e
-mfah  -  motherf**king a**h**e
-mfao  -  my f**king a** off
-mfb  -  mother f**king b***h
+mfa  -  mother fucking asshole
+mfah  -  motherfucking asshole
+mfao  -  my fucking ass off
+mfb  -  mother fucking bitch
 mfg  -  merge from current
-mfkr  -  motherf**ker
+mfkr  -  motherfucker
 mflfs  -  married female looking for sex
-mfr  -  motherf**ker
+mfr  -  motherfucker
 mfw  -  my face when
 mgiwjsdchmw  -  my girlfriend is watching jeff so don't call her my wife
 mhh  -  my head hurts
@@ -2943,8 +2943,8 @@ mho  -  My Humble Opinion
 mia  -  Missing In Action
 mic  -  microphone
 miid  -  my internet is down
-milf  -  Mom i'd like to f**k
-miltf  -  Mom I'd like to f**k
+milf  -  Mom i'd like to fuck
+miltf  -  Mom I'd like to fuck
 min  -  minute
 mins  -  minutes
 miq  -  make it quick
@@ -2954,7 +2954,7 @@ misc.  -  miscellaneous
 miself  -  myself
 mite  -  might
 miw  -  mom is watching
-miwnlf  -  mom I would not like to f**k.
+miwnlf  -  mom I would not like to fuck.
 mk  -  mmm....ok
 mkay  -  ok
 mlc  -  mid life crisis
@@ -2984,7 +2984,7 @@ mnm  -  eminem
 mnt  -  More next time
 mobo  -  motherboard
 mof  -  matter of fact
-mofo  -  mother f**ker
+mofo  -  mother fucker
 moh  -  Medal Of Honor
 mohaa  -  Medal of Honor Allied Assult
 mol  -  more or less
@@ -3022,11 +3022,11 @@ mtf  -  More to Follow
 mtfbwu  -  may the force be with you
 mtfbwy  -  May the Force be with you
 mtg  -  Meeting
-mtherfker  -  mother f**ker
-mthrfkr  -  mother f**ker
+mtherfker  -  mother fucker
+mthrfkr  -  mother fucker
 mtl  -  more than likely
 mtr  -  matter
-mtrfkr  -  motherf**ker
+mtrfkr  -  motherfucker
 mty  -  empty
 mu  -  miss you
 mudda  -  mother
@@ -3043,12 +3043,12 @@ mwah  -  kiss
 mwf  -  Married White Female
 mwsmirl  -  maybe we should meet in real life
 myaly  -  miss you and love you
-myfb  -  mind your f**king business
+myfb  -  mind your fucking business
 myke  -  man-dyke
 myn  -  mine
 myob  -  mind your own business
 myodb  -  mind your own d**n business
-myofb  -  mind your own f**king business
+myofb  -  mind your own fucking business
 mypl  -  my young padawan learner
 mysm  -  Miss you so much
 myspce  -  myspace
@@ -3089,7 +3089,7 @@ naa  -  not at all
 nade  -  grenade
 nafc  -  Not Appropriate for Children
 nafkam  -  Not Away From Keyboard Any More
-naft  -  Not A f**king Thing
+naft  -  Not A fucking Thing
 nafta  -  North American Free Trade Agreement
 nah  -  no
 namh  -  not at my house
@@ -3140,16 +3140,16 @@ newbie  -  new player
 newez  -  anyways
 nf  -  not funny
 nfbsk  -  not for british school kids
-nfc  -  no f**king clue
-nfd  -  no f**king deal
-nff  -  not f**king fair
-nfi  -  no f**king idea
+nfc  -  no fucking clue
+nfd  -  no fucking deal
+nff  -  not fucking fair
+nfi  -  no fucking idea
 nfr  -  not for real
 nfs  -  not for sale
 nft  -  no further text
-nfw  -  no f**king way
+nfw  -  no fucking way
 ng  -  nice game
-ngaf  -  nobody gives a f**k
+ngaf  -  nobody gives a fuck
 ngl  -  Not Gonna Lie
 nh  -  nice hand
 nhatm  -  not here at the moment
@@ -3160,7 +3160,7 @@ nic  -  Network Interface Card
 nif  -  non internet friend
 nifoc  -  naked in front of computer
 nifok  -  naked in front of keyboard
-nigysob  -  now I've got you son of a b***h
+nigysob  -  now I've got you son of a bitch
 nimby  -  not in my backyard
 nin  -  no its not
 nip  -  nothing in particular
@@ -3178,7 +3178,7 @@ nm u  -  not much, you
 nmbr  -  number
 nme  -  enemy
 nmf  -  not my fault
-nmfp  -  not my f**king problem
+nmfp  -  not my fucking problem
 nmh  -  not much here
 nmhau  -  nothing much how about you
 nmhm  -  nothing much here, man
@@ -3189,7 +3189,7 @@ nmjc  -  not much, just chillin'
 nmjch  -  Nothing Much Just Chilling
 nmjcu  -  nothing much, just chilling, you?
 nmjdhw  -  nothing much just doing homework
-nmjfa  -  nothing much, just f**king around
+nmjfa  -  nothing much, just fucking around
 nmnhnlm  -  no money, no honey, nobody loves me
 nmp  -  Not My Problem
 nmu  -  nothing much, you
@@ -3247,7 +3247,7 @@ nsas  -  No Strings Attached Sex
 nsfmf  -  not so fast my friend
 nsfu  -  no sex for you
 nsfw  -  not safe for work
-nss  -  no s**t sherlock
+nss  -  no shit sherlock
 nst  -  no school today
 nstaafl  -  No Such Thing As a Free Lunch
 nt  -  nice try
@@ -3256,7 +3256,7 @@ ntbn  -  no text-back needed
 nthg  -  nothing
 nthin  -  nothing
 nthn  -  nothing
-ntigaf  -  not that i give a f**k
+ntigaf  -  not that i give a fuck
 ntk  -  Need to know
 ntkb  -  need to know basis
 ntm  -  not to much
@@ -3295,7 +3295,7 @@ nwb  -  a new person
 nwih  -  no way in hell
 nwrus  -  no way are your serious 
 nws  -  not work safe
-nwtf  -  now what the f**k
+nwtf  -  now what the fuck
 nwy  -  no way
 nxt  -  next
 ny1  -  Anyone
@@ -3330,14 +3330,14 @@ oed  -  oxford english dictionary
 of10  -  often
 ofc  -  of course
 ofcol  -  oh for crying out loud
-ofn  -  Old f**king News
+ofn  -  Old fucking News
 oftc  -  out for the count
 oftn  -  often
 oftpc  -  off topic
 ofwg  -  old fat white guys
 og  -  original gangster
 ogw  -  oh guess what
-oh noes  -  oh s**t!
+oh noes  -  oh shit!
 oh noez  -  Oh no!
 ohic  -  oh I see
 ohn  -  oh hell no
@@ -3357,42 +3357,42 @@ oll  -  online love
 olpc  -  One Laptop Per Child
 omdg  -  oh my dear god
 omdz  -  Oh My Days 
-omfd  -  oh my f**king days
-omfg  -  oh my f**king god
-omfgn  -  Oh my f**king god noob
-omfgsh  -  Oh My f**king Gosh
-omfj  -  oh my f**king jesus
-omfl  -  oh my f**king internet connection is slow
+omfd  -  oh my fucking days
+omfg  -  oh my fucking god
+omfgn  -  Oh my fucking god noob
+omfgsh  -  Oh My fucking Gosh
+omfj  -  oh my fucking jesus
+omfl  -  oh my fucking internet connection is slow
 omfsm  -  Oh My Flying Spaghetti Monster
-omfwtg  -  Oh My f**k What The God?
+omfwtg  -  Oh My fuck What The God?
 omg  -  oh my God
 omg's  -  oh my god's
 omgd  -  Oh my gosh dude
-omgf  -  oh my god...f**k!
+omgf  -  oh my god...fuck!
 omgg  -  Oh my gosh girl
-omgicfbi  -  Oh my god I can't f**king believe it
+omgicfbi  -  Oh my god I can't fucking believe it
 omgih  -  Oh My God In Heaven
 omgihv2p  -  oh my god i have to pee
 omginbd  -  Oh my God, It's no big deal
 omgn  -  oh my goodness
 omgny  -  oh my god no way
 omgosh  -  Oh my gosh
-omgroflmao  -  oh my god roll on the floor laughing my a** off
+omgroflmao  -  oh my god roll on the floor laughing my ass off
 omgsh  -  oh my gosh
 omgty  -  Oh my god thank you
 omgukk  -  oh my god you killed kenny
-omgwtf  -  on my God, what the f**k
-omgwtfbbq  -  oh my God, what the f**k
-omgwtfhax  -  Oh My God What The f**k, Hacks!
-omgwtfit  -  Oh my God, what the f**k is that
-omgwtfnipples  -  on my God, what the f**k
+omgwtf  -  on my God, what the fuck
+omgwtfbbq  -  oh my God, what the fuck
+omgwtfhax  -  Oh My God What The fuck, Hacks!
+omgwtfit  -  Oh my God, what the fuck is that
+omgwtfnipples  -  on my God, what the fuck
 omgyg2bk  -  oh my god you got to be kidding
 omgykkyb  -  oh my god you killed kenny you b*****ds
 omgz  -  oh my God
 omgzors  -  oh my god
 omhg  -  oh my hell god
 omj  -  oh my jesus
-ommfg  -  oh my mother f**king god
+ommfg  -  oh my mother fucking god
 omt  -  one more time
 omw  -  on my way
 omwh  -  on my way home
@@ -3422,18 +3422,18 @@ orpg  -  online role playing game
 os  -  operating system
 osbutctt  -  only sad b*****ds use this crappy text talk
 osd  -  On Screen Display
-osifgt  -  oh s**t i forgot
+osifgt  -  oh shit i forgot
 oslt  -  or something like that
 osy  -  oh screw you
 ot  -  off topic
 otc  -  off the chain
 otfcu  -  on the floor cracking up
 otfl  -  on the floor laughing
-otflmao  -  On the floor laughing my a** off
-otflmfao  -  On the floor laughing my f**king a** off
+otflmao  -  On the floor laughing my ass off
+otflmfao  -  On the floor laughing my fucking ass off
 otflol  -  on the floor laughing out loud
-otfp  -  on the f**king phone
-otft  -  over the f**king top
+otfp  -  on the fucking phone
+otft  -  over the fucking top
 oti  -  on the internet
 otl  -  out to lunch
 otoh  -  on the other hand
@@ -3450,7 +3450,7 @@ ownzer  -  one who makes others look bad
 ownzorz  -  Owned.
 owt  -  Out
 oww  -  Oops, wrong window
-oyfe  -  Open Your f**king Eyes
+oyfe  -  Open Your fucking Eyes
 oyid  -  oh yes i did
 oyo  -  on your own
 oyr  -  Oh Yeah Right
@@ -3516,7 +3516,7 @@ pezzas  -  parents
 pf  -  profile 
 pfa  -  Please Find Attached
 pfm  -  Please forgive me
-pfo  -  please f**k off
+pfo  -  please fuck off
 pfos  -  parental figure over sholder
 pfy  -  pimply faced youth
 pg  -  page
@@ -3530,30 +3530,30 @@ phayl  -  fail
 phear  -  fear
 phlr  -  peace hugs love respect
 phm  -  please help me
-phq  -  f**k you
+phq  -  fuck you
 phreak  -  freak
 phreaker  -  phone hacker
-phuck  -  f**k
-phucker  -  f**ker
-phuk  -  f**k
+phuck  -  fuck
+phucker  -  fucker
+phuk  -  fuck
 phun  -  fun
-phux  -  f**k
-phuxor  -  f**k
+phux  -  fuck
+phuxor  -  fuck
 pic  -  picture
 piccies  -  Pictures
 pics  -  pictures
 pihb  -  pee in his/her butt
 piihb  -  put it in her butt
 piitb  -  put it in the butt
-pima  -  Pain in my a**
-pimfa  -  pain in my f**king a**
-pimha  -  Pain in my hairy a**
+pima  -  Pain in my ass
+pimfa  -  pain in my fucking ass
+pimha  -  Pain in my hairy ass
 pimpl  -  pissing in my pants laughing
 pino  -  Filipino
 pir  -  parents in room
 pirlos  -  parent in room looking over shoulder
-pita  -  pain in the a**
-pitfa  -  Pain In The f**king a**
+pita  -  pain in the ass
+pitfa  -  Pain In The fucking ass
 pitr  -  parent in the room
 pitrtul  -  parents in the room text you later
 piw  -  Parent is watching
@@ -3592,15 +3592,15 @@ plz  -  please
 plzkthx  -  Please? OK, Thank you
 plzthx  -  please? Thanks
 pmfji  -  Pardon me for jumping in
-pmfsl  -  piss my f**king self laughing
+pmfsl  -  piss my fucking self laughing
 pmg  -  oh my God
-pmita  -  pound me in the a**
-pmitap  -  pound me in the a** prison
+pmita  -  pound me in the ass
+pmitap  -  pound me in the ass prison
 pml  -  pissing myself laughing
 pmo  -  pissing me off
 pmp  -  pissing my pants
 pmpl  -  piss my pants laughing
-pmsfl  -  Pissed Myself f**king Laughing
+pmsfl  -  Pissed Myself fucking Laughing
 pmsl  -  piss my self laughing
 pnbf  -  Potential new boy friend
 pnhlgd  -  parents not home, let's get dirty
@@ -3673,8 +3673,8 @@ psp  -  playstation portable
 pssy  -  p***y
 pst  -  please send tell
 pt33n  -  preteen
-ptbb  -  pa** the barf bag
-ptfo  -  passed the f**k out
+ptbb  -  pass the barf bag
+ptfo  -  passed the fuck out
 pthc  -  preteen hardcore
 ptl  -  Praise the Lord
 pto  -  Personal Time Off 
@@ -3685,7 +3685,7 @@ puter  -  Computer
 pvp  -  player versus player
 pvt  -  pervert
 pw  -  parent watching
-pwb  -  p***y whipped b***h
+pwb  -  p***y whipped bitch
 pwcb  -  parents watching close by
 pwd  -  password
 pwn  -  made to look bad
@@ -3704,7 +3704,7 @@ pwor  -  power
 pwos  -  parent was over sholder
 pww  -  parents were watching
 pxr  -  punk rocker
-pydim  -  put your d**k in me
+pydim  -  put your dick in me
 pyfco  -  put your freaking clothes on
 pyt  -  pretty young thing
 pz  -  peace
@@ -3715,7 +3715,7 @@ q33r  -  Queer
 q4u  -  question for you
 qed  -  I've made my Point
 qfe  -  quoted for emphasis
-qfmft  -  quoted for motherf**king truth
+qfmft  -  quoted for motherfucking truth
 qft  -  quoted for truth
 qft&gj  -  quoted for truth and great justice
 ql  -  cool
@@ -3737,14 +3737,14 @@ r  -  are
 r-tard  -  retard
 r.i.p.  -  rest in peace
 r0x0rz  -  rocks
-r2f  -  Ready To f**k
+r2f  -  Ready To fuck
 r8  -  rate
 r8p  -  rape
 r8pist  -  rapist
 r8t  -  rate
 ra2  -  red alert 2 (game)
 ra3  -  Red Alert 3 (game)
-raoflmao  -  rolling around on floor laughing my a** off
+raoflmao  -  rolling around on floor laughing my ass off
 rawk  -  Rock
 rawks  -  rocks
 rawr  -  roar
@@ -3769,9 +3769,9 @@ rentz  -  parents
 rep  -  to represent
 reppin  -  representing
 retrotextual  -  One who is using out of date words and abbreviations while texting.
-rff  -  really f**king funny
-rflmao  -  rolling on the floor laughing my a** off
-rfn  -  right f**king now
+rff  -  really fucking funny
+rflmao  -  rolling on the floor laughing my ass off
+rfn  -  right fucking now
 rgr  -  roger
 rhcp  -  red hot chilli peppers
 rhgir  -  really hot guy in room
@@ -3810,32 +3810,32 @@ rofflecake  -  rolling on the floor laughing
 rofflecopters  -  rolling on the floor with laughter
 roffleol  -  rolling on the floor laughing out loud
 roffles  -  rolling on floor laughing
-rofflmfao  -  rolling on the floor laughing my f**king a**
+rofflmfao  -  rolling on the floor laughing my fucking ass
 rofl  -  rolling on the floor laughing
 rofl&pmp  -  rolling on floor laughing and peeing my pants
-roflao  -  rolling on the floor laughing my a** off
+roflao  -  rolling on the floor laughing my ass off
 roflastc  -  Rolling On Floor Laughing And Scaring The Cat
 roflcopter  -  Rolling on the floor laughing
 roflcopters  -  rolling on the floor laughing, VERY funny.
 roflkmd  -  rolling on the floor laughing kicking my dog
 rofllh  -  rolling on the floor laughing like hell
-roflmao  -  rolling on the floor laughing my a** off
-roflmaoapimp  -  rolling on the floor laughing my a** off and peeing in my pants
-roflmaool  -  Rolling on the floor laughing my a** off out loud
-roflmaopmp  -  rolling on the floor, laughing my a** off, pissing my pants
-roflmaouts  -  Rolling on floor laughing my f**king a** off unable to speak
-roflmaowpimp  -  rolling on floor laughing my a** off while peeing in my pants
-roflmbfao  -  Rolling On Floor Laughing My Big Fat a** Off 
+roflmao  -  rolling on the floor laughing my ass off
+roflmaoapimp  -  rolling on the floor laughing my ass off and peeing in my pants
+roflmaool  -  Rolling on the floor laughing my ass off out loud
+roflmaopmp  -  rolling on the floor, laughing my ass off, pissing my pants
+roflmaouts  -  Rolling on floor laughing my fucking ass off unable to speak
+roflmaowpimp  -  rolling on floor laughing my ass off while peeing in my pants
+roflmbfao  -  Rolling On Floor Laughing My Big Fat ass Off 
 roflmbo  -  rolling on floor laughing my butt off
-roflmfaopimp  -  rolling on the floor laughing my f**king a** off pissing in my pants
-roflmfaopmp  -  rolling on flor laughing my f**king a** of peeing my pants
-roflmgao  -  rolling on the floor laughing my gay a** off
-roflmgdao  -  rolling on the floor laughing my god d**n a** off
-roflmgdmfao  -  roling on floor laughing my god d**n mother f**king a** off
+roflmfaopimp  -  rolling on the floor laughing my fucking ass off pissing in my pants
+roflmfaopmp  -  rolling on flor laughing my fucking ass of peeing my pants
+roflmgao  -  rolling on the floor laughing my gay ass off
+roflmgdao  -  rolling on the floor laughing my god d**n ass off
+roflmgdmfao  -  roling on floor laughing my god d**n mother fucking ass off
 roflmgo  -  Rolling On Floor Laughing My Guts Out
 roflmho  -  Rolling on the floor laughing my head off
 roflmiaha  -  Rolling on the floor laughing myself into a heart attack
-roflmmfao  -  rolling on the floor laughing my mother f**king a** off
+roflmmfao  -  rolling on the floor laughing my mother fucking ass off
 roflol  -  rolling on floor laughing out loud
 roflolbag  -  Rolling On The Floor Laughing Out Loud Busting A Gut
 roflpimp  -  rolling on the floor laughing pissing in my pants
@@ -3845,41 +3845,41 @@ rofpml  -  rolling on the floor pissing myself laughing
 rofwl  -  Rolling on the floor while laughing
 roger  -  affirmative
 rogl  -  rolling on ground laughing
-roglmfao  -  rolling on ground laughing my f**king a** off
+roglmfao  -  rolling on ground laughing my fucking ass off
 roi  -  Return On Investment
 roids  -  steroids
 roj  -  affirmative
 rol  -  rolling over laugihng
-rolmao  -  Rolling Over Laughing My a** Off
-rolmfao  -  rolling over laughing my f**king a** off
+rolmao  -  Rolling Over Laughing My ass Off
+rolmfao  -  rolling over laughing my fucking ass off
 rombl  -  rolled off my bed laughing
 rong  -  wrong
 roofles  -  rolling on the floor laughing
 ror  -  raughing out roud
 rotf  -  rolling on the floor
 rotfalol  -  roll on the floor and laugh out loud
-rotffl  -  roll on the f**king floor laughing
-rotfflmao  -  rolling on the f**king floor laughing my a** off
-rotfflmfao  -  rolling on the f**king floor laughing my f**king a** off
+rotffl  -  roll on the fucking floor laughing
+rotfflmao  -  rolling on the fucking floor laughing my ass off
+rotfflmfao  -  rolling on the fucking floor laughing my fucking ass off
 rotfl  -  rolling on the floor laughing
 rotflaviab  -  rolling on the floor laughing and vomiting in a bucket
-rotflmao  -  rolling on the floor laughing my a** off
-rotflmaofaktd  -  Rolling on the floor laughing my a** off farted and killed the dog
-rotflmaool  -  rolling on the floor laughing my a** off out loud
-rotflmaostc  -  rolling on the floor laughing my a** off scaring the cat
+rotflmao  -  rolling on the floor laughing my ass off
+rotflmaofaktd  -  Rolling on the floor laughing my ass off farted and killed the dog
+rotflmaool  -  rolling on the floor laughing my ass off out loud
+rotflmaostc  -  rolling on the floor laughing my ass off scaring the cat
 rotflmbo  -  rolling on the floor laughing my butt off
-rotflmfao  -  rolling on the floor laughing my f**king a** off
-rotflmfaopimp  -  rolling on the floor laughing my f**king a** off peeing in my pants
-rotflmfaopmp  -  rolling on the floor laughing my a** off pissin my pants
-rotflmfho  -  rolling on the floor laughing my f**king head off
+rotflmfao  -  rolling on the floor laughing my fucking ass off
+rotflmfaopimp  -  rolling on the floor laughing my fucking ass off peeing in my pants
+rotflmfaopmp  -  rolling on the floor laughing my ass off pissin my pants
+rotflmfho  -  rolling on the floor laughing my fucking head off
 rotflmho  -  rolling on the floor laughing my head off
-rotflmmfao  -  rolling on the floor laughing my mother f**king a** off
+rotflmmfao  -  rolling on the floor laughing my mother fucking ass off
 rotflol  -  rolling on the floor laughing out loud
 rotfpm  -  rolling on the floor pissing myself
-rotfwlmao  -  rolling on the floor while laughing my a** off
+rotfwlmao  -  rolling on the floor while laughing my ass off
 rotg  -  rolling on the ground
 rotgl  -  roll on the ground laughing
-rotglmao  -  rolling on the ground laughing my a** off
+rotglmao  -  rolling on the ground laughing my ass off
 rotw  -  rest of the world
 rowyco  -  rock out with your c**k out
 rox  -  rocks
@@ -3888,7 +3888,7 @@ roxorz  -  rocks
 roxxor  -  rock
 rp  -  roleplay
 rpg  -  role playing game
-rpita  -  royal pain in the a**
+rpita  -  royal pain in the ass
 rplbk  -  reply back
 rpo  -  royally pissed off
 rq  -  real quick
@@ -3902,16 +3902,16 @@ rta  -  read the article
 rtard  -  retard
 rtbq  -  Read The Blinking Question
 rtf  -  return the favor
-rtfa  -  read the f**king article
-rtffp  -  Read the f**king front page
-rtfm  -  read the f**king manual
-rtfmfm  -  read the f**king manual f**king moron
-rtfmm  -  read the f**king manual moron
-rtfms  -  Read The f**king Manual Stupid
-rtfp  -  read the f**king post
-rtfq  -  Read The f**king Question
-rtfs  -  read the f**king summary
-rtfu  -  Ready the f**k up
+rtfa  -  read the fucking article
+rtffp  -  Read the fucking front page
+rtfm  -  read the fucking manual
+rtfmfm  -  read the fucking manual fucking moron
+rtfmm  -  read the fucking manual moron
+rtfms  -  Read The fucking Manual Stupid
+rtfp  -  read the fucking post
+rtfq  -  Read The fucking Question
+rtfs  -  read the fucking summary
+rtfu  -  Ready the fuck up
 rtg  -  ready to go
 rtl  -  report the loss
 rtm  -  read the manual
@@ -3924,7 +3924,7 @@ rua  -  are you alone
 ruabog  -  are you a boy or girl
 ruagoab  -  are you a girl or a boy
 rubz2nt  -  are you busy tonight
-rufkm  -  are you f**king kidding me
+rufkm  -  are you fucking kidding me
 rugay  -  are you gay
 rugta  -  are you going to answer
 ruh  -  are you horny
@@ -3935,7 +3935,7 @@ ruok  -  are you ok?
 rur  -  are you ready
 rut  -  are you there
 ruwm  -  are you watching me
-rwb  -  Rich White b***h
+rwb  -  Rich White bitch
 ryt  -  right
 ryte  -  right
 *s*  -  smile
@@ -3944,8 +3944,8 @@ s'pose  -  suppose
 s'up  -  what is up
 s.i.n.g.l.e  -  Stay intoxicated nightly, get laid everyday.
 s.i.t.  -  stay in touch
-s.o.a.b.  -  son of a b***h
-s.o.b.  -  son of a b***h
+s.o.a.b.  -  son of a bitch
+s.o.b.  -  son of a bitch
 s.w.a.k.  -  sealed with a kiss
 s/b  -  should be
 s2a  -  sent to all
@@ -3956,7 +3956,7 @@ s2us  -  Speak to you soon
 s3x  -  Sex.
 s4se  -  Sight For Sore Eyes
 s8ter  -  skater
-sab  -  slap a b***h
+sab  -  slap a bitch
 sagn  -  Spelling and Grammar Nazi
 sah  -  sexy as hell
 sahm  -  stay at home mom
@@ -3965,15 +3965,15 @@ sbcg4ap  -  strongbads cool game for attractive people
 sbd  -  silent but deadly
 sblai  -  stop babbaling like an idiot
 sbrd  -  so bored
-sbs  -  such bull s**t
+sbs  -  such bull shit
 sbt  -  sorry bout that
 scnr  -  sorry, I couldn't resist
 scool  -  school
 scrilla  -  money
 scrt  -  secret
 scurred  -  scared
-sd  -  suck d**k
-sdf^  -  shut da f**k up
+sd  -  suck dick
+sdf^  -  shut da fuck up
 sdk  -  Software Development Kit
 sdlc  -  Software Development Life Cycle
 sec  -  second
@@ -3982,7 +3982,7 @@ secksea  -  Sexy
 secksy  -  sexy
 sed  -  said
 see through your eyes  -  stye
-seg  -  s**t Eatin Grin
+seg  -  shit Eatin Grin
 seks  -  sex
 sellin  -  selling
 seo  -  Search Engine Optimization
@@ -3996,13 +3996,13 @@ sexx0rz  -  sex
 sez  -  says
 sfam  -  Sister from another mother
 sfe  -  safe
-sfh  -  So f**king Hot
+sfh  -  So fucking Hot
 sfipmp  -  so funny I peed my pants
-sfm  -  so f**king much
-sfr  -  so f**king random
-sfs  -  so f**king stupid
+sfm  -  so fucking much
+sfr  -  so fucking random
+sfs  -  so fucking stupid
 sfsg  -  So far so good
-sfu  -  shut the f**k up
+sfu  -  shut the fuck up
 sfw  -  safe for work
 sfwuz  -  safe for work until zoomed
 sfy  -  speak for yourself
@@ -4011,21 +4011,21 @@ sgb  -  straight/gay/bisexual
 sgbadq  -  Search google before asking dumb questions
 sgi  -  Still got it
 sgtm  -  slightly gigling to myself
-sh  -  s**t happens
-shag  -  f**k
+sh  -  shit happens
+shag  -  fuck
 shawty  -  girl
 shd  -  should
 shexi  -  sexy
 shexy  -  sexy
-shiat  -  s**t
-shiet  -  s**t
-shite  -  s**t
-shiz  -  s**t
-shizit  -  s**t
-shiznat  -  s**t
-shiznit  -  s**t
-shizz  -  s**t
-shizzle  -  s**t
+shiat  -  shit
+shiet  -  shit
+shite  -  shit
+shiz  -  shit
+shizit  -  shit
+shiznat  -  shit
+shiznit  -  shit
+shizz  -  shit
+shizzle  -  shit
 shld  -  should
 shmexy  -  sexy
 shmily  -  see how much i love you
@@ -4033,16 +4033,16 @@ sho  -  sure
 sho'nuff  -  sure enough
 showin  -  showing
 shrn  -  so hot right now
-sht  -  s**t
-shtf  -  s**t hits the fan
+sht  -  shit
+shtf  -  shit hits the fan
 shud  -  should
 shuddup  -  Shut Up
 shup  -  shut up
 shure  -  sure
 shut^  -  shut Up
 shwr  -  shower
-shyat  -  s**t
-shyt  -  s**t
+shyat  -  shit
+shyt  -  shit
 siao  -  school is almost over
 sibir  -  sibling in room
 sic  -  said in context
@@ -4051,16 +4051,16 @@ sif  -  as if
 sifn't  -  as if not
 sig  -  Signature
 siggy  -  Signature
-silf  -  Sister I'd Like To f**k
+silf  -  Sister I'd Like To fuck
 simcl  -  sitting in my chair laughing
-simclmao  -  sitting in my chair laughing my a** off
+simclmao  -  sitting in my chair laughing my ass off
 siol  -  Shout It Out Loud
 sis  -  sister
 sista  -  Sister
 sitb  -  sex in the but
 sitmf  -  say it to my face
 siu  -  suck it up
-siuya  -  shove it up your a**
+siuya  -  shove it up your ass
 sk  -  spawn kill
 sk8  -  skate
 sk8er  -  skater
@@ -4081,34 +4081,34 @@ skwl  -  school
 sl4n  -  so long for now
 sleepin  -  sleeping
 sleepn  -  sleeping
-slf  -  sexy little f**k
+slf  -  sexy little fuck
 slgb  -  Straight/Lesbian/Gay/Bisexual
 slng  -  slang
 slo  -  slow
-slore  -  s**tty w***e
+slore  -  shitty w***e
 slos  -  someone looking over shoulder
 slp  -  sleep
 slt  -  something like that
-sl^t  -  s**t 
+sl^t  -  shit 
 sm  -  social media
 sm1  -  someone
 smb  -  see my blog
-smbd  -  suck my big d**k 
+smbd  -  suck my big dick 
 smbt  -  Suck my big toe
 smc  -  suck my c**k
-smd  -  suck my d**k
-smdb  -  suck my d**k b***h
-smdvq  -  suck my d**k quickly
-smeg  -  f**k
+smd  -  suck my dick
+smdb  -  suck my dick bitch
+smdvq  -  suck my dick quickly
+smeg  -  fuck
 smexy  -  sexy
-smf  -  stupid motherf**ker
-smfd  -  suck my f**king d**k
-smfpos  -  stupid mother f**king piece of s**t
+smf  -  stupid motherfucker
+smfd  -  suck my fucking dick
+smfpos  -  stupid mother fucking piece of shit
 smh  -  shaking my head
 smhb  -  suck my hairy balls
 smho  -  Screaming My Head Off
 smithwaws  -  Smack me in the head with a wooden spoon
-smofo  -  stupid mother f**ker
+smofo  -  stupid mother fucker
 smst  -  somebody missed snack time
 smt  -  suck my tits
 smthin  -  something
@@ -4117,8 +4117,8 @@ smtm  -  sometime
 smto  -  Sticking My Tongue Out
 smtoay  -  Sticking my tongue out at you
 sn  -  screen name
-snafu  -  situation normal all f**ked up
-snafubar  -  Situation Normal All f**ked Up Beyond Any Recognition
+snafu  -  situation normal all fucked up
+snafubar  -  Situation Normal All fucked Up Beyond Any Recognition
 snes  -  Super Nintendo Entertainment System
 snew  -  what's new
 snf  -  so not fair
@@ -4129,32 +4129,32 @@ snogged  -  kissed
 soa  -  service oriented architecture 
 soab  -  son of a btch
 soad  -  system of a down
-soafb  -  son of a f**king b***h
-sob  -  son of a b***h
-sobs  -  same, old, boring s**t
+soafb  -  son of a fucking bitch
+sob  -  son of a bitch
+sobs  -  same, old, boring shit
 soc  -  Same old crap
 soe  -  service oriented enterprise
 sof  -  smile on face
 sofas  -  stepping out for a smoke
-sofs  -  same old f**king s**t
+sofs  -  same old fucking shit
 soi  -  service oriented infrastructure
 sok  -  It's ok
 sokay  -  it's okay
-sol  -  s**t outta luck
+sol  -  shit outta luck
 som'm  -  something
 som1  -  someone
-somadn  -  sitting on my a** doing nothing
+somadn  -  sitting on my ass doing nothing
 some1  -  someone
 soml  -  story of my life
 soo  -  So
 soobs  -  saggy boobs
-sool  -  s**t out of luck
+sool  -  shit out of luck
 sop  -  same old place
 sorg  -  Straight or Gay
 sorreh  -  sorry
 sorta  -  sort of
-sos  -  same old s**t
-sosdd  -  same old s**t, different day
+sos  -  same old shit
+sosdd  -  same old shit, different day
 sosg  -  spouse over shoulder gone
 sot  -  suck on this
 sotc  -  stupid off topic crap
@@ -4165,7 +4165,7 @@ soz  -  sorry
 spk  -  speak
 sploits  -  exploits
 sploitz  -  exploits
-spos  -  stupid peace of s**t
+spos  -  stupid peace of shit
 sprm  -  sperm
 sqtm  -  snickering quietly to myself
 srch  -  search
@@ -4180,13 +4180,13 @@ srynd2g  -  sorry need to go
 srzly  -  seriously
 ss  -  screenshot
 ss4l  -  smoking sista for life
-ssdd  -  same s**t, different day
-ssdp  -  same s**t different pile
+ssdd  -  same shit, different day
+ssdp  -  same shit different pile
 ssia  -  subject says it all
 ssl  -  secure sockets layer
-ssob  -  stupid sons of b***hes
+ssob  -  stupid sons of bitches
 ssry  -  so sorry
-sssd  -  Same s**t Same Day
+sssd  -  Same shit Same Day
 st  -  Stop That
 st1  -  stoned
 st8  -  state
@@ -4195,22 +4195,22 @@ stbx  -  soon to be ex
 stby  -  sucks to be you
 std  -  sexually transmitted disease
 steamloller  -  Laughing. Alot.
-stfd  -  sit the f**k down
+stfd  -  sit the fuck down
 stff  -  stuff
-stfm  -  search the f**king manual
-stfng  -  search the f**king news group
-stfu  -  shut the f**k up
-stfua  -  shut the f**k up already
-stfuah  -  shut the f**k up a**h**e
-stfub  -  shut the f**k up b***h
-stfuda  -  Shut the f**k up dumb a**
-stfugbtw  -  shut the f**k up and get back to work
-stfun  -  Shut the f**k up n****r
-stfuogtfo  -  Shut the f**k up or get the f**k out.
-stfuppercut  -  shut the f**k up
-stfuyb  -  shut the f**k up you b***h
-stfuysoab  -  shut the f**k up you son of a b***h
-stfw  -  search the f**king web
+stfm  -  search the fucking manual
+stfng  -  search the fucking news group
+stfu  -  shut the fuck up
+stfua  -  shut the fuck up already
+stfuah  -  shut the fuck up asshole
+stfub  -  shut the fuck up bitch
+stfuda  -  Shut the fuck up dumb ass
+stfugbtw  -  shut the fuck up and get back to work
+stfun  -  Shut the fuck up n****r
+stfuogtfo  -  Shut the fuck up or get the fuck out.
+stfuppercut  -  shut the fuck up
+stfuyb  -  shut the fuck up you bitch
+stfuysoab  -  shut the fuck up you son of a bitch
+stfw  -  search the fucking web
 stg  -  swear to god
 sth  -  something
 sthing  -  something
@@ -4223,7 +4223,7 @@ str8up  -  straight up
 sts  -  so to speak
 stsp  -  Same Time Same Place
 stt  -  Same time tomorrow
-stufu  -  stupid f**ker
+stufu  -  stupid fucker
 stupd  -  stupid
 stw  -  share the wealth 
 stys  -  speak to you soon
@@ -4245,7 +4245,7 @@ sup  -  what's up
 supa  -  super
 supposably  -  Supposedly
 sus  -  see you soon
-susfu  -  situation unchanged, still f**ked up
+susfu  -  situation unchanged, still fucked up
 sut  -  see you tomorrow
 sutuct  -  so you think you can type
 sux  -  sucks
@@ -4256,7 +4256,7 @@ suxors  -  sucks
 suxorz  -  sucks
 suxx  -  sucks
 suxxor  -  sucks
-suyah  -  shut up you a** hole!
+suyah  -  shut up you ass hole!
 svn  -  seven
 svu  -  special victims unit
 sw  -  so what
@@ -4270,7 +4270,7 @@ swmt  -  Stop Wasting My Time
 swp  -  sorry wrong person
 swsw2b  -  single when she wants to be
 swt  -  sweet
-swtf  -  seriously, what the f**k
+swtf  -  seriously, what the fuck
 sx  -  sex
 sxc  -  sexy
 sxcy  -  sexy
@@ -4279,15 +4279,15 @@ sxi  -  sexy
 sxs  -  sex
 sxy  -  sexy
 syatp  -  see you at the party
-sydim  -  stick your d**k in me
+sydim  -  stick your dick in me
 sydlm  -  Shut your dirty little mouth
-syfm  -  shut your f**king mouth
+syfm  -  shut your fucking mouth
 syiab  -  see you in a bit
 syiaf  -  see you in a few
 syl  -  see you later
 syl8r  -  see you later
 sym  -  shut your mouth
-syoa  -  Save Your Own a**
+syoa  -  Save Your Own ass
 syotbf  -  see you on the battlefield
 syrs  -  see ya real soon
 sys  -  see you soon
@@ -4319,7 +4319,7 @@ tal  -  thanks a lot
 tanq  -  thank you
 tanstaafl  -  there ain't no such thing as a free lunch
 tard  -  retard
-tarfu  -  things are really f**ked up
+tarfu  -  things are really fucked up
 tat  -  that
 tat2  -  tattoo
 tau  -  thinking about you
@@ -4332,13 +4332,13 @@ tba  -  to be anounced
 tbc  -  To be continued
 tbd  -  to be decided
 tbf  -  to be fair
-tbfh  -  to be f**king honest
+tbfh  -  to be fucking honest
 tbfu  -  too bad for you
 tbh  -  to be honest
 tbhimo  -  to be honest in my opinion
 tbnt  -  thanks but no thanks
 tbp  -  The Pirate Bay
-tbpfh  -  To be perfectly f**king honest
+tbpfh  -  To be perfectly fucking honest
 tbph  -  To be perfectly honest
 tbqf  -  to be quite frank
 tbqh  -  to be quite honest
@@ -4363,26 +4363,26 @@ tdwdtg  -  The Devil Went Down To Georgia
 te  -  Team effort
 teh  -  the
 teotwawki  -  the end of the world as we know it
-terd  -  s**t
+terd  -  shit
 tf2  -  Team Fortress 2
-tfa  -  the f**king article
+tfa  -  the fucking article
 tfb  -  time for bed
-tfbundy  -  totaly f**ked but unfortunatly not dead yet
+tfbundy  -  totaly fucked but unfortunatly not dead yet
 tfc  -  Team Fortress Classic
-tfd  -  total f**king disaster
-tff  -  That's f**king Funny
-tfft  -  thank f**k for that
+tfd  -  total fucking disaster
+tff  -  That's fucking Funny
+tfft  -  thank fuck for that
 tffw  -  Too funny for words
 tfh  -  Thread from hell
 tfic  -  Tongue Firmly In Cheek
-tfiik  -  the f**k if i know
+tfiik  -  the fuck if i know
 tfl  -  Thanks For Looking
 tfln  -  thanx for last night
-tfm  -  too f**king much
+tfm  -  too fucking much
 tfs  -  thanks for sharing
 tfta  -  thanks for the add
 tfti  -  thanks for the information
-tfu  -  that's f**ked up
+tfu  -  that's fucked up
 tfu2baw  -  time for you to buy a watch
 tg  -  thank god
 tgfe  -  together forever
@@ -4392,7 +4392,7 @@ tgfu  -  too good for you
 tgfuap  -  thank god for unanswered prayers
 tghig  -  thank god husband is gone
 tgif  -  thank god it's friday
-tgiff  -  thank god its f**king Friday
+tgiff  -  thank god its fucking Friday
 tgis  -  thank god it's saturday
 tgiwjo  -  Thank God It Was Just Once
 tgsttttptct  -  thank God someone took the time to put this crap together
@@ -4429,24 +4429,24 @@ tiai  -  take it all in
 tias  -  Try It And See
 tiatwtcc  -  this is a trap word to catch copiers
 tif  -  this is fun
-tif2m  -  this is f**king 2 much
-tifs  -  this is funny s**t
-tifu  -  that is f**ked up
+tif2m  -  this is fucking 2 much
+tifs  -  this is funny shit
+tifu  -  that is fucked up
 tigger  -  tiger
 tiic  -  the idiots in control
 til  -  until
-tilf  -  Teenager I'd Like To f**k
+tilf  -  Teenager I'd Like To fuck
 tinf  -  this is not fair
 tinla  -  this is not legal advice
 tinstaafl  -  There Is No Such Thing As A Free Lunch
 tioli  -  take it or leave it
 tis  -  is
 tisc  -  that is so cool
-tisfu  -  that is so f**ked up
+tisfu  -  that is so fucked up
 tisg  -  this is so gay
 tisly  -  that is so last year
 tisnf  -  that is so not fair
-tiss  -  This is some s**t
+tiss  -  This is some shit
 tisw  -  that is so wrong
 tiw  -  teacher is watching
 tix  -  tickets
@@ -4506,7 +4506,7 @@ tmw  -  Too much work
 tmwfi  -  Take my word for it
 tmz  -  tomorrow
 tn1  -  trust no-one
-tna  -  tits and a**
+tna  -  tits and ass
 tnf  -  That's Not Funny
 tnlnsl  -  Took nothing left nothing signed log
 tnx  -  thanks
@@ -4540,9 +4540,9 @@ trnsl8  -  translate
 trnsltr  -  translator
 troll  -  person who diliberately stirs up trouble
 tru  -  true
-ts  -  talking s**t
+ts  -  talking shit
 tsc  -  that's so cool
-tsff  -  thats so f**kin funny
+tsff  -  thats so fuckin funny
 tsig  -  that site is gay
 tsnf  -  that's so not fair
 tss  -  That's so sweet
@@ -4568,7 +4568,7 @@ ttm  -  talk to me
 ttml  -  talk to me later
 ttms  -  talking to myself
 ttr  -  time to run
-ttrf  -  That's the rules, f**ker
+ttrf  -  That's the rules, fucker
 tts  -  text to speech
 ttt  -  to the top
 ttth  -  Talk To The Hand
@@ -4645,7 +4645,7 @@ typ  -  thank you partner
 typo  -  typing mistake
 tyred  -  tired
 tys  -  Told You So
-tysfm  -  thank you so f**king much
+tysfm  -  thank you so fucking much
 tysm  -  thank you so much
 tysvm  -  thank you so very much
 tyt  -  take your time
@@ -4674,19 +4674,19 @@ uber  -  over
 uctaodnt  -  you can't teach an old dog new tricks
 udc  -  you don't care
 udek  -  you don't even know
-uds  -  you dumb s**t
+uds  -  you dumb shit
 udwk  -  you don't want to know
 udy  -  you done yet
-ufab  -  ugly fat a** b***h
+ufab  -  ugly fat ass bitch
 ufia  -  unsolicited finger in the anus
 ufic  -  Unsolicited Finger in Chili
-ufmf  -  you funny mother f**ker
-ugba  -  you gay b***h a**
+ufmf  -  you funny mother fucker
+ugba  -  you gay bitch ass
 ugtr  -  you got that right
 uhab  -  you have a blog
 uhems  -  you hardly ever make sense
 ui  -  User Interface
-ujds  -  u just did s**t
+ujds  -  u just did shit
 ukr  -  You know right
 ukwim  -  you know what i mean
 ul  -  unlucky
@@ -4699,14 +4699,14 @@ uom  -  You owe me
 upcia  -  unsolicited pool cue in anus
 upia  -  unsolicited pencil in anus
 upmo  -  You piss me off
-upos  -  you piece of s**t
+upos  -  you piece of shit
 upw  -  unidentified party wound
 ur  -  your
 ur2g  -  you are too good
 ur6c  -  you're sexy
 ura  -  you are a
 uradrk  -  you're a dork
-urafb  -  you are a f**king b***h
+urafb  -  you are a fucking bitch
 uraqt  -  you are a cutie
 urcrzy  -  you are crazy
 ure  -  you are
@@ -4717,7 +4717,7 @@ urms  -  you rock my socks
 urmw  -  you are my world
 urnc  -  you are not cool
 urs  -  yours
-ursab  -  you are such a b***h
+ursab  -  you are such a bitch
 ursdf  -  you are so d**n fine
 ursg  -  you are so gay
 ursh  -  you are so hot
@@ -4737,8 +4737,8 @@ usuk  -  You Suck
 usux  -  you suck
 ut  -  unreal tournament
 ut  -  you there
-utfs  -  Use the f**king search
-utfse  -  use the f**king search engine
+utfs  -  Use the fucking search
+utfse  -  use the fucking search engine
 utm  -  you tell me
 uttm  -  you talking to me?
 utube  -  youtube
@@ -4748,8 +4748,8 @@ uve  -  You've
 uvgtbsm  -  you have got to be shiting me
 uw  -  you're welcome
 uwc  -  you are welcome
-uya  -  up your a**
-uyab  -  up your a** b***h
+uya  -  up your ass
+uyab  -  up your ass bitch
 v4g1n4  -  vagina
 vag  -  vagina
 vajayjay  -  vagina
@@ -4758,7 +4758,7 @@ vbeg  -  very big evil grin
 vbg  -  very big grin
 vf  -  very funny
 vfe  -  Virgins 4 ever
-vff  -  Verry f**king Funny
+vff  -  Verry fucking Funny
 vfm  -  value for money
 vgg  -  very good game
 vgh  -  Very good hand
@@ -4795,7 +4795,7 @@ w/u  -  with you
 w00t  -  woohoo
 w012d  -  word
 w2d  -  what to do
-w2f  -  want to f**k
+w2f  -  want to fuck
 w2g  -  Way to go
 w2ho  -  want to hang out
 w2m  -  want to meet
@@ -4806,16 +4806,16 @@ w8ing  -  waiting
 w8t4me  -  wait for me
 w8ter  -  waiter
 w911  -  Wife in room
-wab  -  what a b***h
+wab  -  what a bitch
 wad  -  without a doubt
 wad ^  -  what's up?
 wadr  -  with all due respect
 wadzup  -  What's up?
-waf  -  weird as f**k
-wafda  -  What a f**king Dumb a**
-wafl  -  what a f**king loser
-wafm  -  wait a f**king minute
-wafn  -  what a f**ken noob
+waf  -  weird as fuck
+wafda  -  What a fucking Dumb ass
+wafl  -  what a fucking loser
+wafm  -  wait a fucking minute
+wafn  -  what a fucken noob
 wai  -  what an idiot
 waloc  -  what a load of crap
 walstib  -  what a long strange trip it's been
@@ -4823,7 +4823,7 @@ wam  -  wait a minute
 wamh  -  with all my heart
 wan2tlk  -  Want to talk
 wana  -  want to
-wanafuk  -  wanna f**k
+wanafuk  -  wanna fuck
 wanker  -  masturbater
 wanking  -  Masturbating
 wanna  -  want to
@@ -4919,9 +4919,9 @@ wfm  -  Works For Me
 wfyb  -  whatever floats your boat
 wg  -  wicked gril
 wgac  -  who gives a crap
-wgaf  -  Who gives a f**k
-wgas  -  who gives a s**t
-wgasa  -  who gives a s**t anyway
+wgaf  -  Who gives a fuck
+wgas  -  who gives a shit
+wgasa  -  who gives a shit anyway
 wgo  -  what's going on
 wgph2  -  Want to go play Halo 2?
 wha  -  what?
@@ -4962,7 +4962,7 @@ wio  -  without
 wip  -  Work In progress
 wit  -  with
 witcha  -  with you
-witfp  -  What is the f**king point
+witfp  -  What is the fucking point
 witu  -  with you
 witw  -  what in the world
 witwct  -  What is the world coming too
@@ -4986,8 +4986,8 @@ wld  -  would
 wlkd  -  walked
 wlos  -  wife looking over Shoulder
 wltm  -  would like to meet
-wmao  -  working my a** off
-wmd  -  Weapons Of Ma** Destruction
+wmao  -  working my ass off
+wmd  -  Weapons Of Mass Destruction
 wmgl  -  wish me good luck
 wml  -  Wish Me Luck
 wmyb  -  What Makes You Beautiful
@@ -5001,7 +5001,7 @@ woa  -  word of advice
 woc  -  welcome on cam
 wochit  -  watch it
 woe  -  what on earth
-woft  -  Waste of f**king time
+woft  -  Waste of fucking time
 wogge  -  what on god's green earth?
 wogs  -  waste of good sperm
 wolo  -  we only live once
@@ -5019,7 +5019,7 @@ wpe  -  worst president ever (Bush)
 wrd  -  word
 wrdo  -  weirdo
 wrgad  -  who really gives a d**n
-wrgaf  -  Who really gives a f**k?
+wrgaf  -  Who really gives a fuck?
 wrk  -  work
 wrm  -  which reminds me
 wrng  -  wrong
@@ -5031,8 +5031,8 @@ wrud  -  what are you doing
 wruf  -  where are you from
 wruu2  -  what are you up to
 wsb  -  wanna cyber?
-wsf  -  we should f**k
-wshtf  -  when s**t hits the fan
+wsf  -  we should fuck
+wshtf  -  when shit hits the fan
 wsi  -  why should I
 wsibt  -  when should i be there
 wsidi  -  Why Should I Do It
@@ -5042,57 +5042,57 @@ wtb  -  Want to buy
 wtbd  -  what's the big deal
 wtbh  -  What the bloody hell
 wtc  -  what the crap
-wtcf  -  what the crazy f**k
+wtcf  -  what the crazy fuck
 wtd  -  what the deuce
-wtf  -  what the f**k
-wtfaud  -  what the f**k are you doing?
-wtfay  -  who the f**k are you
-wtfayd  -  what the f**k are you doing
-wtfayt  -  why the f**k are you talking
-wtfayta  -  What the f**k are you talking about?
-wtfb  -  what the f**k b***h
-wtfbs  -  What the f**k bull s**t
-wtfc  -  Who The f**k Cares
-wtfdik  -  what the f**k do i know
-wtfdum  -  what the f**k do you mean
-wtfduw  -  What the f**k do you want?
-wtfdyw  -  what the f**k do you want
-wtfe  -  What The f**k Ever
-wtfever  -  what the f**k ever
-wtfg  -  What the f**king god
-wtfh  -  what the f**king hell
-wtfhb  -  what the f**king hell b***h
-wtfhwt  -  what the f**king hell was that
-wtfigo  -  what the f**k is going on
-wtfigoh  -  what the f**k is going on here
-wtfit  -  what the f**k is that
-wtfits  -  what the f**k is this s**t
-wtfiu  -  what the f**k is up
-wtfiup  -  what the f**k is your problem
-wtfiuwy  -  what the f**k is up with you
-wtfiwwu  -  what the f**k is wrong with you
-wtfiwwy  -  what the f**k is wrong with you
-wtfiyp  -  what the f**k is your problem
-wtfm  -  what the f**k, mate?
-wtfmf  -  what the f**k mother f**ker
-wtfo  -  what the f**k over
-wtfru  -  what the f**k are you
-wtfrud  -  What the f**k are you doing?
-wtfrudng  -  what the f**k are you doing
-wtfrudoin  -  what the f**k are you doing
-wtfruo  -  what the f**k are you on?
-wtfruttd  -  what the f**k are you trying to do
-wtfs  -  what the f**king s**t?
-wtfuah  -  what the f**k you a**h**e
-wtful  -  What the f**k you loser
-wtfwjd  -  what the f**k would jesus do
-wtfwt  -  what the f**k was that
-wtfwtd  -  what the f**k was that dude
-wtfwtf  -  what the f**k was that for?
-wtfya  -  what the f**k you a**h**e
-wtfyb  -  what the f**k you b***h
+wtf  -  what the fuck
+wtfaud  -  what the fuck are you doing?
+wtfay  -  who the fuck are you
+wtfayd  -  what the fuck are you doing
+wtfayt  -  why the fuck are you talking
+wtfayta  -  What the fuck are you talking about?
+wtfb  -  what the fuck bitch
+wtfbs  -  What the fuck bull shit
+wtfc  -  Who The fuck Cares
+wtfdik  -  what the fuck do i know
+wtfdum  -  what the fuck do you mean
+wtfduw  -  What the fuck do you want?
+wtfdyw  -  what the fuck do you want
+wtfe  -  What The fuck Ever
+wtfever  -  what the fuck ever
+wtfg  -  What the fucking god
+wtfh  -  what the fucking hell
+wtfhb  -  what the fucking hell bitch
+wtfhwt  -  what the fucking hell was that
+wtfigo  -  what the fuck is going on
+wtfigoh  -  what the fuck is going on here
+wtfit  -  what the fuck is that
+wtfits  -  what the fuck is this shit
+wtfiu  -  what the fuck is up
+wtfiup  -  what the fuck is your problem
+wtfiuwy  -  what the fuck is up with you
+wtfiwwu  -  what the fuck is wrong with you
+wtfiwwy  -  what the fuck is wrong with you
+wtfiyp  -  what the fuck is your problem
+wtfm  -  what the fuck, mate?
+wtfmf  -  what the fuck mother fucker
+wtfo  -  what the fuck over
+wtfru  -  what the fuck are you
+wtfrud  -  What the fuck are you doing?
+wtfrudng  -  what the fuck are you doing
+wtfrudoin  -  what the fuck are you doing
+wtfruo  -  what the fuck are you on?
+wtfruttd  -  what the fuck are you trying to do
+wtfs  -  what the fucking shit?
+wtfuah  -  what the fuck you asshole
+wtful  -  What the fuck you loser
+wtfwjd  -  what the fuck would jesus do
+wtfwt  -  what the fuck was that
+wtfwtd  -  what the fuck was that dude
+wtfwtf  -  what the fuck was that for?
+wtfya  -  what the fuck you asshole
+wtfyb  -  what the fuck you bitch
 wtg  -  way to go
-wtgds  -  way to go dumb s**t
+wtgds  -  way to go dumb shit
 wtgp  -  Want to go Private
 wth  -  what the heck
 wtharud  -  what the heck are you doing
@@ -5117,8 +5117,8 @@ wtii  -  what time is it
 wtiiot  -  What time is it over there?
 wtityb  -  whatever, tell it to your blog
 wtly  -  Welcome to last year
-wtmf  -  what the mother f**k
-wtmfh  -  what the mother f**king hell
+wtmf  -  what the mother fuck
+wtmfh  -  what the mother fucking hell
 wtmi  -  way too much information
 wtmtr  -  what's the matter
 wtp  -  where's the party
@@ -5172,7 +5172,7 @@ wwc  -  who would care
 wwcnd  -  What would Chuck Norris do
 wwdhd  -  What would David Hasselhoff do
 wwe  -  World Wrestling Entertainment
-wwgf  -  when we gonna f**k
+wwgf  -  when we gonna fuck
 wwhw  -  when where how why
 wwikt  -  why would i know that
 wwjd  -  what would jesus do?
@@ -5259,11 +5259,11 @@ y2b  -  Youtube
 y2k  -  year 2000
 ya  -  yeah
 yaaf  -  you are a f**
-yaafm  -  You Are A f**king Moron
+yaafm  -  You Are A fucking Moron
 yaagf  -  you are a good friend
 yaai  -  You are an idiot
 yaf  -  you're a f**
-yafi  -  you're a f**king idiot
+yafi  -  you're a fucking idiot
 yag  -  you are gay
 yall  -  you all
 yapa  -  yet another pointless acronym
@@ -5272,7 +5272,7 @@ yarly  -  yeah really
 yas  -  you are stupid
 yasan  -  You are such a nerd
 yasf  -  you are so funny
-yasfg  -  you are so f**king gay
+yasfg  -  you are so fucking gay
 yasg  -  you are so gay
 yasw  -  you are so weird
 yatb  -  you are the best
@@ -5281,14 +5281,14 @@ yaw  -  you are welcome
 yayo  -  cocaine
 ybbg  -  Your Brother By Grace
 ybs  -  you'll be sorry
-ybya  -  you bet your a**
+ybya  -  you bet your ass
 ycliu  -  You could look it up
-ycmtsu  -  You Can't Make This s**t Up
+ycmtsu  -  You Can't Make This shit Up
 ycntu  -  Why Cant You?
 yctwuw  -  you can think what you want
-ydpos  -  you dumb piece of s**t
+ydpos  -  you dumb piece of shit
 ydtm  -  You're dead to me
-ydufc  -  Why do f**king care?
+ydufc  -  Why do fucking care?
 yduwtk  -  why do you want to know
 ye  -  yeah
 yea  -  yeah
@@ -5296,19 +5296,19 @@ yer  -  you're
 yermom  -  your mother
 yesh  -  yes
 yew  -  you
-yfb  -  you f**king b*****d
-yfg  -  you're f**king gay
-yfi  -  you f**king idiot
+yfb  -  you fucking b*****d
+yfg  -  you're fucking gay
+yfi  -  you fucking idiot
 ygg  -  you go girl
 ygm  -  You Got Mail
 ygp  -  you got punked!
 ygpm  -  you've got a private message
 ygrr  -  you got rick rolled
-ygtbfkm  -  you've got to be f**king kidding me
+ygtbfkm  -  you've got to be fucking kidding me
 ygtbk  -  you've got to be kidding
 ygtbkm  -  you got to be kidding me
 ygtbsm  -  You've got to be shitting me
-ygtsr  -  you got that s**t right
+ygtsr  -  you got that shit right
 yh  -  yeah
 yhbt  -  you've been trolled
 yhew  -  you
@@ -5330,7 +5330,7 @@ ykw  -  You Know What
 ykwim  -  you know what I mean
 ykwya  -  you know who you are
 ykywywm  -  you know you wish you were me
-ylb  -  you little b***h
+ylb  -  you little bitch
 ym  -  your mom
 ymbkm  -  you must be kidding me
 yme  -  why me
@@ -5341,7 +5341,7 @@ ymiaw  -  your mom is a w***e
 ymislidi  -  you make it sound like i did it
 ymmd  -  You Made My Day
 ymmv  -  your mileage may vary
-ymrasu  -  Yes, My Retarded a** Signed Up
+ymrasu  -  Yes, My Retarded ass Signed Up
 yn  -  why not
 yng  -  young
 ynk  -  you never know
@@ -5373,32 +5373,32 @@ yru  -  why are you?
 yrubm  -  why are you bugging me?
 yrusm  -  Why are you so mean
 ys  -  you suck
-ysa  -  You Suck a**
+ysa  -  You Suck ass
 ysal  -  you suck at life
 ysati  -  you suck at the internet
-ysf  -  you stupid f**k
+ysf  -  you stupid fuck
 ysic  -  why should I care
 ysitm  -  your shirt is too small
 ysm  -  you scare me
-ysoab  -  You son of a b***h
-yss  -  you stupid s**t
+ysoab  -  You son of a bitch
+yss  -  you stupid shit
 yswnt  -  why sleep when not tired?
 yt  -  You there?
 ytd  -  year to date
-ytf  -  why the f**k
-ytfwudt  -  why the f**k would you do that?
+ytf  -  why the fuck
+ytfwudt  -  why the fuck would you do that?
 ythwudt  -  Why the hell would you do that
 ytis  -  You think I'm special?
 ytm  -  you tell me
 ytmnd  -  You're the man now, dog!
 yty  -  why thank you
 yu  -  You
-yua  -  you ugly a**
+yua  -  you ugly ass
 yuo  -  you
 yup  -  yes
 yur  -  your
 yust  -  why you say that
-yvfw  -  you're very f**king welcome
+yvfw  -  you're very fucking welcome
 yvw  -  you're very welcome
 yw  -  you're welcome
 ywapom  -  you want a piece of me?
@@ -5415,7 +5415,7 @@ z0mg  -  oh my god
 zex  -  sex
 zh  -  Zero Hour
 zig  -  cigarette
-zomfg  -  oh my f**king god
+zomfg  -  oh my fucking god
 zomg  -  Oh my God
 zomgzorrz  -  oh my god
 zoot  -  woohoo

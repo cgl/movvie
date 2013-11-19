@@ -112,7 +112,7 @@ def iter_calc_lev_sndx(mat,edit_dis=2,met_dis=1,verbose=False):
         mat_scored.append(res_list)
     return mat_scored
 
-def show_results(res_mat,mapp, dim = [ 0.1, 0.1, 0.1, 0.1 , 0.1, 0.1], max_val = [0.503476, 1.0, 1.0, 1.0, 146234.0,], verbose=True):
+def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.1, 0.2], max_val = [1,1,1,1,0,1/1739259.0], verbose=True):
     results = []
     pos = 0
     for ind in range (0,len(res_mat)):
