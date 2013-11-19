@@ -268,8 +268,7 @@ def in_edit_dis(word1,word2,dis):
     try:
         return sum(editdist_edits(word1,word2)[1]) <= dis
     except IndexError, i:
-        print 'in_edit_dis [IndexError]', word1,word2
-        return sum(editdist_edits(word1.replace('-',''),word2.replace('-',''))[1]) <= dis
+        return False
 
 
 def get_from_dict(word,met_map,met_dis=1):
