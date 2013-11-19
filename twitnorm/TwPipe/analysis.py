@@ -9,6 +9,8 @@ import enchant
 import tools
 import mlpy
 import re
+import copy
+mapp = constants.mapping
 
 tweets,results = han(548)
 ovvFunc = lambda x,y : True if y == 'OOV' else False
@@ -118,9 +120,11 @@ def add_slangs(res_mat,mapp,slang):
         ovv = mapp[ind][0]
         ovv_reduced = re.sub(r'(.)\1+', r'\1\1', ovv).lower()
         if slang.has_key(ovv_reduced):
+            sl = slang.get(ovv_reduced)
+            if len(sl.split(" ")) > 1:
+                continue
             found = False
             for res_line in res_mat[ind]:
-                sl = slang.get(ovv_reduced)
                 if res_line[0] == mapp[ind][0]:
                     res_line[7] = 1
                     found = True
@@ -272,3 +276,19 @@ def check(results,ovv,method):
         for word in tweet:
             if ovv(word[0],word[1]):
                 method(results,ovv)
+
+def run(matrix1,feat_mat,slang):
+    if not slang:
+        slang = tools.get_slangs()
+    edit_dis=2
+    met_dis=1
+    if not feat_mat:
+        feat_mat = iter_calc_lev_sndx(matrix1)
+    feat_mat1 = copy.deepcopy(feat_mat)
+    feat_mat_slanged = add_slangs(feat_mat1,mapp,slang)
+    res = show_results(feat_mat_slanged, mapp,
+                       dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2] ,
+                       max_val=[1, 1, 1, 1, 0,1/1739259.0])
+    index_list,nil,nnnn = tools.top_n(res,verbose=False)
+    feat_mat1 = copy.deepcopy(feat_mat)
+    return feat_mat1
