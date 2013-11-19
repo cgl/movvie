@@ -108,3 +108,11 @@ matrix1 = tools.load_from_file()
 edit_dis=3 ; met_dis=1 ;feat_mat = analysis.iter_calc_lev_sndx(matrix1,edit_dis= edit_dis, met_dis=met_dis)
 
 feat_mat1 = copy.deepcopy(feat_mat)
+res = analysis.show_results(feat_mat1,constants.mapping, dim=[0,1,0,0,0,1] , max_val=[0,1,0,0,0,1/1583551.00],verbose=False)
+
+tools.pretty_max_min(res,feat_mat1)
+pretty_top_n(res,ind_word,max_val)
+
+index_list,nil,no_res = tools.top_n(res,verbose=True)
+
+res = analysis.show_results(feat_mat1,mapp, dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2] , max_val=[1, 1, 1, 1, 0,1/1739259.0])

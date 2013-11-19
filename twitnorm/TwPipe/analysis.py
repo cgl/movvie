@@ -8,6 +8,7 @@ import CMUTweetTagger
 import enchant
 import tools
 import mlpy
+import re
 
 tweets,results = han(548)
 ovvFunc = lambda x,y : True if y == 'OOV' else False
@@ -90,7 +91,6 @@ def get_score_line(cand,sumof,ovv,ovv_tag, ovv_snd,suggestions):
     else:
         suggestion_score = 0.
         found = False
-
     node =  tools.get_node(cand,tag=ovv_tag)
     freq = node['freq'] if node else 0.
     line = [cand,
@@ -100,6 +100,7 @@ def get_score_line(cand,sumof,ovv,ovv_tag, ovv_snd,suggestions):
             tools.common_letter_score(ovv,cand),  # shared letter
             suggestion_score ,
             freq,
+            0,                                    # 7 : is_in_slang
     ]
     for ind in range(1,len(line)):
         line[ind] = round(line[ind],8)
@@ -112,7 +113,25 @@ def iter_calc_lev_sndx(mat,edit_dis=2,met_dis=1,verbose=False):
         mat_scored.append(res_list)
     return mat_scored
 
-def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.1, 0.2], max_val = [1,1,1,1,0,1/1739259.0], verbose=True):
+def add_slangs(res_mat,mapp,slang):
+    for ind in range (0,len(res_mat)):
+        ovv = mapp[ind][0]
+        ovv_reduced = re.sub(r'(.)\1+', r'\1\1', ovv).lower()
+        if slang.has_key(ovv_reduced):
+            found = False
+            for res_line in res_mat[ind]:
+                sl = slang.get(ovv_reduced)
+                if res_line[0] == mapp[ind][0]:
+                    res_line[7] = 1
+                    found = True
+            if not found:
+                ovv_tag = mapp[ind][2]
+                res_line = get_score_line(sl,0,ovv,ovv_tag,None,None)[0]
+                res_line[7] = 1
+                res_mat[ind].append(res_line)
+    return res_mat
+
+def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.1, 0.2], max_val = [1,1,1,1,0,1/1739259.0], verbose=False):
     results = []
     pos = 0
     for ind in range (0,len(res_mat)):
