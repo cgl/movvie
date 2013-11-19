@@ -13,7 +13,9 @@ from pymongo import MongoClient
 import string
 import difflib
 import mlpy
+import enchant
 
+dic= enchant.Dict("en_US")
 vowels = ('a', 'e', 'i', 'o', 'u', 'y')
 dims = ['weight', 'lcsr', 'distance', "com chars", "suggestion", "freq"]
 chars = string.lowercase + string.digits + string.punctuation
@@ -164,6 +166,7 @@ def longest(ovv,cand):
     return lcs
 
 def lcsr(ovv,cand):
+    ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
     lcs = longest(ovv,cand)
     max_length = max(len(ovv),len(cand))
     lcsr = lcs/max_length
@@ -173,6 +176,11 @@ def lcsr(ovv,cand):
     ed = editex(remove_vowels(ovv),remove_vowels(cand))
     simcost = lcsr/ed
     return simcost
+def get_suggestions(ovv,ovv_tag):
+    ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
+    return [word for word in dic.suggest(ovv)
+                   if dic.check(word) and len(word)>2 and
+                   get_node(word.decode("utf-8","ignore"),tag=ovv_tag) ]
 
 def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
     #repetition removal
