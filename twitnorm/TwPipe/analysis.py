@@ -15,6 +15,8 @@ import traceback
 tweets,results = han(548)
 ovvFunc = lambda x,y : True if y == 'OOV' else False
 dic= enchant.Dict("en_US")
+units = ["", "one", "two", "three", "four",  "five",
+    "six", "seven", "eight", "nine "]
 import logging
 
 logger = logging.getLogger('analysis_logger')
@@ -107,6 +109,35 @@ def iter_calc_lev_sndx(mat,edit_dis=2,met_dis=1,verbose=False):
         mat_scored.append(res_list)
     return mat_scored
 
+def is_ovv(mapp,slang):
+    not_ovv = []
+    for ind in range (0,len(mapp)):
+        ovv = mapp[ind][0]
+        ovv_reduced = re.sub(r'(.)\1+', r'\1', ovv).lower()
+        if dic.check(ovv.capitalize()):
+            not_ovv.append(ovv.capitalize())
+        elif slang.has_key(ovv_reduced):
+            sl = slang.get(ovv_reduced)
+            if len(sl.split(" ")) >  1:
+                not_ovv.append(ovv)
+            else:
+                not_ovv.append('')
+        elif ovv.isdigit():
+            not_ovv.append(ovv)
+        elif not ovv.isalnum():
+            print "Not alnum",ovv
+            not_ovv.append(ovv)
+        else:
+            not_ovv.append('')
+    i = 0
+    for ind,words in enumerate(mapp):
+        if words[0] == words[1]:
+            if not not_ovv[ind]:
+                i+=1
+    print i," found"
+    return not_ovv
+
+
 def add_slangs(mat,mapp,slang):
     res_mat = []
     for ind in range (0,len(mat)):
@@ -127,24 +158,26 @@ def add_slangs(mat,mapp,slang):
 def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.2, 0.2], max_val = [1,1,1,1,1,1/1739259.0], verbose=False):
     results = []
     pos = 0
+    slang = tools.get_slangs()
+    is_ovv = is_ovv(mapp,slang)
     for ind in range (0,len(res_mat)):
-        correct = False
-        #max_val = [ 0.9472,  1.        ,  1.        ,  1.      , 1. , 0.86099657]
-        #[0.503476, 1.0, 1.0, 1.0, 146234.0,]
-        res_dict = copy.deepcopy(res_mat[ind])
-        res_list = []
-        if res_dict:
-            for res_ind,cand in enumerate(res_dict):
-                score = calculate_score(res_dict[cand],dim,max_val)
-                res_dict[cand].append(round(score,7))
-                res_list.append([cand])
-                res_list[res_ind].extend(res_dict[cand])
-            res_list.sort(key=lambda x: -float(x[-1]))
-            if res_list[0][0] == mapp[ind][1]:
-                correct = True
-                pos += 1
-            if verbose:
-                print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
+        if is_ovv[ind]:
+            res_list = [[is_ovv[ind],0,0,0,0,0,0]]
+        else:
+            res_dict = copy.deepcopy(res_mat[ind])
+            res_list = []
+            if res_dict:
+                for res_ind,cand in enumerate(res_dict):
+                    score = calculate_score(res_dict[cand],dim,max_val)
+                    res_dict[cand].append(round(score,7))
+                    res_list.append([cand])
+                    res_list[res_ind].extend(res_dict[cand])
+                res_list.sort(key=lambda x: -float(x[-1]))
+        if res_list[0][0] == mapp[ind][1] or res_list[0][0].lower == mapp[ind][1].lower() : #lower
+            correct = True
+            pos += 1
+        if verbose:
+            print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
         results.append(res_list)
     print 'Number of correct answers %s' % pos
     return results
