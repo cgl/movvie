@@ -39,6 +39,12 @@ def main(index=False):
 if __name__ == "__main__ ":
     main()
 
+def find_more_results(ovv,ovv_tag):
+    cands,met_map = tools.get_from_dict(ovv,{})
+    scores = []
+    for cand in cands:
+        scores.append(get_score_line(cand,0,ovv,ovv_tag,None,None))
+    return scores
 
 def calc_lev_sndx(mat,ind,edit_dis=2,met_dis=1,verbose=True):
     result_list = []
@@ -62,12 +68,14 @@ def calc_lev_sndx(mat,ind,edit_dis=2,met_dis=1,verbose=True):
         if in_sugs:
             suggestions_found.append(cand)
         result_list.append(line)
+    if not result_list:
+        result_list = find_more_results(ovv,ovv_tag)
     result_list.extend([get_score_line(sug, 0. ,ovv,ovv_tag, ovv_snd, suggestions)[0]
                         for sug in suggestions[:15]
                         if sug not in suggestions_found
                         and
                         tools.filter_cand(ovv,sug) ])
-#    print ovv,suggestions
+    #    print ovv,suggestions
     result_list.sort(key=lambda x: -float(x[1]))
     return result_list
 
@@ -121,6 +129,8 @@ def show_results(res_mat,mapp, dim = [ 0.1, 0.1, 0.1, 0.1 , 0.1, 0.1], max_val =
         results.append(res_list)
     print 'Number of correct answers %s' % pos
     return results
+
+
 def calculate_score(res_vec,dim,max_val):
     score  = dim[0] * res_vec[1] * max_val[0]  # weight
     score += dim[1] * res_vec[2] * max_val[1]  # lcsr
