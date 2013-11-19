@@ -48,7 +48,7 @@ if __name__ == "__main__ ":
     main()
 
 def add_from_dict(fm,mapp):
-    for ind,cands in fm:
+    for ind,cands in enumerate(fm):
         cands = find_more_results(mapp[ind][0],mapp[ind][2],cands)
     return fm
 
