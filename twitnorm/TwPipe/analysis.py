@@ -47,7 +47,13 @@ def main(index=False):
 if __name__ == "__main__ ":
     main()
 
-def find_more_results(ovv,ovv_tag):
+def add_from_dict(fm,mapp):
+    for ind,cands in fm:
+        cands = find_more_results(mapp[ind][0],mapp[ind][2],cands)
+    return fm
+
+
+def find_more_results(ovv,ovv_tag,cand_dict):
     cands = []
     try:
         cands,met_map = tools.get_from_dict(ovv,{})
@@ -55,10 +61,10 @@ def find_more_results(ovv,ovv_tag):
         print ovv,"IndexError",e
     except TypeError, e:
         print "No new cand for %s" %ovv
-    scores = []
     for cand in cands:
-        scores.append(get_score_line(cand,0,ovv,ovv_tag))
-    return scores
+        if not cand_dict.has_key(cand):
+            cand_dict[cand] = get_score_line(cand,0,ovv,ovv_tag)
+    return cand_dict
 
 def calc_lev_sndx(mat,ind,edit_dis=2,met_dis=1,verbose=True):
     result_list = []
@@ -318,11 +324,13 @@ def run(matrix1,feat_mat,slang):
     edit_dis=2
     met_dis=1
     if not feat_mat:
-        feat_mat = iter_calc_lev_sndx(matrix1)
-        feat_mat = add_slangs(feat_mat,mapp,slang)
-    feat_mat1 = copy.deepcopy(feat_mat)
+        fm = add_slangs(matrix1,mapp,slang)
+        fm = add_from_dict(fm,mapp)
+        #feat_mat = iter_calc_lev_sndx(matrix1)
+        #feat_mat = add_slangs(feat_mat,mapp,slang)
+    feat_mat1 = fm
     res = show_results(feat_mat1, mapp,
                        dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2, 1] ,
-                       max_val=[1, 1, 1, 1, 0, 1./1739259 , 1])
+                       max_val=[1, 1, 1, 1, 1, 1, 1./1739259])
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
     return feat_mat,res
