@@ -10,7 +10,6 @@ import tools
 import mlpy
 import re
 import copy
-mapp = constants.mapping
 
 tweets,results = han(548)
 ovvFunc = lambda x,y : True if y == 'OOV' else False
@@ -278,6 +277,7 @@ def check(results,ovv,method):
                 method(results,ovv)
 
 def run(matrix1,feat_mat,slang):
+    from constants import mapping as mapp
     if not slang:
         slang = tools.get_slangs()
     edit_dis=2
