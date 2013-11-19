@@ -58,17 +58,17 @@ def top_n(res,n=100,verbose=False):
 def pretty_top_n(res,ind_word,max_val,last=10):
     ind = ind_word
     ovv = constants.mapping[ind_word][0]+"|"+constants.mapping[ind_word][2]
-    print "%10.5s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s" % (ovv, dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],)
+    print "%10.5s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s" % (ovv, dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],dims[6],)
     for vec_pre in res[ind][:last]:
         vec = [round(a,4) for a in array(vec_pre[1:len(max_val)+1]) * array(max_val)]
-        print "%10.5s %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f" % (vec_pre[0],vec[0],vec[1],vec[2],vec[3],vec[4],vec[5])
+        print "%10.5s %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f"  % (vec_pre[0],vec[0],vec[1],vec[2],vec[3],vec[4],vec[5],vec[5])
 
 def pretty_max_min(res,feat_mat1):
     maxes = max_values(res)[:len(dims)]
     mins = min_values(res)[:len(dims)]
-    print "%8.8s %8.8s %8.8s %8.8s %8.8s %8.8s" % (dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],)
-    print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.2f" % (mins[0], mins[1], mins[2], mins[3], mins[4], mins[5],)
-    print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.2f" % (maxes[0], maxes[1], maxes[2], maxes[3], maxes[4], maxes[5],)
+    print "%8.8s %8.8s %8.8s %8.8s %8.8s %8.8s %8.8s " % (dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],dims[6],)
+    print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.2f %8.6f" % (mins[0], mins[1], mins[2], mins[3], mins[4], mins[5], mins[6],)
+    print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.2f %8.6f" % (maxes[0], maxes[1], maxes[2], maxes[3], maxes[4], maxes[5],maxes[6],)
 
 def get_node(word,tag=None,ovv=False):
     if tag is None:

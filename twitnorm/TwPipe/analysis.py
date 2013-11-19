@@ -295,4 +295,4 @@ def run(matrix1,feat_mat,slang):
                        max_val=[1, 1, 1, 1, 0,1/1739259.0, 1])
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
     feat_mat1 = copy.deepcopy(feat_mat)
-    return feat_mat1
+    return feat_mat1,res
