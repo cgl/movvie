@@ -17,7 +17,10 @@ ovvFunc = lambda x,y : True if y == 'OOV' else False
 dic= enchant.Dict("en_US")
 units = ["", "one", "two", "three", "four",  "five",
     "six", "seven", "eight", "nine "]
+slang = tools.get_slangs()
+
 import logging
+
 
 logger = logging.getLogger('analysis_logger')
 logger.setLevel(logging.DEBUG)
@@ -109,7 +112,8 @@ def iter_calc_lev_sndx(mat,edit_dis=2,met_dis=1,verbose=False):
         mat_scored.append(res_list)
     return mat_scored
 
-def is_ovv(mapp,slang):
+def is_ovv(slang):
+    from constants import mapping as mapp
     not_ovv = []
     for ind in range (0,len(mapp)):
         ovv = mapp[ind][0]
@@ -154,11 +158,10 @@ def add_slangs(mat,mapp,slang):
         res_mat.append(cands)
     return res_mat
 
-def show_results(res_mat,mapp, dim = [ 0.2, 0.2, 0.2, 0.2 , 0.2, 0.2], max_val = [1,1,1,1,1,1/1739259.0], verbose=False):
+def show_results(res_mat,mapp, not_ovv = is_ovv(slang),dim = [ 0.2, 0.2, 0.2, 0.2 , 0.2, 0.2], max_val = [1,1,1,1,1,1/1739259.0], verbose=False):
     results = []
     pos = 0
     slang = tools.get_slangs()
-    not_ovv = is_ovv(mapp,slang)
     for ind in range (0,len(res_mat)):
         correct = False
         if not_ovv[ind]:
