@@ -289,7 +289,7 @@ def get_from_dict(word,met_map,met_dis=1):
                 if in_edit_dis(met_word,met,met_dis):
                     met_map[met_word] = met_map.get(met_word,[])
                     met_map[met_word].append(met)
-        mets = met_map[met_word]
+        mets = met_map[met_word] if met_map.has_key(met_word) else []
         cursor = db_dict.dic.find({ "$or": [ {"met0": {"$in" : mets}}, {"met1": {"$in" : mets}}] })
         if cursor:
              return [node["_id"] for node in cursor
