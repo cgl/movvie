@@ -17,7 +17,7 @@ import enchant
 
 dic= enchant.Dict("en_US")
 vowels = ('a', 'e', 'i', 'o', 'u', 'y')
-dims = ['weight', 'lcsr', 'distance', "com chars", "suggestion", "freq"]
+dims = ['weight', 'lcsr', 'distance', "com chars", "suggestion", "freq", "slang"]
 chars = string.lowercase + string.digits + string.punctuation
 char_ind = [ord(x) for x in chars]
 char_map = dict(zip(chars,char_ind))
