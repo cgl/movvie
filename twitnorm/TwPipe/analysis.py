@@ -49,7 +49,7 @@ def find_more_results(ovv,ovv_tag):
         print "No new cand for %s" %ovv
     scores = []
     for cand in cands:
-        scores.append(get_score_line(cand,0,ovv,ovv_tag,None,None))
+        scores.append(get_score_line(cand,0,ovv,ovv_tag,None,None)[0])
     return scores
 
 def calc_lev_sndx(mat,ind,edit_dis=2,met_dis=1,verbose=True):
@@ -138,13 +138,17 @@ def show_results(res_mat,mapp, dim = [ 0.1, 0.1, 0.1, 0.1 , 0.1, 0.1], max_val =
 
 
 def calculate_score(res_vec,dim,max_val):
-    score  = dim[0] * res_vec[1] * max_val[0]  # weight
-    score += dim[1] * res_vec[2] * max_val[1]  # lcsr
-    score += dim[2] * res_vec[3] * max_val[2]  # distance
-    score += dim[3] * res_vec[4] * max_val[3]  # common letter
-    score += dim[4] * res_vec[5] * max_val[4]  # suggestion score
-    score += dim[5] * res_vec[6] * max_val[5]  # freq
-    return score
+    try:
+        score  = dim[0] * res_vec[1] * max_val[0]  # weight
+        score += dim[1] * res_vec[2] * max_val[1]  # lcsr
+        score += dim[2] * res_vec[3] * max_val[2]  # distance
+        score += dim[3] * res_vec[4] * max_val[3]  # common letter
+        score += dim[4] * res_vec[5] * max_val[4]  # suggestion score
+        score += dim[5] * res_vec[6] * max_val[5]  # freq
+
+        return score
+    except IndexError, i:
+        print res_vec,i
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
     logger.info('Started')
