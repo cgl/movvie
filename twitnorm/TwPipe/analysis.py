@@ -47,20 +47,21 @@ def main(index=False):
 if __name__ == "__main__ ":
     main()
 
-def add_from_dict(fm,mapp):
+def add_from_dict(fm,mapp,not_ovv = is_ovv(slang)):
     for ind,cands in enumerate(fm):
-        cands = find_more_results(mapp[ind][0],mapp[ind][2],cands)
+        if not not_ovv[ind]:
+            cands = find_more_results(mapp[ind][0],mapp[ind][2],cands)
     return fm
 
 
-def find_more_results(ovv,ovv_tag,cand_dict):
+def find_more_results(ovv,ovv_tag,cand_dict,):
     cands = []
     try:
         cands,met_map = tools.get_from_dict(ovv,{})
     except IndexError, e:
         print ovv,"IndexError",e
     except TypeError, e:
-        print "No new cand for %s" %ovv
+        pass
     for cand in cands:
         if not cand_dict.has_key(cand):
             cand_dict[cand] = get_score_line(cand,0,ovv,ovv_tag)
@@ -147,7 +148,7 @@ def is_ovv(slang):
     return not_ovv
 
 
-def add_slangs(mat,mapp,slang):
+def add_slangs(mat,mapp,slang,verbose=False):
     res_mat = []
     for ind in range (0,len(mat)):
         ovv = mat[ind][0]
@@ -160,7 +161,8 @@ def add_slangs(mat,mapp,slang):
                 res_line = get_score_line(sl,0,ovv,ovv_tag)
                 res_line[4] = 1
                 cands[sl] = res_line
-                print ind,ovv,"[",mapp[ind][1],"]",sl,cands[sl]
+                if verbose:
+                    print ind,ovv,"[",mapp[ind][1],"]",sl,cands[sl]
         res_mat.append(cands)
     return res_mat
 
@@ -316,6 +318,7 @@ def check(results,ovv,method):
                 method(results,ovv)
 
 def run(matrix1,feat_mat,slang):
+    not_ovv = is_ovv(slang)
     if not matrix1:
         matrix1 = tools.load_from_file()
     from constants import mapping as mapp
@@ -325,11 +328,11 @@ def run(matrix1,feat_mat,slang):
     met_dis=1
     if not feat_mat:
         fm = add_slangs(matrix1,mapp,slang)
-        fm = add_from_dict(fm,mapp)
+        fm = add_from_dict(fm,mapp,not_ovv=not_ovv)
         #feat_mat = iter_calc_lev_sndx(matrix1)
         #feat_mat = add_slangs(feat_mat,mapp,slang)
     feat_mat1 = fm
-    res = show_results(feat_mat1, mapp,
+    res = show_results(feat_mat1, mapp, not_ovv = not_ovv
                        dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2, 1] ,
                        max_val=[1, 1, 1, 1, 1, 1, 1./1739259])
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
