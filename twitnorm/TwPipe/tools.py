@@ -314,8 +314,8 @@ def get_from_dict_met(word,met_map,met_dis=1):
                     if in_edit_dis(word,node["_id"],3)])
     return cands
 
-def get_from_dict_dis(word,clean_words):
-    cands = [cand for cand in clean_words if in_edit_dis(word,cand,3)]
+def get_from_dict_dis(word,tag,clean_words):
+    cands = [cand for cand in clean_words[tag] if in_edit_dis(word,cand,3)]
     return cands
 
 def slang_analysis(slang):
@@ -347,24 +347,17 @@ def get_performance(correct,not_found):
     print "Correct: %d , Not Found: %d" %(correct, not_found)
     print "Recall: %f , Precision:%f , FMeasure:%f" %(round(recall,3),round(precision,3),round(fmeasure,3))
 
-def get_all_words():
+def get_clean_words():
     words = {}
     client_shark = MongoClient("79.123.177.251", 27017)
     db_tweets = client_shark['tweets']
-    cursor = db_tweets.nodes.find({"ovv":False,"freq":{"$gt": 20}}).sort("freq",-1)
+    for tag in constants.tags:
+        cursor = db_tweets.nodes.find({"ovv":False,"tag":tag,"freq":{"$gt": 20}}).sort("freq",-1)
     for node in cursor:
+        words[tag] = set()
         word = node['_id'].split("|")[0]
-        if not words.has_key(word):
-            words[word] = node['ovv']
+        words[tag].add(word)
     return words
-
-def get_clean_words():
-    words = get_all_words()
-    clean_words = []
-    for word in words:
-        if not words[word]:
-            clean_words.append(word)
-    return clean_words
 
 def get_score_threshold(index_list,res):
     scores = []

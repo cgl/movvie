@@ -83,7 +83,7 @@ def add_from_dict(fm,mapp,not_ovv = is_ovv(slang)):
 
 def find_more_results(ovv,ovv_tag,cand_dict,clean_words,give_suggestions=True):
     cands = tools.get_from_dict_met(ovv,{})
-    cands_more = tools.get_from_dict_dis(ovv,clean_words)
+    cands_more = tools.get_from_dict_dis(ovv,ovv_tag,clean_words)
     cands.extend(cands_more)
     cands = list(set(cands))
     if give_suggestions:
@@ -159,15 +159,12 @@ def show_results(res_mat,mapp, not_ovv = is_ovv(slang),dim = [1.0, 1.0, 1.0, 1.0
             res_list = []
             if res_dict:
                 for res_ind,cand in enumerate(res_dict):
-                    if dic.check(cand):
-                        score = calculate_score(res_dict[cand],dim,max_val)
-                        if score >= 0.720513:
-                            res_dict[cand].append(round(score,7))
-                            res_line = [cand]
-                            res_line.extend(res_dict[cand])
-                            res_list.append(res_line)
-                    else:
-                        print cand
+                    score = calculate_score(res_dict[cand],dim,max_val)
+                    if score >= 0.720513:
+                        res_dict[cand].append(round(score,7))
+                        res_line = [cand]
+                        res_line.extend(res_dict[cand])
+                        res_list.append(res_line)
                 res_list.sort(key=lambda x: -float(x[-1]))
         answer = res_list[0][0] if res_list else mapp[ind][0]
         correct_answer = mapp[ind][1]
