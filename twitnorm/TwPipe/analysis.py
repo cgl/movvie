@@ -15,7 +15,7 @@ import traceback
 tweets,results = han(548)
 ovvFunc = lambda x,y : True if y == 'OOV' else False
 dic= enchant.Dict("en_US")
-units = ["", "one", "two", "three", "four",  "five",
+units = ["", "one", "to", "three", "for",  "five",
     "six", "seven", "eight", "nine "]
 slang = tools.get_slangs()
 
@@ -79,6 +79,20 @@ def add_from_dict(fm,mapp,not_ovv = is_ovv(slang)):
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
             cands = find_more_results(mapp[ind][0],mapp[ind][2],cands,clean_words)
+    return fm
+
+def add_reduced_form(fm,mapp,not_ovv = is_ovv(slang)):
+    for ind,cands in enumerate(fm):
+        if not not_ovv[ind]:
+            ovv = mapp[ind][0]
+            ovv_tag = mapp[ind][2]
+            cand = tools.get_reduced(ovv)
+            if ovv != cand and not cands.has_key(cand):
+                cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
+            if ovv.isdigit() and not cands.has_key(units[int(ovv[0])]):
+                cand = units[int(ovv[0])]
+                cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
+
     return fm
 
 def find_more_results(ovv,ovv_tag,cand_dict,clean_words,give_suggestions=True):

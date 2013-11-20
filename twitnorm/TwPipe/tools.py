@@ -15,6 +15,7 @@ import difflib
 import mlpy
 import enchant
 
+mapp = constants.mapp
 dic= enchant.Dict("en_US")
 vowels = ('a', 'e', 'i', 'o', 'u', 'y')
 dims = ['weight', 'lcsr', 'distance', "com chars", "slang", "freq", "result"]
@@ -31,8 +32,8 @@ def top_n(res,not_ovv,n=100,verbose=False):
     not_in_list = []
     no_result = []
     for res_ind in range(0,len(res)):
-        correct_answer = constants.mapping[res_ind][1]
-        ovv = constants.mapping[res_ind][0]
+        correct_answer = mapp[res_ind][1]
+        ovv = mapp[res_ind][0]
         if not_ovv[res_ind]:
             if correct_answer.lower() == not_ovv[res_ind].lower():
                 pass
@@ -54,7 +55,7 @@ def top_n(res,not_ovv,n=100,verbose=False):
                 else:
                     not_in_list.append((res_ind,ovv,correct_answer))
             else:
-                no_result.append((res_ind,ovv,correct_answer,constants.mapping[res_ind][2]))
+                no_result.append((res_ind,ovv,correct_answer,mapp[res_ind][2]))
     print 'Out of %d normalization, we^ve %d of those correct normalizations in our list with indexes \n %s' % (total_ill, in_top_n,[(a, index_list[a][0]) for a in index_list])
     if verbose:
         for a in index_list:
@@ -64,7 +65,7 @@ def top_n(res,not_ovv,n=100,verbose=False):
 
 def pretty_top_n(res,ind_word,max_val,last=10):
     ind = ind_word
-    ovv = constants.mapping[ind_word][0]+"|"+constants.mapping[ind_word][2]
+    ovv = mapp[ind_word][0]+"|"+mapp[ind_word][2]
     print "%10.10s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s Current res" % (ovv, dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],dims[6])
     for vec_pre in res[ind][:last]:
         vec = [round(a,4) for a in array(vec_pre[1:len(max_val)+1]) * array(max_val)]
@@ -84,13 +85,13 @@ def get_node(word,tag=None,ovv=False):
         return DB.nodes.find_one({'_id':word+"|"+tag})
 
 def get_tag(ind,word):
-    return constants.mapping[ind][2]
+    return mapp[ind][2]
 
 def max_values(res):
     correct_results = []
     for ind in range(0,len(res)):
         if res[ind]:
-            if res[ind][0][0] == constants.mapping[ind][1]:
+            if res[ind][0][0] == mapp[ind][1]:
                 correct_result = res[ind][0]
                 correct_results.append(correct_result[1:])
     arr = array(correct_results)
@@ -100,7 +101,7 @@ def min_values(res):
     correct_results = []
     for ind in range(0,len(res)):
         if res[ind]:
-            if res[ind][0][0] == constants.mapping[ind][1]:
+            if res[ind][0][0] == mapp[ind][1]:
                 correct_result = res[ind][0]
                 correct_results.append(correct_result[1:])
     arr = array(correct_results)
@@ -155,11 +156,11 @@ def build_mappings(results,pos_tagged):
     return mapp
 
 def distance(ovv,cand):
-    ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
+    ovv = get_reduced(ovv)
     return editdist(ovv,cand)
 
 def common_letter_score(ovv,cand):
-    ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
+    ovv = get_reduced(ovv)
     return float(len(set(ovv).intersection(set(cand)))) / len(set(ovv).union(set(cand)))
 
 def longest(ovv,cand):
@@ -173,7 +174,7 @@ def longest(ovv,cand):
     return lcs
 
 def lcsr(ovv,cand):
-    ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
+    ovv = get_reduced(ovv)
     lcs = longest(ovv,cand)
     max_length = max(len(ovv),len(cand))
     lcsr = float(lcs)/max_length
@@ -185,16 +186,14 @@ def lcsr(ovv,cand):
     return simcost
 
 def get_suggestions(ovv,ovv_tag):
-    ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
+    ovv = get_reduced(ovv)
     return [word for word in dic.suggest(ovv)
                    if dic.check(word) and len(word)>2 and filter_cand(ovv,word) and
                    get_node(word.decode("utf-8","ignore"),tag=ovv_tag) ]
 
 def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
     #repetition removal
-    #re.sub(r'([a-z])\1+', r'\1', 'ffffffbbbbbbbqqq')
-    ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
-    #cand = re.sub(r'(.)\1+', r'\1\1', cand)
+    ovv = get_reduced(ovv)
     try:
         t_c_check = in_edit_dis(ovv.encode('ascii',"ignore"),cand,edit_dis)
         t_p_check = metaphone_distance_filter(ovv.encode('ascii',"ignore"),cand,met_dis)
@@ -234,10 +233,10 @@ def soundex_distance(ovv_snd,cand):
     return snd_dis
 
 def get_dict():
-    client_tabi = MongoClient("79.123.176.205", 27017)
+    #client_tabi = MongoClient("79.123.176.205", 27017)
     client_shark = MongoClient("79.123.177.251", 27017)
     db_tweets = client_shark['tweets']
-    db_dict = client_tabi['dictionary']
+    db_dict = client_shark['dictionary']
     cursor = db_tweets.nodes.find({"ovv":False,"freq":{"$gt": 100}}).sort("freq",-1)
     print cursor.count()
     for node in cursor:
@@ -260,6 +259,14 @@ def get_dict():
                 query["_id"] = word
                 query["ovv"] = node['ovv']
                 db_dict.dic.insert(query)
+
+def get_hb_dict():
+    hb_dict = {}
+    with open('emnlp_dict.txt', 'rb') as file:
+        for line in file:
+            line_splited = line.split("  ")
+            hb_dict[line_splited[0].strip()] = line_splited[1].strip()
+    return hb_dict
 
 def get_slangs():
     slang = {}
@@ -292,7 +299,7 @@ def get_from_dict_met(word,met_map,met_dis=1):
     client_shark = MongoClient("79.123.177.251", 27017)
     db_tweets = client_shark['tweets']
     db_dict = client_tabi['dictionary']
-    word = re.sub(r'(.)\1+', r'\1\1', word)
+    word = get_reduced(word)
     met_word_list = DMetaphone(4)(word)
     cands = []
     for met_word in met_word_list:
@@ -318,15 +325,17 @@ def get_from_dict_dis(word,tag,clean_words):
     cands = [cand for cand in clean_words[tag] if in_edit_dis(word,cand,3)]
     return cands
 
+def get_reduced(word):
+    return re.sub(r'(.)\1+', r'\1\1', word.lower())
+
 def slang_analysis(slang):
-    mapp = constants.mapping
     i = 0
     for tup in mapp:
         multi = False
         correct_answer = False
         ill = False
         sl = None
-        ovv = re.sub(r'(.)\1+', r'\1\1', tup[0]).lower()
+        ovv = get_reduced(tup[0])
         if slang.has_key(ovv):
             sl = slang.get(ovv)
             if len(sl.split(" ")) > 1:
@@ -378,3 +387,8 @@ def test_threshold(res,threshold):
             else:
                 buyukler += 1
     print "There is %d result below and %d result above the threshold" %(kucukler,buyukler)
+
+def show_nth_index(ind,index_list,res,max_val,last=4):
+    for rr in index_list[ind][1]:
+        print rr,mapp[rr]
+        pretty_top_n(res,rr,max_val,last=last)
