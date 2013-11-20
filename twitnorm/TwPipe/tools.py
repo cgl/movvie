@@ -34,7 +34,7 @@ def top_n(res,not_ovv,n=100,verbose=False):
         correct_answer = constants.mapping[res_ind][1]
         ovv = constants.mapping[res_ind][0]
         if not_ovv[res_ind]:
-            if correct_answer == not_ovv[res_ind]:
+            if correct_answer.lower() == not_ovv[res_ind].lower():
                 pass
             else:
                 print "Houston"
