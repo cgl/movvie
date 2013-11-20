@@ -55,15 +55,15 @@ def is_ovv(slang):
         if slang.has_key(ovv_reduced):
             sl = slang.get(ovv_reduced)
             if len(sl.split(" ")) >  1:
-                not_ovv.append(ovv)
+                not_ovv.append(ovv_reduced)
             else:
                 not_ovv.append('')
         elif ovv.isdigit():
             not_ovv.append(ovv)
-        elif dic.check(ovv.capitalize()):
-            not_ovv.append(ovv.capitalize())
-        elif not ovv.isalnum():
-            not_ovv.append(ovv)
+        elif len(ovv_reduced) > 1 and dic.check(ovv_reduced.capitalize()):
+            not_ovv.append(ovv_reduced.capitalize())
+        elif not ovv_reduced.isalnum():
+            not_ovv.append(ovv_reduced)
         else:
             not_ovv.append('')
     i = 0
@@ -308,4 +308,4 @@ def run(matrix1,feat_mat,slang,max_val=[2.5, 1.0, 1.0, 1.0, 4.0, 2./1739259],ver
         feat_mat = iter_calc_lev(matrix1,fmd,mapp,not_ovv =not_ovv)
     res = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val)
     index_list,nil,nnnn = tools.top_n(res,verbose=verbose)
-    return res ,feat_mat
+    return res,feat_mat

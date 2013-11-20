@@ -37,7 +37,7 @@ def top_n(res,not_ovv,n=100,verbose=False):
             if correct_answer.lower() == not_ovv[res_ind].lower():
                 pass
             else:
-                print "Houston",ovv,correct_answer,not_ovv[res_ind]
+                print "Houston",res_ind,ovv,correct_answer,not_ovv[res_ind]
         elif correct_answer != ovv:
             total_ill += 1
             if res[res_ind]:
