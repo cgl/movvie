@@ -286,6 +286,7 @@ def get_from_dict(word,met_map,met_dis=1):
     db_tweets = client_shark['tweets']
     db_dict = client_tabi['dictionary']
     met_word_list = DMetaphone(4)(word)
+    cands = []
     for met_word in met_word_list:
         if not met_word:
             continue
@@ -301,10 +302,10 @@ def get_from_dict(word,met_map,met_dis=1):
         mets = met_map[met_word] if met_map.has_key(met_word) else []
         cursor = db_dict.dic.find({ "$or": [ {"met0": {"$in" : mets}}, {"met1": {"$in" : mets}}] })
         if cursor:
-             return [node["_id"] for node in cursor
-                    if in_edit_dis(word,node["_id"],3)]
-        else:
-            return []
+             cands.extend([node["_id"] for node in cursor
+                    if in_edit_dis(word,node["_id"],3)])
+    return cands
+
 
 def slang_analysis(slang):
     mapp = constants.mapping
