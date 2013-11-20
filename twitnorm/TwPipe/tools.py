@@ -156,7 +156,7 @@ def build_mappings(results,pos_tagged):
         for (word_ind ,(a,b,c)) in enumerate(constants.results[i]):
             if b == 'OOV':
                 tag = pos_tagged[i][word_ind][1]
-                mapp.append([a,c,tag])
+                mapp.append([a,c,tag,acc])
     return mapp
 
 def distance(ovv,cand):
