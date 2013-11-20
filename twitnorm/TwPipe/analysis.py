@@ -144,7 +144,7 @@ def is_ovv(slang):
         if words[0] == words[1]:
             if not not_ovv[ind]:
                 i+=1
-    print i," found"
+    print i," not ovv detected"
     return not_ovv
 
 
@@ -333,7 +333,7 @@ def run(matrix1,feat_mat,slang):
         #feat_mat = add_slangs(feat_mat,mapp,slang)
     feat_mat1 = fm
     res = show_results(feat_mat1, mapp, not_ovv = not_ovv,
-                       dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2, 1] ,
-                       max_val=[1, 1, 1, 1, 1, 1, 1./1739259])
+                       dim    =[0.2, 0.2, 0.2, 0.2, 0.2, 1.] ,
+                       max_val=[1.0, 1.0, 1.0, 1.0, 1.0, 1./1739259])
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
-    return feat_mat,res
+    return feat_mat1,res
