@@ -53,7 +53,7 @@ def is_ovv(slang):
         ovv = mapp[ind][0]
         ovv_reduced = re.sub(r'(.)\1+', r'\1', ovv).lower()
         if slang.has_key(ovv_reduced):
-            sl = slang.get(ovv_reduced)
+            sl = slang.get(ovv) or slang.get(ovv_reduced)
             if len(sl.split(" ")) >  1:
                 not_ovv.append(ovv)
             else:
