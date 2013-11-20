@@ -28,7 +28,7 @@ $xy  -  sexy
 2  -  too
 2b  -  to be
 2b4u  -  too bad for you
-2bad4u2  -  too bad for you too 
+2bad4u2  -  too bad for you too
 2bh  -  to be honest
 2da  -  to the
 2dae  -  today
@@ -38,7 +38,7 @@ $xy  -  sexy
 2g2b4g  -  To good to be forgotten
 2g2bt  -  too good to be true
 2ge4  -  Together
-2getha  -  together 
+2getha  -  together
 2gether  -  together
 2gethr  -  together
 2getr  -  Together
@@ -765,7 +765,7 @@ cod5  -  call of duty 5
 code 29  -  moderator is watching
 code 8  -  parents are watching
 code 9  -  Parents are watching
-code9  -  other people near by 
+code9  -  other people near by
 cof  -  Crying on the floor
 coiwta  -  come on i wont tell anyone
 col  -  crying out loud
@@ -1305,7 +1305,7 @@ fosho  -  for sure
 foss  -  free, open source software
 fotcl  -  fell off the chair laughing
 fotm  -  Flavour of the month
-fouc  -  fuck off you c**t 
+fouc  -  fuck off you c**t
 fov  -  Field of View
 foyb  -  fuck off you bitch
 fo`  -  for
@@ -1473,7 +1473,7 @@ gb  -  Go back
 gb2  -  go back to
 gba  -  game boy advance
 gbioua  -  Go blow it out your ass
-gbnf  -  Gone but not forgotten 
+gbnf  -  Gone but not forgotten
 gbtw  -  go back to work
 gbu  -  god bless you
 gby  -  good bye
@@ -1525,7 +1525,7 @@ gg  -  good game
 gga  -  good game all
 ggal  -  go get a life
 ggf  -  go get fucked
-ggg  -  Go, go, go! 
+ggg  -  Go, go, go!
 ggnore  -  good game no rematch
 ggp  -  gotta go pee
 ggpaw  -  gotta go parents are watching
@@ -1597,7 +1597,7 @@ gnrn  -  get naked right now
 gnst  -  goodnight sleep tight
 gnstdltbbb  -  good night sleep tight don't let the bed bugs bite
 goc  -  get on camera
-goi  -  get over it 
+goi  -  get over it
 goia  -  get over it already
 goin  -  going
 gok  -  God Only Knows
@@ -1685,7 +1685,7 @@ gtsy  -  good to see you
 gttp  -  get to the point
 gtty  -  good talking to you
 gu  -  grow up
-gu2i  -  get used to it 
+gu2i  -  get used to it
 gud  -  good
 gudd  -  good
 gui  -  graphical user interface
@@ -1813,7 +1813,7 @@ hiik  -  Hell If I Know
 hijack  -  start an off topic discussion
 hith  -  how in the hell
 hiw  -  husband is watching
-hiya  -  hello 
+hiya  -  hello
 hiybbprqag  -  copying somebody else's search results
 hj  -  hand job
 hl  -  Half-Life
@@ -1890,7 +1890,7 @@ hv  -  have
 hve  -  have
 hvnt  -  haven't
 hw  -  homework
-hw/hw  -  help me with homework 
+hw/hw  -  help me with homework
 hwg  -  here we go
 hwga  -  here we go again
 hwik  -  how would i know
@@ -1937,7 +1937,7 @@ iawy  -  I agree with you
 ib  -  I'm back
 ibbl  -  I'll be back later
 ibcd  -  Idiot between chair & desk
-ibs  -  Internet bitch Slap 
+ibs  -  Internet bitch Slap
 ibt  -  I'll be there
 ibtl  -  In Before The Lock
 ibw  -  I'll be waiting
@@ -1955,7 +1955,7 @@ icp  -  insane clown posse
 icr  -  I can't rememer
 icsrg  -  I can still reach Google
 ictrn  -  I can't talk right now
-icty  -  i can't tell you 
+icty  -  i can't tell you
 icu  -  i see you
 icudk  -  in case you didn't know
 icup  -  i see you pee
@@ -2037,11 +2037,11 @@ ifhu  -  I fucking hate you
 ifhy  -  i fucking hate you
 iflu  -  i fucking love you
 ifthtb  -  i find that hard to belive
-ifttt  -  if this then that 
+ifttt  -  if this then that
 ifwis  -  I forgot what I said
 ig  -  I guess
 ig2g  -  I got to go
-ig5oi  -  I got 5 on it 
+ig5oi  -  I got 5 on it
 igahp  -  I've got a huge penis
 igalboc  -  I've got a lovely bunch of cocnuts
 igg  -  i gotta go
@@ -2058,7 +2058,7 @@ ih  -  it happens
 ih2gp  -  I have to go pee
 ih2p  -  i'll have to pass
 ih8  -  i hate
-ih8mls  -  I hate my little sister 
+ih8mls  -  I hate my little sister
 ih8p  -  I hate parents
 ih8tu  -  i hate you
 ih8u  -  I hate you
@@ -2081,7 +2081,7 @@ ihtsm  -  i hate this so much
 ihtutbr  -  I have to use the bathroom
 ihu  -  I hate you
 ihurg  -  i hate your guts
-ihusb  -  i hate you so bad 
+ihusb  -  i hate you so bad
 ihusfm  -  i hate you so fucking much
 ihusm  -  i hate you so much
 ihy  -  i hate you
@@ -2176,7 +2176,6 @@ ilysmydek  -  I Love You So Much You Don't Even Know
 ilysvm  -  i love you so very much
 ilyvm  -  i love you very much
 ilywamh  -  I love you with all my heart
-im  -  Instant Message
 im'd  -  instant messaged
 im26c4u  -  I am too sexy for you
 ima  -  I am a
@@ -2204,7 +2203,7 @@ imsb  -  i am so bored
 imsry  -  I am sorry
 imtaw  -  it may take a while
 imts  -  I meant to say
-imu  -  i miss you 
+imu  -  i miss you
 imusm  -  I miss you so much
 imvho  -  in my very humble opinion
 imwtk  -  Inquiring minds want to know
@@ -2315,7 +2314,7 @@ iwtfy  -  i want to fuck you
 iwthswy  -  i want to have sex with you
 iwtly  -  i want to love you
 iwu  -  i want you
-iwuwh  -  i wish you were here 
+iwuwh  -  i wish you were here
 iwy  -  i want you
 iwyb  -  I want your body
 iwyn  -  I want you now
@@ -2598,7 +2597,7 @@ lazer  -  laser
 lazor  -  laser
 lbh  -  let's be honest
 lbnr  -  laughing but not really
-lbo  -  laughing butt off 
+lbo  -  laughing butt off
 lbr  -  little boy's room
 lbvs  -  laughing but very serious
 lcsnpc  -  low cost small notebook personal computer
@@ -2665,7 +2664,7 @@ llap  -  live long and prosper
 llc  -  laughing like crazy
 llf  -  laugh like fuck
 llol  -  literally laughing out loud
-lltnt  -  live like theres no tomorrow 
+lltnt  -  live like theres no tomorrow
 lm4aq  -  Let's meet for a quickie.
 lma  -  leave me alone
 lmamf  -  leave me alone mother fucker
@@ -2673,8 +2672,8 @@ lmao  -  laughing my ass off
 lmaol  -  laughing my ass out loud
 lmaomtoaoa  -  Laugh my ass off many times over and over again
 lmaonade  -  laughing my ass off
-lmaool  -  laughing my ass off out loud 
-lmaootf  -  Laughing my ass off on the floor 
+lmaool  -  laughing my ass off out loud
+lmaootf  -  Laughing my ass off on the floor
 lmaorof  -  Laughing my ass off Rolling on the floor
 lmaorotf  -  laughing my ass off rolling on the floor
 lmaowrotf  -  Laughing my ass of while rolling on the floor
@@ -2762,7 +2761,7 @@ lolpimp  -  Laughing out loud peeing in my pants
 lolq  -  laugh out loud quietly
 lolrof  -  Laughing out loud while rolling on the floor.
 lolrotf  -  laughing out loud rolling on the floor
-lols  -  laugh out loud 
+lols  -  laugh out loud
 lolvq  -  laugh out loud very quietly
 lolwtime  -  laughing out loud with tears in my eyes
 lolz  -  laugh out loud
@@ -3104,7 +3103,7 @@ naww  -  no
 nayl  -  in a while
 nb  -  not bad
 nb,p  -  nothing bad, parents
-nba  -  national basketball association 
+nba  -  national basketball association
 nbd  -  no big deal
 nbdy  -  nobody
 nc  -  not cool
@@ -3266,9 +3265,9 @@ ntmy  -  nice to meet you
 ntn  -  nothing
 ntrly  -  Not Really
 nts  -  note to self
-ntstt  -  not safe to talk 
+ntstt  -  not safe to talk
 ntt  -  need to talk
-ntta  -  nothing to talk about 
+ntta  -  nothing to talk about
 nttawwt  -  Not that there is anything wrong with that
 nttiawwt  -  Not that there is anything wrong with that.
 ntty  -  nice talking to you
@@ -3289,11 +3288,11 @@ nvmdt  -  never mind then
 nvmt  -  nevermind that
 nvr  -  never
 nvrm  -  Nevermind
-nvrmnd  -  never mind 
+nvrmnd  -  never mind
 nw  -  no way
 nwb  -  a new person
 nwih  -  no way in hell
-nwrus  -  no way are your serious 
+nwrus  -  no way are your serious
 nws  -  not work safe
 nwtf  -  now what the fuck
 nwy  -  no way
@@ -3356,7 +3355,7 @@ ok  -  okay
 oll  -  online love
 olpc  -  One Laptop Per Child
 omdg  -  oh my dear god
-omdz  -  Oh My Days 
+omdz  -  Oh My Days
 omfd  -  oh my fucking days
 omfg  -  oh my fucking god
 omfgn  -  Oh my fucking god noob
@@ -3513,7 +3512,7 @@ perv  -  pervert
 pewp  -  poop
 pex  -  Please explain?
 pezzas  -  parents
-pf  -  profile 
+pf  -  profile
 pfa  -  Please Find Attached
 pfm  -  Please forgive me
 pfo  -  please fuck off
@@ -3575,7 +3574,7 @@ pleez  -  please
 pleeze  -  please
 pleze  -  please
 pliz  -  please
-plma  -  please leave me alone 
+plma  -  please leave me alone
 plmk  -  please let me know
 plocks  -  please
 plom  -  parents looking over me
@@ -3614,7 +3613,7 @@ poc  -  Piece of crap
 poed  -  pissed off
 poets  -  piss off early, tomorrow's Saturday
 poi  -  point of interest
-poidnh  -  Pics or it did not happen 
+poidnh  -  Pics or it did not happen
 pol  -  parent over looking
 poms  -  parent over my shoulder
 poo  -  poop
@@ -3677,8 +3676,8 @@ ptbb  -  pass the barf bag
 ptfo  -  passed the fuck out
 pthc  -  preteen hardcore
 ptl  -  Praise the Lord
-pto  -  Personal Time Off 
-ptw  -  play to win 
+pto  -  Personal Time Off
+ptw  -  play to win
 puh-leaze  -  Please
 purty  -  pretty
 puter  -  Computer
@@ -3825,7 +3824,7 @@ roflmaool  -  Rolling on the floor laughing my ass off out loud
 roflmaopmp  -  rolling on the floor, laughing my ass off, pissing my pants
 roflmaouts  -  Rolling on floor laughing my fucking ass off unable to speak
 roflmaowpimp  -  rolling on floor laughing my ass off while peeing in my pants
-roflmbfao  -  Rolling On Floor Laughing My Big Fat ass Off 
+roflmbfao  -  Rolling On Floor Laughing My Big Fat ass Off
 roflmbo  -  rolling on floor laughing my butt off
 roflmfaopimp  -  rolling on the floor laughing my fucking ass off pissing in my pants
 roflmfaopmp  -  rolling on flor laughing my fucking ass of peeing my pants
@@ -4089,11 +4088,11 @@ slore  -  shitty w***e
 slos  -  someone looking over shoulder
 slp  -  sleep
 slt  -  something like that
-sl^t  -  shit 
+sl^t  -  shit
 sm  -  social media
 sm1  -  someone
 smb  -  see my blog
-smbd  -  suck my big dick 
+smbd  -  suck my big dick
 smbt  -  Suck my big toe
 smc  -  suck my c**k
 smd  -  suck my dick
@@ -4126,7 +4125,7 @@ snl  -  Saturday Night Live
 snm  -  say no more
 snog  -  kiss
 snogged  -  kissed
-soa  -  service oriented architecture 
+soa  -  service oriented architecture
 soab  -  son of a btch
 soad  -  system of a down
 soafb  -  son of a fucking bitch
@@ -4225,7 +4224,7 @@ stsp  -  Same Time Same Place
 stt  -  Same time tomorrow
 stufu  -  stupid fucker
 stupd  -  stupid
-stw  -  share the wealth 
+stw  -  share the wealth
 stys  -  speak to you soon
 su  -  shut up
 suabq  -  shut up and be quiet
@@ -4266,7 +4265,7 @@ swalk  -  sealed with a loving kiss
 swf  -  single white female
 swm  -  single white male
 swmbo  -  she who must be obeyed
-swmt  -  Stop Wasting My Time 
+swmt  -  Stop Wasting My Time
 swp  -  sorry wrong person
 swsw2b  -  single when she wants to be
 swt  -  sweet
@@ -4293,7 +4292,7 @@ syrs  -  see ya real soon
 sys  -  see you soon
 sysop  -  system operator
 syt  -  see you there
-sytycd  -  so you think you can dance 
+sytycd  -  so you think you can dance
 syu  -  sex you up
 sz  -  sorry
 t#3  -  the
@@ -4314,7 +4313,7 @@ taci  -  that's a crappy idea
 tafn  -  That's all for now
 taht  -  that
 tai  -  think about it
-taig  -  That's all I got. 
+taig  -  That's all I got.
 tal  -  thanks a lot
 tanq  -  thank you
 tanstaafl  -  there ain't no such thing as a free lunch
@@ -4419,7 +4418,7 @@ thru  -  through
 tht  -  that
 thwdi  -  thats how we do it
 thwy  -  the hell with you!
-thx  -  thank you
+thx  -  thanks
 thxx  -  thanks
 thz  -  thank you
 ti2o  -  that is too obious
@@ -4836,7 +4835,7 @@ wat  -  what
 wat's^  -  Whats Up
 watcha  -  what are you
 watev  -  whatever
-wateva  -  whatever 
+wateva  -  whatever
 watevr  -  whatever
 watevs  -  whatever
 wats  -  whats
@@ -4972,7 +4971,7 @@ wiu  -  What is up?
 wiv  -  with
 wiw  -  wife is watching
 wiwhu  -  wish I was holding you
-wiwt  -  wish i was there 
+wiwt  -  wish i was there
 wiyp  -  what is your problem
 wjwd  -  What Jesus Would Do
 wk  -  week
@@ -5366,7 +5365,7 @@ yr  -  year
 yrbk  -  Yearbook
 yrms  -  You Rock My Socks
 yrs  -  years
-yrsaf  -  You Are Such A Fool 
+yrsaf  -  You Are Such A Fool
 yrsm  -  you really scare me
 yrss  -  you are so sexy
 yru  -  why are you?
