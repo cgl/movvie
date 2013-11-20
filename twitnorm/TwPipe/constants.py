@@ -16,7 +16,9 @@ tags = [u'A',
         u'T',
         u'X',
         u'Y',
-        u'M']
+        u'M'
+        u'$',
+    ]
 
 mapping = [[u'pix', u'pictures', 'N'],
  [u'comming', u'coming', 'V'],
