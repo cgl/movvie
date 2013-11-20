@@ -307,5 +307,5 @@ def run(matrix1,feat_mat,slang,max_val=[2.5, 1.0, 1.0, 1.0, 4.0, 2./1739259],ver
         fmd = add_from_dict(fms,mapp,not_ovv=not_ovv)
         feat_mat = iter_calc_lev(matrix1,fmd,mapp,not_ovv =not_ovv)
     res = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val)
-    index_list,nil,nnnn = tools.top_n(res,verbose=verbose)
+    index_list,nil,nnnn = tools.top_n(res,not_ovv,verbose=verbose)
     return res,feat_mat
