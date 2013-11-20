@@ -38,7 +38,7 @@ def top_n(res,not_ovv,n=100,verbose=False):
                 pass
             elif verbose:
                 print "Houston",res_ind, ovv,correct_answer, not_ovv[res_ind]
-        if correct_answer != ovv:
+        elif correct_answer != ovv:
             total_ill += 1
             if res[res_ind]:
                 res_list = [a[0].lower() for a in res[res_ind][:n]] # lower
