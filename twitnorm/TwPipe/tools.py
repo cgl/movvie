@@ -354,14 +354,12 @@ def get_performance(correct,not_found):
 
 def get_clean_words():
     words = {}
-    client_shark = MongoClient("79.123.177.251", 27017)
-    db_tweets = client_shark['tweets']
     for tag in constants.tags:
         cursor = db_tweets.nodes.find({"ovv":False,"tag":tag,"freq":{"$gt": 20}}).sort("freq",-1)
-    for node in cursor:
         words[tag] = set()
-        word = node['_id'].split("|")[0]
-        words[tag].add(word)
+        for node in cursor:
+            word = node['_id'].split("|")[0]
+            words[tag].add(word)
     return words
 
 def get_score_threshold(index_list,res):
