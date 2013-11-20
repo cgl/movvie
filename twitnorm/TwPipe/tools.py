@@ -15,7 +15,7 @@ import difflib
 import mlpy
 import enchant
 
-mapp = constants.mapp
+mapp = constants.mapping
 dic= enchant.Dict("en_US")
 vowels = ('a', 'e', 'i', 'o', 'u', 'y')
 dims = ['weight', 'lcsr', 'distance', "com chars", "slang", "freq", "result"]
