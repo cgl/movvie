@@ -67,35 +67,23 @@ def find_more_results(ovv,ovv_tag,cand_dict,):
             cand_dict[cand] = get_score_line(cand,0,ovv,ovv_tag)
     return cand_dict
 
-def calc_lev_sndx(mat,ind,edit_dis=2,met_dis=1,verbose=True):
-    result_list = []
-    matrix = mat[ind]
-    ovv = matrix[0].encode('utf-8')
-    ovv_tag = tools.get_tag(ind,ovv)
-    ovv_snd = soundex.soundex(ovv)
-    length = len(matrix[1])
-    #suggestions = tools.get_suggestions(ovv,ovv_tag)
+def iter_calc_lev_sndx(matrix,fm,mapp,not_ovv = is_ovv(slang),edit_dis=2,met_dis=1,verbose=False):
+    for ind,cands in enumerate(fm):
+        if not not_ovv[ind]:
+            cands = get_candidates_from_graph(matrix,mapp[ind][0],mapp[ind][2],cands,edit_dis,met_dis)
+    return fm
 
-    if verbose:
-        print '%s: found %d candidate' %(ovv,length)
-    result_list = get_candidates_from_graph(matrix,ovv,ovv_tag,edit_dis,met_dis)
-    if not result_list:
-        result_list = find_more_results(ovv,ovv_tag)
-
-    #    print ovv,suggestions
-    result_list.sort(key=lambda x: -float(x[1]))
-    return result_list
-
-def get_candidates_from_graph(matrix,ovv,ovv_tag,edit_dis,met_dis):
-    result_list = []
+def get_candidates_from_graph(matrix,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
     for cand in [cand for cand in matrix[1]
                  if tools.filter_cand(ovv,cand,edit_dis=edit_dis,met_dis=met_dis)]:
         sumof = 0.
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
-        line = get_score_line(cand,sumof,ovv,ovv_tag)
-        result_list.append(line)
-    return result_list
+        if not cand_dict.has_key(cand):
+            cand_dict[cand] = get_score_line(cand,sumof,ovv,ovv_tag)
+        else:
+            cand_dict[cand][0] = sumof
+    return cand_dict
 
 def get_score_line(cand,sumof,ovv,ovv_tag):
     node =  tools.get_node(cand,tag=ovv_tag)
@@ -111,13 +99,6 @@ def get_score_line(cand,sumof,ovv,ovv_tag):
     for ind in range(0,len(line)):
         line[ind] = round(line[ind],8)
     return line
-
-def iter_calc_lev_sndx(mat,edit_dis=2,met_dis=1,verbose=False):
-    mat_scored = []
-    for ind in range (0,len(mat)):
-        res_list = calc_lev_sndx(mat,ind,verbose=verbose)
-        mat_scored.append(res_list)
-    return mat_scored
 
 def is_ovv(slang):
     from constants import mapping as mapp
