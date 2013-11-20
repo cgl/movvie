@@ -80,15 +80,11 @@ def add_from_dict(fm,mapp,not_ovv = is_ovv(slang)):
             cands = find_more_results(mapp[ind][0],mapp[ind][2],cands)
     return fm
 
-
-def find_more_results(ovv,ovv_tag,cand_dict,):
-    cands = []
-    try:
-        cands,met_map = tools.get_from_dict(ovv,{})
-    except IndexError, e:
-        print ovv,"IndexError",e
-    except TypeError, e:
-        pass
+def find_more_results(ovv,ovv_tag,cand_dict,give_suggestions=True):
+    cands = tools.get_from_dict(ovv,{})
+    if give_suggestions:
+        sugs = tools.get_suggestions(ovv,ovv_tag)
+        cands.extend(sugs)
     for cand in cands:
         if not cand_dict.has_key(cand):
             cand_dict[cand] = get_score_line(cand,0,ovv,ovv_tag)

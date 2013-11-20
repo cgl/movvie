@@ -176,12 +176,12 @@ def lcsr(ovv,cand):
     ed = editex(remove_vowels(ovv),remove_vowels(cand))
     simcost = lcsr/ed
     return simcost
+
 def get_suggestions(ovv,ovv_tag):
     ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
     return [word for word in dic.suggest(ovv)
-                   if dic.check(word) and len(word)>2 and
+                   if dic.check(word) and len(word)>2 and filter_cand(ovv,word) and
                    get_node(word.decode("utf-8","ignore"),tag=ovv_tag) ]
-    # check this tools.filter_cand(ovv,sug) ]
 
 def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
     #repetition removal
@@ -302,7 +302,9 @@ def get_from_dict(word,met_map,met_dis=1):
         cursor = db_dict.dic.find({ "$or": [ {"met0": {"$in" : mets}}, {"met1": {"$in" : mets}}] })
         if cursor:
              return [node["_id"] for node in cursor
-                    if in_edit_dis(word,node["_id"],3)] ,met_map
+                    if in_edit_dis(word,node["_id"],3)]
+        else:
+            return []
 
 def slang_analysis(slang):
     mapp = constants.mapping
