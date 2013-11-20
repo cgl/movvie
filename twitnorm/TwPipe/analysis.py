@@ -315,7 +315,7 @@ def run(matrix1,feat_mat,slang):
         feat_mat = iter_calc_lev_sndx(matrix1,fmd,mapp,not_ovv =not_ovv)
     feat_mat1 = feat_mat
     res = show_results(feat_mat1, mapp, not_ovv = not_ovv,
-                       dim    =[0.2, 0.2, 0.2, 0.2, 0.2, 1.] ,
+                       dim    =[0.2, 0.2, 0.2, 0.2, 0.2, 2.0] ,
                        max_val=[1.0, 1.0, 1.0, 1.0, 1.0, 1./1739259])
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
     return feat_mat1,res,fms,fmd
