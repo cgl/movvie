@@ -24,30 +24,36 @@ char_map = dict(zip(chars,char_ind))
 CLIENT = MongoClient('localhost', 27017)
 DB = CLIENT['tweets']
 
-def top_n(res,n=100,verbose=False):
+def top_n(res,not_ovv,n=100,verbose=False):
     in_top_n = 0
     total_ill = 0
     index_list = {}
     not_in_list = []
     no_result = []
     for res_ind in range(0,len(res)):
-        answer = constants.mapping[res_ind][1]
+        correct_answer = constants.mapping[res_ind][1]
         ovv = constants.mapping[res_ind][0]
-        if answer != ovv:
+        if not_ovv[res_ind]:
+            if correct_answer == not_ovv[res_ind]:
+                pass
+            else:
+                print "Houston"
+                print res_ind
+        elif correct_answer != ovv:
             total_ill += 1
             if res[res_ind]:
                 res_list = [a[0] for a in res[res_ind][:n]] # lower
-                if answer in res_list or answer.lower in res_list:
+                if correct_answer in res_list or correct_answer.lower in res_list:
                     in_top_n += 1
-                    ind = res_list.index(answer)
+                    ind = res_list.index(correct_answer)
                     index_list_n = index_list.get(ind,[0,[]])
                     index_list_n[0] += 1
                     index_list_n[1].append(res_ind)
                     index_list[ind] = index_list_n
                 else:
-                    not_in_list.append((res_ind,ovv,answer))
+                    not_in_list.append((res_ind,ovv,correct_answer))
             else:
-                no_result.append((res_ind,ovv,answer,constants.mapping[res_ind][2]))
+                no_result.append((res_ind,ovv,correct_answer,constants.mapping[res_ind][2]))
     print 'Out of %d normalization, we^ve %d of those correct normalizations in our list with indexes \n %s' % (total_ill, in_top_n,[(a, index_list[a][0]) for a in index_list])
     if verbose:
         for a in index_list:
@@ -285,6 +291,7 @@ def get_from_dict(word,met_map,met_dis=1):
     client_shark = MongoClient("79.123.177.251", 27017)
     db_tweets = client_shark['tweets']
     db_dict = client_tabi['dictionary']
+    word = re.sub(r'(.)\1+', r'\1\1', word)
     met_word_list = DMetaphone(4)(word)
     cands = []
     for met_word in met_word_list:

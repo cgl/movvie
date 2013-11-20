@@ -293,7 +293,7 @@ def check(results,ovv,method):
             if ovv(word[0],word[1]):
                 method(results,ovv)
 
-def run(matrix1,feat_mat,slang,max_val=[2.5, 1.0, 1.0, 1.0, 4.0, 2./1739259]):
+def run(matrix1,feat_mat,slang,max_val=[2.5, 1.0, 1.0, 1.0, 4.0, 2./1739259],verbose=True):
     not_ovv = is_ovv(slang)
     if not matrix1:
         matrix1 = tools.load_from_file()
@@ -306,9 +306,6 @@ def run(matrix1,feat_mat,slang,max_val=[2.5, 1.0, 1.0, 1.0, 4.0, 2./1739259]):
         fms = add_slangs(matrix1,mapp,slang)
         fmd = add_from_dict(fms,mapp,not_ovv=not_ovv)
         feat_mat = iter_calc_lev(matrix1,fmd,mapp,not_ovv =not_ovv)
-    res = show_results(feat_mat, mapp, not_ovv = not_ovv,
-                       dim  = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-                       # [0.2, 0.2, 0.2, 0.2, 0.2, 0.2] ,
-                       max_val=max_val)
-    index_list,nil,nnnn = tools.top_n(res,verbose=False)
+    res = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val)
+    index_list,nil,nnnn = tools.top_n(res,verbose=verbose)
     return res ,feat_mat
