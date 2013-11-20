@@ -351,7 +351,7 @@ def get_all_words():
     words = {}
     client_shark = MongoClient("79.123.177.251", 27017)
     db_tweets = client_shark['tweets']
-    cursor = db_tweets.nodes.find({"freq":{"$gt": 20}}).sort("freq",-1)
+    cursor = db_tweets.nodes.find({"ovv":False,"freq":{"$gt": 20}}).sort("freq",-1)
     for node in cursor:
         word = node['_id'].split("|")[0]
         if not words.has_key(word):
