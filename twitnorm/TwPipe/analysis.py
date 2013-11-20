@@ -75,13 +75,17 @@ def is_ovv(slang):
     return not_ovv
 
 def add_from_dict(fm,mapp,not_ovv = is_ovv(slang)):
+    clean_words = tools.get_clean_words()
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
-            cands = find_more_results(mapp[ind][0],mapp[ind][2],cands)
+            cands = find_more_results(mapp[ind][0],mapp[ind][2],cands,clean_words)
     return fm
 
-def find_more_results(ovv,ovv_tag,cand_dict,give_suggestions=True):
-    cands = tools.get_from_dict(ovv,{})
+def find_more_results(ovv,ovv_tag,cand_dict,clean_words,give_suggestions=True):
+    cands = tools.get_from_dict_met(ovv,{})
+    cands_more = tools.get_from_dict_dis(ovv,clean_words)
+    cands.extend(cands_more)
+    cands = list(set(cands))
     if give_suggestions:
         sugs = tools.get_suggestions(ovv,ovv_tag)
         cands.extend(sugs)

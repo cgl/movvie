@@ -287,7 +287,7 @@ def in_edit_dis(word1,word2,dis):
         return False
 
 
-def get_from_dict(word,met_map,met_dis=1):
+def get_from_dict_met(word,met_map,met_dis=1):
     client_tabi = MongoClient("79.123.176.205", 27017)
     client_shark = MongoClient("79.123.177.251", 27017)
     db_tweets = client_shark['tweets']
@@ -314,6 +314,9 @@ def get_from_dict(word,met_map,met_dis=1):
                     if in_edit_dis(word,node["_id"],3)])
     return cands
 
+def get_from_dict_dis(word,clean_words):
+    cands = [cand for cand in clean_words if in_edit_dis(word,cand,3)]
+    return cands
 
 def slang_analysis(slang):
     mapp = constants.mapping
@@ -343,3 +346,22 @@ def pp(correct,not_found):
     fmeasure = 2 * precision * recall / (precision+recall)
     print "Correct: %d , Not Found: %d" %(correct, not_found)
     print "Recall: %f , Precision:%f , FMeasure:%f" %(recall,precision,fmeasure)
+
+def get_all_words():
+    words = {}
+    client_shark = MongoClient("79.123.177.251", 27017)
+    db_tweets = client_shark['tweets']
+    cursor = db_tweets.nodes.find({"freq":{"$gt": 20}}).sort("freq",-1)
+    for node in cursor:
+        word = node['_id'].split("|")[0]
+        if not words.has_key(word):
+            words[word] = node['ovv']
+    return words
+
+def get_clean_words():
+    words = get_all_words()
+    clean_words = []
+    for word in words:
+        if not words[word]:
+            clean_words.append(word)
+    return clean_words
