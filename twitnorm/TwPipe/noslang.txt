@@ -710,7 +710,6 @@ cheezburger  -  cheeseburger
 chik  -  chick
 chilax  -  chill and relax in one word
 chillax  -  chill and relax
-chillin  -  relaxing
 chk  -  check
 chohw  -  Come Hell or high water
 chr  -  character

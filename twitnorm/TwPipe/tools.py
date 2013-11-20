@@ -41,7 +41,7 @@ def top_n(res,not_ovv,n=100,verbose=False):
         if correct_answer != ovv:
             total_ill += 1
             if res[res_ind]:
-                res_list = [a[0] for a in res[res_ind][:n]] # lower
+                res_list = [a[0].lower() for a in res[res_ind][:n]] # lower
                 if correct_answer in res_list or correct_answer.lower in res_list:
                     in_top_n += 1
                     if ovv == res[res_ind][0][0] and not not_ovv[res_ind]:

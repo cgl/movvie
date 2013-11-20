@@ -122,4 +122,8 @@ res = analysis.show_results(feat_mat1,mapp, dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2] , 
 
 for rr in index_list[1][1]:
     print rr
-    tools.pretty_top_n(res,rr,max_val,last=3)
+    tools.pretty_top_n(res,rr,max_val,last=4)
+
+for rr in index_list[2][1]:
+    print rr
+    tools.pretty_top_n(res,rr,max_val,last=4)
