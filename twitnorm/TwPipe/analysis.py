@@ -162,8 +162,9 @@ def show_results(res_mat,mapp, not_ovv = is_ovv(slang),dim = [1.0, 1.0, 1.0, 1.0
                     score = calculate_score(res_dict[cand],dim,max_val)
                     if score >= 0.720513:
                         res_dict[cand].append(round(score,7))
-                        res_list.append([cand])
-                        res_list[res_ind].extend(res_dict[cand])
+                        res_line = [cand]
+                        res_line.extend(res_dict[cand])
+                        res_list.append(res_line)
                 res_list.sort(key=lambda x: -float(x[-1]))
         answer = res_list[0][0] if res_list else mapp[ind][0]
         correct_answer = mapp[ind][1]
@@ -298,7 +299,7 @@ def check(results,ovv,method):
             if ovv(word[0],word[1]):
                 method(results,ovv)
 
-def run(matrix1,feat_mat,slang,not_ovv =['' for a in range(0,2139)], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142],verbose=True):
+def run(matrix1,feat_mat,slang,not_ovv =['' for a in range(0,2139)], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142],verbose=False):
     if not matrix1:
         matrix1 = tools.load_from_file()
     from constants import mapping as mapp
