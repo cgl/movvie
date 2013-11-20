@@ -41,6 +41,8 @@ reload(analysis); res = analysis.show_results(matrix1,constants.mapping,d1 = 0.4
 with open('matrix.txt', 'wb') as file:
     pickle.dump(matrix1,file)
 
+In [171]: mat_new = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc)
+
 sss = [matrix1.append(a) for a in mat4]
 
 with open('matrix2.txt', 'rb') as file:
@@ -115,4 +117,5 @@ pretty_top_n(res,ind_word,max_val)
 
 index_list,nil,no_res = tools.top_n(res,verbose=True)
 
+edit_dis=2 ; met_dis=1 ;feat_mat = analysis.iter_calc_lev_sndx(matrix1); feat_mat1 = copy.deepcopy(feat_mat)
 res = analysis.show_results(feat_mat1,mapp, dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2] , max_val=[1, 1, 1, 1, 0,1/1739259.0])

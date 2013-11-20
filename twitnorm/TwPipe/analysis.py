@@ -46,6 +46,33 @@ def main(index=False):
 
 if __name__ == "__main__ ":
     main()
+def is_ovv(slang):
+    from constants import mapping as mapp
+    not_ovv = []
+    for ind in range (0,len(mapp)):
+        ovv = mapp[ind][0]
+        ovv_reduced = re.sub(r'(.)\1+', r'\1', ovv).lower()
+        if slang.has_key(ovv_reduced):
+            sl = slang.get(ovv_reduced)
+            if len(sl.split(" ")) >  1:
+                not_ovv.append(ovv)
+            else:
+                not_ovv.append('')
+        elif ovv.isdigit():
+            not_ovv.append(ovv)
+        elif dic.check(ovv.capitalize()):
+            not_ovv.append(ovv.capitalize())
+        elif not ovv.isalnum():
+            not_ovv.append(ovv)
+        else:
+            not_ovv.append('')
+    i = 0
+    for ind,words in enumerate(mapp):
+        if words[0] == words[1]:
+            if not not_ovv[ind]:
+                i+=1
+    print i," not ovv detected"
+    return not_ovv
 
 def add_from_dict(fm,mapp,not_ovv = is_ovv(slang)):
     for ind,cands in enumerate(fm):
@@ -99,34 +126,6 @@ def get_score_line(cand,sumof,ovv,ovv_tag):
     for ind in range(0,len(line)):
         line[ind] = round(line[ind],8)
     return line
-
-def is_ovv(slang):
-    from constants import mapping as mapp
-    not_ovv = []
-    for ind in range (0,len(mapp)):
-        ovv = mapp[ind][0]
-        ovv_reduced = re.sub(r'(.)\1+', r'\1', ovv).lower()
-        if slang.has_key(ovv_reduced):
-            sl = slang.get(ovv_reduced)
-            if len(sl.split(" ")) >  1:
-                not_ovv.append(ovv)
-            else:
-                not_ovv.append('')
-        elif ovv.isdigit():
-            not_ovv.append(ovv)
-        elif dic.check(ovv.capitalize()):
-            not_ovv.append(ovv.capitalize())
-        elif not ovv.isalnum():
-            not_ovv.append(ovv)
-        else:
-            not_ovv.append('')
-    i = 0
-    for ind,words in enumerate(mapp):
-        if words[0] == words[1]:
-            if not not_ovv[ind]:
-                i+=1
-    print i," not ovv detected"
-    return not_ovv
 
 
 def add_slangs(mat,mapp,slang,verbose=False):
