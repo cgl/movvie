@@ -36,19 +36,21 @@ def top_n(res,not_ovv,n=100,verbose=False):
         if not_ovv[res_ind]:
             if correct_answer.lower() == not_ovv[res_ind].lower():
                 pass
-            else:
-                print "Houston",res_ind,ovv,correct_answer,not_ovv[res_ind]
-        elif correct_answer != ovv:
+            elif verbose:
+                print "Houston",res_ind, ovv,correct_answer, not_ovv[res_ind]
+        if correct_answer != ovv:
             total_ill += 1
             if res[res_ind]:
                 res_list = [a[0] for a in res[res_ind][:n]] # lower
                 if correct_answer in res_list or correct_answer.lower in res_list:
                     in_top_n += 1
-                    ind = res_list.index(correct_answer)
-                    index_list_n = index_list.get(ind,[0,[]])
+                    if ovv == res[res_ind][0][0] and not not_ovv[res_ind]:
+                        res[res_ind].remove(res[res_ind][0])
+                    cor_ind = res_list.index(correct_answer)
+                    index_list_n = index_list.get(cor_ind,[0,[]])
                     index_list_n[0] += 1
                     index_list_n[1].append(res_ind)
-                    index_list[ind] = index_list_n
+                    index_list[cor_ind] = index_list_n
                 else:
                     not_in_list.append((res_ind,ovv,correct_answer))
             else:
@@ -306,7 +308,7 @@ def get_from_dict(word,met_map,met_dis=1):
                     met_map[met_word] = met_map.get(met_word,[])
                     met_map[met_word].append(met)
         mets = met_map[met_word] if met_map.has_key(met_word) else []
-        cursor = db_dict.dic.find({ "$or": [ {"met0": {"$in" : mets}}, {"met1": {"$in" : mets}}] })
+        cursor = db_dict.dic.find({ "ovv":False, "$or": [ {"met0": {"$in" : mets}}, {"met1": {"$in" : mets}}] })
         if cursor:
              cands.extend([node["_id"] for node in cursor
                     if in_edit_dis(word,node["_id"],3)])
@@ -334,3 +336,10 @@ def slang_analysis(slang):
                 ill = True
         print "%s [%s] :\t %s , %r, %r, %r" %(tup[0],tup[1],sl,multi,ill,correct_answer)
     print "Corrected %d word" %i
+
+def pp(correct,not_found):
+    recall = float(correct)/1183.
+    precision = correct/(1183. - not_found)
+    fmeasure = 2 * precision * recall / (precision+recall)
+    print "Correct: %d , Not Found: %d" %(correct, not_found)
+    print "Recall: %f , Precision:%f , FMeasure:%f" %(recall,precision,fmeasure)

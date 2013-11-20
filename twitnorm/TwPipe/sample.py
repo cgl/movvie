@@ -119,3 +119,7 @@ index_list,nil,no_res = tools.top_n(res,verbose=True)
 
 edit_dis=2 ; met_dis=1 ;feat_mat = analysis.iter_calc_lev_sndx(matrix1); feat_mat1 = copy.deepcopy(feat_mat)
 res = analysis.show_results(feat_mat1,mapp, dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2] , max_val=[1, 1, 1, 1, 0,1/1739259.0])
+
+for rr in index_list[1][1]:
+    print rr
+    tools.pretty_top_n(res,rr,max_val,last=3)
