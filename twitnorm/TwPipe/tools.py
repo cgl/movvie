@@ -24,6 +24,10 @@ char_ind = [ord(x) for x in chars]
 char_map = dict(zip(chars,char_ind))
 CLIENT = MongoClient('localhost', 27017)
 DB = CLIENT['tweets']
+#client_tabi = MongoClient("79.123.176.205", 27017)
+client_shark = MongoClient("79.123.177.251", 27017)
+db_tweets = client_shark['tweets']
+db_dict = client_shark['dictionary']
 
 def top_n(res,not_ovv,n=100,verbose=False):
     in_top_n = 0
@@ -233,10 +237,6 @@ def soundex_distance(ovv_snd,cand):
     return snd_dis
 
 def get_dict():
-    #client_tabi = MongoClient("79.123.176.205", 27017)
-    client_shark = MongoClient("79.123.177.251", 27017)
-    db_tweets = client_shark['tweets']
-    db_dict = client_shark['dictionary']
     cursor = db_tweets.nodes.find({"ovv":False,"freq":{"$gt": 100}}).sort("freq",-1)
     print cursor.count()
     for node in cursor:
@@ -295,10 +295,6 @@ def in_edit_dis(word1,word2,dis):
 
 
 def get_from_dict_met(word,met_map,met_dis=1):
-    client_tabi = MongoClient("79.123.176.205", 27017)
-    client_shark = MongoClient("79.123.177.251", 27017)
-    db_tweets = client_shark['tweets']
-    db_dict = client_tabi['dictionary']
     word = get_reduced(word)
     met_word_list = DMetaphone(4)(word)
     cands = []
