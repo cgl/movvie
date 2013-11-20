@@ -70,7 +70,7 @@ def find_more_results(ovv,ovv_tag,cand_dict,):
 def iter_calc_lev_sndx(matrix,fm,mapp,not_ovv = is_ovv(slang),edit_dis=2,met_dis=1,verbose=False):
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
-            cands = get_candidates_from_graph(matrix,mapp[ind][0],mapp[ind][2],cands,edit_dis,met_dis)
+            cands = get_candidates_from_graph(matrix[ind],mapp[ind][0],mapp[ind][2],cands,edit_dis,met_dis)
     return fm
 
 def get_candidates_from_graph(matrix,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
