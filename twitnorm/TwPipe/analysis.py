@@ -90,7 +90,7 @@ def find_more_results(ovv,ovv_tag,cand_dict,give_suggestions=True):
             cand_dict[cand] = get_score_line(cand,0,ovv,ovv_tag)
     return cand_dict
 
-def iter_calc_lev_sndx(matrix,fm,mapp,not_ovv = is_ovv(slang),edit_dis=2,met_dis=1,verbose=False):
+def iter_calc_lev(matrix,fm,mapp,not_ovv = is_ovv(slang),edit_dis=2,met_dis=1,verbose=False):
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
             cands = get_candidates_from_graph(matrix[ind],mapp[ind][0],mapp[ind][2],cands,edit_dis,met_dis)
@@ -293,7 +293,7 @@ def check(results,ovv,method):
             if ovv(word[0],word[1]):
                 method(results,ovv)
 
-def run(matrix1,feat_mat,slang):
+def run(matrix1,feat_mat,slang,max_val=[2.5, 1.0, 1.0, 1.0, 4.0, 2./1739259]):
     not_ovv = is_ovv(slang)
     if not matrix1:
         matrix1 = tools.load_from_file()
@@ -305,12 +305,10 @@ def run(matrix1,feat_mat,slang):
     if not feat_mat:
         fms = add_slangs(matrix1,mapp,slang)
         fmd = add_from_dict(fms,mapp,not_ovv=not_ovv)
-        #feat_mat = iter_calc_lev_sndx(matrix1)
-        #feat_mat = add_slangs(feat_mat,mapp,slang)
-        feat_mat = iter_calc_lev_sndx(matrix1,fmd,mapp,not_ovv =not_ovv)
+        feat_mat = iter_calc_lev(matrix1,fmd,mapp,not_ovv =not_ovv)
     feat_mat1 = feat_mat
     res = show_results(feat_mat1, mapp, not_ovv = not_ovv,
-                       dim    =[0.2, 0.2, 0.2, 0.2, 0.2, 2.0] ,
-                       max_val=[1.0, 1.0, 1.0, 1.0, 1.0, 1./1739259])
+                       dim    =[0.2, 0.2, 0.2, 0.2, 0.2, 0.2] ,
+                       max_val=max_val)
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
-    return feat_mat1,res,fms,fmd
+    return feat_mat1,res
