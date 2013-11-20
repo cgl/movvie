@@ -77,7 +77,6 @@ def get_candidates_from_graph(matrix,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
     for cand in [cand for cand in matrix[1]
                  if tools.filter_cand(ovv,cand,edit_dis=edit_dis,met_dis=met_dis)]:
         sumof = 0.
-        print matrix[2][matrix[1].index(cand)]
         for a,b in matrix[2][matrix[1].index(cand)]:
             sumof += a[0]/a[1]
         if not cand_dict.has_key(cand):
