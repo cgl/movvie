@@ -169,7 +169,7 @@ def lcsr(ovv,cand):
     ovv = re.sub(r'(.)\1+', r'\1\1', ovv)
     lcs = longest(ovv,cand)
     max_length = max(len(ovv),len(cand))
-    lcsr = lcs/max_length
+    lcsr = float(lcs)/max_length
     def remove_vowels(word):
         for vowel in vowels:
             word = word.replace(vowel, '')
