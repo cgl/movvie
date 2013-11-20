@@ -365,3 +365,22 @@ def get_clean_words():
         if not words[word]:
             clean_words.append(word)
     return clean_words
+
+def get_score_threshold(index_list,res):
+    scores = []
+    for ans_ind in index_list.keys():
+        for res_ind in index_list[ans_ind][1]:
+            scores.append(res[res_ind][ans_ind][-1])
+    print "Minimum score: %f , Maximum score: %f" %(min(scores),max(scores))
+
+def test_threshold(res,threshold):
+    buyukler = 0
+    kucukler = 0
+    for res_list in res:
+        for res_line in res_list:
+            score = res_line[-1]
+            if score < threshold:
+                kucukler += 1
+            else:
+                buyukler += 1
+    print "There is %d result below and %d result above the threshold" %(kucukler,buyukler)
