@@ -58,10 +58,10 @@ def top_n(res,n=100,verbose=False):
 def pretty_top_n(res,ind_word,max_val,last=10):
     ind = ind_word
     ovv = constants.mapping[ind_word][0]+"|"+constants.mapping[ind_word][2]
-    print "%10.10s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s" % (ovv, dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],dims[6])
+    print "%10.10s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s Current res" % (ovv, dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],dims[6])
     for vec_pre in res[ind][:last]:
         vec = [round(a,4) for a in array(vec_pre[1:len(max_val)+1]) * array(max_val)]
-        print "%10.10s %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f %10.6s"  % (vec_pre[0],vec[0],vec[1],vec[2],vec[3],vec[4],vec[5],vec[5],vec_pre[-1])
+        print "%10.10s %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f"  % (vec_pre[0],vec[0],vec[1],vec[2],vec[3],vec[4],vec[5],vec_pre[-1],sum(vec))
 
 def pretty_max_min(res,feat_mat1):
     maxes = max_values(res)
