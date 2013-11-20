@@ -55,15 +55,15 @@ def is_ovv(slang):
         if slang.has_key(ovv_reduced):
             sl = slang.get(ovv_reduced)
             if len(sl.split(" ")) >  1:
-                not_ovv.append(ovv_reduced)
+                not_ovv.append(ovv)
             else:
                 not_ovv.append('')
         elif ovv.isdigit():
             not_ovv.append(ovv)
-        elif len(ovv_reduced) > 1 and dic.check(ovv_reduced.capitalize()):
-            not_ovv.append(ovv_reduced.capitalize())
+#        elif len(ovv_reduced) > 1 and dic.check(ovv_reduced.capitalize()):
+#            not_ovv.append(ovv_reduced.capitalize())
         elif not ovv_reduced.isalnum():
-            not_ovv.append(ovv_reduced)
+            not_ovv.append(ovv)
         else:
             not_ovv.append('')
     i = 0
