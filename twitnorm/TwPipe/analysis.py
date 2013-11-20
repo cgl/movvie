@@ -312,4 +312,6 @@ def run(matrix1,feat_mat,slang,not_ovv =['' for a in range(0,2139)], max_val=[1.
     res = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val)
     index_list,nil,no_res = tools.top_n(res,not_ovv,verbose=verbose)
     tools.get_performance(index_list[0][0],len(no_res))
+    threshold = tools.get_score_threshold(index_list,res)
+    tools.test_threshold(res,threshold)
     return res,feat_mat

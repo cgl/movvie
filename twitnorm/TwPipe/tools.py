@@ -372,6 +372,7 @@ def get_score_threshold(index_list,res):
         for res_ind in index_list[ans_ind][1]:
             scores.append(res[res_ind][ans_ind][-1])
     print "Minimum score: %f , Maximum score: %f" %(min(scores),max(scores))
+    return min(scores)
 
 def test_threshold(res,threshold):
     buyukler = 0
