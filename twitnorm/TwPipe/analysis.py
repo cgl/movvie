@@ -295,6 +295,7 @@ def check(results,ovv,method):
 
 def run(matrix1,feat_mat,slang,max_val=[2.5, 1.0, 1.0, 1.0, 4.0, 2./1739259],verbose=True):
     not_ovv = is_ovv(slang)
+    not_ovv = ['' for a in range(0,2139)]
     if not matrix1:
         matrix1 = tools.load_from_file()
     from constants import mapping as mapp
