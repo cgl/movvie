@@ -308,13 +308,14 @@ def run(matrix1,feat_mat,slang):
     edit_dis=2
     met_dis=1
     if not feat_mat:
-        fm = add_slangs(matrix1,mapp,slang)
-        fm = add_from_dict(fm,mapp,not_ovv=not_ovv)
+        fms = add_slangs(matrix1,mapp,slang)
+        fmd = add_from_dict(fms,mapp,not_ovv=not_ovv)
         #feat_mat = iter_calc_lev_sndx(matrix1)
         #feat_mat = add_slangs(feat_mat,mapp,slang)
-    feat_mat1 = fm
+        feat_mat = iter_calc_lev_sndx(matrix1,fmd,mapp,not_ovv =not_ovv)
+    feat_mat1 = feat_mat
     res = show_results(feat_mat1, mapp, not_ovv = not_ovv,
                        dim    =[0.2, 0.2, 0.2, 0.2, 0.2, 1.] ,
                        max_val=[1.0, 1.0, 1.0, 1.0, 1.0, 1./1739259])
     index_list,nil,nnnn = tools.top_n(res,verbose=False)
-    return feat_mat1,res
+    return feat_mat1,res,fms,fmd
