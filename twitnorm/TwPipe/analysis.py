@@ -142,7 +142,7 @@ def add_slangs(mat,mapp,slang,verbose=False):
         res_mat.append(cands)
     return res_mat
 
-def show_results(res_mat,mapp, not_ovv = is_ovv(slang),dim = [ 0.2, 0.2, 0.2, 0.2 , 0.2, 0.2], max_val = [1,1,1,1,1,1/1739259.0], verbose=False):
+def show_results(res_mat,mapp, not_ovv = is_ovv(slang),dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1,1,1,1,1,1/1739259.0], verbose=False):
     results = []
     pos = 0
     slang = tools.get_slangs()
