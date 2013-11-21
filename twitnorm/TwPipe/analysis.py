@@ -161,7 +161,7 @@ def add_slangs(mat,mapp,slang,verbose=False):
         res_mat.append(cands)
     return res_mat
 
-def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False):
+def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False, threshold=0.720513):
     results = []
     correct_answers = []
     pos = 0
@@ -178,7 +178,7 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
             if res_dict:
                 for res_ind,cand in enumerate(res_dict):
                     score = calculate_score(res_dict[cand],dim,max_val)
-                    if score >= 0.720513 and cand != ovv:
+                    if score >= threshold and cand != ovv:
                         res_dict[cand].append(round(score,7))
                         res_line = [cand]
                         res_line.extend(res_dict[cand])
