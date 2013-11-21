@@ -25,6 +25,7 @@ $xy  -  sexy
 1dering  -  wondering
 1nce  -  once
 1sec  -  one second
+2  -  too
 2b  -  to be
 2b4u  -  too bad for you
 2bad4u2  -  too bad for you too
@@ -771,6 +772,7 @@ comnt  -  comment
 comp  -  Computer
 compy  -  computer
 congrats  -  congratulations
+cont	  -  continued
 contrib  -  contribution
 contribs  -  contributions
 convo  -  conversation
@@ -836,6 +838,8 @@ cuple  -  couple
 curn  -  calling you right now
 cut3  -  cute
 cuwul  -  catch up with you later
+cuz  -  because
+cuzz  -  Because
 cvq  -  chucking very quietly
 cw2cu  -  can`t wait to see you
 cwm  -  come with me
@@ -888,6 +892,7 @@ damhik  -  don't ask me how I know
 damhikijk  -  Don't Ask Me How I Know - I Just Know
 damhikt  -  don't ask me how I know this
 dass  -  dumb ass
+dat  -  that
 dats  -  that's
 dawg  -  Friend
 dayum  -  d**n
@@ -995,6 +1000,7 @@ dno  -  don't know
 dnrta  -  did not read the article
 dnrtfa  -  did not read the fucking article
 dns  -  Domain Name System
+dnt  -  don't
 dnw  -  Do not want
 doa  -  dead on arrival
 dob  -  date of birth
@@ -1636,6 +1642,7 @@ gsi  -  go suck it
 gsoh  -  Good Sense of Humor
 gsp  -  get some p***y
 gsta  -  Gangster
+gt  -  get
 gta  -  Grand Theft Auto
 gtas  -  go take a shit
 gtb  -  Go To Bed
@@ -1785,6 +1792,7 @@ heh  -  haha
 hella  -  very
 heya  -  hey
 heyt  -  hate
+heyy  -  hello
 heyya  -  hello
 hf  -  have fun
 hfn  -  Hell fucking no
@@ -3043,6 +3051,7 @@ mypl  -  my young padawan learner
 mysm  -  Miss you so much
 myspce  -  myspace
 mmorpg  -  massively multiplayer online role playing game
+n  -  and
 n e  -  any
 n/a  -  not applicable
 n/a/s/l  -  name, age, sex location
@@ -3290,6 +3299,7 @@ nyc  -  New York City
 nyf  -  not your fault
 nyp  -  not your problem
 nywy  -  anyway
+o  -  Oh
 o rly  -  oh really
 o&o  -  over and out
 o.p.  -  Original Poster
@@ -4420,6 +4430,7 @@ tifs  -  this is funny shit
 tifu  -  that is fucked up
 tigger  -  tiger
 tiic  -  the idiots in control
+til  -  until
 tilf  -  Teenager I'd Like To fuck
 tinf  -  this is not fair
 tinla  -  this is not legal advice
