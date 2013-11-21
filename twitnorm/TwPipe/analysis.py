@@ -16,7 +16,7 @@ tweets,results = han(548)
 ovvFunc = lambda x,y : True if y == 'OOV' else False
 dic= enchant.Dict("en_US")
 units = ["", "one", "to", "three", "for",  "five",
-    "six", "seven", "eight", "nine "]
+    "six", "seven", "eight", "nine"]
 slang = tools.get_slangs()
 
 import logging
@@ -48,7 +48,7 @@ if __name__ == "__main__ ":
     main()
 def is_ovv(slang):
     from constants import mapping as mapp
-    not_ovv = []
+    not_ovv= []
     for ind in range (0,len(mapp)):
         ovv = mapp[ind][0]
         ovv_reduced = re.sub(r'(.)\1+', r'\1', ovv).lower()
@@ -161,9 +161,10 @@ def add_slangs(mat,mapp,slang,verbose=False):
         res_mat.append(cands)
     return res_mat
 
-def show_results(res_mat,mapp, not_ovv = is_ovv(slang),dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1,1,1,1,1,1/1739259.0], verbose=False):
+def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142], verbose=False):
     results = []
     pos = 0
+    total_pos = 1
     slang = tools.get_slangs()
     for ind in range (0,len(res_mat)):
         correct = False
@@ -185,11 +186,13 @@ def show_results(res_mat,mapp, not_ovv = is_ovv(slang),dim = [1.0, 1.0, 1.0, 1.0
         correct_answer = mapp[ind][1]
         if answer == correct_answer or answer.lower() == correct_answer.lower() : #lower
             correct = True
-            pos += 1
+            total_pos += 1
+            if mapp[ind][0] != mapp[ind][1]:
+                pos += 1
         if verbose:
             print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
         results.append(res_list)
-    print 'Number of correct answers %s' % pos
+    print 'Number of correct answers %s, Number of total correct answers %s' % (pos,total_pos)
     return results
 
 
@@ -313,6 +316,18 @@ def check(results,ovv,method):
         for word in tweet:
             if ovv(word[0],word[1]):
                 method(results,ovv)
+
+def add_nom_verbs(fm,mapp):
+    for ind,cands in enumerate(fm):
+        ovv = mapp[ind][0]
+        ovv_tag = mapp[ind][2]
+        if ovv_tag == "L" :
+            print mapp[ind]
+            if ovv.lower() == u"im" and not cands.has_key(u"i'm"):
+                cand = u"i'm"
+                cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
+                print ind
+    return fm
 
 def run(matrix1,feat_mat,slang,not_ovv =['' for a in range(0,2139)], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142],verbose=False):
     if not matrix1:
