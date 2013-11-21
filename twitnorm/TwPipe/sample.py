@@ -1,4 +1,3 @@
-
 ## to fill in the db
 import graphlib
 import soundex
@@ -127,3 +126,21 @@ for rr in index_list[1][1]:
 for rr in index_list[2][1]:
     print rr
     tools.pretty_top_n(res,rr,max_val,last=4)
+
+last setup:
+slang =
+bos_ovv = ["" for a in range(0,2139)]
+fms = analysis.add_slangs(matrix1,mapp,slang)
+distance = 3
+fmd = analysis.add_from_dict(fms,mapp,distance,not_ovv=bos_ovv)
+fm_reduced = analysis.add_nom_verbs(copy.deepcopy(fmd),mapp)
+feat_mat = analysis.iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv=bos_ovv)
+
+max_val = [1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
+res,ans = analysis.show_results(feat_mat, mapp, not_ovv = bos_ovv, max_val=max_val)
+index_list,nil,no_res = tools.top_n(res,bos_ovv)
+tools.get_performance(index_list[0][0],len(no_res))
+tools.get_performance(len(ans),len(no_res))
+
+threshold = tools.get_score_threshold(index_list,res)
+tools.test_threshold(res,threshold)

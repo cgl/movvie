@@ -378,7 +378,7 @@ def freq_zero_correct_answers(index_list,res,threshold):
         for res_ind in index_list[ans_ind][1]:
             if res[res_ind][ans_ind][6] < threshold:
                 kucukler.append((res_ind,ans_ind,res[res_ind][ans_ind]))
-    print "%d" %len(kucukler)
+    print "There is %d results with smaller freq than %d " %len(kucukler,threshold)
     return kucukler
 
 

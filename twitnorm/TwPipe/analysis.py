@@ -161,7 +161,7 @@ def add_slangs(mat,mapp,slang,verbose=False):
         res_mat.append(cands)
     return res_mat
 
-def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142], verbose=False):
+def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False):
     results = []
     correct_answers = []
     pos = 0
@@ -325,14 +325,12 @@ def add_nom_verbs(fm,mapp):
         ovv = mapp[ind][0]
         ovv_tag = mapp[ind][2]
         if ovv_tag == "L" :
-            print mapp[ind]
             if ovv.lower() == u"im" and not cands.has_key(u"i'm"):
                 cand = u"i'm"
                 cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
-                print ind
     return fm
 
-def run(matrix1,feat_mat,slang,not_ovv =[], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142],verbose=False):
+def run(matrix1,feat_mat,slang,not_ovv =[], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142],verbose=False, distance = 3):
     if not matrix1:
         matrix1 = tools.load_from_file()
     from constants import mapping as mapp

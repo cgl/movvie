@@ -25,7 +25,6 @@ $xy  -  sexy
 1dering  -  wondering
 1nce  -  once
 1sec  -  one second
-2  -  too
 2b  -  to be
 2b4u  -  too bad for you
 2bad4u2  -  too bad for you too
@@ -772,6 +771,7 @@ comnt  -  comment
 comp  -  Computer
 compy  -  computer
 congrats  -  congratulations
+cont	  -  continued
 contrib  -  contribution
 contribs  -  contributions
 convo  -  conversation
