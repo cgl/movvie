@@ -93,6 +93,7 @@ def add_reduced_form(fm,mapp,not_ovv = is_ovv(slang)):
                 cand = units[int(ovv[0])]
                 cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
 
+
     return fm
 
 def find_more_results(ovv,ovv_tag,cand_dict,clean_words,give_suggestions=True):
@@ -129,6 +130,9 @@ def get_candidates_from_graph(matrix,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
 def get_score_line(cand,sumof,ovv,ovv_tag):
     node =  tools.get_node(cand,tag=ovv_tag)
     freq = node['freq'] if node else 0.
+    if not node:
+        import pdb
+        pdb.set_trace()
     line = [ #cand,
             sumof,                                # weight
             tools.lcsr(ovv,cand),                 # lcsr
