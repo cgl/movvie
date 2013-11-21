@@ -375,12 +375,13 @@ def get_score_threshold(index_list,res):
 
 def freq_zero_correct_answers(index_list,res,threshold):
     scores = []
-    kucukler = 0
+    kucukler = []
     for ans_ind in index_list.keys():
         for res_ind in index_list[ans_ind][1]:
             if res[res_ind][ans_ind][6] < threshold:
-                                    kucukler += 1
-    print "%d" %kucukler
+                kucukler.append((res_ind,ans_ind,res[res_ind][ans_ind]))
+    print "%d" %len(kucukler)
+    return kucukler
 
 
 def test_threshold(res,threshold):

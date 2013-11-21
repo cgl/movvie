@@ -92,8 +92,8 @@ def add_reduced_form(fm,mapp,not_ovv = is_ovv(slang)):
             if ovv.isdigit() and not cands.has_key(units[int(ovv[0])]):
                 cand = units[int(ovv[0])]
                 cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
-
-
+            if ovv_tag == "P" and ovv.lower() == u"im" and not cands.has_key(u"i'm"):
+                cands[cand] = get_score_line(u"i'm",0,ovv,ovv_tag)
     return fm
 
 def find_more_results(ovv,ovv_tag,cand_dict,clean_words,give_suggestions=True):
