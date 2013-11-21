@@ -131,8 +131,7 @@ def get_score_line(cand,sumof,ovv,ovv_tag):
     node =  tools.get_node(cand.lower(),tag=ovv_tag)
     freq = node['freq'] if node else 0.
     if not node:
-        import pdb
-        pdb.set_trace()
+        print cand,ovv,ovv_tag
     line = [ #cand,
             sumof,                                # weight
             tools.lcsr(ovv,cand),                 # lcsr
