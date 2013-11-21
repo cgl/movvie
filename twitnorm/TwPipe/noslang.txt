@@ -771,7 +771,6 @@ comnt  -  comment
 comp  -  Computer
 compy  -  computer
 congrats  -  congratulations
-cont	  -  continued
 contrib  -  contribution
 contribs  -  contributions
 convo  -  conversation
