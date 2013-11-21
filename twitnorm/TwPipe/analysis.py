@@ -74,7 +74,7 @@ def is_ovv(slang):
     print i," not ovv detected"
     return not_ovv
 
-def add_from_dict(fm,mapp,not_ovv = is_ovv(slang),distance):
+def add_from_dict(fm,mapp,distance,not_ovv = is_ovv(slang)):
     clean_words = tools.get_clean_words()
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
