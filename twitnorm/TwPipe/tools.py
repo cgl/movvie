@@ -317,9 +317,9 @@ def get_from_dict_met(word,met_map,met_dis=1):
                     if in_edit_dis(word,node["_id"],3)])
     return cands
 
-def get_from_dict_dis(word,tag,clean_words):
+def get_from_dict_dis(word,tag,clean_words,distance):
 
-    cands = [cand for cand in clean_words[tag] if in_edit_dis(word,cand,3)] if clean_words.has_key(tag) else []
+    cands = [cand for cand in clean_words[tag] if in_edit_dis(word,cand,distance)] if clean_words.has_key(tag) else []
     return cands
 
 def get_reduced(word):

@@ -74,11 +74,11 @@ def is_ovv(slang):
     print i," not ovv detected"
     return not_ovv
 
-def add_from_dict(fm,mapp,not_ovv = is_ovv(slang)):
+def add_from_dict(fm,mapp,not_ovv = is_ovv(slang),distance):
     clean_words = tools.get_clean_words()
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
-            cands = find_more_results(mapp[ind][0],mapp[ind][2],cands,clean_words)
+            cands = find_more_results(mapp[ind][0],mapp[ind][2],cands,clean_words,distance)
     return fm
 
 def add_reduced_form(fm,mapp,not_ovv = is_ovv(slang)):
@@ -96,9 +96,9 @@ def add_reduced_form(fm,mapp,not_ovv = is_ovv(slang)):
                 cands[cand] = get_score_line(u"i'm",0,ovv,ovv_tag)
     return fm
 
-def find_more_results(ovv,ovv_tag,cand_dict,clean_words,give_suggestions=True):
+def find_more_results(ovv,ovv_tag,cand_dict,clean_words,distance,give_suggestions=True):
     cands = tools.get_from_dict_met(ovv,{})
-    cands_more = tools.get_from_dict_dis(ovv,ovv_tag,clean_words)
+    cands_more = tools.get_from_dict_dis(ovv,ovv_tag,clean_words,distance)
     cands.extend(cands_more)
     cands = list(set(cands))
     if give_suggestions:
@@ -342,8 +342,9 @@ def run(matrix1,feat_mat,slang,not_ovv =[], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1.
     met_dis=1
     if not feat_mat:
         fms = add_slangs(matrix1,mapp,slang)
-        fmd = add_from_dict(fms,mapp,not_ovv=not_ovv)
-        feat_mat = iter_calc_lev(matrix1,fmd,mapp,not_ovv =not_ovv)
+        fmd = add_from_dict(fms,mapp,distance,not_ovv=not_ovv)
+        fm_reduced = add_nom_verbs(fmd,mapp)
+        feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
     res = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val)
     index_list,nil,no_res = tools.top_n(res,not_ovv,verbose=verbose)
     tools.get_performance(index_list[0][0],len(no_res))
