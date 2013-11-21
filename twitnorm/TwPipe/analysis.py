@@ -332,7 +332,7 @@ def add_nom_verbs(fm,mapp):
                 print ind
     return fm
 
-def run(matrix1,feat_mat,slang,not_ovv =['' for a in range(0,2139)], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142],verbose=False):
+def run(matrix1,feat_mat,slang,not_ovv =[], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142],verbose=False):
     if not matrix1:
         matrix1 = tools.load_from_file()
     from constants import mapping as mapp

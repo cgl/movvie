@@ -48,9 +48,9 @@ def top_n(res,not_ovv,n=100,verbose=False):
             total_ill += 1
             if res[res_ind]:
                 res_list = [a[0].lower() for a in res[res_ind][:n]] # lower
-                if correct_answer in res_list or correct_answer.lower() in res_list:
+                if correct_answer.lower() in res_list:
                     in_top_n += 1
-                    cor_ind = res_list.index(correct_answer)
+                    cor_ind = res_list.index(correct_answer.lower())
                     index_list_n = index_list.get(cor_ind,[0,[]])
                     index_list_n[0] += 1
                     index_list_n[1].append(res_ind)
