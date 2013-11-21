@@ -168,7 +168,8 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
     slang = tools.get_slangs()
     for ind in range (0,len(res_mat)):
         correct = False
-        if not_ovv and not_ovv[ind]:
+        ovv = mapp[ind][0]
+        if False: #not_ovv and not_ovv[ind]:
             res_list = [[not_ovv[ind],0,0,0,0,0,0]]
         else:
             res_dict = copy.deepcopy(res_mat[ind])
@@ -176,13 +177,13 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
             if res_dict:
                 for res_ind,cand in enumerate(res_dict):
                     score = calculate_score(res_dict[cand],dim,max_val)
-                    if score >= 0.720513:
+                    if score >= 0.720513 and cand != ovv:
                         res_dict[cand].append(round(score,7))
                         res_line = [cand]
                         res_line.extend(res_dict[cand])
                         res_list.append(res_line)
                 res_list.sort(key=lambda x: -float(x[-1]))
-        answer = res_list[0][0] if res_list else mapp[ind][0]
+        answer = res_list[0][0] if res_list else ovv
         correct_answer = mapp[ind][1]
         if answer == correct_answer or answer.lower() == correct_answer.lower() : #lower
             correct = True

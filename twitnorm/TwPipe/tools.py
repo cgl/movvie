@@ -39,7 +39,7 @@ def top_n(res,not_ovv,n=100,verbose=False):
     for res_ind in range(0,len(res)):
         correct_answer = mapp[res_ind][1]
         ovv = mapp[res_ind][0]
-        if not_ovv[res_ind]:
+        if not_ovv and not_ovv[res_ind]:
             if correct_answer.lower() == not_ovv[res_ind].lower():
                 pass
             elif verbose:
@@ -50,8 +50,6 @@ def top_n(res,not_ovv,n=100,verbose=False):
                 res_list = [a[0].lower() for a in res[res_ind][:n]] # lower
                 if correct_answer in res_list or correct_answer.lower in res_list:
                     in_top_n += 1
-                    if ovv == res[res_ind][0][0] and not not_ovv[res_ind]:
-                        res[res_ind].remove(res[res_ind][0])
                     cor_ind = res_list.index(correct_answer)
                     index_list_n = index_list.get(cor_ind,[0,[]])
                     index_list_n[0] += 1
