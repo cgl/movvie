@@ -28,6 +28,7 @@ DB = CLIENT['tweets']
 client_shark = MongoClient("79.123.177.251", 27017)
 db_tweets = client_shark['tweets']
 db_dict = client_shark['dictionary']
+pos_tagged = build_mappings(constants.results,constants.pos_tagged)
 
 def top_n(res,not_ovv,n=100,verbose=False):
     in_top_n = 0
@@ -57,9 +58,9 @@ def top_n(res,not_ovv,n=100,verbose=False):
                     index_list_n[1].append(res_ind)
                     index_list[cor_ind] = index_list_n
                 else:
-                    not_in_list.append((res_ind,ovv,correct_answer))
+                    not_in_list.append((res_ind,ovv,correct_answer,mapp[res_ind][2],pos_tagged[res_ind][3]))
             else:
-                no_result.append((res_ind,ovv,correct_answer,mapp[res_ind][2]))
+                no_result.append((res_ind,ovv,correct_answer,mapp[res_ind][2],pos_tagged[res_ind][3]))
     print 'Out of %d normalization, we^ve %d of those correct normalizations in our list with indexes \n %s' % (total_ill, in_top_n,[(a, index_list[a][0]) for a in index_list])
     if verbose:
         for a in index_list:
@@ -371,6 +372,16 @@ def get_score_threshold(index_list,res):
             scores.append(res[res_ind][ans_ind][-1])
     print "Minimum score: %f , Maximum score: %f" %(min(scores),max(scores))
     return min(scores)
+
+def freq_zero_correct_answers(index_list,res,threshold):
+    scores = []
+    kucukler = 0
+    for ans_ind in index_list.keys():
+        for res_ind in index_list[ans_ind][1]:
+            if res[res_ind][ans_ind][6] < threshold:
+                                    kucukler += 1
+    print "%d" %kucukler
+
 
 def test_threshold(res,threshold):
     buyukler = 0
