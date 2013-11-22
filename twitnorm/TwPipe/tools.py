@@ -28,7 +28,19 @@ DB = CLIENT['tweets']
 client_shark = MongoClient("79.123.177.251", 27017)
 db_tweets = client_shark['tweets']
 db_dict = client_shark['dictionary']
+
+
+def build_mappings(results,pos_tagged):
+    mapp = []
+    for i in range(0,len(results)):
+        for (word_ind ,(a,b,c)) in enumerate(constants.results[i]):
+            if b == 'OOV':
+                tag = pos_tagged[i][word_ind][1]
+                acc = pos_tagged[i][word_ind][2]
+                mapp.append([a,c,tag,acc])
+    return mapp
 pos_tagged = build_mappings(constants.results,constants.pos_tagged)
+
 
 def top_n(res,not_ovv,n=100,verbose=False):
     in_top_n = 0
@@ -148,16 +160,6 @@ def gen_walk(path='.'):
         if '.git' in dirnames:
             # don't go into any .git directories.
             dirnames.remove('.git')
-
-def build_mappings(results,pos_tagged):
-    mapp = []
-    for i in range(0,len(results)):
-        for (word_ind ,(a,b,c)) in enumerate(constants.results[i]):
-            if b == 'OOV':
-                tag = pos_tagged[i][word_ind][1]
-                acc = pos_tagged[i][word_ind][2]
-                mapp.append([a,c,tag,acc])
-    return mapp
 
 def distance(ovv,cand):
     ovv = get_reduced(ovv)
@@ -378,7 +380,7 @@ def freq_zero_correct_answers(index_list,res,threshold):
         for res_ind in index_list[ans_ind][1]:
             if res[res_ind][ans_ind][6] < threshold:
                 kucukler.append((res_ind,ans_ind,res[res_ind][ans_ind]))
-    print "There is %d results with smaller freq than %d " %len(kucukler,threshold)
+    print "There is %d results with smaller freq than %d " %(len(kucukler),threshold)
     return kucukler
 
 
