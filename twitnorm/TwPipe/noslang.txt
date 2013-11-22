@@ -613,6 +613,7 @@ bstfu  -  bitch shut the fuck up
 bstrd  -  b*****d
 bsx  -  bisexual
 bsxc  -  be sexy
+bt  -  bit torrent
 btb  -  by the by
 btch  -  bitch
 btcn  -  Better than Chuck Norris
@@ -710,6 +711,7 @@ cheezburger  -  cheeseburger
 chik  -  chick
 chilax  -  chill and relax in one word
 chillax  -  chill and relax
+chillin  -  relaxing
 chk  -  check
 chohw  -  Come Hell or high water
 chr  -  character
@@ -772,7 +774,6 @@ comnt  -  comment
 comp  -  Computer
 compy  -  computer
 congrats  -  congratulations
-cont	  -  continued
 contrib  -  contribution
 contribs  -  contributions
 convo  -  conversation
@@ -2175,6 +2176,7 @@ ilysmydek  -  I Love You So Much You Don't Even Know
 ilysvm  -  i love you so very much
 ilyvm  -  i love you very much
 ilywamh  -  I love you with all my heart
+im  -  Instant Message
 im'd  -  instant messaged
 im26c4u  -  I am too sexy for you
 ima  -  I am a
@@ -3248,6 +3250,7 @@ nsfw  -  not safe for work
 nss  -  no shit sherlock
 nst  -  no school today
 nstaafl  -  No Such Thing As a Free Lunch
+nt  -  nice try
 ntb  -  not to bad
 ntbn  -  no text-back needed
 nthg  -  nothing
@@ -3287,6 +3290,7 @@ nvmt  -  nevermind that
 nvr  -  never
 nvrm  -  Nevermind
 nvrmnd  -  never mind
+nw  -  no way
 nwb  -  a new person
 nwih  -  no way in hell
 nwrus  -  no way are your serious
@@ -4400,7 +4404,7 @@ tha  -  the
 thankies  -  Thank You
 thankx  -  thank you
 thanq  -  thank you
-thanx  -  thanks
+thanx  -  thank you
 thar  -  there
 thatz  -  that's
 thku  -  thank you
@@ -4415,7 +4419,7 @@ thru  -  through
 tht  -  that
 thwdi  -  thats how we do it
 thwy  -  the hell with you!
-thx  -  thanks
+thx  -  thank you
 thxx  -  thanks
 thz  -  thank you
 ti2o  -  that is too obious
