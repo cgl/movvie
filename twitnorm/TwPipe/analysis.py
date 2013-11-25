@@ -338,8 +338,9 @@ def add_nom_verbs(fm,mapp):
             if ovv.lower() == u"cont":
                 cand = u'continued'
                 add_candidate(cands,cand,ovv,ovv_tag)
-        cand = tools.get_reduced(ovv,count=1)
+        cand = tools.get_reduced(ovv)
         if ovv != cand:
+            cand = tools.get_reduced(ovv,count=1)
             add_candidate(cands,cand,ovv,ovv_tag)
             print "added %s %d" %(cand,ind)
     return fm
