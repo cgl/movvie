@@ -324,8 +324,11 @@ def get_from_dict_dis(word,tag,clean_words,distance):
     cands = [cand for cand in clean_words[tag] if in_edit_dis(word,cand,distance)] if clean_words.has_key(tag) else []
     return cands
 
-def get_reduced(word):
-    return re.sub(r'(.)\1+', r'\1\1', word.lower())
+def get_reduced(word,count=2):
+    replace = r'\1\1'
+    if count == 1:
+        replace = r'\1'
+    return re.sub(r'(.)\1+', replace, word.lower())
 
 def slang_analysis(slang):
     i = 0
