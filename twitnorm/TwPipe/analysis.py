@@ -324,11 +324,26 @@ def add_nom_verbs(fm,mapp):
     for ind,cands in enumerate(fm):
         ovv = mapp[ind][0]
         ovv_tag = mapp[ind][2]
-        if ovv_tag == "L" :
-            if ovv.lower() == u"im" and not cands.has_key(u"i'm"):
+        if ovv.isdigit():
+            cand = units[int(ovv[0])]
+            add_candidate(cands,cand,ovv,ovv_tag)
+        elif ovv_tag == "L" :
+            if ovv.lower() == u"im":
                 cand = u"i'm"
-                cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
+                add_candidate(cands,cand,ovv,ovv_tag)
+        elif ovv_tag == u"~":
+            if ovv.lower() == u"cont":
+                cand = u'continued'
+                add_candidate(cands,cand,ovv,ovv_tag)
+                cands[cand][4] = 1
+        cand = tools.get_reduced(ovv)
+        if ovv != cand:
+            add_candidate(cands,cand,ovv,ovv_tag)
     return fm
+
+def add_candidate(cands,cand,ovv,ovv_tag):
+    if not cands.has_key(cand):
+        cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
 
 def run(matrix1,feat_mat,slang,not_ovv =[], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142],verbose=False, distance = 3):
     if not matrix1:
