@@ -340,8 +340,11 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
                 cand = u'continued'
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
         elif ovv_tag == u"P":
-                cand = pronouns[ovv[0]]
+            if pronouns.has_key(ovv):
+                cand = pronouns[ovv]
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
+            else:
+                print ind,ovv,ovv_tag
         cand = tools.get_reduced(ovv)
         if ovv != cand:
             cand = tools.get_reduced(ovv,count=1)
