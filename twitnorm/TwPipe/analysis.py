@@ -17,6 +17,7 @@ ovvFunc = lambda x,y : True if y == 'OOV' else False
 dic= enchant.Dict("en_US")
 units = ["", "one", "to", "three", "for",  "five",
     "six", "seven", "eight", "nine"]
+pronouns = {u'2':u"to",u'w':u"with"}
 slang = tools.get_slangs()
 
 import logging
@@ -337,6 +338,9 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
         elif ovv_tag == u"~":
             if ovv.lower() == u"cont":
                 cand = u'continued'
+                add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
+        elif ovv_tag == u"P":
+                cand = pronouns[ovv[0]]
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
         cand = tools.get_reduced(ovv)
         if ovv != cand:
