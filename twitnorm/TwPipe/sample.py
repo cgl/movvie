@@ -132,13 +132,13 @@ last setup:
 slang =
 bos_ovv = ["" for a in range(0,2139)]
 fms = analysis.add_slangs(matrix1,mapp,slang)
-distance = 3
+distance = 2
 fmd = analysis.add_from_dict(fms,mapp,distance,not_ovv=bos_ovv)
 fm_reduced = analysis.add_nom_verbs(copy.deepcopy(fmd),mapp)
 feat_mat = analysis.iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv=bos_ovv)
 
-max_val = [1.0, 1.0, 0.0, 1.0, 5.0, 1./1873142]
-res,ans = analysis.show_results(feat_mat, mapp, not_ovv = bos_ovv, max_val=max_val)
+max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142]
+res,ans = analysis.show_results(feat_mat, mapp, not_ovv=bos_ovv,max_val=max_val, threshold=1.1)
 index_list,nil,no_res = tools.top_n(res,bos_ovv)
 tools.get_performance(index_list[0][0],len(no_res))
 tools.get_performance(len(ans),len(no_res))
@@ -146,6 +146,34 @@ tools.get_performance(len(ans),len(no_res))
 threshold = tools.get_score_threshold(index_list,res)
 tools.test_threshold(res,threshold)
 
+-----------
 
-tools.dump_to_file(matrix,filename="matrix2.txt")
-tools.dump_to_file(matrix,filename="matrix2.txt")
+matrix3 = tools.load_from_file(filename="matrix3.txt")
+fms3 = analysis.add_slangs(matrix3,mapp,slang)
+
+feat_mat3 = analysis.iter_calc_lev(matrix3,fm_reduced3,mapp,not_ovv=bos_ovv)
+res3,ans3 = analysis.show_results(feat_mat3, mapp, not_ovv = bos_ovv, max_val=max_val)
+------------
+tools.dump_to_file(mat_new,filename="matrix3.txt")
+---------------
+
+import sys ; sys.path.append("/home/cagil/repos/movvie/twitnorm/TwPipe/febrl-0.4.2/") ; sys.path.append("/usr/lib/python2.7/dist-packages/")
+import tools, analysis, constants,copy
+
+matrix3 = tools.load_from_file(filename="matrix3.txt")
+
+mapp = constants.mapping
+bos_ovv = [word[0] if word[0] == word[1] else '' for word in mapp ]
+slang = tools.get_slangs()
+
+fms = analysis.add_slangs(matrix3,mapp,slang)
+distance = 2
+fmd = analysis.add_from_dict(fms,mapp,distance,not_ovv=bos_ovv)
+fm_reduced = analysis.add_nom_verbs(copy.deepcopy(fmd),mapp)
+feat_mat = analysis.iter_calc_lev(matrix3,fm_reduced,mapp,not_ovv=bos_ovv)
+
+max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142]
+res,ans = analysis.show_results(feat_mat, mapp, not_ovv=bos_ovv,max_val=max_val, threshold=1.1)
+index_list,nil,no_res = tools.top_n(res,bos_ovv)
+tools.get_performance(index_list[0][0],len(no_res))
+tools.get_performance(len(ans),len(no_res))

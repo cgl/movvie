@@ -130,7 +130,7 @@ def get_candidates_from_graph(matrix,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
 
 def get_score_line(cand,sumof,ovv,ovv_tag):
     node =  tools.get_node(cand.lower(),tag=ovv_tag)
-    freq = node['freq'] if node else 0.
+    freq = freq_score(int(node['freq'])) if node else 0.
     line = [ #cand,
             sumof,                                # weight
             tools.lcsr(ovv,cand),                 # lcsr
@@ -143,6 +143,19 @@ def get_score_line(cand,sumof,ovv,ovv_tag):
         line[ind] = round(line[ind],8)
     return line
 
+def freq_score(freq):
+    if freq >= 715:
+        return 1
+    elif freq >= 327:
+        return 0.8
+    elif freq >= 205:
+        return 0.6
+    elif freq >= 100:
+        return 0.4
+    elif freq >= 9:
+        return 0.2
+    else:
+        return 0
 
 def add_slangs(mat,mapp,slang,verbose=False):
     res_mat = []
