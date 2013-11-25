@@ -330,6 +330,7 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
                 cand = units[int(ovv[0])]
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
             else:
+                pass
                 print ind,ovv
         elif ovv_tag == "L" :
             if ovv.lower() == u"im":
