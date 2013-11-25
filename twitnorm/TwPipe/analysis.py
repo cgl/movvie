@@ -320,35 +320,35 @@ def check(results,ovv,method):
             if ovv(word[0],word[1]):
                 method(results,ovv)
 
-def add_nom_verbs(fm,mapp):
+def add_nom_verbs(fm,mapp,slang_threshold=1):
     for ind,cands in enumerate(fm):
         ovv = mapp[ind][0]
         ovv_tag = mapp[ind][2]
         if ovv_tag == "$" :
             if ovv.isdigit():
                 cand = units[int(ovv[0])]
-                add_candidate(cands,cand,ovv,ovv_tag)
+                add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
             else:
                 print ind,ovv
         elif ovv_tag == "L" :
             if ovv.lower() == u"im":
                 cand = u"i'm"
-                add_candidate(cands,cand,ovv,ovv_tag)
+                add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
         elif ovv_tag == u"~":
             if ovv.lower() == u"cont":
                 cand = u'continued'
-                add_candidate(cands,cand,ovv,ovv_tag)
+                add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
         cand = tools.get_reduced(ovv)
         if ovv != cand:
             cand = tools.get_reduced(ovv,count=1)
-            add_candidate(cands,cand,ovv,ovv_tag)
+            add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
             print "added %s %d" %(cand,ind)
     return fm
 
-def add_candidate(cands,cand,ovv,ovv_tag):
+def add_candidate(cands,cand,ovv,ovv_tag,slang_threshold):
     if not cands.has_key(cand):
         cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
-        cands[cand][4] = 1
+    cands[cand][4] = slang_threshold
 
 def run(matrix1,feat_mat,slang,not_ovv =[], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142],verbose=False, distance = 3):
     if not matrix1:
