@@ -387,7 +387,7 @@ def run(matrix1,feat_mat,slang,not_ovv =[], max_val = [1.0, 1.0, 1.0, 0.0, 1.0, 
         fmd = add_from_dict(fms,mapp,distance,not_ovv=not_ovv)
         fm_reduced = add_nom_verbs(fmd,mapp,slang_threshold=1)
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
-    res,ans = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val)
+    res,ans = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=0.720513)
     index_list,nil,no_res = tools.top_n(res,not_ovv,verbose=verbose)
     tools.get_performance(len(ans),len(no_res))
     threshold = tools.get_score_threshold(index_list,res)
