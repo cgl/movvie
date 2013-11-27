@@ -371,22 +371,25 @@ def add_candidate(cands,cand,ovv,ovv_tag,slang_threshold):
         cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
     cands[cand][4] = slang_threshold
 
-def run(matrix1,feat_mat,slang,not_ovv =[], max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142],verbose=False, distance = 3):
+def run(matrix1,feat_mat,slang,not_ovv =[], max_val = [1.0, 1.0, 1.0, 0.0, 1.0, 1.0], verbose=False, distance = 3):
     if not matrix1:
         matrix1 = tools.load_from_file()
     from constants import mapping as mapp
+    #max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
     if not slang:
         slang = tools.get_slangs()
     edit_dis=2
     met_dis=1
+    if not not_ovv:
+        not_ovv = [word[0] if word[0] == word[1] else '' for word in mapp ]
     if not feat_mat:
         fms = add_slangs(matrix1,mapp,slang)
         fmd = add_from_dict(fms,mapp,distance,not_ovv=not_ovv)
-        fm_reduced = add_nom_verbs(fmd,mapp)
+        fm_reduced = add_nom_verbs(fmd,mapp,slang_threshold=1)
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
-    res = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val)
+    res,ans = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val)
     index_list,nil,no_res = tools.top_n(res,not_ovv,verbose=verbose)
-    tools.get_performance(index_list[0][0],len(no_res))
+    tools.get_performance(len(ans),len(no_res))
     threshold = tools.get_score_threshold(index_list,res)
     tools.test_threshold(res,threshold)
     return res,feat_mat
