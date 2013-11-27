@@ -5,11 +5,16 @@
 
 %In our model we made use of both lexical, contextual and shallow properties of the noisy text which makes use of a weighted token co-occurrence graph.
 
-In this paper, we propose a graph based approach that models both contextual similarity features and lexical similarity features among an OOV word to be a normalized and the candidate IV words. I high level overview of our system is shown in Figure XX. An input text is first preprocessed by tokenizing and Part-Of-Speech (POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features extracted from a pre-generated word-relatedness graph, as well as lexical similarity features based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach is explained in the following sub-sections.
+In this paper, we propose a graph based approach that models both contextual similarity features and lexical similarity features among an OOV word to be a normalized and the candidate IV words. A high level overview of our system is shown in Figure XX. An input text is first preprocessed by tokenizing and Part-Of-Speech (POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features extracted from a pre-generated word-relatedness graph, as well as lexical similarity features based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach is explained in the following sub-sections.
 
 %%% FIGURE
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{overview}
+\caption{This is a figure.}
+\end{center}
+\end{figure}
 
-\subsection{}
 \subsection{Preprocessing}
 
 Given a noisy token within a social media text we first tokenize and get POS tags of each token with in the text. We used CMU Ark Tweet Tagger\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747} both for tokenizing and POS tagging the tweets. Ark Tweet Tagger is a social media specific tagger and reported to perform $95\%$ accuracy over social media text. As in the table \label{tab:postags}, after preprocessing each token is given a POS tag with a confidence measure. We later make use of this confidence scores calculating the weight of an edge in our context graph.
@@ -52,7 +57,7 @@ smile & N & 0.9712 \\
 \end{table}
 
 
-\subsection{Graph construction
+\subsection{Graph construction}
 
 \subsection{Graph Based Contextual Similarity}
 

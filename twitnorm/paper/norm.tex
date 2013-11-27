@@ -37,17 +37,17 @@
 
 %% if you use PostScript figures in your article
 %% use the graphics package for simple commands
-%% \usepackage{graphics}
+\usepackage{graphics}
 %% or use the graphicx package for more complicated commands
-%% \usepackage{graphicx}
+\usepackage{graphicx}
 %% or use the epsfig package if you prefer to use the old commands
-%% \usepackage{epsfig}
-
+\usepackage{epsfig}
+\usepackage{epstopdf}
 %% The amssymb package provides various useful mathematical symbols
 \usepackage{amssymb}
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
-
+\epstopdfsetup{outdir=./}
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers after \end{frontmatter}.
@@ -73,6 +73,7 @@
 %% \biboptions{comma,round}
 
 % \biboptions{}
+\usepackage{url}
 
 
 \journal{Knowledge Based Systems}
@@ -83,7 +84,7 @@
 
 %% Title, authors and addresses
 
-%% use the tnoteref command within \title for footnotes;
+%% use the tnoteref command within \title for footnotes
 %% use the tnotetext command for the associated footnote;
 %% use the fnref command within \author or \address for footnotes;
 %% use the fntext command for the associated footnote;
@@ -182,6 +183,8 @@ However not every OOV word should be considered for normalization, an OOV word c
 
 In this paper we introduce a context aware graph based text normalization method that can normalize given noisy tokens in a social text.
 
+\input{graph.tex}
+\input{experiments.tex}
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
 %% \appendix
