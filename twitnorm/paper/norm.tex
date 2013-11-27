@@ -47,7 +47,7 @@
 \usepackage{amssymb}
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
-\epstopdfsetup{outdir=./}
+
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers after \end{frontmatter}.
@@ -183,8 +183,66 @@ However not every OOV word should be considered for normalization, an OOV word c
 
 In this paper we introduce a context aware graph based text normalization method that can normalize given noisy tokens in a social text.
 
-\input{graph.tex}
-\input{experiments.tex}
+\section{Method}
+\label{sec:graph}
+
+%Unsupervised and graph based context aware model:
+
+%In our model we made use of both lexical, contextual and shallow properties of the noisy text which makes use of a weighted token co-occurrence graph.
+
+In this paper, we propose a graph based approach that models both contextual similarity features and lexical similarity features among an OOV word to be a normalized and the candidate IV words. A high level overview of our system is shown in Figure~\ref{fig:overview}. An input text is first preprocessed by tokenizing and Part-Of-Speech (POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features extracted from a pre-generated word-relatedness graph, as well as lexical similarity features based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach is explained in the following sub-sections.
+
+%%% FIGURE
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.5]{overview}
+\caption{High level overview of our system}
+\label{fig:overview}
+\end{center}
+\end{figure}
+
+\subsection{Preprocessing}
+
+Tokenization is the first step in our system. Tokenization is the process of breaking the text into words, numbers, symbols, emoticons or in other words the smallest meaningful elements with the text called tokens. After tokenization we get POS tags of each token using a social media pos tagger. Unlike the normal pos taggers social media pos taggers~\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747} provides a broader set of tags that is special to social text. By this extended set of tags we can identify token such as discourse(rt for retweets, cont. for a tweet whose content follows up in the coming tweet) or urls and can process those tokens within their context.
+
+As in Table~\ref{tab:postags}, after preprocessing each token is given a POS tag with a confidence measure. We later make use of this confidence scores calculating the weight of an edge in our context graph.
+
+\begin{table}[htbp]
+\begin{minipage}{.5\linewidth}
+\begin{tabular}[h]{|llr|}
+ \hline
+Token & POS tag & Accuracy \\
+ \hline
+wit & P & 0.8793 \\
+ \hline
+a & D & 0.9959 \\
+ \hline
+beautiful & A & 0.9916 \\
+ \hline
+smil & G & 0.5311 \\
+ \hline
+\end{tabular}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\begin{tabular}[h]{|llr|}
+ \hline
+Token & POS tag & Accuracy \\
+ \hline
+w & P & 0.7486 \\
+ \hline
+a & D & 0.9920 \\
+ \hline
+beautiful & A & 0.9971 \\
+ \hline
+smile & N & 0.9712 \\
+ \hline
+\end{tabular}
+\end{minipage}
+\caption{POS tagger outputs of samples}
+\label{tab:postags}
+\end{table}
+
+
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
 %% \appendix
