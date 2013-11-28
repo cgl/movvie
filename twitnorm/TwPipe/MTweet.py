@@ -5,7 +5,7 @@ import ast
 import langid
 from pymongo import MongoClient
 from decimal import Decimal
-from tools import *
+from tools import isMention, isHashtag, isvalid, gen_walk
 
 # tags : http://www.ark.cs.cmu.edu/TweetNLP/gimpel+etal.acl11.pdf
 

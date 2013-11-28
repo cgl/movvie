@@ -48,6 +48,8 @@
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
 
+\usepackage{color}
+
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers after \end{frontmatter}.
@@ -147,9 +149,8 @@ Therefore analyzing social media text is a challenge for itself. Due to its nois
 
 Unlike spoken and written language, digitized language has its own form and nature. Since the beginning of World Wide Web, internet has it's own slang. \textit{lol} meaning \textit{laughing out loudly},  \textit{xoxo} meaning \textit{kissing}, \textit{4u} meaning \textit{for you} are the oldest examples of this slang. Everyday new slangs as well as new words such as iTunes and new abbreviations are coming up. It is a huge, an evolving language that has long gone behind the reach and control of spellcheckers and slang dictionaries.
 \begin{table}[tbhp]
-\centering{}
-\caption{Example of noisy tokens and their normalized form}
-\label{tab:normalizations}
+\begin{minipage}[c]{.5\linewidth}
+\centering
 \begin{tabular}[h]{|r|r|}
 \hline
 ppl & people \\
@@ -159,20 +160,25 @@ soooo &  so \\
 sooon &  soon \\
 raight & right \\
 raight & alright \\
-r  &  are \\
 \hline
 \end{tabular}
+\end{minipage}
+\begin{minipage}[c]{.5\linewidth}
+\centering
 \begin{tabular}[h]{|r|r|}
 \hline
+r  &  are \\
 mor &    more \\
 doin &   doing \\
 n &      and \\
 friiied &  fried \\
 finge &  finger \\
 kissin & kissing \\
-u   &    you \\
 \hline
 \end{tabular}
+\end{minipage}
+\caption{Example of noisy tokens and their normalized form}
+\label{tab:normalizations}
 \end{table}
 
 Text normalization is a preprocessing step to restore noisy forms of text to its original(canonical) form\cite{Han:2011:LNS:2002472.2002520} to make use of NLP applications or more broadly to understand the digitized text better. For example \textit{talk 2 u later} can be normalized as \textit{talk to you later} or similarly \textit{enormoooos, enrmss, enourmos} cand be normalized as \textit{enormous}. Those noisy tokens are referred as Out of Vocabulary(OOV) words. Normalization task is restoring OOV words to their In Vocabulary(IV) form.
@@ -195,7 +201,7 @@ In this paper, we propose a graph based approach that models both contextual sim
 %%% FIGURE
 \begin{figure}[htb]
 \begin{center}
-\includegraphics[scale=0.5]{overview}
+\includegraphics[scale=0.5]{fig/overview}
 \caption{High level overview of our system}
 \label{fig:overview}
 \end{center}
@@ -234,14 +240,14 @@ a & D & 0.9920 \\
  \hline
 beautiful & A & 0.9971 \\
  \hline
-smile & N & 0.9712 \\
+smle & N & 0.7284 \\
  \hline
 \end{tabular}
 \end{minipage}
-\caption{POS tagger outputs of samples}
+\caption{POS tagger output of samples}
 \label{tab:postags}
 \end{table}
-
+\input{graph}
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
@@ -261,24 +267,6 @@ smile & N & 0.9712 \\
 %% References with bibTeX database:
 \bibliographystyle{model1-num-names}
 \bibliography{sentic}
-
-%% Authors are advised to submit their bibtex database files. They are
-%% requested to list a bibtex style file in the manuscript if they do
-%% not want to use model1-num-names.bst.
-
-%% References without bibTeX database:
-
-% \begin{thebibliography}{00}
-
-%% \bibitem must have the following form:
-%%   \bibitem{key}...
-%%
-
-% \bibitem{}
-
-% \end{thebibliography}
-
-
 \end{document}
 
 %%
