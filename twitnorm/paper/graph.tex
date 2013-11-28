@@ -1,54 +1,49 @@
 \subsection{Graph construction}
-Unlike the clean text, noisy text is difficult to model using standard language models. Due to noisy nature of the tokens different versions of a text includes changes in multiple tokens (ex: Table~\ref{tab:ngrams}). It is difficult to reach the correct version of the n-gram when there is more than one OOV word in the text.
-\begin{table}[tbhp]
-\begin{centering}
-\begin{tabular}[h]{l}
-\hline
-with a beautiful smile \\
-\hline
-with a \textbf{beatiful} smile \\
-\textbf{w} a beautiful smile \\
-\textbf{wit} a beautiful \textbf{smil} \\
-\textbf{wth} a \textbf{btfl} \textbf{sml} \\
-\textbf{w} a \textbf{btfl smle} \\
-\hline
-\end{tabular}
-\par\end{centering}
-\caption{Example noisy n-grams}
-\label{tab:ngrams}
-\end{table}
 
-The word-relatedness graph has tokens with POS tags as nodes and edges are build upon the relatedness metrics we defined. For two token with POS tag to be classified as related we have two rules:
+The graph is build using a big dataset of social media text. After preprocessing , we traverse each entry and extract nodes and edges.
+In the word-relatedness graph each node is a unique set of a token and a POS tag (see Table~\ref{tab:graph}). Edges are build upon the relatedness metrics we defined over nodes. For two nodes to be classified as related we have two rules:
 \begin{itemize}
-\item Tokens that are in n distance to each other in the text are conceptually related.
-\item Tokens should occour in the dataset with the POS tag at least f times.
+\item Nodes in an entry are conceptually related if they co-occurs within a word distance of $d_t$.
+\item Each node in the edge should have a minimum frequency of $f_t$ in the whole dataset.
 \end{itemize}
 
-\newcommand\fxbox[1]{\center{\framebox[1.1\width][c]{\strut#1}}}
-
+\begin{table}[tbhp]
+\begin{minipage}[c]{\linewidth}
 \fxbox{
-Let's$_{\textcolor{red}{L}}$ start$_{\textcolor{red}V}$ this$_{\textcolor{red}D}$ morning$_{\textcolor{red}N}$ w$_{\textcolor{red}P}$ a$_{\textcolor{red}D}$ beautiful$_{\textcolor{red}A}$ smle$_{\textcolor{red}N}$.$_{\textcolor{red},}$
+Let's$_{\textcolor{red}{L}}$ start$_{\textcolor{red}V}$ this$_{\textcolor{red}D}$ morning$_{\textcolor{red}N}$ w$_{\textcolor{red}P}$ a$_{\textcolor{red}D}$ beatiful$_{\textcolor{red}A}$ smle$_{\textcolor{red}N}$.$_{\textcolor{red},}$
  }\par
+\vspace{5mm}
+\end{minipage}
+\begin{minipage}[c]{\linewidth}
+\begin{tabular}[h]{l|l}
+Tokens & Let's, start, this, morning, w, a, beatiful, smile, . \\
+\hline
+Nodes & Let's$|$L, start$|$V, this$|$D, morning$|$N, w$|$P, a$|$D, beatiful$|$A, smile$|$V, .$|$, \\
+\hline
+Edges & \{Let's$|$L, start$|$V , distance:1\},\{Let's$|$L, this$|$D, distance:2\}, \\
+& ... \\
+& \{a$|$D, beatiful$|$A, distance:1\}, \{a$|$D, smile$|$V, distance:2\}, \\
+& \{beatiful$|$A, smile$|$V, distance:1\} \\
+\end{tabular}
+\end{minipage}
+\caption{Sample sentence with POS tags, Tokens, The Word-relatedness Graph Nodes and Edges}
+\label{tab:graph}
+\end{table}
 
-Each node includes a token and tokens' POS tag.
+We define a node with four properties \textit{id, ovv, freq, tag}. The token itself plus it's POS tag forms the \textit{id} field. Each token is represented with it's part of speech tag, this helps us to distinguish the different beings of tokens within the texts, helps not to propose smile as a pronoun(Table \ref{tab:nodes}). \textit{freq} property indicates the node's frequency count in the dataset. OOV field set to True if a token is OOV. Following Han et al. we used GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV.
 
-A node consists of four properties \textit{id, ovv, freq, tag}. The token itself plus it's POS tag forms the \textit{id} field. Each token is represented with it's part of speech tag, this helps us to distinguish the different beings of tokens within the texts, helps not to propose smile as a pronoun. \textit{freq} property indicates the node's frequency count in the dataset and OOV field set to True if a token is OOV. Following Han et al. we used GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV.
-
+\begin{table}[hbt]
+  \centering
 \begin{verbatim}
- {u'_id': u'smile|A', u'freq': 3, u'oov': False, u'tag': u'A'}
- {u'_id': u'smile|N', u'freq': 3403, u'oov': False, u'tag': u'N'}
- {u'_id': u'smile|V', u'freq': 2796, u'o0v': False, u'tag': u'V'},
+ {id : smile|A , freq : 3, oov : False, tag : A }
+ {id : smile|N , freq : 3403, oov : False, tag : N }
+ {id : smile|V , freq : 2796, o0v : False, tag : V },
 \end{verbatim}
+  \caption{Example nodes including token smile with a frequency greater than 0}
+\label{tab:nodes}
+\end{table}
 
 The edges graph, represents the context of tweets. It is the co-occurrence information including the distance information between words. For example the edges below would be derived from a text including the phrase ``with a beautiful smile''. The \textit{from} property indicates the first word and \textit{to} is the latter in the co-occurrence. Each co-occurrence of two words increases the weight of the representing edge with the average of their POS tag accuracy score in that specific text. If we are to expand the graph with our example phrase with the given POS tags and accuracies below. The increase in the weights would be respectively $0.9963+0.9712/2$, $0.998+0.9712/2$ and $0.9971+0.9712/2$.
-
-\begin{verbatim}
-{ "dis" : 3, "from" : "with|P", "to" : "smile|N", "weight" : 10.47095 }
-{ "dis" : 1, "from" : "a|D", "to" : "smile|N", "weight" : 274.37365 }
-{ "dis" : 0, "from" : "beautiful|A", "to" : "smile|N", "weight" : 240.716 }
-\end{verbatim}
-
-
 
 Our model makes use of words up to distance 4 to represent an equal form of a 5-gram language model.
 

@@ -48,8 +48,6 @@
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
 
-\usepackage{color}
-
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers after \end{frontmatter}.
@@ -75,7 +73,11 @@
 %% \biboptions{comma,round}
 
 % \biboptions{}
+\usepackage{color}
+\usepackage{caption}
 \usepackage{url}
+\newcommand\fxbox[1]{\center{\framebox[1.1\width][c]{\strut#1}}}
+\newcommand\mxbox[1]{\center{\makebox[1.1\width][c]{\strut#1}}}
 
 
 \journal{Knowledge Based Systems}
@@ -183,8 +185,27 @@ kissin & kissing \\
 
 Text normalization is a preprocessing step to restore noisy forms of text to its original(canonical) form\cite{Han:2011:LNS:2002472.2002520} to make use of NLP applications or more broadly to understand the digitized text better. For example \textit{talk 2 u later} can be normalized as \textit{talk to you later} or similarly \textit{enormoooos, enrmss, enourmos} cand be normalized as \textit{enormous}. Those noisy tokens are referred as Out of Vocabulary(OOV) words. Normalization task is restoring OOV words to their In Vocabulary(IV) form.
 
-Not every OOV word should be normalized\cite{DBLP:conf/acl/HassanM13}.
-However not every OOV word should be considered for normalization, an OOV word can given a vocabulary
+Unlike the clean text, noisy text is difficult to model using standard language models. Due to noisy nature of the OOV tokens versions of a text includes multiple different OOV tokens (ex: Table~\ref{tab:ngrams}). It is difficult to reach the correct version of the phrase when there is more than one OOV word in the text.
+\begin{table}[tbhp]
+\begin{centering}
+\begin{tabular}[h]{l}
+\hline
+with a beautiful smile \\
+\hline
+with a \textbf{beatiful} smile \\
+\textbf{w} a beautiful smile \\
+\textbf{wit} a beautiful \textbf{smil} \\
+\textbf{wth} a \textbf{btfl} \textbf{sml} \\
+\textbf{w} a \textbf{btfl smle} \\
+\hline
+\end{tabular}
+\par\end{centering}
+\caption{Example noisy n-grams}
+\label{tab:ngrams}
+\end{table}
+
+[Not every OOV word should be normalized\cite{DBLP:conf/acl/HassanM13}.]
+However not every OOV word should be considered for normalization, an OOV word can given a vocabulary ....
 
 
 In this paper we introduce a context aware graph based text normalization method that can normalize given noisy tokens in a social text.
@@ -238,9 +259,9 @@ w & P & 0.7486 \\
  \hline
 a & D & 0.9920 \\
  \hline
-beautiful & A & 0.9971 \\
+beatiful & A & 0.9733 \\
  \hline
-smle & N & 0.7284 \\
+smile & N & 0.9806 \\
  \hline
 \end{tabular}
 \end{minipage}
