@@ -355,7 +355,8 @@ def get_performance(correct,not_found):
     recall = float(correct)/1183.
     precision = correct/(1183. - not_found)
     fmeasure = 2 * precision * recall / (precision+recall)
-    print "Correct: %d , Not Found: %d" %(correct, not_found)
+    incorrect = not_found, 1183-correct-not_found
+    print "Correct: %d , Not Found: %d, Incorrect: %d " %(correct, not_found,incorrect)
     print "Recall: %f , Precision:%f , FMeasure:%f" %(round(recall,3),round(precision,3),round(fmeasure,3))
 
 def get_clean_words():
