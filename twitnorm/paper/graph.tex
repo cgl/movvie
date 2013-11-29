@@ -20,9 +20,18 @@ One last step is to conduct a POS tag filtering on the edges in $EL_{ij}$. Each 
 
 Each edge in the $EL_{ij}$ has a neighbour node $n_{iJ}$, a candidate node $c_{iJ}$ and an edge weight $ew_{iJ}$. The edge weight, represents the likelihood or the degree of the relatedness between the the neighbour node $n_{iJ}$ and candidate node $c_{iJ}$. Since we are looking for candidate nodes that is most likely to be the correct canonical form of the OOV word $t_i$, this metric is a good indicator. However weight of the common phrases are much more higher than the average weight. That results in favouring the words with higher frequencies like stop words. To avoid this we normalize the edge weight $ew_{iJ}$ with the frequency of the neighbour node $n_{iJ}$.
 
-Elimizde her komşunun binary relatedness scoreları var. Genel bir contextual similarity metriği elde edebilmek için binary relatedness'tan daha fazlasına ihtiyacımız var. Bu yüzden list of edge list'leri dolaşıp her adayın için farklı komşular tarafından verilen normalized weight metriğini toplayarak contextual similarity feature'ımız çıkarıyoruz/elde ediyoruz. bu feauture'ın en çok komşu ile ençok binary related olan adayları öne çıkarmasını umuyoruz
+Elimizde her komşunun binary relatedness scoreları var. Genel bir contextual similarity metriği elde edebilmek için binary relatedness'tan daha fazlasına ihtiyacımız var. Bu yüzden list of edge list'leri dolaşıp her aday için farklı komşular tarafından verilen normalized weight metriğini toplayarak contextual similarity feature'ımız çıkarıyoruz/elde ediyoruz. bu feauture'ın en çok komşu ile ençok binary related olan adayları öne çıkarmasını umuyoruz.
+
+Böylece elimizde $EL_{ij}$'teki unique adayları ve contextual sim score'larıyla candidate list $CL_{ij}$ oluşturuyoruz.
 
 \subsection{Lexical Similarity}
+
+Following ~\cite{Han:2011:LNS:2002472.2002520},\cite{DBLP:conf/acl/HassanM13}, we built our lexical similarity features over standart edit distance~\cite{levenshtein1966bcc}, double metaphone(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132} and longest common subsequence ratio over edit distance(LCRS)~\cite{Contractor:2010:UCN:1944566.1944588}.
+
+We calculated both edit distance, phonetic edit distance and LCSR of each candidate in $CL_{ij}$ and OOV token $t_i$.
+
+We used edit distance, phonetic edit distance to filter the candidates. Any candidate in $CL_{ij}$ with an edit distance greater than $ed_t$ and phonetic edit distance greater than $ped_t$ to $t_i$ removed from the candidate list $CL_{ij}$.
+
 
 dictionary from graph
 
