@@ -1,23 +1,26 @@
 \subsection{Graph Based Contextual Similarity}
 
-Given a entry to normalize, next step is extracting normalization candidates for each OOV token with contextual similarity features. For each ill-formed OOV token in a given entry, we start with listing the related tokens in that entry. The list includes all the related words of an ill-formed OOV token and their relational position to the OOV token. We will refer this list as neighbour list. In Table~\ref{tab:neigh} you can find a sample neighbour list for the OOV token beautiful$|$A from the sample sentence in Table~\ref{tab:graph}.
+Given a entry to normalize, next step is extracting normalization candidates for each OOV token with contextual similarity features. For each ill-formed OOV token $t_i$ in a given entry, we start with a list of related nodes of $t_i$ within that entry. The list includes all the nodes related to $t_i$ and their positional distance to the $t_i$. We will refer this list as neighbour list $NL_i$. In Table~\ref{tab:neigh} you can find a sample neighbour list for the OOV token beautiful$|$A from the sample sentence in Table~\ref{tab:graph}.
 
 \begin{table}[hbt]
   \centering
   \begin{tabular}[tc]{l}
-    w$|$P, distance: -2 \\
-    a$|$D, distance: -1 \\
-    smile$|$V, distance: 1 \\
+    w$|$P, position: -2 \\
+    a$|$D, position: -1 \\
+    smile$|$V, position: 1 \\
   \end{tabular}
 \caption{Example neighbour list for the beautiful$|$A}
 \label{tab:neigh}
 \end{table}
 
 
-For each neighbour in the neighbour list we traverse the graph and find the edges from or to that neighbour. The resulting edge list has edges in the form of (neighbour, candidate) or (candidate,neighbour) and includes all the nodes that are related to the neighbours. We filter the edge list  with the relative distances given in the neighbour list. Each (neighbour, candidate) tuple should have the exact distance as the neighbour and OOV token has. One last step is to conduct a POS tag filtering to the edges list. Each candidate should have the same POS tag with the OOV token. So if the OOV token has tag $T$, all the edges that includes candidates with a tag other than $T$ is removed from the edges list.
+For each neighbour node $n_{iJ}$ in the $NL_i$  we traverse the graph and find the edges from or to the node ($n_{iJ}$). The resulting edge list $EL_{ij}$ has edges in the form of ($n_{iJ}$, candidate) or (candidate,$n_{iJ}$) and includes all the nodes that are related to the node $n_{iJ}$. We filter the edges in $EL_{ij}$ by the relative distance of $n_{iJ}$ to the $t_i$ given in the $NL_i$. Each (neighbour, candidate) tuple should have the exact distance as the neighbour and OOV token has.
 
+One last step is to conduct a POS tag filtering on the edges in $EL_{ij}$. Each candidate node should have the same POS tag with its OOV token. For the OOV token $t_i$ which has tag $T_i$, all the edges that includes candidates with a tag other than $T_i$ is removed from the edge list $EL_{ij}$. Thus $EL_{i}$ contains edges only with $c_{i}$s that is tagged with $T_i$.
 
-Candidate selection from graph
+Each edge in the $EL_{ij}$ has a neighbour node $n_{iJ}$, a candidate node $c_{iJ}$ and an edge weight $ew_{iJ}$. The edge weight, represents the likelihood or the degree of the relatedness between the the neighbour node $n_{iJ}$ and candidate node $c_{iJ}$. Since we are looking for candidate nodes that is most likely to be the correct canonical form of the OOV word $t_i$, this metric is a good indicator. However weight of the common phrases are much more higher than the average weight. That results in favouring the words with higher frequencies like stop words. To avoid this we normalize the edge weight $ew_{iJ}$ with the frequency of the neighbour node $n_{iJ}$.
+
+Elimizde her komşunun binary relatedness scoreları var. Genel bir contextual similarity metriği elde edebilmek için binary relatedness'tan daha fazlasına ihtiyacımız var. Bu yüzden list of edge list'leri dolaşıp her adayın için farklı komşular tarafından verilen normalized weight metriğini toplayarak contextual similarity feature'ımız çıkarıyoruz/elde ediyoruz. bu feauture'ın en çok komşu ile ençok binary related olan adayları öne çıkarmasını umuyoruz
 
 \subsection{Lexical Similarity}
 
