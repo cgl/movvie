@@ -1,12 +1,12 @@
 \subsection{Graph Based Contextual Similarity}
 
-Given a entry to normalize, next step is extracting normalization candidates for each OOV token with contextual similarity features. For each ill-formed OOV token in a given entry, we start with listing the related tokens in that entry. The list includes all the related words of an ill-formed OOV token and their distance to the OOV token. We will refer this list as neighbour list. In Table~\ref{tab:neigh} you can find a sample neighbour list for the OOV token beautiful$|$A from the sample sentence in Table~\ref{tab:graph}.
+Given a entry to normalize, next step is extracting normalization candidates for each OOV token with contextual similarity features. For each ill-formed OOV token in a given entry, we start with listing the related tokens in that entry. The list includes all the related words of an ill-formed OOV token and their relational position to the OOV token. We will refer this list as neighbour list. In Table~\ref{tab:neigh} you can find a sample neighbour list for the OOV token beautiful$|$A from the sample sentence in Table~\ref{tab:graph}.
 
 \begin{table}[hbt]
   \centering
   \begin{tabular}[tc]{l}
-    w$|$P, distance: 2 \\
-    a$|$D, distance: 1 \\
+    w$|$P, distance: -2 \\
+    a$|$D, distance: -1 \\
     smile$|$V, distance: 1 \\
   \end{tabular}
 \caption{Example neighbour list for the beautiful$|$A}
@@ -14,7 +14,8 @@ Given a entry to normalize, next step is extracting normalization candidates for
 \end{table}
 
 
-For each neighbour in the neighbour list we traverse the graph and find the edges from or to the neighbour. These edges (neighbour,cand) or
+For each neighbour in the neighbour list we traverse the graph and find the edges from or to that neighbour. The resulting edge list has edges in the form of (neighbour, candidate) or (candidate,neighbour) and includes all the nodes that are related to the neighbours. We filter the edge list  with the relative distances given in the neighbour list. Each (neighbour, candidate) tuple should have the exact distance as the neighbour and OOV token has. One last step is to conduct a POS tag filtering to the edges list. Each candidate should have the same POS tag with the OOV token. So if the OOV token has tag $T$, all the edges that includes candidates with a tag other than $T$ is removed from the edges list.
+
 
 Candidate selection from graph
 
