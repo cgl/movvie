@@ -1,55 +1,20 @@
-\subsection{Graph construction}
+\subsection{Graph Based Contextual Similarity}
 
-The graph is build using a big dataset of social media text. After preprocessing , we traverse each entry and extract nodes and edges.
-In the word-relatedness graph each node is a unique set of a token and a POS tag (see Table~\ref{tab:graph}). Edges are build upon the relatedness metrics we defined over nodes. For two nodes to be classified as related we have two rules:
-\begin{itemize}
-\item Nodes in an entry are conceptually related if they co-occurs within a word distance of $d_t$.
-\item Each node in the edge should have a minimum frequency of $f_t$ in the whole dataset.
-\end{itemize}
-
-\begin{table}[tbhp]
-\begin{minipage}[c]{\linewidth}
-\fxbox{
-Let's$_{\textcolor{red}{L}}$ start$_{\textcolor{red}V}$ this$_{\textcolor{red}D}$ morning$_{\textcolor{red}N}$ w$_{\textcolor{red}P}$ a$_{\textcolor{red}D}$ beatiful$_{\textcolor{red}A}$ smle$_{\textcolor{red}N}$.$_{\textcolor{red},}$
- }\par
-\vspace{5mm}
-\end{minipage}
-\begin{minipage}[c]{\linewidth}
-\begin{tabular}[h]{l|l}
-Tokens & Let's, start, this, morning, w, a, beatiful, smile, . \\
-\hline
-Nodes & Let's$|$L, start$|$V, this$|$D, morning$|$N, w$|$P, a$|$D, beatiful$|$A, smile$|$V, .$|$, \\
-\hline
-Edges & \{Let's$|$L, start$|$V , distance:1\},\{Let's$|$L, this$|$D, distance:2\}, \\
-& ... \\
-& \{a$|$D, beatiful$|$A, distance:1\}, \{a$|$D, smile$|$V, distance:2\}, \\
-& \{beatiful$|$A, smile$|$V, distance:1\} \\
-\end{tabular}
-\end{minipage}
-\caption{Sample sentence with POS tags, Tokens, The Word-relatedness Graph Nodes and Edges}
-\label{tab:graph}
-\end{table}
-
-We define a node with four properties \textit{id, ovv, freq, tag}. The token itself plus it's POS tag forms the \textit{id} field. Each token is represented with it's part of speech tag, this helps us to distinguish the different beings of tokens within the texts, helps not to propose smile as a pronoun(Table \ref{tab:nodes}). \textit{freq} property indicates the node's frequency count in the dataset. OOV field set to True if a token is OOV. Following Han et al. we used GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV.
+Given a entry to normalize, next step is extracting normalization candidates for each OOV token with contextual similarity features. For each ill-formed OOV token in a given entry, we start with listing the related tokens in that entry. The list includes all the related words of an ill-formed OOV token and their distance to the OOV token. We will refer this list as neighbour list. In Table~\ref{tab:neigh} you can find a sample neighbour list for the OOV token beautiful$|$A from the sample sentence in Table~\ref{tab:graph}.
 
 \begin{table}[hbt]
   \centering
-\begin{verbatim}
- {id : smile|A , freq : 3, oov : False, tag : A }
- {id : smile|N , freq : 3403, oov : False, tag : N }
- {id : smile|V , freq : 2796, o0v : False, tag : V },
-\end{verbatim}
-  \caption{Example nodes including token smile with a frequency greater than 0}
-\label{tab:nodes}
+  \begin{tabular}[tc]{l}
+    w$|$P, distance: 2 \\
+    a$|$D, distance: 1 \\
+    smile$|$V, distance: 1 \\
+  \end{tabular}
+\caption{Example neighbour list for the beautiful$|$A}
+\label{tab:neigh}
 \end{table}
 
-The edges graph, represents the context of tweets. It is the co-occurrence information including the distance information between words. For example the edges below would be derived from a text including the phrase ``with a beautiful smile''. The \textit{from} property indicates the first word and \textit{to} is the latter in the co-occurrence. Each co-occurrence of two words increases the weight of the representing edge with the average of their POS tag accuracy score in that specific text. If we are to expand the graph with our example phrase with the given POS tags and accuracies below. The increase in the weights would be respectively $0.9963+0.9712/2$, $0.998+0.9712/2$ and $0.9971+0.9712/2$.
 
-Our model makes use of words up to distance 4 to represent an equal form of a 5-gram language model.
-
-
-\subsection{Graph Based Contextual Similarity}
-
+For each neighbour in the neighbour list we traverse the graph and find the edges from or to the neighbour. These edges (neighbour,cand) or
 
 Candidate selection from graph
 
