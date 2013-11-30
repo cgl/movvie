@@ -45,7 +45,7 @@ contSimCost(t,c) = \sum_{n,pos \in NL(t) }{contSimCostNeigh(t,n,c,pos)}
 \label{eq:cont_cost}
 \end{equation}
 
-Since the graph includes both OOV and IV tokens and our OOV detection depends on the spellchecker which excepts some OOV tokens that has the same spelling with another IV word as IV, to be able to propose better canonical forms, the frequency of normalization candidates has been also added to the contextual similarity feature. Nodes with higher frequencies leads to tokens' most likely grammatical forms.
+Since the graph includes both OOV and IV tokens and our OOV detection depends on the spellchecker which excepts some OOV tokens that has the same spelling with another IV word as IV, to be able to propose better canonical forms, the frequency of normalization candidates has been also added to the contextual similarity feature. Nodes with higher frequencies lead to tokens', that are in their most likely grammatical forms.
 
 Hereby, we have the candidate list $CL_{i}$ for the OOV token $t_i$ that includes all the unique candidates in $EL_{ij}$s and their contextual similarity costs.
 
