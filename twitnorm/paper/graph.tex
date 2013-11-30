@@ -1,6 +1,6 @@
 \subsection{Graph Based Contextual Similarity}
 
-Given a entry to normalize, next step is extracting normalization candidates for each OOV token with contextual similarity features. For each ill-formed OOV token $t_i$ in a given entry, we start with a list of related nodes of $t_i$ within that entry. The list includes all the nodes related to $t_i$ and their positional distance to the $t_i$. We will refer this list as neighbour list $NL_i$. In Table~\ref{tab:neigh} you can find a sample neighbour list for the OOV token beautiful$|$A from the sample sentence in Table~\ref{tab:graph}.
+When we have an entry to normalize, next step after preprocessing is finding normalization candidates for each OOV token in the entry. For each ill-formed OOV token $t_i$ in a given entry, we first list the nodes that is related to $t_i$. The list includes all the nodes related to $t_i$ and their positional distance to the $t_i$ in the entry. We will refer to this list as neighbour list $NL_i$. In Table~\ref{tab:neigh} you can find a sample neighbour list for the OOV token beatiful$|$A from the sample sentence in Table~\ref{tab:graph}.
 
 \begin{table}[hbt]
   \centering
@@ -16,9 +16,9 @@ Given a entry to normalize, next step is extracting normalization candidates for
 
 For each neighbour node $n_{ij}$ in the $NL_i$  we traverse the graph and find the edges from or to the node ($n_{ij}$). The resulting edge list $EL_{ij}$ has edges in the form of ($n_{ij}$, candidate) or (candidate,$n_{ij}$) and includes all the nodes that are related to the node $n_{ij}$. Here the neighbour node can be an OOV node but the candidate node chosen among the IV nodes. We filter the edges in $EL_{ij}$ by the relative distance of $n_{ij}$ to the $t_i$ given in the $NL_i$. Each (neighbour, candidate) tuple should have the exact distance as the neighbour and OOV token has.
 
-One last step is to conduct a POS tag filtering on the edges in $EL_{ij}$. Each candidate node should have the same POS tag with its OOV token. For the OOV token $t_i$ which has tag $T_i$, all the edges that includes candidates with a tag other than $T_i$ is removed from the edge list $EL_{ij}$. Thus $EL_{i}$ contains edges only with $c_{ik}$s that is tagged with $T_i$.
+One last step is to conduct a POS tag filtering on the edges in $EL_{ij}$. Each candidate node should have the same POS tag with its OOV token. For the OOV token $t_i$ which has tag $T_i$, all the edges that include candidates with a tag other than $T_i$ are removed from the edge list $EL_{ij}$. Thus $EL_{i}$ contains edges only with $c_{ik}$s that is tagged with $T_i$.
 
-Each edge in the $EL_{ij}$ has a neighbour node $n_{ij}$, a candidate node $c_{ik}$ and an edge weight $ew_{ijk}$. The edge weight, represents the likelihood or the degree of the relatedness between the the neighbour node $n_{ij}$ and candidate node $c_{ik}$(Eq~\ref{eq:ew}). Since we are looking for candidate nodes that is most likely to be the correct canonical form of the OOV word $t_i$, this metric is a good indicator. However weight of the common phrases are much more higher than the average weight. That results in favouring the words with higher frequencies like stop words. To avoid this we normalize the edge weight $ew_{ijk}$ with the frequency of the neighbour node $n_{ij}$(See Eq~\ref{eq:ew_norm}).
+Each edge in the $EL_{ij}$ has a neighbour node $n_{ij}$, a candidate node $c_{ik}$ and an edge weight $ew_{ijk}$. The edge weight, represents the likelihood or the degree of the relatedness between the the neighbour node $n_{ij}$ and candidate node $c_{ik}$(Eq~\ref{eq:ew}). Since we are looking for candidate nodes that is most likely to be the correct canonical form of the OOV word $t_i$, this metric is a good indicator. However, weight of the common phrases are much more higher than the average weight. That results in favouring the words with higher frequencies like stop words. To avoid this we normalize the edge weight $ew_{ijk}$ with the frequency of the neighbour node $n_{ij}$(See Eq~\ref{eq:ew_norm}).
 
 \begin{equation}
 ew(n,pos,c) =
@@ -35,7 +35,7 @@ ewNormalized(n,pos,c) = ew(n,pos,c) / frequency(c)
 \end{equation}
 
 
-We have a metric that assures contextual similarity based on binary relatedness. However we need more than binary relatedness to achive a comprehensive contextual coverage. To assure this broader coverage our contextual similarity feature is build based on sum of the binary relatedness scores of several neighbours. For a candidate node $c_{ik}$ the contextual similarity cost is the sum of $ew_{ijk}$ which is the edge weights coming from different neighbours of the OOV token $t_i$. We expect this contextual similarity feature to favour and XXX(find) the candidates which are (1)related to as many neighbours as possible and (2)have a high relatedness score with each neighbours.
+We have a metric that assures contextual similarity based on binary relatedness. However we need more than binary relatedness to achive a comprehensive contextual coverage. To assure this broader coverage, our contextual similarity feature is built based on sum of the binary relatedness scores of several neighbours. For a candidate node $c_{ik}$ the contextual similarity cost is the sum of $ew_{ijk}$ which is the edge weights coming from different neighbours of the OOV token $t_i$. We expect this contextual similarity feature to favour and XXX(find) the candidates which are (1)related to as many neighbours as possible and (2)have a high relatedness score with each neighbours.
 
 \begin{equation}
 contSimCostNeigh(t,n,c,pos) = \sum_{n,c \in EL(t,n)}{ewNormalized(n,pos,c)} \\\\
@@ -45,7 +45,7 @@ contSimCost(t,c) = \sum_{n,pos \in NL(t) }{contSimCostNeigh(t,n,c,pos)}
 \label{eq:cont_cost}
 \end{equation}
 
-Since the graph includes both OOV and IV tokens and our OOV detection depends on the spellchecker which excepts some OOV tokens that has same spelling with another IV word as IV, to be able to propose better canonical forms the frequency of normalization candidates has been also added to the contextual similarity feature. Nodes with higher frequencies leads to tokens' most likely grammatical forms.
+Since the graph includes both OOV and IV tokens and our OOV detection depends on the spellchecker which excepts some OOV tokens that has the same spelling with another IV word as IV, to be able to propose better canonical forms, the frequency of normalization candidates has been also added to the contextual similarity feature. Nodes with higher frequencies leads to tokens' most likely grammatical forms.
 
 Hereby, we have the candidate list $CL_{i}$ for the OOV token $t_i$ that includes all the unique candidates in $EL_{ij}$s and their contextual similarity costs.
 
