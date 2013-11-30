@@ -76,6 +76,8 @@
 \usepackage{color}
 \usepackage{caption}
 \usepackage{url}
+\usepackage{amsmath}
+
 \newcommand\fxbox[1]{\center{\framebox[1.1\width][c]{\strut#1}}}
 \newcommand\mxbox[1]{\center{\makebox[1.1\width][c]{\strut#1}}}
 
@@ -215,7 +217,7 @@ In this paper we propose a new approach to text normalization. A graph based mod
 
 %In our model we made use of both lexical, contextual and shallow properties of the noisy text which makes use of a weighted token co-occurrence graph.
 
-In this paper, we propose a graph based approach that models both contextual similarity features and lexical similarity features among an OOV word to be a normalized and the candidate IV words. A high level overview of our system is shown in Figure~\ref{fig:overview}. An input text is first preprocessed by tokenizing and Part-Of-Speech (POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features which are extracted from a pre-generated word-relatedness graph, as well as lexical similarity features. Lexical similarity features are based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach are explained in the following sub-sections.
+In this paper, we propose a graph based approach that models both contextual similarity features and lexical similarity features among an OOV word to be a normalized and the candidate IV words. A high level overview of our system is shown in Figure~\ref{fig:overview}. An input text is first preprocessed by tokenizing and Part-Of-Speech (POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features which are extracted from a pre-generated directed word-relatedness graph, as well as lexical similarity features. Lexical similarity features are based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach are explained in the following sub-sections.
 
 %%% FIGURE
 \begin{figure}[htb]
@@ -269,7 +271,15 @@ smile & N & 0.9806 \\
 
 \subsection{Graph construction}
 
-The graph is build using a big dataset of social media text. After preprocessing, we traverse each entry in the dataset and extract nodes and edges.
+The graph(See Figure~\ref{fig:graph}) is build using a big dataset of social media text. After preprocessing, we traverse each entry in the dataset and extract nodes and edges.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.6]{fig/graph}
+\caption{Sample edges and sample nodes from the word-relatedness graph}
+\label{fig:graph}
+\end{center}
+\end{figure}
 
 We define a node with four properties \textit{id, oov, freq, tag}. The token itself plus it's POS tag forms the \textit{id} field. \textit{freq} property indicates the node's frequency count in the dataset. \textit{oov} field is set to True if the token is a OOV word. Following Han et al.\ we used GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV or not.
 
@@ -321,9 +331,9 @@ The edges follow the flow in the entries thus have a direction from the earlier 
 \begin{table}[hbt]
   \centering
   \begin{tabular}[tc]{l}
- from : with$|$P, to : smile$|$N, dis : 3, weight : 10.47095 \\
- from : a$|$D, to : smile$|$N, dis : 1, weight : 274.37365 \\
- from : beautiful$|$A, to : smile$|$N, dis : 0, weight : 240.716 \\
+ from : with$|$P, to : smile$|$N, dis : 3, weight : 72.24415 \\
+ from : a$|$D, to : smile$|$N, dis : 2, weight : 274.37365 \\
+ from : beautiful$|$A, to : smile$|$N, dis : 1, weight : 240.716 \\
 \end{tabular}
   \caption{Example edges from sample phrase  ``with a beautiful smile''}
 \label{tab:edges}

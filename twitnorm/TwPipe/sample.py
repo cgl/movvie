@@ -176,3 +176,11 @@ res,ans = analysis.show_results(feat_mat, mapp, not_ovv=bos_ovv,max_val=max_val,
 index_list,nil,no_res = tools.top_n(res,bos_ovv)
 tools.get_performance(index_list[0][0],len(no_res))
 tools.get_performance(len(ans),len(no_res))
+
+---------------
+
+from pymongo import MongoClient ;client = MongoClient('localhost', 27017);db = client['tweets']
+freqs = {}
+for node in db.nodes.find():
+    freq = node['freq']
+    freqs[freq] = freqs.get(freq,0) + 1

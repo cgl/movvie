@@ -3,12 +3,11 @@
 
 \subsection{Data sets}
 
-We used a large amount of social media text to construct our co-occurrence graph. We extracted 15GB tweets from Stanford's 476 million Twitter Dataset\cite{DBLP:conf/wsdm/YangL11}. After tokenization we removed tokens POS tagged as mention(@brendon), discourse marker (ex: RT), URL or email addresses, emoticons, numerals, punctuations and used remaining tokens to build the graph.
+We used a large amount of social media text to construct our co-occurrence graph. We extracted 15GB tweets from Stanford's 476 million Twitter Dataset\cite{DBLP:conf/wsdm/YangL11}. After tokenization we removed tokens POS tagged as mention(@brendon), discourse marker (ex: RT), URL or email addresses, emoticons, numerals and punctuations, we used remaining tokens to build the graph.
 
-We used CMU Ark Tweet Tagger\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747} both for tokenizing and POS tagging the tweets. Ark Tweet Tagger is a social media specific tagger and reported to perform $95\%$ accuracy over social media text.
+For tokenization and POS tagging the tweets we used CMU Ark Tweet Tagger\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747}. Ark Tweet Tagger is a social media specific tagger and reported to perform $95\%$ accuracy over social media text.
 
-
-The POS tagset of ark tagger includes some extra tags besides the standard part of speech tags that is specific to social media: Urls and emoticons; Twitter hastags \# ; twitter at-mentions (\@). One other tag that is special to social media is \~ means the token is specific to a discourse function of twitters. Lastly G stands for miscellanneous words including multiword abbreviations like
+The POS tagset of ark tagger includes some extra tags besides the standard part of speech tags that is specific to social media: Urls and emoticons; Twitter hastags \# ; twitter at-mentions (\@). One other tag that is special to social media is \~ means the token is specific to a discourse function of twitters. Lastly G stands for miscellanneous words including multiword abbreviations like btw(by the way), nw(no way), smh(somehow).
 
 
 After constructing the graph we only kept the nodes with a frequency greater than 8 and the edges with weight greater than 1. We had remaining 105428 nodes and 46609603 edges in the graph.
