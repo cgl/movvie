@@ -147,11 +147,11 @@ Text Normalization \sep Twitter \sep microblogs \sep social media
 
 Social text has become an enormous part of our lives. We are moving towards to an era that we will be talking using machines more than we talk to each other. Social platforms make mass amounts of people communicate via typed or transcribed text. That is the era that the news are spreading digitally via social media other than edited newspaper articles.
 
-This has been also starting of a new era for text analytics researches. The recent studies on social media such that Stock Prediction\cite{DBLP:conf/acl/SiMLLLD13}, politeness detection\cite{DBLP:conf/acl/Danescu-Niculescu-MizilSJLP13}, disaster detection\cite{Sakaki:2010:EST:1772690.1772777} tries to lighten up the road of this digitized future of ours.
+With these in mind, it has been also starting of a new era for text analytics researches. The recent studies on social media such that Stock Prediction\cite{DBLP:conf/acl/SiMLLLD13}, politeness detection\cite{DBLP:conf/acl/Danescu-Niculescu-MizilSJLP13}, disaster detection\cite{Sakaki:2010:EST:1772690.1772777} tries to lighten up the road of this digitized future of ours.
 
 Therefore analyzing social media text is a challenge for itself. Due to its noisy nature, many NLP tools are performing poorly on social media text\cite{ritter2010unsupervised}. The problems that noise in the social media text generates for NLP tools can be overcome by some preprocessing steps.
 
-Unlike spoken and written language, digitized language has its own form and nature. Since the beginning of World Wide Web, internet has it's own slang. \textit{lol} meaning \textit{laughing out loudly},  \textit{xoxo} meaning \textit{kissing}, \textit{4u} meaning \textit{for you} are the oldest examples of this slang. Everyday new slangs as well as new words such as iTunes and new abbreviations are coming up. It is a huge, an evolving language that has long gone behind the reach and control of spellcheckers and slang dictionaries.
+Unlike spoken and written language, digitized language has its own form and nature. Since the beginning of World Wide Web, internet has it's own slang. \textit{lol} meaning \textit{laughing out loudly},  \textit{xoxo} meaning \textit{kissing}, \textit{4u} meaning \textit{for you} are the oldest examples of this slang. Everyday new slangs as well as new words such as iTunes and new abbreviations are coming up. It is a huge, an evolving language that has long gone beyond the reach and control of spellcheckers and slang dictionaries.
 \begin{table}[tbhp]
 \begin{minipage}[c]{.5\linewidth}
 \centering
@@ -185,11 +185,11 @@ kissin & kissing \\
 \label{tab:normalizations}
 \end{table}
 
-Text normalization is a preprocessing step to restore noisy forms of text to its original(canonical) form\cite{Han:2011:LNS:2002472.2002520} to make use of NLP applications or more broadly to understand the digitized text better. For example \textit{talk 2 u later} can be normalized as \textit{talk to you later} or similarly \textit{enormoooos, enrmss, enourmos} cand be normalized as \textit{enormous}. Those noisy tokens are referred as Out of Vocabulary(OOV) words. Normalization task is restoring OOV words to their In Vocabulary(IV) form.
+Text normalization is a preprocessing step to restore noisy forms of text to its original(canonical) form\cite{Han:2011:LNS:2002472.2002520} to make use in NLP applications or more broadly to understand the digitized text better. For example \textit{talk 2 u later} can be normalized as \textit{talk to you later} or similarly \textit{enormoooos, enrmss, enourmos} cand be normalized as \textit{enormous}. Those noisy tokens are referred as Out of Vocabulary(OOV) words. Normalization task restors OOV words to their In Vocabulary(IV) form.
 
-However not every OOV word should be considered for normalization. The social text is continously evolving with new words and named entities that are not in the vocabularies of the systems~\cite{DBLP:conf/acl/HassanM13}. The OOV tokens that should be considered for normalization is referred as ill-formed words. Oppositely an OOV word can sometimes lexically fit an IV word (ex: \textit{tanks} is both an IV word and OOV word with the canonical form \textit{thanks}). The task of recognizing which tokens are OOV, and which of those are ill-formed are beyond the scope of this paper.
+However not every OOV word should be considered for normalization. The social text is continously evolving with new words and named entities that are not in the vocabularies of the systems~\cite{DBLP:conf/acl/HassanM13}. The OOV tokens that should be considered for normalization are referred to as ill-formed words. Oppositely an OOV word can sometimes lexically fit an IV word (ex: \textit{tanks} is both an IV word and OOV word with the canonical form \textit{thanks}). The task of recognizing which tokens are OOV, and which of those are ill-formed are beyond the scope of this paper.
 
-Unlike the clean text, noisy text is difficult to model using standard language models. Due to noisy nature of the OOV tokens versions of a text includes multiple different OOV tokens (ex: Table~\ref{tab:ngrams}). It is even more difficult to reach the correct version of the phrase when there is more than one OOV word in the text. A high performance normalization system should been capable of following the information a noisy token includes as good as in modeling well formed tokens.
+Unlike clean text, noisy text is difficult to model using standard language models. Due to noisy nature of the OOV tokens, versions of a text includes multiple different OOV tokens (ex: Table~\ref{tab:ngrams}). It is even more difficult to reach the correct version of the phrase when there is more than one OOV word in the text. A high performance normalization system should be capable of following the information flow in a noisy text as well as in clean text.
 \begin{table}[tbhp]
 \begin{centering}
 \begin{tabular}[h]{l}
@@ -208,7 +208,7 @@ with a \textbf{beatiful} smile \\
 \label{tab:ngrams}
 \end{table}
 
-In this paper we propose a new approach to text normalization. A graph based model which can benefit from both lexical, contextual and grammatical features of social text.
+In this paper we propose a new approach to text normalization. A graph based model, which benefits from both lexical, contextual and grammatical features of social text.
 
 \section{Method}
 \label{sec:graph}
@@ -217,7 +217,7 @@ In this paper we propose a new approach to text normalization. A graph based mod
 
 %In our model we made use of both lexical, contextual and shallow properties of the noisy text which makes use of a weighted token co-occurrence graph.
 
-In this paper, we propose a graph based approach that models both contextual similarity features and lexical similarity features among an OOV word to be a normalized and the candidate IV words. A high level overview of our system is shown in Figure~\ref{fig:overview}. An input text is first preprocessed by tokenizing and Part-Of-Speech (POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features which are extracted from a pre-generated directed word-relatedness graph, as well as lexical similarity features. Lexical similarity features are based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach are explained in the following sub-sections.
+In this paper, we propose a graph based approach that models both contextual and lexical similarity features among an OOV word and candidate IV words. A high level overview of our system is shown in Figure~\ref{fig:overview}. An input text is first preprocessed by tokenizing and Part-Of-Speech (POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features which are extracted from a pre-generated directed word-relatedness graph, as well as lexical similarity features. Lexical similarity features are based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach are explained in the following sub-sections.
 
 %%% FIGURE
 \begin{figure}[htb]
@@ -230,9 +230,9 @@ In this paper, we propose a graph based approach that models both contextual sim
 
 \subsection{Preprocessing}
 
-Tokenization is the first step in our system. Tokenization is the process of breaking the text into words, numbers, symbols, emoticons or in other words the smallest meaningful elements within/of the text called tokens. After tokenization, next in the pipeline is POS tagging each token using a social media pos tagger. Unlike the normal pos taggers social media pos taggers~\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747} provide a broader set of tags that is special to the social text. By this extended set of tags we can identify tokens such as discourse markers~(rt for retweets, cont. for a tweet whose content follows up in the coming tweet) or urls and we can process those tokens within their context.
+Tokenization is the first step in our system. Tokenization is the process of breaking the text into words, numbers, symbols, emoticons in other words the smallest meaningful elements of the text called tokens. After tokenization, next in the pipeline is POS tagging each token using a social media pos tagger. Unlike the normal pos taggers, social media pos taggers~\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747} provide a broader set of tags that is special to the social text. By this extended set of tags we can identify tokens such as discourse markers~(rt for retweets, cont. for a tweet whose content follows up in the coming tweet) or urls. So that we can process those tokens within their context.
 
-As in Table~\ref{tab:postags}, after preprocessing, each token has a POS tag with a confidence measure. Later, we make use of these confidence scores in calculating the weight of edges in our context graph.
+As shown in Table~\ref{tab:postags}, after preprocessing, each token is assigned a POS tag with a confidence measure between 0 and 1. Later, we use these confidence scores in calculating the weight of edges in our context graph.
 
 \begin{table}[htbp]
 \begin{minipage}{.5\linewidth}
@@ -283,7 +283,7 @@ The graph(See Figure~\ref{fig:graph}) is build using a big dataset of social med
 
 We define a node with four properties \textit{id, oov, freq, tag}. The token itself plus it's POS tag forms the \textit{id} field. \textit{freq} property indicates the node's frequency count in the dataset. \textit{oov} field is set to True if the token is a OOV word. Following Han et al.\ we used GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV or not.
 
-In the word-relatedness graph, each node is a unique set of a token and a POS tag (see Table~\ref{tab:graph}). This helps us to identify the tokens not only by lexically and contextually but also (in terms of POS tags) gramatically.
+In the word-relatedness graph, each node is a unique set of a token and a POS tag (see Table~\ref{tab:graph}). This helps us to identify the tokens not only lexically and contextually but also (in terms of POS tags) gramatically.
 
 \begin{table}[tbhp]
 \begin{minipage}[c]{\linewidth}
@@ -308,7 +308,7 @@ Edges & \{Let's$|$L, start$|$V , distance:1\},\{Let's$|$L, this$|$D, distance:2\
 \label{tab:graph}
 \end{table}
 
-For example if the token \textit{smile} has been seen frequently as a Noun and a Verb and not in other forms in the dataset~(Ex: Table \ref{tab:nodes}), this means that it is not a good candidate for a Pronoun OOV token(that is a Pronoun). On conversely, if lexically and contextually similar enough, \textit{smile} is(can be) a good candidate for a Noun or Verb OOV token.
+For example if the token \textit{smile} has been seen frequently as a Noun and a Verb and not in other forms in the dataset~(Ex: Table \ref{tab:nodes}), this means that it is not a good candidate for a Pronoun OOV token(that is a Pronoun). Conversely, if \textit{smile} is lexically and contextually similar enough, it is a good candidate for a Noun or Verb OOV token.
 
 \begin{table}[hbt]
   \centering
@@ -321,10 +321,10 @@ For example if the token \textit{smile} has been seen frequently as a Noun and a
 \label{tab:nodes}
 \end{table}
 
-Edges are built upon(depending on) the relatedness metrics defined. For two nodes to be classified as related they have to satisfy both two rules:
+Edges are built depending on the relatedness metrics. One can classify two nodes as related if they satisfy both of the following rules:
 \begin{itemize}
-\item Tokens in an entry are conceptually related if they co-occurs within a word distance of $d_t$.
-\item Each node of an edge should have a minimum frequency of $f_t$ in the whole dataset.
+\item Two nodes are conceptually related if they co-occurs within a word distance of $d_t$ in an entry.
+\item Each node should have a minimum frequency of $f_t$ in the whole dataset.
 \end{itemize}
 
 The edges follow the flow in the entries thus have a direction from the earlier seen token to the coming token. For example the edges in Table~\ref{tab:edges} would be derived from a text including the phrase ``with a beautiful smile''. The \textit{from} property indicates the first word and \textit{to} is the latter in the phrase. Direction and the distance together hold a unique triplet. For each two node with a specific distance there is an edge with a positive weight if that two nodes are related. Each co-occurrence of two related nodes increases the weight of the representing edge with an average of nodes' POS tag confidence score in that specific entry. If we are to expand the graph with our example phrase using the given POS tags and accuracies from Table~\ref{tab:postags}, the increase in the weights would be respectively $0.9963+0.9712/2$, $0.998+0.9712/2$ and $0.9971+0.9712/2$.
