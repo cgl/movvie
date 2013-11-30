@@ -35,7 +35,7 @@ ewNormalized(n,pos,c) = ew(n,pos,c) / frequency(c)
 \end{equation}
 
 
-We have a metric that assures contextual similarity based on binary relatedness. However we need more than binary relatedness to achive a comprehensive conteptual coverage. To assure this broader coverage our contextual similarity feature is build based on sum of the binary relatedness scores of several neighbours. For a candidate node $c_{ik}$ the contextual similarity cost is the sum of $ew_{ijk}$ which is the edge weights coming from different neighbours of the OOV token $t_i$. We expect this contextual similarity feature to favour and XXX(find) the candidates which are (1)related to as many neighbours as possible and (2)have a high relatedness score with each neighbours.
+We have a metric that assures contextual similarity based on binary relatedness. However we need more than binary relatedness to achive a comprehensive contextual coverage. To assure this broader coverage our contextual similarity feature is build based on sum of the binary relatedness scores of several neighbours. For a candidate node $c_{ik}$ the contextual similarity cost is the sum of $ew_{ijk}$ which is the edge weights coming from different neighbours of the OOV token $t_i$. We expect this contextual similarity feature to favour and XXX(find) the candidates which are (1)related to as many neighbours as possible and (2)have a high relatedness score with each neighbours.
 
 \begin{equation}
 contSimCostNeigh(t,n,c,pos) = \sum_{n,c \in EL(t,n)}{ewNormalized(n,pos,c)} \\\\
@@ -47,11 +47,11 @@ contSimCost(t,c) = \sum_{n,pos \in NL(t) }{contSimCostNeigh(t,n,c,pos)}
 
 Since the graph includes both OOV and IV tokens and our OOV detection depends on the spellchecker which excepts some OOV tokens that has same spelling with another IV word as IV, to be able to propose better canonical forms the frequency of normalization candidates has been also added to the contextual similarity feature. Nodes with higher frequencies leads to tokens' most likely grammatical forms.
 
-Böylece elimizde $EL_{ij}$'teki unique adayları ve contextual sim score'larıyla candidate list $CL_{ij}$ oluşturuyoruz.
+Hereby, we have the candidate list $CL_{i}$ for the OOV token $t_i$ that includes all the unique candidates in $EL_{ij}$s and their contextual similarity costs.
 
 \subsection{Lexical Similarity}
 
-Following ~\cite{Han:2011:LNS:2002472.2002520},\cite{DBLP:conf/acl/HassanM13}, we built our lexical similarity features over standard edit distance~\cite{levenshtein1966bcc}, double metaphone(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132} and longest common subsequence ratio over edit distance(LCRS)~\cite{Contractor:2010:UCN:1944566.1944588}.
+Following~\cite{Han:2011:LNS:2002472.2002520},\cite{DBLP:conf/acl/HassanM13}, we built our lexical similarity features over standard edit distance~\cite{levenshtein1966bcc}, double metaphone(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132} and longest common subsequence ratio over edit distance(LCRS)~\cite{Contractor:2010:UCN:1944566.1944588}.
 
 We calculated both edit distance, phonetic edit distance and LCSR of each candidate in $CL_{ij}$ and OOV token $t_i$.
 
