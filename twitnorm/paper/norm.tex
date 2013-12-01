@@ -156,9 +156,9 @@ Text Normalization \sep Twitter \sep micro-blogs \sep social media
 
 Social text has become an enormous part of our lives. We are moving towards to an era that we will be talking using machines more than we talk to each other. Social platforms make mass amounts of people communicate via typed or transcribed text. That is the era that the news are spreading digitally via social media other than edited newspaper articles.
 
-With these in mind, it has been also starting of a new era for text analytics researches. The recent studies on social media such that Stock Prediction\cite{DBLP:conf/acl/SiMLLLD13}, politeness detection\cite{DBLP:conf/acl/Danescu-Niculescu-MizilSJLP13}, disaster detection\cite{Sakaki:2010:EST:1772690.1772777} tries to lighten up the road of this digitized future of ours.
+With these in mind, it has been also starting of a new era for text analytics researches. The recent studies on social media such that Stock Prediction~\cite{DBLP:conf/acl/SiMLLLD13}, politeness detection~\cite{DBLP:conf/acl/Danescu-Niculescu-MizilSJLP13}, disaster detection~\cite{Sakaki:2010:EST:1772690.1772777} tries to lighten up the road of this digitized future of ours.
 
-Therefore analyzing social media text is a challenge for itself. Due to its noisy nature, many NLP tools are performing poorly on social media text\cite{ritter2010unsupervised}. The problems that noise in the social media text generates for NLP tools can be overcome by some preprocessing steps.
+Therefore analyzing social media text is a challenge for itself. Due to its noisy nature, many NLP tools are performing poorly on social media text~\cite{ritter2010unsupervised}. The problems that noise in the social media text generates for NLP tools can be overcome by some preprocessing steps.
 
 Unlike spoken and written language, digitized language has its own form and nature. Since the beginning of World Wide Web, internet has it's own slang. \textit{lol} meaning \textit{laughing out loudly},  \textit{xoxo} meaning \textit{kissing}, \textit{4u} meaning \textit{for you} are the oldest examples of this slang. Everyday new slangs as well as new words such as iTunes and new abbreviations are coming up. It is a huge, an evolving language that has long gone beyond the reach and control of spellcheckers and slang dictionaries.
 \begin{table}[tbhp]
@@ -205,9 +205,9 @@ In this paper we propose a new approach to text normalization. A graph based mod
 \section{Related Work}
 \label{sec:related}
 
-Early work on text normalization mostly made use of noisy channel model. The first work that had a significant performance improvement over the previous research was~\cite{Brill:2000:IEM:1075218.1075255}. They proposed a novel noisy channel model for spell checking based on string to string edits. Their error model depended on probabilistic modelling of sub-string transformations.~\cite{Toutanova:2002:PMI:1073083.1073109} improved this approach by extending the error model with phonetic similarities over words.
+Early work on text normalization mostly made use of noisy channel model. The first work that had a significant performance improvement over the previous research was Brill and Moore,2000~\cite{Brill:2000:IEM:1075218.1075255}. They proposed a novel noisy channel model for spell checking based on string to string edits. Their error model depended on probabilistic modelling of sub-string transformations. Toutanova et al.,2002 improved this approach by extending the error model with phonetic similarities over words~\cite{Toutanova:2002:PMI:1073083.1073109}.
 
-\cite{Choudhury:2007:IMS:1326044.1326048} developed a supervised Hidden Markov Model based approach for normalizing SMS Texts.~\cite{Cook:2009:UMT:1642011.1642021} has expanded this model by introducing an unsupervised noisy channel model. Rather than using one generic model for all word formations as in~\cite{Choudhury:2007:IMS:1326044.1326048}, they used a mixture model in which each different word formation type was modelled explicitly.~\cite{Aw:2006:PSM:1273073.1273078} proposed a phrase-based statistical MT model for the task. They defined the problem as translating the SMS language to English language.
+Choudhury et al.,2007 developed a supervised Hidden Markov Model based approach for normalizing SMS Texts~\cite{Choudhury:2007:IMS:1326044.1326048}. Cook and Stevenson,2009 has expanded this model by introducing an unsupervised noisy channel model~\cite{Cook:2009:UMT:1642011.1642021}. Rather than using one generic model for all word formations as in Choudhury et al.,2007, they used a mixture model in which each different word formation type was modelled explicitly. Aw et al.,2006 proposed a phrase-based statistical MT model for the task~\cite{Aw:2006:PSM:1273073.1273078}. They defined the problem as translating the SMS language to English language.
 
 What these methods are missing is that they do not consider contextual features and they observe each token that has an unique normalization. However, that is not the case for the normalization task. The OOV tokens are ambiguous and without contextual information it is not possible to build models that can disambiguate transformations correctly.
 
@@ -216,7 +216,7 @@ More recent approaches handles the text normalization task by building normaliza
 
 \cite{DBLP:conf/acl/HassanM13}
 
-\cite{Gouws:2011:CBL:2021109.2021113} on the other hand, proposed an approach that depends highly on contextual information such as the geological location and of the users and twitter client that the tweet is received from. Using contextual metrics they models the transformation distributions.
+Gouws et al.,2011 on the other hand, proposed an approach that depends highly on contextual information such as the geological location and of the users and twitter client that the tweet is received from~\cite{Gouws:2011:CBL:2021109.2021113}. Using contextual metrics they models the transformation distributions.
 
 \section{Methodology}
 \label{sec:method}
@@ -275,15 +275,15 @@ smile & N & 0.9806 \\
  \hline
 \end{tabular}
 \end{minipage}
-\caption{Sample POS tagger output obtained by using CMU Ark Tagger (P:Pronoun, D:Determiner, A:Adjective, N:Noun, G:Miscellaneous) ~\cite{DBLP:conf/naacl/OwoputiODGSS13,Gimpel:2011:PTT:2002736.2002747}}
+\caption{Sample POS tagger output obtained by using CMU Ark Tagger (P:Pronoun, D:Determiner, A:Adjective, N:Noun, G:Miscellaneous)~\cite{DBLP:conf/naacl/OwoputiODGSS13,Gimpel:2011:PTT:2002736.2002747}}
 \label{tab:postags}
 \end{table}
 
 \subsection{Graph construction}
 
-Contextual information of words is modeled through a word association graph created by using a large corpus of social media text. The graph encodes the relative positions of the POS tagged words in the text with respect to each other. After preprocessing, each text message in the corpus is traversed in order to extract the nodes and the edges of the graph. 
+Contextual information of words is modeled through a word association graph created by using a large corpus of social media text. The graph encodes the relative positions of the POS tagged words in the text with respect to each other. After preprocessing, each text message in the corpus is traversed in order to extract the nodes and the edges of the graph.
 %The graph~(See Figure~\ref{fig:graph}) is build using a big dataset of social media text. After preprocessing, we traverse each entry in the dataset and extract nodes and edges.
-A node is defined with four properties: \textit{id, oov, freq, tag}. The token itself and it's POS tag form the \textit{id} field. The \textit{freq} property indicates the node's frequency count in the dataset. The \textit{oov} field is set to True if the token is an OOV word. Following the prior work by Han and Baldwin, 2011 we used the GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV or not ~\cite{Han:2011:LNS:2002472.2002520}. Table~\ref{tab:graph} shows a sample tokenized and tagged sentence from the corpus, as well as the nodes and edges that are extracted from it to create the word association graph. A portion of the graph that covers this sample sentence is shown in Figure~\ref{fig:graph}.
+A node is defined with four properties: \textit{id, oov, freq, tag}. The token itself and it's POS tag form the \textit{id} field. The \textit{freq} property indicates the node's frequency count in the dataset. The \textit{oov} field is set to True if the token is an OOV word. Following the prior work by Han and Baldwin, 2011 we used the GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV or not~\cite{Han:2011:LNS:2002472.2002520}. Table~\ref{tab:graph} shows a sample tokenized and tagged sentence from the corpus, as well as the nodes and edges that are extracted from it to create the word association graph. A portion of the graph that covers this sample sentence is shown in Figure~\ref{fig:graph}.
 
 \begin{table}[tbhp]
 \begin{minipage}[c]{\linewidth}
@@ -415,7 +415,7 @@ Hereby, we have the candidate list $CL_{i}$ for the OOV token $t_i$ that include
 
 \subsection{Lexical Similarity}
 
-Following~\cite{Han:2011:LNS:2002472.2002520},\cite{DBLP:conf/acl/HassanM13}, we built our lexical similarity features over standard edit distance~\cite{levenshtein1966bcc}, double metaphone(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132} and longest common subsequence ratio over edit distance(LCSR)~\cite{Contractor:2010:UCN:1944566.1944588}.
+Following~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/HassanM13}, we built our lexical similarity features over standard edit distance~\cite{levenshtein1966bcc}, double metaphone(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132} and longest common subsequence ratio over edit distance(LCSR)~\cite{Contractor:2010:UCN:1944566.1944588}.
 
 We calculated both edit distance, phonetic edit distance and LCSR of each candidate in $CL_{ij}$ and OOV token $t_i$.
 
@@ -423,7 +423,7 @@ Following the tradition that is inspired from~\cite{Kaufmann2010} before lexical
 
 We used edit distance and phonetic edit distance to filter the candidates. Any candidate in $CL_{ij}$ with an edit distance greater than $ed_t$ and phonetic edit distance greater than $ped_t$ to $t_i$ has been removed from the candidate list $CL_{ij}$.
 
-For the rest of the candidates we calculated the total lexical similarity score(Eq~\ref{eq:lexscore}) using LCSR and edit distance score~\footnote{an approximate string comparator measure (between 0.0 and 1.0) using the edit distance \url{https://sourceforge.net/projects/febrl/}}. Since the main lexical feature is LCSR, we applied the same distributions we used in contextual similarity score in calculating lexical score too.
+For the rest of the candidates we calculated the total lexical similarity score(Eq~\ref{eq:lexscore}) using LCSR and edit distance score~\footnote{an approximate string comparison measure (between 0.0 and 1.0) using the edit distance \url{https://sourceforge.net/projects/febrl/}}. Since the main lexical feature is LCSR, we applied the same distributions we used in contextual similarity score in calculating lexical score too.
 
 \begin{equation}
 lexScore(t,c) = \lambda_a LCSR(t,c) + \frac{\lambda_a} 2 editDistScore(t,c) + \lambda_a externalScore(t,c)
@@ -452,11 +452,11 @@ candScore(t,c) = lexScore(t,c) + contScore(t,c)
 We used LexNorm1.1 dataset~\cite{Han:2011:LNS:2002472.2002520} to evaluate our approach. LexNorm1.1 contains 549 tweets with 1184 ill-formed OOV tokens.
 
 \subsection{Graph Generation}
-We used a large amount of social media text to construct our co-occurrence graph. We extracted 1.5GB English tweets from Stanford's 476 million Twitter Dataset~\cite{DBLP:conf/wsdm/YangL11}. The language identification of tweets is performed using the langid.py~\cite{Lui:2012:LOL:2390470.2390475},\cite{Baldwin:2010:LIL:1857999.1858026}.
+We used a large amount of social media text to construct our co-occurrence graph. We extracted 1.5GB English tweets from Stanford's 476 million Twitter Dataset~\cite{DBLP:conf/wsdm/YangL11}. The language identification of tweets is performed using the langid.py~\cite{Lui:2012:LOL:2390470.2390475, Baldwin:2010:LIL:1857999.1858026}.
 
 After tokenization we removed tokens POS tagged as mention~(@brendon), discourse marker (ex: RT), URL, email addresses, emoticons, numerals and punctuations. Remaining tokens are used to build the graph.
 
-For tokenization and POS tagging the tweets, we used CMU Ark Tweet Tagger~\cite{DBLP:conf/naacl/OwoputiODGSS13},\cite{Gimpel:2011:PTT:2002736.2002747}. Ark Tweet Tagger is a social media specific POS tagger and reported to perform $95\%$ accuracy over social media text.
+For tokenization and POS tagging the tweets, we used CMU Ark Tweet Tagger~\cite{DBLP:conf/naacl/OwoputiODGSS13,Gimpel:2011:PTT:2002736.2002747}. Ark Tweet Tagger is a social media specific POS tagger and reported to perform $95\%$ accuracy over social media text.
 
 The POS tagset of ark tagger includes some extra tags besides the standard part of speech tags that is specific to social media: URLs and emoticons; Twitter hashtags \#; twitter at-mentions (@). One other tag that is special to social media is \textasciitilde~means the token is specific to a discourse function of twitters. Lastly G stands for miscellaneous words including multi word abbreviations like btw~(by the way), nw~(no way), smh~(somehow).
 
@@ -466,9 +466,31 @@ After constructing the graph we only kept the nodes with a frequency greater tha
 
 \subsection{Candidate Set Generation}
 
-While extending the candidate set with lexical features we use ${ed_t \leq 2} \vee {ped_t \leq 1}$ to keep up with the settings in~\cite{Han:2011:LNS:2002472.2002520}. IV words that is within 2 character edit distance of given OOV word or 1 character edit distance of given OOV word under phonemic transcription are chosen as lexical similarity candidates.
+While extending the candidate set with lexical features we use ${ed_t \leq 2} \vee {ped_t \leq 1}$ to keep up with the settings in Han et al.~\cite{Han:2011:LNS:2002472.2002520}. IV words that is within 2 character edit distance of given OOV word or 1 character edit distance of given OOV word under phonemic transcription are chosen as lexical similarity candidates.
 
 \subsection{Results and Analysis}
+
+\begin{table}[thb]
+  \centering
+  \begin{tabular}[t]{lccc}
+    \hline
+    Method & Precision & Recall & F-measure \\
+    \hline
+    Han and Baldwin, 2011 & 75.30 & 75.30 & 75.30 \\
+    Hassan et al. 2013 & 85.37 & 56.40 & 69.93 \\
+    Yang et al. 2013 & 82.09 & 82.09 & 82.09 \\
+    CWA-Graph   & 86.20 & 78.0 & 82.0 \\
+    \hline
+  \end{tabular}
+  \caption{Empirical Results produced on LexNorm1.1 dataset}
+  \label{tab:results}
+\end{table}
+
+The results are presented in Table~\ref{tab:results}. Our system, Contextual Word Association Graph (CWA-Graph), achieved the highest precision among all other systems compared with the LexNorm1.1 dataset.
+
+As well as precision, we managed to raise the F-Measure score without compromising much from the recall. Yet, we have the highest F-Measure score except the Yang et al.'s~\cite{DBLP:conf/wsdm/YangL11}.
+
+The earlier work we compare our system with, assumes that the words to be normalized are given in advance. We also made the same assumption. However unlike other systems (\cite{DBLP:conf/wsdm/YangL11, liu2012broad, Han:2011:LNS:2002472.2002520}), our system may not propose a normalization, if there are no candidates that are lexically similar, grammatically correct and contextually close enough. For this reason we managed to achieve a higher recall compared to other systems. Besides, we make sure that the candidate has a minimum similarity either contextual, lexical, external or each. In Table~\ref{tab:thresholds} you can see how we reach higher degrees of precision by fine tuning the system threshold.
 
 \begin{table}[thb]
   \centering
@@ -487,26 +509,10 @@ While extending the candidate set with lexical features we use ${ed_t \leq 2} \v
     1.8 & 94.50 & 60.4 & 73.70 \\
     \hline
   \end{tabular}
-  \caption{Comparision of results for different threshold values}
-  \label{tab:thresholds}
+  \caption{Comparison of results for different threshold values, which set as at least $\lambda_a$}
+\label{tab:thresholds}
 \end{table}
 
-\begin{table}[thb]
-  \centering
-  \begin{tabular}[t]{lccc}
-    \hline
-    Method & Precision & Recall & F-measure \\
-    \hline
-    Han and Baldwin, 2011 & 75.30 & 75.30 & 75.30 \\
-    Hassan et al. 2013 & 85.37 & 56.40 & 69.93 \\
-    Yang et al. 2013 & 82.09 & 82.09 & 82.09 \\
-    relatedness    & 86.20 & 78.0 & 82.0 \\
-    relatedness     & 84.80 & 79.50 & 82.0 \\
-    \hline
-  \end{tabular}
-  \caption{Emprical Results}
-  \label{tab:results}
-\end{table}
 
 \section{Conclusion}
 
