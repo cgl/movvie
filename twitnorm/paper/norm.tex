@@ -254,7 +254,7 @@ a & D & 0.998 \\
  \hline
 beautiful & A & 0.9971 \\
  \hline
-smile & G & 0.9712 \\
+smile & N & 0.9712 \\
  \hline
 \end{tabular}
 \end{minipage}
@@ -460,7 +460,28 @@ After constructing the graph we only kept the nodes with a frequency greater tha
 
 While extending the candidate set with lexical features we use ${ed_t \leq 2} \vee {ped_t \leq 1}$ to keep up with the settings in~\cite{Han:2011:LNS:2002472.2002520}. IV words that is within 2 character edit distance of given OOV word or 1 character edit distance of given OOV word under phonemic transcription are chosen as lexical similarity candidates.
 
-\subsection{Results an Analysis}
+\subsection{Results and Analysis}
+
+\begin{table}[thb]
+  \centering
+  \begin{tabular}[th]{lccc}
+    \hline
+    Threshold & Precision & Recall & F-measure \\
+    \hline
+    $\leq$ 1 & 81.40 & 81.1 & 81.20 \\
+    1.1 & 84.40 & 79 & 81.60 \\
+    1.2 & 87.90 & 76.30 & 81.7 \\
+    1.3 & 84.80 & 79.50 & 82.00 \\
+    1.4 & 85.40 & 79. & 81.90 \\
+    1.45 & 86.20 & 78.1 & 82. \\
+    1.6 & 90.00 & 72.1 & 80.10 \\
+    1.7 & 92.50 & 68.9 & 79.00 \\
+    1.8 & 94.50 & 60.4 & 73.70 \\
+    \hline
+  \end{tabular}
+  \caption{Comparision of results for different threshold values}
+  \label{tab:thresholds}
+\end{table}
 
 \begin{table}[thb]
   \centering
@@ -477,25 +498,6 @@ While extending the candidate set with lexical features we use ${ed_t \leq 2} \v
   \end{tabular}
   \caption{Emprical Results}
   \label{tab:results}
-\end{table}
-
-\begin{table}[thb]
-  \centering
-  \begin{tabular}[th]{lccc}
-    \hline
-    Threshold & Precision & Recall & F-measure \\
-    \hline
-    1.1 & 84.40 & 79 & 81.60 \\
-    1.2 & 87.90 & 76.30 & 81.7 \\
-    1.3 & 84.80 & 79.50 & 82.00 \\
-    1.4 & 85.40 & 79. & 81.90 \\
-    1.6 & 90.00 & 72.1 & 80.10 \\
-    1.7 & 92.50 & 68.9 & 79.00 \\
-    1.8 & 94.50 & 60.4 & 73.70 \\
-    \hline
-  \end{tabular}
-  \caption{Comparision of results for different threshold values}
-  \label{tab:thresholds}
 \end{table}
 
 \section{Conclusion}
