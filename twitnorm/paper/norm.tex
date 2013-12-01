@@ -127,7 +127,7 @@
 
 \begin{keyword}
 %% keywords here, in the form: keyword \sep keyword
-Text Normalization \sep Twitter \sep microblogs \sep social media
+Text Normalization \sep Twitter \sep micro-blogs \sep social media
 %% MSC codes here, in the form: \MSC code \sep code
 %% or \MSC[2008] code \sep code (2000 is the default)
 
@@ -185,33 +185,27 @@ kissin & kissing \\
 \label{tab:normalizations}
 \end{table}
 
-Text normalization is a preprocessing step to restore noisy forms of text to its original(canonical) form\cite{Han:2011:LNS:2002472.2002520} to make use in NLP applications or more broadly to understand the digitized text better. For example \textit{talk 2 u later} can be normalized as \textit{talk to you later} or similarly \textit{enormoooos, enrmss, enourmos} cand be normalized as \textit{enormous}. Those noisy tokens are referred as Out of Vocabulary(OOV) words. Normalization task restors OOV words to their In Vocabulary(IV) form.
+Text normalization is a preprocessing step to restore noisy forms of text to its original(canonical) form\cite{Han:2011:LNS:2002472.2002520} to make use in NLP applications or more broadly to understand the digitized text better. For example \textit{talk 2 u later} can be normalized as \textit{talk to you later} or similarly \textit{enormoooos, enrmss, enourmos} can be normalized as \textit{enormous}. Those noisy tokens are referred as Out of Vocabulary(OOV) words. Normalization task restores OOV words to their In Vocabulary~(IV) form.
 
-However not every OOV word should be considered for normalization. The social text is continously evolving with new words and named entities that are not in the vocabularies of the systems~\cite{DBLP:conf/acl/HassanM13}. The OOV tokens that should be considered for normalization are referred to as ill-formed words. Oppositely an OOV word can sometimes lexically fit an IV word (ex: \textit{tanks} is both an IV word and OOV word with the canonical form \textit{thanks}). The task of recognizing which tokens are OOV, and which of those are ill-formed are beyond the scope of this paper.
+However not every OOV word should be considered for normalization. The social text is continuously evolving with new words and named entities that are not in the vocabularies of the systems~\cite{DBLP:conf/acl/HassanM13}. The OOV tokens that should be considered for normalization are referred to as ill-formed words. Oppositely an OOV word can sometimes lexically fit an IV word (ex: \textit{tanks} is both an IV word and OOV word with the canonical form \textit{thanks}). The task of recognizing which tokens are OOV, and which of those are ill-formed are beyond the scope of this paper.
 
-Unlike clean text, noisy text is difficult to model using standard language models. Due to noisy nature of the OOV tokens, versions of a text includes multiple different OOV tokens (ex: Table~\ref{tab:ngrams}). It is even more difficult to reach the correct version of the phrase when there is more than one OOV word in the text. A high performance normalization system should be capable of following the information flow in a noisy text as well as in clean text.
-\begin{table}[tbhp]
-\begin{centering}
-\begin{tabular}[h]{l}
-\hline
-with a beautiful smile \\
-\hline
-with a \textbf{beatiful} smile \\
-\textbf{w} a beautiful smile \\
-\textbf{wit} a beautiful \textbf{smil} \\
-\textbf{wth} a \textbf{btfl} \textbf{sml} \\
-\textbf{w} a \textbf{btfl smle} \\
-\hline
-\end{tabular}
-\par\end{centering}
-\caption{Example noisy n-grams}
-\label{tab:ngrams}
-\end{table}
+In~\cite{Choudhury:2007:IMS:1326044.1326048} Choudhury et Al.~proposes that the OOV words observed in noisy text can be classified into two groups, unintentional and intentional errors. The unintentional errors are caused by (1) pressing of the wrong key, (2) pressing of a key more than the desired number of times, (3) deletion of a character or (4) inadequate knowledge of spelling. As for the intentional errors, they can be categorized into four categories: character deletion(``tlk'' for ``talk'', ``msg'' for ``message'', ``tomoro'' for ``tomorrow'', ``mob'' for ``mobile''), phonetic substitution~(``nite'' for ``night'', ``bk'' for ``back'', ``u'' for ``you'', ``m8'' for ``mate''), abbreviations~(``btw'' for ``by the way'', ``kgp'' for ``Kharagpur'') and non-standard usage~(``wanna'' for ``want to'', ``betta'' for ``better'', ``sumfin'' for ``something'', ``b/c'' for ``because'').
 
 In this paper we propose a new approach to text normalization. A graph based model, which benefits from both lexical, contextual and grammatical features of social text.
 
-\section{Method}
-\label{sec:graph}
+\section{Related Work}
+\label{sec:related}
+
+Early work on text normalization has been highly made use of noisy channel model. The first work that has a significant performance improvement over the previous research was~\cite{Brill:2000:IEM:1075218.1075255}. They proposed a novel noisy channel model for spell checking based on string to string edits. Their error model was depending on probabilistic modeling of sub-string transformations.~\cite{Toutanova:2002:PMI:1073083.1073109} improved this approach by extending the error model with phonetic similarities over words.
+
+\cite{Choudhury:2007:IMS:1326044.1326048} developed a supervised Hidden Markov Model based approach for normalizing SMS Texts.~\cite{Cook:2009:UMT:1642011.1642021} has expanded this model by introducing an unsupervised noisy channel model. Rather than using one generic model for all word formations as in~\cite{Choudhury:2007:IMS:1326044.1326048}, they used a mixture model in which each different word formation type is modeled explicitly.~\cite{Aw:2006:PSM:1273073.1273078} proposed a phrase-based statistical MT model for the task. They defined the problem as translating the SMS language to English language.
+
+What these methods are missing is they do not consider contextual features, and observe each token has a unique normalization. However that is not the case for the normalization task. The OOV tokens are ambiguous and without contextual information it is not possible to build models that can disambiguate transformations correctly.
+
+
+
+\section{Methodology}
+\label{sec:method}
 
 %Unsupervised and graph based context aware model:
 
@@ -230,7 +224,7 @@ In this paper, we propose a graph based approach that models both contextual and
 
 \subsection{Preprocessing}
 
-Tokenization is the first step in our system. Tokenization is the process of breaking the text into words, numbers, symbols, emoticons in other words the smallest meaningful elements of the text called tokens. After tokenization, next in the pipeline is POS tagging each token using a social media pos tagger. Unlike the normal pos taggers, social media pos taggers~\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747} provide a broader set of tags that is special to the social text. By this extended set of tags we can identify tokens such as discourse markers~(rt for retweets, cont. for a tweet whose content follows up in the coming tweet) or urls. So that we can process those tokens within their context.
+Tokenization is the first step in our system. Tokenization is the process of breaking the text into words, numbers, symbols, emoticons in other words the smallest meaningful elements of the text called tokens. After tokenization, next in the pipeline is POS tagging each token using a social media POS tagger. Unlike the normal POS taggers, social media POS taggers~\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747} provide a broader set of tags that is special to the social text. By this extended set of tags we can identify tokens such as discourse markers~(rt for retweets, cont. for a tweet whose content follows up in the coming tweet) or URLs. So that we can process those tokens within their context.
 
 As shown in Table~\ref{tab:postags}, after preprocessing, each token is assigned a POS tag with a confidence measure between 0 and 1. Later, we use these confidence scores in calculating the weight of edges in our context graph.
 
@@ -283,7 +277,7 @@ The graph(See Figure~\ref{fig:graph}) is build using a big dataset of social med
 
 We define a node with four properties \textit{id, oov, freq, tag}. The token itself plus it's POS tag forms the \textit{id} field. \textit{freq} property indicates the node's frequency count in the dataset. \textit{oov} field is set to True if the token is a OOV word. Following Han et al.\ we used GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV or not.
 
-In the word-relatedness graph, each node is a unique set of a token and a POS tag (see Table~\ref{tab:graph}). This helps us to identify the tokens not only lexically and contextually but also (in terms of POS tags) gramatically.
+In the word-relatedness graph, each node is a unique set of a token and a POS tag (see Table~\ref{tab:graph}). This helps us to identify the tokens not only lexically and contextually but also (in terms of POS tags) grammatically.
 
 \begin{table}[tbhp]
 \begin{minipage}[c]{\linewidth}
@@ -308,7 +302,7 @@ Edges & \{Let's$|$L, start$|$V , distance:1\},\{Let's$|$L, this$|$D, distance:2\
 \label{tab:graph}
 \end{table}
 
-For example if the token \textit{smile} has been seen frequently as a Noun and a Verb and not in other forms in the dataset~(Ex: Table \ref{tab:nodes}), this means that it is not a good candidate for a Pronoun OOV token(that is a Pronoun). Conversely, if \textit{smile} is lexically and contextually similar enough, it is a good candidate for a Noun or Verb OOV token.
+For example if the token \textit{smile} has been seen frequently as a Noun and a Verb and not in other forms in the dataset~(Ex: Table\ref{tab:nodes}), this means that it is not a good candidate for a Pronoun OOV token~(that is a Pronoun). Conversely, if \textit{smile} is lexically and contextually similar enough, it is a good candidate for a Noun or Verb OOV token.
 
 \begin{table}[hbt]
   \centering
@@ -338,6 +332,64 @@ The edges follow the flow in the entries thus have a direction from the earlier 
   \caption{Example edges from sample phrase  ``with a beautiful smile''}
 \label{tab:edges}
 \end{table}
+
+\subsection{Graph Based Contextual Similarity}
+
+When we have an entry to normalize, next step after preprocessing is finding normalization candidates for each OOV token in the entry. For each ill-formed OOV token $t_i$ in a given entry, we first list the nodes that is related to $t_i$. The list includes all the nodes related to $t_i$ and their positional distance to the $t_i$ in the entry. We will refer to this list as neighbour list $NL_i$. In Table~\ref{tab:neigh} you can find a sample neighbour list for the OOV token beatiful$|$A from the sample sentence in Table~\ref{tab:graph}.
+
+\begin{table}[hbt]
+  \centering
+  \begin{tabular}[tc]{l}
+    w$|$P, position: -2 \\
+    a$|$D, position: -1 \\
+    smile$|$V, position: 1 \\
+  \end{tabular}
+\caption{Example neighbour list for the OOV node beatiful$|$A}
+\label{tab:neigh}
+\end{table}
+
+
+For each neighbour node $n_{ij}$ in the $NL_i$  we traverse the graph and find the edges from or to the node ($n_{ij}$). The resulting edge list $EL_{ij}$ has edges in the form of ($n_{ij}$, candidate) or (candidate,$n_{ij}$) and includes all the nodes that are related to the node $n_{ij}$. Here the neighbour node can be an OOV node but the candidate node chosen among the IV nodes. We filter the edges in $EL_{ij}$ by the relative distance of $n_{ij}$ to the $t_i$ given in the $NL_i$. Each (neighbour, candidate) tuple should have the exact distance as the neighbour and OOV token has.
+
+One last step is to conduct a POS tag filtering on the edges in $EL_{ij}$. Each candidate node should have the same POS tag with its OOV token. For the OOV token $t_i$ which has tag $T_i$, all the edges that include candidates with a tag other than $T_i$ are removed from the edge list $EL_{ij}$. Thus $EL_{i}$ contains edges only with $c_{ik}$s that is tagged with $T_i$.
+
+Each edge in the $EL_{ij}$ has a neighbour node $n_{ij}$, a candidate node $c_{ik}$ and an edge weight $ew_{ijk}$. The edge weight, represents the likelihood or the degree of the relatedness between the the neighbour node $n_{ij}$ and candidate node $c_{ik}$(Eq~\ref{eq:ew}). Since we are looking for candidate nodes that is most likely to be the correct canonical form of the OOV word $t_i$, this metric is a good indicator. However, weight of the common phrases are much more higher than the average weight. That results in favouring the words with higher frequencies like stop words. To avoid this we normalize the edge weight $ew_{ijk}$ with the frequency of the neighbour node $n_{ij}$(See Eq~\ref{eq:ew_norm}).
+
+\begin{equation}
+ew(n,pos,c) =
+\begin{cases}
+  w : (n,c,distance = |pos|,weight=w), & \text{if } pos < 0 \\
+  w : (c,n,distance = |pos|,weight=w), & \text{otherwise}
+\end{cases}
+\label{eq:ew}
+\end{equation}
+
+\begin{equation}
+ewNormalized(n,pos,c) = ew(n,pos,c) / frequency(c)
+\label{eq:ew_norm}
+\end{equation}
+
+
+We have a metric that assures contextual similarity based on binary relatedness. However we need more than binary relatedness to achive a comprehensive contextual coverage. To assure this broader coverage, one contextual similarity feature is built based on sum of the binary relatedness scores of several neighbours. For a candidate node $c_{ik}$ the total edge weight score is the sum of $ew_{ijk}$ which is the edge weights coming from different neighbours of the OOV token $t_i$. You can find the formula in Equation~\ref{eq:wscore}. We expect this contextual similarity feature to favour and XXX(find) the candidates which are (1)related to as many neighbours as possible and (2)have a high relatedness score with each neighbours.
+
+\begin{equation}
+edgeWeightScoreNeigh(t,n,c,pos) = \sum_{n,c \in EL(t,n)}{ewNormalized(n,pos,c)} \\\\
+\end{equation}
+\begin{equation}
+edgeWeightScore(t,c) = \sum_{n,pos \in NL(t) }{contSimCostNeigh(t,n,c,pos)}
+\label{eq:wscore}
+\end{equation}
+
+Since the graph includes both OOV and IV tokens and our OOV detection depends on the spellchecker which excepts some OOV tokens that has the same spelling with another IV word as IV, to be able to propose better canonical forms, the frequency of normalization candidates has been also added to the contextual similarity feature. Nodes with higher frequencies lead to tokens', that are in their most likely grammatical forms.
+
+To calculate the final contextual similarity cost, we sum the total edge weight score and a frequency score between 0 and 1 (proportional to their frequency) (See Eq~\ref{eq:contscore}). Since the total edge weight score is our primary contextual resource, while calculating the total contextual similarity metric, we assigned to the frequency feature, only half weight of the total edge weight score.
+
+\begin{equation}
+contScore(t,c) = \lambda_a edgeWeightScore(t,c) + \frac{\lambda_a} 2 freqScore(c)
+\label{eq:contscore}
+\end{equation}
+
+Hereby, we have the candidate list $CL_{i}$ for the OOV token $t_i$ that includes all the unique candidates in $EL_{i}$ and their contextual similarity costs calculated.
 
 \input{graph}
 \input{experiments}

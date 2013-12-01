@@ -1,67 +1,19 @@
-\subsection{Graph Based Contextual Similarity}
-
-When we have an entry to normalize, next step after preprocessing is finding normalization candidates for each OOV token in the entry. For each ill-formed OOV token $t_i$ in a given entry, we first list the nodes that is related to $t_i$. The list includes all the nodes related to $t_i$ and their positional distance to the $t_i$ in the entry. We will refer to this list as neighbour list $NL_i$. In Table~\ref{tab:neigh} you can find a sample neighbour list for the OOV token beatiful$|$A from the sample sentence in Table~\ref{tab:graph}.
-
-\begin{table}[hbt]
-  \centering
-  \begin{tabular}[tc]{l}
-    w$|$P, position: -2 \\
-    a$|$D, position: -1 \\
-    smile$|$V, position: 1 \\
-  \end{tabular}
-\caption{Example neighbour list for the OOV node beatiful$|$A}
-\label{tab:neigh}
-\end{table}
-
-
-For each neighbour node $n_{ij}$ in the $NL_i$  we traverse the graph and find the edges from or to the node ($n_{ij}$). The resulting edge list $EL_{ij}$ has edges in the form of ($n_{ij}$, candidate) or (candidate,$n_{ij}$) and includes all the nodes that are related to the node $n_{ij}$. Here the neighbour node can be an OOV node but the candidate node chosen among the IV nodes. We filter the edges in $EL_{ij}$ by the relative distance of $n_{ij}$ to the $t_i$ given in the $NL_i$. Each (neighbour, candidate) tuple should have the exact distance as the neighbour and OOV token has.
-
-One last step is to conduct a POS tag filtering on the edges in $EL_{ij}$. Each candidate node should have the same POS tag with its OOV token. For the OOV token $t_i$ which has tag $T_i$, all the edges that include candidates with a tag other than $T_i$ are removed from the edge list $EL_{ij}$. Thus $EL_{i}$ contains edges only with $c_{ik}$s that is tagged with $T_i$.
-
-Each edge in the $EL_{ij}$ has a neighbour node $n_{ij}$, a candidate node $c_{ik}$ and an edge weight $ew_{ijk}$. The edge weight, represents the likelihood or the degree of the relatedness between the the neighbour node $n_{ij}$ and candidate node $c_{ik}$(Eq~\ref{eq:ew}). Since we are looking for candidate nodes that is most likely to be the correct canonical form of the OOV word $t_i$, this metric is a good indicator. However, weight of the common phrases are much more higher than the average weight. That results in favouring the words with higher frequencies like stop words. To avoid this we normalize the edge weight $ew_{ijk}$ with the frequency of the neighbour node $n_{ij}$(See Eq~\ref{eq:ew_norm}).
-
-\begin{equation}
-ew(n,pos,c) =
-\begin{cases}
-  w : (n,c,distance = |pos|,weight=w), & \text{if } pos < 0 \\
-  w : (c,n,distance = |pos|,weight=w), & \text{otherwise}
-\end{cases}
-\label{eq:ew}
-\end{equation}
-
-\begin{equation}
-ewNormalized(n,pos,c) = ew(n,pos,c) / frequency(c)
-\label{eq:ew_norm}
-\end{equation}
-
-
-We have a metric that assures contextual similarity based on binary relatedness. However we need more than binary relatedness to achive a comprehensive contextual coverage. To assure this broader coverage, our contextual similarity feature is built based on sum of the binary relatedness scores of several neighbours. For a candidate node $c_{ik}$ the contextual similarity cost is the sum of $ew_{ijk}$ which is the edge weights coming from different neighbours of the OOV token $t_i$. We expect this contextual similarity feature to favour and XXX(find) the candidates which are (1)related to as many neighbours as possible and (2)have a high relatedness score with each neighbours.
-
-\begin{equation}
-contSimCostNeigh(t,n,c,pos) = \sum_{n,c \in EL(t,n)}{ewNormalized(n,pos,c)} \\\\
-\end{equation}
-\begin{equation}
-contSimCost(t,c) = \sum_{n,pos \in NL(t) }{contSimCostNeigh(t,n,c,pos)}
-\label{eq:cont_cost}
-\end{equation}
-
-Since the graph includes both OOV and IV tokens and our OOV detection depends on the spellchecker which excepts some OOV tokens that has the same spelling with another IV word as IV, to be able to propose better canonical forms, the frequency of normalization candidates has been also added to the contextual similarity feature. Nodes with higher frequencies lead to tokens', that are in their most likely grammatical forms.
-
-Hereby, we have the candidate list $CL_{i}$ for the OOV token $t_i$ that includes all the unique candidates in $EL_{ij}$s and their contextual similarity costs.
-
 \subsection{Lexical Similarity}
 
 Following~\cite{Han:2011:LNS:2002472.2002520},\cite{DBLP:conf/acl/HassanM13}, we built our lexical similarity features over standard edit distance~\cite{levenshtein1966bcc}, double metaphone(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132} and longest common subsequence ratio over edit distance(LCRS)~\cite{Contractor:2010:UCN:1944566.1944588}.
 
 We calculated both edit distance, phonetic edit distance and LCSR of each candidate in $CL_{ij}$ and OOV token $t_i$.
 
-We used edit distance, phonetic edit distance to filter the candidates. Any candidate in $CL_{ij}$ with an edit distance greater than $ed_t$ and phonetic edit distance greater than $ped_t$ to $t_i$ has been removed from the candidate list $CL_{ij}$.
+We used edit distance and phonetic edit distance to filter the candidates. Any candidate in $CL_{ij}$ with an edit distance greater than $ed_t$ and phonetic edit distance greater than $ped_t$ to $t_i$ has been removed from the candidate list $CL_{ij}$.
 
-For the rest of the candidates we calculated LCSR and edit distance measure that is between 0.0 and 1.0. (*https://sourceforge.net/projects/febrl/ )
+For the rest of the candidates we calculated the total lexical similarity score(Eq~\ref{eq:lexscore}) using LCSR and edit distance score~\footnote{an approximate string comparator measure (between 0.0 and 1.0) using the edit distance \url{https://sourceforge.net/projects/febrl/}}. Since the main lexical feature is LCSR, we applied the same distributions we used in contextual similarity score in calculating lexical score too.
 
-İkisini toplayarak simcost'umuzu bulduk.
+\begin{equation}
+lexScore(t,c) = \lambda_a LCSR(t,c) + \frac{\lambda_a} 2 editDistScore(t,c)
+\label{eq:lexscore}
+\end{equation}
 
-Additionally, sistemin kısa entry'ler(context bağlantısı kurulamayacak kadar kısa), ve context'ten bağımsız token'ları da kapsayabilmesi için graph'ı tekrar dolaşıp yukarıdaki filtreye uyan kelimeleri de aday listesine ekledik.
+Additionally, sistemin kısa entry'ler(context bağlantısı kurulamayacak kadar kısa), ve context'ten bağımsız token'ları da kapsayabilmesi için graph'ı tekrar dolaşıp contextual similarity feature'ı taşımasa da yukarıdaki filtreye uyuyorsa aday listesine ekledik.
 
 son olarak slang dictionaryden faydalanarak aday yelpazemizi genişlettik.
 
