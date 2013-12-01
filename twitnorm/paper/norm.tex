@@ -196,13 +196,18 @@ In this paper we propose a new approach to text normalization. A graph based mod
 \section{Related Work}
 \label{sec:related}
 
-Early work on text normalization has been highly made use of noisy channel model. The first work that has a significant performance improvement over the previous research was~\cite{Brill:2000:IEM:1075218.1075255}. They proposed a novel noisy channel model for spell checking based on string to string edits. Their error model was depending on probabilistic modeling of sub-string transformations.~\cite{Toutanova:2002:PMI:1073083.1073109} improved this approach by extending the error model with phonetic similarities over words.
+Early work on text normalization mostly made use of noisy channel model. The first work that had a significant performance improvement over the previous research was~\cite{Brill:2000:IEM:1075218.1075255}. They proposed a novel noisy channel model for spell checking based on string to string edits. Their error model depended on probabilistic modelling of sub-string transformations.~\cite{Toutanova:2002:PMI:1073083.1073109} improved this approach by extending the error model with phonetic similarities over words.
 
-\cite{Choudhury:2007:IMS:1326044.1326048} developed a supervised Hidden Markov Model based approach for normalizing SMS Texts.~\cite{Cook:2009:UMT:1642011.1642021} has expanded this model by introducing an unsupervised noisy channel model. Rather than using one generic model for all word formations as in~\cite{Choudhury:2007:IMS:1326044.1326048}, they used a mixture model in which each different word formation type is modeled explicitly.~\cite{Aw:2006:PSM:1273073.1273078} proposed a phrase-based statistical MT model for the task. They defined the problem as translating the SMS language to English language.
+\cite{Choudhury:2007:IMS:1326044.1326048} developed a supervised Hidden Markov Model based approach for normalizing SMS Texts.~\cite{Cook:2009:UMT:1642011.1642021} has expanded this model by introducing an unsupervised noisy channel model. Rather than using one generic model for all word formations as in~\cite{Choudhury:2007:IMS:1326044.1326048}, they used a mixture model in which each different word formation type was modelled explicitly.~\cite{Aw:2006:PSM:1273073.1273078} proposed a phrase-based statistical MT model for the task. They defined the problem as translating the SMS language to English language.
 
-What these methods are missing is they do not consider contextual features, and observe each token has a unique normalization. However that is not the case for the normalization task. The OOV tokens are ambiguous and without contextual information it is not possible to build models that can disambiguate transformations correctly.
+What these methods are missing is that they do not consider contextual features and they observe each token that has an unique normalization. However, that is not the case for the normalization task. The OOV tokens are ambiguous and without contextual information it is not possible to build models that can disambiguate transformations correctly.
 
+More recent approaches handles the text normalization task by building normalization lexicons.
+\cite{Han:2011:LNS:2002472.2002520}
 
+\cite{DBLP:conf/acl/HassanM13}
+
+\cite{Gouws:2011:CBL:2021109.2021113} on the other hand, proposed an approach that depends highly on contextual information such as the geological location and of the users and twitter client that the tweet is received from. Using contextual metrics they models the transformation distributions.
 
 \section{Methodology}
 \label{sec:method}

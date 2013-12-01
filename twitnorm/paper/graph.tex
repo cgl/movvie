@@ -9,14 +9,21 @@ We used edit distance and phonetic edit distance to filter the candidates. Any c
 For the rest of the candidates we calculated the total lexical similarity score(Eq~\ref{eq:lexscore}) using LCSR and edit distance score~\footnote{an approximate string comparator measure (between 0.0 and 1.0) using the edit distance \url{https://sourceforge.net/projects/febrl/}}. Since the main lexical feature is LCSR, we applied the same distributions we used in contextual similarity score in calculating lexical score too.
 
 \begin{equation}
-lexScore(t,c) = \lambda_a LCSR(t,c) + \frac{\lambda_a} 2 editDistScore(t,c)
+lexScore(t,c) = \lambda_a LCSR(t,c) + \frac{\lambda_a} 2 editDistScore(t,c) + \lambda_a externalScore(t,c)
 \label{eq:lexscore}
 \end{equation}
 
 Additionally, sistemin kısa entry'ler(context bağlantısı kurulamayacak kadar kısa), ve context'ten bağımsız token'ları da kapsayabilmesi için graph'ı tekrar dolaşıp contextual similarity feature'ı taşımasa da yukarıdaki filtreye uyuyorsa aday listesine ekledik.
 
-son olarak slang dictionaryden faydalanarak aday yelpazemizi genişlettik.
 
-\subsection{Ranking}
+son olarak external normalizasyonlar olarak slang dictionarydeki entryleri, sayıları ve pronounları externalScore veretek aday listesine ekliyoruz. externalScore binary bir feature 0 ya da 1.
+\begin{verbatim}
+units = ["", "one", "to", "three", "for",  "five", "six", "seven", "eight", "nine"]
+pronouns = {u'2':u"to",u'w':u"with"}
+\end{verbatim}
 
-butun parametetreler aynı.Hassan'ların lambdası
+
+\begin{equation}
+candScore(t,c) = lexScore(t,c) + contScore(t,c)
+\label{eq:candscore}
+\end{equation}
