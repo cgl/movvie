@@ -109,7 +109,7 @@
 %% \address{Address\fnref{label3}}
 %% \fntext[label3]{}
 
-\title{A Graph Based Approach to Text Normalization}
+\title{A Graph Based Approach for Contextual Text Normalization}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{<author name>}
@@ -185,7 +185,7 @@ kissin & kissing \\
 \label{tab:normalizations}
 \end{table}
 
-Text normalization is a preprocessing step to restore noisy forms of text to its original(canonical) form\cite{Han:2011:LNS:2002472.2002520} to make use in NLP applications or more broadly to understand the digitized text better. For example \textit{talk 2 u later} can be normalized as \textit{talk to you later} or similarly \textit{enormoooos, enrmss, enourmos} can be normalized as \textit{enormous}. Those noisy tokens are referred as Out of Vocabulary(OOV) words. Normalization task restores OOV words to their In Vocabulary~(IV) form.
+Text normalization is a preprocessing step to restore noisy forms of text to its original(canonical) form~\cite{Han:2011:LNS:2002472.2002520} to make use in NLP applications or more broadly to understand the digitized text better. For example \textit{talk 2 u later} can be normalized as \textit{talk to you later} or similarly \textit{enormoooos, enrmss, enourmos} can be normalized as \textit{enormous}. Those noisy tokens are referred as Out of Vocabulary(OOV) words. Normalization task restores OOV words to their In Vocabulary~(IV) form.
 
 However not every OOV word should be considered for normalization. The social text is continuously evolving with new words and named entities that are not in the vocabularies of the systems~\cite{DBLP:conf/acl/HassanM13}. The OOV tokens that should be considered for normalization are referred to as ill-formed words. Oppositely an OOV word can sometimes lexically fit an IV word (Ex:~\textit{tanks} is both an IV word and OOV word with the canonical form \textit{thanks}). The task of recognizing which tokens are OOV, and which of those are ill-formed are beyond the scope of this paper.
 
@@ -237,7 +237,7 @@ As shown in Table~\ref{tab:postags}, after preprocessing, each token is assigned
 \begin{minipage}{.5\linewidth}
 \begin{tabular}[h]{|llr|}
  \hline
-Token & POS tag & Accuracy \\
+Token & POS tag & Confidence \\
  \hline
 with & P & 0.9963 \\
  \hline
@@ -252,7 +252,7 @@ smile & G & 0.9712 \\
 \begin{minipage}{.5\linewidth}
 \begin{tabular}[h]{|llr|}
  \hline
-Token & POS tag & Accuracy \\
+Token & POS tag & Confidence \\
  \hline
 w & P & 0.7486 \\
  \hline
@@ -264,13 +264,13 @@ smile & N & 0.9806 \\
  \hline
 \end{tabular}
 \end{minipage}
-\caption{POS tagger output of samples}
+\caption{POS tagger output of samples (P:Pronoun, D:Determiner, A:Adjective, N:Noun, G:Miscellaneous)}
 \label{tab:postags}
 \end{table}
 
 \subsection{Graph construction}
 
-The graph(See Figure~\ref{fig:graph}) is build using a big dataset of social media text. After preprocessing, we traverse each entry in the dataset and extract nodes and edges.
+The graph~(See Figure~\ref{fig:graph}) is build using a big dataset of social media text. After preprocessing, we traverse each entry in the dataset and extract nodes and edges.
 
 \begin{figure}[htb]
 \begin{center}
@@ -280,7 +280,7 @@ The graph(See Figure~\ref{fig:graph}) is build using a big dataset of social med
 \end{center}
 \end{figure}
 
-We define a node with four properties \textit{id, oov, freq, tag}. The token itself plus it's POS tag forms the \textit{id} field. \textit{freq} property indicates the node's frequency count in the dataset. \textit{oov} field is set to True if the token is a OOV word. Following Han et al.\ we used GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV or not.
+We define a node with four properties \textit{id, oov, freq, tag}. The token itself plus it's POS tag forms the \textit{id} field. \textit{freq} property indicates the node's frequency count in the dataset. \textit{oov} field is set to True if the token is a OOV word. Following ~\cite{Han:2011:LNS:2002472.2002520} we used GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV or not.
 
 In the word-relatedness graph, each node is a unique set of a token and a POS tag (see Table~\ref{tab:graph}). This helps us to identify the tokens not only lexically and contextually but also (in terms of POS tags) grammatically.
 
