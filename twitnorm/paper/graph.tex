@@ -1,8 +1,10 @@
 \subsection{Lexical Similarity}
 
-Following~\cite{Han:2011:LNS:2002472.2002520},\cite{DBLP:conf/acl/HassanM13}, we built our lexical similarity features over standard edit distance~\cite{levenshtein1966bcc}, double metaphone(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132} and longest common subsequence ratio over edit distance(LCRS)~\cite{Contractor:2010:UCN:1944566.1944588}.
+Following~\cite{Han:2011:LNS:2002472.2002520},\cite{DBLP:conf/acl/HassanM13}, we built our lexical similarity features over standard edit distance~\cite{levenshtein1966bcc}, double metaphone(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132} and longest common subsequence ratio over edit distance(LCSR)~\cite{Contractor:2010:UCN:1944566.1944588}.
 
 We calculated both edit distance, phonetic edit distance and LCSR of each candidate in $CL_{ij}$ and OOV token $t_i$.
+
+Following the tradition that is inspired from~\cite{Kaufmann2010} before lexical similarity calculations any repetitions more than 3 letters in OOV tokens are reduced to 2. (gerci onlar 3e reduce etmis ama)
 
 We used edit distance and phonetic edit distance to filter the candidates. Any candidate in $CL_{ij}$ with an edit distance greater than $ed_t$ and phonetic edit distance greater than $ped_t$ to $t_i$ has been removed from the candidate list $CL_{ij}$.
 

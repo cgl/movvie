@@ -1,21 +1,27 @@
 \section{Experiments}
 \label{sec:experiments}
 
-\subsection{Data sets}
+\subsection{Data set}
+We used LexNorm1.1 dataset~\cite{Han:2011:LNS:2002472.2002520} to evaluate our approach. LexNorm1.1 contains 549 tweets with 1184 ill-formed OOV tokens.
 
-We used a large amount of social media text to construct our co-occurrence graph. We extracted 1.5GB tweets from Stanford's 476 million Twitter Dataset~\cite{DBLP:conf/wsdm/YangL11}. After tokenization we removed tokens POS tagged as mention~(@brendon), discourse marker (ex: RT), URL or email addresses, emoticons, numerals and punctuations, we used remaining tokens to build the graph.
+\subsection{Graph Generation}
+We used a large amount of social media text to construct our co-occurrence graph. We extracted 1.5GB English tweets from Stanford's 476 million Twitter Dataset~\cite{DBLP:conf/wsdm/YangL11}. The language identification of tweets is performed using the langid.py~\ref{Lui:2012:LOL:2390470.2390475},\ref{Baldwin:2010:LIL:1857999.1858026}.
+
+After tokenization we removed tokens POS tagged as mention~(@brendon), discourse marker (ex: RT), URL or email addresses, emoticons, numerals and punctuations, we used remaining tokens to build the graph.
 
 For tokenization and POS tagging the tweets we used CMU Ark Tweet Tagger\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747}. Ark Tweet Tagger is a social media specific tagger and reported to perform $95\%$ accuracy over social media text.
 
-The POS tagset of ark tagger includes some extra tags besides the standard part of speech tags that is specific to social media: Urls and emoticons; Twitter hastags \#; twitter at-mentions (\@). One other tag that is special to social media is \~ means the token is specific to a discourse function of twitters. Lastly G stands for miscellanneous words including multiword abbreviations like btw~(by the way), nw~(no way), smh~(somehow).
+The POS tagset of ark tagger includes some extra tags besides the standard part of speech tags that is specific to social media: URLs and emoticons; Twitter hashtags \#; twitter at-mentions (\@). One other tag that is special to social media is \~ means the token is specific to a discourse function of twitters. Lastly G stands for miscellaneous words including multi word abbreviations like btw~(by the way), nw~(no way), smh~(somehow).
 
 We made use of this social media specific tags to disambiguate some OOV tokens. For example if OOV token ``cont'' is tagged with the discourse function tag G, we added ``continued'' to the candidate list as an external node.
 
-After constructing the graph we only kept the nodes with a frequency greater than 8 and the edges with weight greater than 1. We had remaining 105428 nodes and 46609603 edges in the graph.
+After constructing the graph we only kept the nodes with a frequency greater than 8. For the performance related reasons, the relatedness thresholds $d_t$ and $f_t$  are chosen as 3 and 8 respectively. We had remaining 105428 nodes and 46609603 edges in the graph.
 
-Han'ların data setini eveluation icin kullandım.
+\subsection{Candidate Set Generation}
 
-\section{Results}
+While extending the candidate set with lexical features we use ${ed_t \leq 2} \vee {ped_t \leq 1}$ to keep up with the settings~\cite{Han:2011:LNS:2002472.2002520}. IV words that is within a threshold 2 character edit distance of given OOV word or 1 character edit distance of given OOV word under phonemic transcription are chosen as lexical similarity candidates.
+
+\subsection{Results an Analysis}
 
 
 \section{Conclusion}

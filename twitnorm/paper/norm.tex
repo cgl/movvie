@@ -187,7 +187,7 @@ kissin & kissing \\
 
 Text normalization is a preprocessing step to restore noisy forms of text to its original(canonical) form\cite{Han:2011:LNS:2002472.2002520} to make use in NLP applications or more broadly to understand the digitized text better. For example \textit{talk 2 u later} can be normalized as \textit{talk to you later} or similarly \textit{enormoooos, enrmss, enourmos} can be normalized as \textit{enormous}. Those noisy tokens are referred as Out of Vocabulary(OOV) words. Normalization task restores OOV words to their In Vocabulary~(IV) form.
 
-However not every OOV word should be considered for normalization. The social text is continuously evolving with new words and named entities that are not in the vocabularies of the systems~\cite{DBLP:conf/acl/HassanM13}. The OOV tokens that should be considered for normalization are referred to as ill-formed words. Oppositely an OOV word can sometimes lexically fit an IV word (ex: \textit{tanks} is both an IV word and OOV word with the canonical form \textit{thanks}). The task of recognizing which tokens are OOV, and which of those are ill-formed are beyond the scope of this paper.
+However not every OOV word should be considered for normalization. The social text is continuously evolving with new words and named entities that are not in the vocabularies of the systems~\cite{DBLP:conf/acl/HassanM13}. The OOV tokens that should be considered for normalization are referred to as ill-formed words. Oppositely an OOV word can sometimes lexically fit an IV word (Ex:~\textit{tanks} is both an IV word and OOV word with the canonical form \textit{thanks}). The task of recognizing which tokens are OOV, and which of those are ill-formed are beyond the scope of this paper.
 
 In~\cite{Choudhury:2007:IMS:1326044.1326048} Choudhury et Al.~proposes that the OOV words observed in noisy text can be classified into two groups, unintentional and intentional errors. The unintentional errors are caused by (1) pressing of the wrong key, (2) pressing of a key more than the desired number of times, (3) deletion of a character or (4) inadequate knowledge of spelling. As for the intentional errors, they can be categorized into four categories: character deletion(``tlk'' for ``talk'', ``msg'' for ``message'', ``tomoro'' for ``tomorrow'', ``mob'' for ``mobile''), phonetic substitution~(``nite'' for ``night'', ``bk'' for ``back'', ``u'' for ``you'', ``m8'' for ``mate''), abbreviations~(``btw'' for ``by the way'', ``kgp'' for ``Kharagpur'') and non-standard usage~(``wanna'' for ``want to'', ``betta'' for ``better'', ``sumfin'' for ``something'', ``b/c'' for ``because'').
 
@@ -307,7 +307,7 @@ Edges & \{Let's$|$L, start$|$V , distance:1\},\{Let's$|$L, this$|$D, distance:2\
 \label{tab:graph}
 \end{table}
 
-For example if the token \textit{smile} has been seen frequently as a Noun and a Verb and not in other forms in the dataset~(Ex: Table\ref{tab:nodes}), this means that it is not a good candidate for a Pronoun OOV token~(that is a Pronoun). Conversely, if \textit{smile} is lexically and contextually similar enough, it is a good candidate for a Noun or Verb OOV token.
+For example if the token \textit{smile} has been seen frequently as a Noun and a Verb and not in other forms in the dataset~(Ex:~Table\ref{tab:nodes}), this means that it is not a good candidate for a Pronoun OOV token~(that is a Pronoun). Conversely, if \textit{smile} is lexically and contextually similar enough, it is a good candidate for a Noun or Verb OOV token.
 
 \begin{table}[hbt]
   \centering
