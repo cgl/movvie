@@ -122,6 +122,15 @@
 
 \begin{abstract}
 %% Text of abstract
+%The huge amount of data available in social media provide interesting opportunities for several text analytics applications such as sentiment analysis and event detection.
+
+The informal nature of social media text render it very difficult to be automatically processed by natural language processing tools. Text normalization, which corresponds to restoring the noisy words to their canonical forms, provides a solution to this challenge.
+We introduce an unsupervised text normalization approach that utilizes not only lexical, but also contextual and grammatical features of social text.
+The contextual and grammatical features are extracted from a word association graph built by using a large unlabeled social media text corpus.
+The graph encodes the relative positions of the words with respect to each other, as well as their part-of-speech tags.
+The lexical features are obtained by using the edit distance measure to encode the surface similarity among words and the double metaphone algorithm to represent the phonetic similarity. Unlike most of the recent approaches that are based on generating normalization dictionaries, the proposed approach performs normalization by considering the context of the noisy words in the input text.
+%In other words, a noisy word can be normalized to different canonical forms depending on the context of the word in the input text message.
+Our results show that it achieves state-of-the-art F-score performance on a standard data set. In addition, the system can be tuned to achieve very high precision without sacrificing much from recall.
 
 \end{abstract}
 
@@ -453,6 +462,41 @@ While extending the candidate set with lexical features we use ${ed_t \leq 2} \v
 
 \subsection{Results an Analysis}
 
+\begin{table}[thb]
+  \centering
+  \begin{tabular}[t]{lccc}
+    \hline
+    Method & Precision & Recall & F-measure \\
+    \hline
+    Han and Baldwin, 2011 & 75.30 & 75.30 & 75.30 \\
+    Hassan et al. 2013 & 85.37 & 56.40 & 69.93 \\
+    Yang et al. 2013 & 82.09 & 82.09 & 82.09 \\
+    relatedness    & 86.20 & 78.0 & 82.0 \\
+    relatedness     & 84.80 & 79.50 & 82.0 \\
+    \hline
+  \end{tabular}
+  \caption{Emprical Results}
+  \label{tab:results}
+\end{table}
+
+\begin{table}[thb]
+  \centering
+  \begin{tabular}[th]{lccc}
+    \hline
+    Threshold & Precision & Recall & F-measure \\
+    \hline
+    1.1 & 84.40 & 79 & 81.60 \\
+    1.2 & 87.90 & 76.30 & 81.7 \\
+    1.3 & 84.80 & 79.50 & 82.00 \\
+    1.4 & 85.40 & 79. & 81.90 \\
+    1.6 & 90.00 & 72.1 & 80.10 \\
+    1.7 & 92.50 & 68.9 & 79.00 \\
+    1.8 & 94.50 & 60.4 & 73.70 \\
+    \hline
+  \end{tabular}
+  \caption{Comparision of results for different threshold values}
+  \label{tab:thresholds}
+\end{table}
 
 \section{Conclusion}
 
