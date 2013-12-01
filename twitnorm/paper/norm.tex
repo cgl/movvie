@@ -225,7 +225,7 @@ More recent approaches handles the text normalization task by building normaliza
 
 %In our model we made use of both lexical, contextual and shallow properties of the noisy text which makes use of a weighted token co-occurrence graph.
 
-In this paper, we propose a graph based approach that models both contextual and lexical similarity features among an OOV word and candidate IV words. A high level overview of our system is shown in Figure~\ref{fig:overview}. An input text is first preprocessed by tokenizing and Part-Of-Speech (POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features which are extracted from a pre-generated directed word-relatedness graph, as well as lexical similarity features. Lexical similarity features are based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach are explained in the following sub-sections.
+In this paper, we propose a graph based approach that models both contextual and lexical similarity features among an OOV word that requires normalization and candidate IV words. A high level overview of our system is shown in Figure~\ref{fig:overview}. An input text is first preprocessed by tokenizing and Part-Of-Speech (POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features which are extracted from a pre-generated directed word association graph, as well as lexical similarity features. Lexical similarity features are based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach are explained in the following sub-sections.
 
 %%% FIGURE
 \begin{figure}[htb]
@@ -238,9 +238,11 @@ In this paper, we propose a graph based approach that models both contextual and
 
 \subsection{Preprocessing}
 
-Tokenization is the first step in our system. Tokenization is the process of breaking the text into words, numbers, symbols, emoticons in other words the smallest meaningful elements of the text called tokens. After tokenization, next in the pipeline is POS tagging each token using a social media POS tagger. Unlike the normal POS taggers, social media POS taggers~\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747} provide a broader set of tags that is special to the social text. By this extended set of tags we can identify tokens such as discourse markers~(rt for retweets, cont. for a tweet whose content follows up in the coming tweet) or URLs. So that we can process those tokens within their context.
+%Tokenization is the first step in our system. Tokenization is the process of breaking the text into words, numbers, symbols, emoticons After tokenization, next in the pipeline is POS tagging each token using a social media POS tagger. Unlike the normal POS taggers, social media POS taggers~\cite{DBLP:conf/naacl/OwoputiODGSS13}\cite{Gimpel:2011:PTT:2002736.2002747} provide a broader set of tags that is special to the social text. By this extended set of tags we can identify tokens such as discourse markers~(rt for retweets, cont. for a tweet whose content follows up in the coming tweet) or URLs. So that we can process those tokens within their context.
 
-As shown in Table~\ref{tab:postags}, after preprocessing, each token is assigned a POS tag with a confidence measure between 0 and 1. Later, we use these confidence scores in calculating the weight of edges in our context graph.
+Tokenization is the first step in our system. It is the process of breaking the text into tokens, which are the smallest meaningful elements such as numbers, symbols, and emoticons. After tokenization, the next step in the pipeline is Part-of-Speech (POS) tagging each token using a POS tagger specifically designed for social media text. Unlike the regular POS taggers designed for well-written newswire-like text, social media POS taggers provide a broader set of tags specific to the peculiarities of social text ~\cite{DBLP:conf/naacl/OwoputiODGSS13,Gimpel:2011:PTT:2002736.2002747}. Using this extended set of tags we can identify tokens such as discourse markers~(e.g. rt for retweets, cont. for a tweet whose content follows up in the coming tweet) or URLs. This enables us to better model the context of the words in social media text.
+
+As shown in Table~\ref{tab:postags}, after preprocessing, each token is assigned a POS tag with a confidence measure between 0 and 1. Later, we use these confidence scores in calculating the edge weights in our context graph. Note that even though the words \emph{w} and\emph{ beatiful} are misspelled, they are tagged correctly by the tagger, with lower confidence scores though.
 
 \begin{table}[htbp]
 \begin{minipage}{.5\linewidth}
@@ -254,7 +256,7 @@ a & D & 0.998 \\
  \hline
 beautiful & A & 0.9971 \\
  \hline
-smile & G & 0.9712 \\
+smile & N & 0.9712 \\
  \hline
 \end{tabular}
 \end{minipage}
@@ -273,25 +275,15 @@ smile & N & 0.9806 \\
  \hline
 \end{tabular}
 \end{minipage}
-\caption{POS tagger output of samples (P:Pronoun, D:Determiner, A:Adjective, N:Noun, G:Miscellaneous)}
+\caption{Sample POS tagger output obtained by using CMU Ark Tagger (P:Pronoun, D:Determiner, A:Adjective, N:Noun, G:Miscellaneous) ~\cite{DBLP:conf/naacl/OwoputiODGSS13,Gimpel:2011:PTT:2002736.2002747}}
 \label{tab:postags}
 \end{table}
 
 \subsection{Graph construction}
 
-The graph~(See Figure~\ref{fig:graph}) is build using a big dataset of social media text. After preprocessing, we traverse each entry in the dataset and extract nodes and edges.
-
-\begin{figure}[htb]
-\begin{center}
-\includegraphics[scale=0.6]{fig/graph}
-\caption{Sample edges and sample nodes from the word-relatedness graph}
-\label{fig:graph}
-\end{center}
-\end{figure}
-
-We define a node with four properties \textit{id, oov, freq, tag}. The token itself plus it's POS tag forms the \textit{id} field. \textit{freq} property indicates the node's frequency count in the dataset. \textit{oov} field is set to True if the token is a OOV word. Following ~\cite{Han:2011:LNS:2002472.2002520} we used GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV or not.
-
-In the word-relatedness graph, each node is a unique set of a token and a POS tag (see Table~\ref{tab:graph}). This helps us to identify the tokens not only lexically and contextually but also (in terms of POS tags) grammatically.
+Contextual information of words is modeled through a word association graph created by using a large corpus of social media text. The graph encodes the relative positions of the POS tagged words in the text with respect to each other. After preprocessing, each text message in the corpus is traversed in order to extract the nodes and the edges of the graph. 
+%The graph~(See Figure~\ref{fig:graph}) is build using a big dataset of social media text. After preprocessing, we traverse each entry in the dataset and extract nodes and edges.
+A node is defined with four properties: \textit{id, oov, freq, tag}. The token itself and it's POS tag form the \textit{id} field. The \textit{freq} property indicates the node's frequency count in the dataset. The \textit{oov} field is set to True if the token is an OOV word. Following the prior work by Han and Baldwin, 2011 we used the GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV or not ~\cite{Han:2011:LNS:2002472.2002520}. Table~\ref{tab:graph} shows a sample tokenized and tagged sentence from the corpus, as well as the nodes and edges that are extracted from it to create the word association graph. A portion of the graph that covers this sample sentence is shown in Figure~\ref{fig:graph}.
 
 \begin{table}[tbhp]
 \begin{minipage}[c]{\linewidth}
@@ -304,19 +296,31 @@ Let's$_{\textcolor{red}{L}}$ start$_{\textcolor{red}V}$ this$_{\textcolor{red}D}
 \begin{tabular}[h]{l|l}
 Tokens & Let's, start, this, morning, w, a, beatiful, smile,~. \\
 \hline
-Nodes & Let's$|$L, start$|$V, this$|$D, morning$|$N, w$|$P, a$|$D, beatiful$|$A, smile$|$V, .$|$, \\
+Nodes & Let's$|$L, start$|$V, this$|$D, morning$|$N, w$|$P, a$|$D, beatiful$|$A, smile$|$N, .$|$, \\
 \hline
 Edges & \{Let's$|$L, start$|$V , distance:1\},\{Let's$|$L, this$|$D, distance:2\}, \\
 & ... \\
-& \{a$|$D, beatiful$|$A, distance:1\}, \{a$|$D, smile$|$V, distance:2\}, \\
-& \{beatiful$|$A, smile$|$V, distance:1\} \\
+& \{a$|$D, beatiful$|$A, distance:1\}, \{a$|$D, smile$|$N, distance:2\}, \\
+& \{beatiful$|$A, smile$|$N, distance:1\} \\
 \end{tabular}
 \end{minipage}
-\caption{Sample sentence with POS tags, Tokens, The Word-relatedness Graph Nodes and Edges}
+\caption{Sample tokenized, POS tagged sentence and the corresponding nodes and edges in the word association graph.}
 \label{tab:graph}
 \end{table}
 
-For example if the token \textit{smile} has been seen frequently as a Noun and a Verb and not in other forms in the dataset~(Ex:~Table\ref{tab:nodes}), this means that it is not a good candidate for a Pronoun OOV token~(that is a Pronoun). Conversely, if \textit{smile} is lexically and contextually similar enough, it is a good candidate for a Noun or Verb OOV token.
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[scale=0.6]{fig/graph}
+\caption{Sample nodes and edges from the word association graph.}
+\label{fig:graph}
+\end{center}
+\end{figure}
+
+%We define a node with four properties \textit{id, oov, freq, tag}. The token itself plus it's POS tag forms the \textit{id} field. \textit{freq} property indicates the node's frequency count in the dataset. \textit{oov} field is set to True if the token is a OOV word. Following ~\cite{Han:2011:LNS:2002472.2002520} we used GNU Aspell dictionary (v0.60.6) to determine whether a word is OOV or not.
+
+%In the word-relatedness graph, each node is a unique set of a token and a POS tag (see Table~\ref{tab:graph}). This helps us to identify the tokens not only lexically and contextually but also (in terms of POS tags) grammatically.
+
+In the created word association graph, each node is a unique set of a token and its POS tag. This helps us to identify the candidate IV words for a given OOV word by considering not only lexical and contextual similarity, but also grammatical similarity in terms of POS tags. For example if the token \textit{smile} has been frequently seen as a Noun or a Verb, and not in other forms in the dataset~(e.g. ~Table \ref{tab:nodes}), this provides evidence that it is not a good IV candidate as a normalization for an OOV token that has  been tagged as a Pronoun. On the other hand, \textit{smile} can be a good candidate for a Noun or a Verb OOV token, if it is lexically and contextually similar to it.
 
 \begin{table}[hbt]
   \centering
@@ -325,17 +329,20 @@ For example if the token \textit{smile} has been seen frequently as a Noun and a
     node id : smile$|$N , freq : 3403, oov : False, tag : N \\
     node id : smile$|$V , freq : 2796, oov : False, tag : V \\
   \end{tabular}
-  \caption{Example nodes including token smile with a frequency greater than 0}
+  \caption{The nodes in the word association graph representing the token \textit{smile} tagged with different POS tags.}
 \label{tab:nodes}
 \end{table}
 
-Edges are built depending on the relatedness metrics. One can classify two nodes as related if they satisfy both of the following rules:
+An edge is created between two nodes in the graph, if the corresponding word pair (i.e. token/POS pair) are contextually associated. Two words are considered as contextually associated if they satisfy the following criteria:
+
 \begin{itemize}
-\item Two nodes are conceptually related if they co-occurs within a word distance of $d_t$ in an entry.
-\item Each node should have a minimum frequency of $f_t$ in the whole dataset.
+\item The two words co-occur within a maximum word distance of $d_t$ in a text message in the corpus.
+\item Each word has a minimum frequency of $f_t$ in the corpus.
 \end{itemize}
 
-The edges follow the flow in the entries thus have a direction from the earlier seen token to the coming token. For example the edges in Table~\ref{tab:edges} would be derived from a text including the phrase ``with a beautiful smile''. The \textit{from} property indicates the first word and \textit{to} is the latter in the phrase. Direction and the distance together hold a unique triplet. For each two node with a specific distance there is an edge with a positive weight if that two nodes are related. Each co-occurrence of two related nodes increases the weight of the representing edge with an average of nodes' POS tag confidence score in that specific entry. If we are to expand the graph with our example phrase using the given POS tags and accuracies from Table~\ref{tab:postags}, the increase in the weights would be respectively $0.9963+0.9712/2$, $0.998+0.9712/2$ and $0.9971+0.9712/2$.
+The directionality of the edges is based  on the sequence of words in the text messages in the corpus. In other words, an edge between two nodes is directed from the earlier seen token towards the later seen token. For example, Table~\ref{tab:edges} shows the edges that would be derived from a text including the phrase ``with a beautiful smile''. The \textit{from} property indicates the first word and \textit{to} is the latter in the phrase. The direction and the distance together represent a unique triplet. For each pair of nodes with a specific distance there is an edge with a positive weight, if the two nodes are related. Each co-occurrence of two related nodes increases the weight of the edge between them with an average of the nodes' POS tag confidence scores in the text message considered. If we are to expand the graph with the example phrase shown in Table~\ref{tab:edges}, the weight of the edge with distance $3$ from the node \emph{with$|$P}  to the node  \emph{smile$|$N} would increase by $(0.9963+0.9712)/2$, since the confidence score of the POS tag for the token \emph{with} is  $0.9963$ and the confidence score of the POS tag of the token \emph{smile} is $0.9712$ as shown in Table~\ref{tab:postags}.
+%using the given POS tags and accuracies from Table~\ref{tab:postags}, the increase in the weights would be respectively $0.9963+0.9712/2$, $0.998+0.9712/2$ and %$0.9971+0.9712/2$.
+
 \begin{table}[hbt]
   \centering
   \begin{tabular}[tc]{l}
@@ -343,9 +350,10 @@ The edges follow the flow in the entries thus have a direction from the earlier 
  from : a$|$D, to : smile$|$N, dis : 2, weight : 274.37365 \\
  from : beautiful$|$A, to : smile$|$N, dis : 1, weight : 240.716 \\
 \end{tabular}
-  \caption{Example edges from sample phrase  ``with a beautiful smile''}
+  \caption{Example edges extracted from the sample phrase  ``with a beautiful smile''}
 \label{tab:edges}
 \end{table}
+
 
 \subsection{Graph Based Contextual Similarity}
 
