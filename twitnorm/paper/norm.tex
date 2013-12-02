@@ -121,7 +121,7 @@
 %% Text of abstract
 %The huge amount of data available in social media provide interesting opportunities for several text analytics applications such as sentiment analysis and event detection.
 
-The informal nature of social media text render it very difficult to be automatically processed by natural language processing tools. Text normalization, which corresponds to restoring the noisy words to their canonical forms, provides a solution to this challenge.
+The informal nature of social media text render is very difficult to be automatically processed by natural language processing tools. Text normalization, which corresponds to restoring the noisy words to their canonical forms, provides a solution to this challenge.
 We introduce an unsupervised text normalization approach that utilizes not only lexical, but also contextual and grammatical features of social text.
 The contextual and grammatical features are extracted from a word association graph built by using a large unlabeled social media text corpus.
 The graph encodes the relative positions of the words with respect to each other, as well as their part-of-speech tags.
@@ -206,9 +206,9 @@ Early work on text normalization mostly made use of noisy channel model. The fir
 
 Choudhury et al.,2007 developed a supervised Hidden Markov Model based approach for normalizing SMS Texts~\cite{Choudhury:2007:IMS:1326044.1326048}. Cook and Stevenson,2009 has expanded this model by introducing an unsupervised noisy channel model~\cite{Cook:2009:UMT:1642011.1642021}. Rather than using one generic model for all word formations as in Choudhury et al.,2007, they used a mixture model in which each different word formation type was modelled explicitly. Aw et al.,2006 proposed a phrase-based statistical MT model for the task~\cite{Aw:2006:PSM:1273073.1273078}. They defined the problem as translating the SMS language to English language.
 
-What these methods are missing is that they do not consider contextual features and they observe each token that has an unique normalization. However, that is not the case for the normalization task. The OOV tokens are ambiguous and without contextual information it is not possible to build models that can disambiguate transformations correctly.
+The down side of these methods were: (1) they did not consider contextual features and (2) each of them observed that tokens have an unique normalization. However, that is not the case for the normalization task. The OOV tokens are ambiguous and without contextual information it is not possible to build models that can disambiguate transformations correctly.
 
-Also the supervised models require annotated data, which is not available for normalized text~\cite{DBLP:conf/wsdm/YangL11} or difficult to create.
+Also the supervised models that are required annotated data, which is not available for normalized text~\cite{DBLP:conf/wsdm/YangL11} and difficult to create.
 
 More recent approaches handle the text normalization task by building normalization lexicons. Han et al.,2011 developed a two phased model where they only consider the OOV words for normalization~\cite{Han:2011:LNS:2002472.2002520}. First a confusion set is generated using the lexical and phonetic distance features. Latter the candidates in the confusion set is selected using a mixture of dictionary lookup, word similarity based on lexical edit distance, phonemic edit distance, prefix sub-string, suffix sub-string and longest common subsequence(LCS) and context support metrics.
 
