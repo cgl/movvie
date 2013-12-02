@@ -73,10 +73,7 @@
 %% \biboptions{comma,round}
 
 % \biboptions{}
-\usepackage{color}
-\usepackage{caption}
-\usepackage{url}
-\usepackage{amsmath}
+\usepackage{color,caption,url,amsmath}
 
 \newcommand\fxbox[1]{\center{\framebox[1.1\width][c]{\strut#1}}}
 \newcommand\mxbox[1]{\center{\makebox[1.1\width][c]{\strut#1}}}
@@ -213,10 +210,12 @@ What these methods are missing is that they do not consider contextual features 
 
 More recent approaches handle the text normalization task by building normalization lexicons.
 \cite{Han:2011:LNS:2002472.2002520}
-
+\cite{liu2012broad}
 \cite{DBLP:conf/acl/HassanM13}
 
 Gouws et al.,2011 on the other hand, proposed an approach that depended highly on contextual information such as the geological location and depended on the users and twitter client that the tweet is received from~\cite{Gouws:2011:CBL:2021109.2021113}. Using contextual metrics they modelled the transformation distributions.
+
+
 
 \section{Methodology}
 \label{sec:method}
@@ -434,10 +433,38 @@ Additionally, sistemin kısa entry'ler(context bağlantısı kurulamayacak kadar
 
 
 son olarak external normalizasyonlar olarak slang dictionarydeki entryleri, sayıları ve pronounları externalScore veretek aday listesine ekliyoruz. externalScore binary bir feature 0 ya da 1.
-\begin{verbatim}
-units = ["", "one", "to", "three", "for",  "five", "six", "seven", "eight", "nine"]
-pronouns = {u'2':u"to",u'w':u"with"}
-\end{verbatim}
+
+\begin{table}[ht]
+  \begin{tabular}[l]{lll}
+    \hline
+    token & tag & Transliteration \\
+    \hline
+    1 & ``\$'' & ``one'' \\
+    2 & ``\$'' & ``two'' \\
+    3 & ``\$'' & ``three'' \\
+    4 & ``\$'' & ``for'' \\
+    5 & ``\$'' & ``five'' \\
+    6 & ``\$'' & ``six'' \\
+    7 & ``\$'' & ``seven'' \\
+    8 & ``\$'' & ``eight'' \\
+    9 & ``\$'' & ``nine'' \\
+    0 & ``\$'' & ``zero'' \\
+    2 & ``P''  & ``to'' \\
+    ``w'' & ``P''  & ``with'' \\
+    ``im'' & ``L''  & ``I'm'' \\
+    ``cont'' & ``\textasciitilde''  & ``continued'' \\
+    \hline
+  \end{tabular}
+  \caption{Transliteration Candidates imporoved}
+\label{tab:transliteral}
+\end{table}
+
+
+%\begin{verbatim}
+%units = ["", "one", "to", "three", "for",
+%         "five", "six", "seven", "eight", "nine"]
+%pronouns = {u'2':u"to",u'w':u"with"}
+%\end{verbatim}
 
 
 \begin{equation}
