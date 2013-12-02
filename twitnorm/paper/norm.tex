@@ -125,7 +125,7 @@ The informal nature of social media text render it very difficult to be automati
 We introduce an unsupervised text normalization approach that utilizes not only lexical, but also contextual and grammatical features of social text.
 The contextual and grammatical features are extracted from a word association graph built by using a large unlabeled social media text corpus.
 The graph encodes the relative positions of the words with respect to each other, as well as their part-of-speech tags.
-The lexical features are obtained by using the edit distance measure to encode the surface similarity among words and the double metaphone algorithm to represent the phonetic similarity. Unlike most of the recent approaches that are based on generating normalization dictionaries, the proposed approach performs normalization by considering the context of the noisy words in the input text.
+The lexical features are obtained by using the longest common subsequence ratio and edit distance measures to encode the surface similarity among words, and the double metaphone algorithm to represent the phonetic similarity. Unlike most of the recent approaches that are based on generating normalization dictionaries, the proposed approach performs normalization by considering the context of the noisy words in the input text.
 %In other words, a noisy word can be normalized to different canonical forms depending on the context of the word in the input text message.
 Our results show that it achieves state-of-the-art F-score performance on a standard data set. In addition, the system can be tuned to achieve very high precision without sacrificing much from recall.
 
@@ -208,13 +208,19 @@ Choudhury et al.,2007 developed a supervised Hidden Markov Model based approach 
 
 What these methods are missing is that they do not consider contextual features and they observe each token that has an unique normalization. However, that is not the case for the normalization task. The OOV tokens are ambiguous and without contextual information it is not possible to build models that can disambiguate transformations correctly.
 
-Also the supervised models require annotated data which is very
+Also the supervised models require annotated data, which is not available for normalized text~\cite{DBLP:conf/wsdm/YangL11} or difficult to create.
 
-More recent approaches handle the text normalization task by building normalization lexicons. Han et al. developed a two phased model where they only consider the OOV words for normalization~\cite{Han:2011:LNS:2002472.2002520}. First a confusion set is generated using the lexical and phonetic distance features. Latter the candidates in the confusion set is selected using a mixture of dictionary lookup, word similarity based on lexical edit distance, phonemic edit distance, prefix sub-string, suffix sub-string and longest common subsequence(LCS) and context support metrics.
-\cite{liu2012broad}
-\cite{DBLP:conf/acl/HassanM13}
+More recent approaches handle the text normalization task by building normalization lexicons. Han et al.,2011 developed a two phased model where they only consider the OOV words for normalization~\cite{Han:2011:LNS:2002472.2002520}. First a confusion set is generated using the lexical and phonetic distance features. Latter the candidates in the confusion set is selected using a mixture of dictionary lookup, word similarity based on lexical edit distance, phonemic edit distance, prefix sub-string, suffix sub-string and longest common subsequence(LCS) and context support metrics.
 
 Gouws et al.,2011 on the other hand, proposed an approach that depended highly on contextual information such as the geological location and depended on the users and twitter client that the tweet is received from~\cite{Gouws:2011:CBL:2021109.2021113}. Using contextual metrics they modelled the transformation distributions.
+
+Liu et al.,2012 proposes broad coverage normalization system integrates an extended noisy channel model based on enhanced letter transformations, visual priming, string and phonetic similarity~\cite{liu2012broad}. They try to improve the performance of top n normalization candidates by integrating human perspective modeling.
+
+Hassan and Menezes,2013 generates a normalization equivalences lexicon using Markov random walks on a contextual similarity lattice~\cite{DBLP:conf/acl/HassanM13}. One of the biggest difference between our systems are they make use a huge clean vocabulary.
+
+Most recent work on text normalization is the unsupervised log linear model of Yang and Eisenstein,2013~\cite{DBLP:conf/wsdm/YangL11}. Their joint statistical approach uses local context based on an LM and surface similarity.
+
+Along with dictionary based models, Yang and Eisenstein's model have obtained a significant improvement on the performance of text normalization systems. We believe several models such as the morphophonemic similarity, MT, Maximum Likelihood, etc. has their own limits. Higher performance text normalization systems should make use of contextual analysis.
 
 
 
