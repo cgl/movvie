@@ -208,8 +208,9 @@ Choudhury et al.,2007 developed a supervised Hidden Markov Model based approach 
 
 What these methods are missing is that they do not consider contextual features and they observe each token that has an unique normalization. However, that is not the case for the normalization task. The OOV tokens are ambiguous and without contextual information it is not possible to build models that can disambiguate transformations correctly.
 
-More recent approaches handle the text normalization task by building normalization lexicons.
-\cite{Han:2011:LNS:2002472.2002520}
+Also the supervised models require annotated data which is very
+
+More recent approaches handle the text normalization task by building normalization lexicons. Han et al. developed a two phased model where they only consider the OOV words for normalization~\cite{Han:2011:LNS:2002472.2002520}. First a confusion set is generated using the lexical and phonetic distance features. Latter the candidates in the confusion set is selected using a mixture of dictionary lookup, word similarity based on lexical edit distance, phonemic edit distance, prefix sub-string, suffix sub-string and longest common subsequence(LCS) and context support metrics.
 \cite{liu2012broad}
 \cite{DBLP:conf/acl/HassanM13}
 
