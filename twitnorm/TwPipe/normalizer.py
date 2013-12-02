@@ -98,7 +98,7 @@ class Normalizer:
         # filter candidates who has a different tag than ovv
         cands_q = []
         for node in candidates_q:
-            node_w_tag = node[position]
+            node_w_tag = node[position] # cand
             node_wo_tag = node_w_tag.split('|')[0]
             if len(node_wo_tag) < 2:
                 continue

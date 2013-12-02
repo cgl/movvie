@@ -436,7 +436,8 @@ Additionally, sistemin kısa entry'ler(context bağlantısı kurulamayacak kadar
 son olarak external normalizasyonlar olarak slang dictionarydeki entryleri, sayıları ve pronounları externalScore veretek aday listesine ekliyoruz. externalScore binary bir feature 0 ya da 1.
 
 \begin{table}[ht]
-  \begin{tabular}[l]{lll}
+  \begin{minipage}[c]{0.5\linewidth}
+    \begin{tabular}[l]{lll}
     \hline
     token & tag & Transliteration \\
     \hline
@@ -447,6 +448,14 @@ son olarak external normalizasyonlar olarak slang dictionarydeki entryleri, say�
     5 & ``\$'' & ``five'' \\
     6 & ``\$'' & ``six'' \\
     7 & ``\$'' & ``seven'' \\
+    \hline
+  \end{tabular}
+\end{minipage}
+  \begin{minipage}[c]{0.5\linewidth}
+    \begin{tabular}[l]{lll}
+    \hline
+    token & tag & Transliteration \\
+    \hline
     8 & ``\$'' & ``eight'' \\
     9 & ``\$'' & ``nine'' \\
     0 & ``\$'' & ``zero'' \\
@@ -456,6 +465,7 @@ son olarak external normalizasyonlar olarak slang dictionarydeki entryleri, say�
     ``cont'' & ``\textasciitilde''  & ``continued'' \\
     \hline
   \end{tabular}
+  \end{minipage}
   \caption{Transliteration Candidates improved}
 \label{tab:transliteral}
 \end{table}
