@@ -6,7 +6,7 @@ import ast
 import langid
 from pymongo import MongoClient
 from decimal import Decimal
-from tools import isMention, isHashtag, isvalid, gen_walk, parseTweets
+from tools import isMention, isHashtag, isvalid, gen_walk, parseTweets, spell_check
 
 # tags : http://www.ark.cs.cmu.edu/TweetNLP/gimpel+etal.acl11.pdf
 
@@ -63,12 +63,13 @@ class MTweet:
             word = word.lower()
 #            if not isvalid(word):
             if tag in [',', 'E', '~'] or (not isvalid(word) and tag is not '&'):
-                # print '%s : %s' %(tag, word) # G : |: , ^ : (****), G : ♫, P : @, G : ~ , G : :: , G : -
+                # print '%s : %s' %(tag, word) # G : |: , ^ : (****), G : ♫, P : @, G : ~ , G : :: , G : - not_valid and &
                 # , : ... ! ? [ ] ( ) : " all tagged as ","
                 continue
-            elif tag is '$':
-                print '%s : %s' %(tag, word)
-            elif tag in ['U', '$', '@', ] or isMention(word): # Numeral or url or mention
+            elif (tag is '$' and not word.isalpha()):
+                words.append('')
+                continue
+            elif tag in ['U', '@' ] or isMention(word): # Numeral or url or mention
                 words.append('')
                 continue
             elif tag in ['#'] or isHashtag(word):
@@ -97,7 +98,7 @@ class MTweet:
         node = word
         obj = self.nodes.find_one({"node":node,"tag":tag})
         if obj is None:
-            ovv = False if self.dict.check(word) else True
+            ovv = not spell_check(word)
             self.nodes.insert({"node":node, "freq":1, 'tag':tag, "ovv": ovv })
         else:
             self.nodes.update({"node":node,"tag":tag}, {'$inc': {"freq" : 1 }})

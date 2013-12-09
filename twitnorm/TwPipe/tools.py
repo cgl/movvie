@@ -44,6 +44,14 @@ def build_mappings(results,pos_tagged):
 pos_tagged = build_mappings(constants.results,constants.pos_tagged)
 
 
+def spell_check(word):
+    if len(word) > 1 :
+        return dic.check(word) or dic.check(word.capitalize())
+    elif word in [u"a", u"i"]:
+        return True
+    else:
+        return False
+
 def top_n(res,not_ovv,n=100,verbose=False):
     in_top_n = 0
     total_ill = 0
@@ -97,9 +105,9 @@ def pretty_max_min(res,feat_mat1):
 
 def get_node(word,tag=None,ovv=False):
     if tag is None:
-        return [DB.nodes.find_one({'node':word+"|"+a, 'ovv': ovv }) for a in constants.tags if DB.nodes.find_one({'node':word+"|"+a})]
+        return [node for node in DB.nodes.find({'node':word, 'ovv': ovv })]
     else:
-        return DB.nodes.find_one({'node':word+"|"+tag})
+        return DB.nodes.find_one({'node':word, "tag":tag})
 
 def get_tag(ind,word):
     return mapp[ind][2]
