@@ -27,8 +27,9 @@ ERROR_FORMAT = '%(asctime)-12s (%(process)d) %(message)s'
 logging.basicConfig(format=FORMAT,filename='tweets.log',level=logging.DEBUG)
 
 
-
+# argv = ['-i', 'test/snap.sample', '--database=test', '-m', '4']
 def main(argv):
+    print argv
     infile = 'test/snap.sample'
     database = 'tweets'
     max_dis = 4
@@ -53,6 +54,8 @@ def main(argv):
 
     twt = MTweet(database,max_dis,infile)
     twt.get_raw_tweets()
+
+#    matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc,database=database)
 
 if __name__ == "__main__":
     logging.info('Start Processing')

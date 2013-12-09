@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import langid, getopt, sys, logging, os
 import CMUTweetTagger
 import enchant
@@ -61,17 +62,17 @@ class MTweet:
         for word, tag, conf in tweet:
             word = word.lower()
 #            if not isvalid(word):
-            if tag in [', ', 'E', '~']:
+            if tag in [',', 'E', '~'] or (not isvalid(word) and tag is not '&'):
+                # print '%s : %s' %(tag, word) # G : |: , ^ : (****), G : ♫, P : @, G : ~ , G : :: , G : -
+                # , : ... ! ? [ ] ( ) : " all tagged as ","
                 continue
+            elif tag is '$':
+                print '%s : %s' %(tag, word)
             elif tag in ['U', '$', '@', ] or isMention(word): # Numeral or url or mention
                 words.append('')
                 continue
             elif tag in ['#'] or isHashtag(word):
                 words.append((word.strip('#'), tag, conf))
-                continue
-            elif not isvalid(word) and tag is not '&' :
-                #print '%s : %s' %(tag, word) , : ... ! ? [ ] ( ) : " all tagged as ","
-                words.append('')
                 continue
             # 'G', '&', 'P'
             self.addNode(word, tag)
@@ -94,12 +95,12 @@ class MTweet:
     #adds node with the pos tag t to the self.graph
     def addNode(self, word, tag):
         node = word
-        obj = self.nodes.find_one({"_id":node})
+        obj = self.nodes.find_one({"node":node,"tag":tag})
         if obj is None:
             ovv = False if self.dict.check(word) else True
-            self.nodes.insert({"_id":node, "freq":1, 'tag':tag, "ovv": ovv })
+            self.nodes.insert({"node":node, "freq":1, 'tag':tag, "ovv": ovv })
         else:
-            self.nodes.update({"_id":node}, {'$inc': {"freq" : 1 }})
+            self.nodes.update({"node":node,"tag":tag}, {'$inc': {"freq" : 1 }})
 
 class Reader():
     def __init__(self, path=None, input_format=None):

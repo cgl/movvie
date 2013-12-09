@@ -1,4 +1,3 @@
-
 ## to fill in the db
 import graphlib
 import soundex
@@ -41,7 +40,7 @@ reload(analysis); res = analysis.show_results(matrix1,constants.mapping,d1 = 0.4
 with open('matrix.txt', 'wb') as file:
     pickle.dump(matrix1,file)
 
-In [171]: mat_new = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc)
+matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc)
 
 sss = [matrix1.append(a) for a in mat4]
 

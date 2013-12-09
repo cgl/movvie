@@ -25,10 +25,12 @@ char_map = dict(zip(chars,char_ind))
 CLIENT = MongoClient('localhost', 27017)
 DB = CLIENT['tweets']
 #client_tabi = MongoClient("79.123.176.205", 27017)
-client_shark = MongoClient("79.123.177.251", 27017)
-db_tweets = client_shark['tweets']
-db_dict = client_shark['dictionary']
-
+try:
+    client_shark = MongoClient("79.123.177.251", 27017)
+    db_tweets = client_shark['tweets']
+    db_dict = client_shark['dictionary']
+except:
+    db_tweets  = None
 
 def build_mappings(results,pos_tagged):
     mapp = []
@@ -95,9 +97,9 @@ def pretty_max_min(res,feat_mat1):
 
 def get_node(word,tag=None,ovv=False):
     if tag is None:
-        return [DB.nodes.find_one({'_id':word+"|"+a, 'ovv': ovv }) for a in constants.tags if DB.nodes.find_one({'_id':word+"|"+a})]
+        return [DB.nodes.find_one({'node':word+"|"+a, 'ovv': ovv }) for a in constants.tags if DB.nodes.find_one({'node':word+"|"+a})]
     else:
-        return DB.nodes.find_one({'_id':word+"|"+tag})
+        return DB.nodes.find_one({'node':word+"|"+tag})
 
 def get_tag(ind,word):
     return mapp[ind][2]
@@ -247,8 +249,8 @@ def get_dict():
     cursor = db_tweets.nodes.find({"ovv":False,"freq":{"$gt": 100}}).sort("freq",-1)
     print cursor.count()
     for node in cursor:
-        word = node['_id'].split("|")[0]
-        if db_dict.dic.find_one({"ovv":False,"_id":word}) is not None:
+        word = node['node'].split("|")[0]
+        if db_dict.dic.find_one({"ovv":False,"node":word}) is not None:
             continue
         else:
             try:
@@ -263,7 +265,7 @@ def get_dict():
                 else:
                     pass
             if query:
-                query["_id"] = word
+                query["node"] = word
                 query["ovv"] = node['ovv']
                 db_dict.dic.insert(query)
 
@@ -320,8 +322,8 @@ def get_from_dict_met(word,met_map,met_dis=1):
         mets = met_map[met_word] if met_map.has_key(met_word) else []
         cursor = db_dict.dic.find({ "ovv":False, "$or": [ {"met0": {"$in" : mets}}, {"met1": {"$in" : mets}}] })
         if cursor:
-             cands.extend([node["_id"] for node in cursor
-                    if in_edit_dis(word,node["_id"],3)])
+             cands.extend([node["node"] for node in cursor
+                    if in_edit_dis(word,node["node"],3)])
     return cands
 
 def get_from_dict_dis(word,tag,clean_words,distance):
@@ -370,7 +372,7 @@ def get_clean_words():
         cursor = db_tweets.nodes.find({"ovv":False,"tag":tag,"freq":{"$gt": 20}}).sort("freq",-1)
         words[tag] = set()
         for node in cursor:
-            word = node['_id'].split("|")[0]
+            word = node['node'].split("|")[0]
             words[tag].add(word)
     return words
 

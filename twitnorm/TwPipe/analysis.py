@@ -12,8 +12,10 @@ import re
 import copy
 import traceback
 
-tweets,results = han(548)
-ovvFunc = lambda x,y : True if y == 'OOV' else False
+tweets, results = han(548)
+is_ill = lambda x,y,z : True if x != z else False
+is_ovv = lambda x,y,z : True if y == 'OOV' else False
+ovvFunc = is_ill
 dic= enchant.Dict("en_US")
 units = ["", "one", "to", "three", "for",  "five",
     "six", "seven", "eight", "nine"]
@@ -47,6 +49,11 @@ def main(index=False):
 
 if __name__ == "__main__ ":
     main()
+
+def is_ill_formed():
+    from constants import mapping as mapp
+    pass
+
 def is_ovv(slang):
     from constants import mapping as mapp
     not_ovv= []
@@ -175,44 +182,6 @@ def add_slangs(mat,mapp,slang,verbose=False):
         res_mat.append(cands)
     return res_mat
 
-def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False, threshold=0.720513):
-    results = []
-    correct_answers = []
-    pos = 0
-    total_pos = 1
-    slang = tools.get_slangs()
-    for ind in range (0,len(res_mat)):
-        correct = False
-        ovv = mapp[ind][0]
-        if False: #not_ovv and not_ovv[ind]:
-            res_list = [[not_ovv[ind],0,0,0,0,0,0]]
-        else:
-            res_dict = copy.deepcopy(res_mat[ind])
-            res_list = []
-            if res_dict:
-                for res_ind,cand in enumerate(res_dict):
-                    score = calculate_score(res_dict[cand],dim,max_val)
-                    if score >= threshold and cand != ovv:
-                        res_dict[cand].append(round(score,7))
-                        res_line = [cand]
-                        res_line.extend(res_dict[cand])
-                        res_list.append(res_line)
-                res_list.sort(key=lambda x: -float(x[-1]))
-        answer = res_list[0][0] if res_list else ovv
-        correct_answer = mapp[ind][1]
-        if answer == correct_answer or answer.lower() == correct_answer.lower() : #lower
-            correct = True
-            total_pos += 1
-            if mapp[ind][0] != mapp[ind][1]:
-                correct_answers.append((ind,answer))
-                pos += 1
-        if verbose:
-            print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
-        results.append(res_list)
-    print 'Number of correct answers %s, Number of total correct answers %s' % (pos,total_pos)
-    return results,correct_answers
-
-
 def calculate_score(res_vec,dim,max_val):
     try:
         score  = dim[0] * res_vec[0] * max_val[0]  # weight
@@ -227,22 +196,6 @@ def calculate_score(res_vec,dim,max_val):
     except TypeError, e:
         print res_vec
         print traceback.format_exc()
-
-def calc_score_matrix(lo_postagged_tweets,results,ovvFunc):
-    logger.info('Started')
-    lo_candidates = []
-    norm = normalizer.Normalizer(lo_postagged_tweets,database='tweets')
-    for tweet_ind in range(0,len(lo_postagged_tweets)):
-        tweet_pos_tagged = lo_postagged_tweets[tweet_ind]
-        for j in range(0,len(tweet_pos_tagged)):
-            word = results[tweet_ind][j]
-            if ovvFunc(word[0],word[1]):
-                ovv_word = word[0]
-                ovv_tag = tweet_pos_tagged[j][1]
-                keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
-                lo_candidates.append([ovv_word,keys,score_matrix])
-    logger.info('Finished')
-    return lo_candidates
 
 def calc_each_neighbours_score(tweets_str, results, ovv):
     lo_tweets = CMUTweetTagger.runtagger_parse(tweets_str)
@@ -370,6 +323,61 @@ def add_candidate(cands,cand,ovv,ovv_tag,slang_threshold):
     if not cands.has_key(cand):
         cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
     cands[cand][4] = slang_threshold
+
+#--------------------------------------------------------------
+
+def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,database='tweets'):
+    logger.info('Started')
+    lo_candidates = []
+    norm = normalizer.Normalizer(lo_postagged_tweets,database=database)
+    for tweet_ind in range(0,len(lo_postagged_tweets)):
+        tweet_pos_tagged = lo_postagged_tweets[tweet_ind]
+        for j in range(0,len(tweet_pos_tagged)):
+            word = results[tweet_ind][j]
+            if ovvFunc(word[0],word[1],word[2]):
+                ovv_word = word[0]
+                ovv_tag = tweet_pos_tagged[j][1]
+                keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
+                lo_candidates.append([ovv_word,keys,score_matrix])
+    logger.info('Finished')
+    return lo_candidates
+
+def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False, threshold=0.720513):
+    results = []
+    correct_answers = []
+    pos = 0
+    total_pos = 1
+    slang = tools.get_slangs()
+    for ind in range (0,len(res_mat)):
+        correct = False
+        ovv = mapp[ind][0]
+        if False: #not_ovv and not_ovv[ind]:
+            res_list = [[not_ovv[ind],0,0,0,0,0,0]]
+        else:
+            res_dict = copy.deepcopy(res_mat[ind])
+            res_list = []
+            if res_dict:
+                for res_ind,cand in enumerate(res_dict):
+                    score = calculate_score(res_dict[cand],dim,max_val)
+                    if score >= threshold and cand != ovv:
+                        res_dict[cand].append(round(score,7))
+                        res_line = [cand]
+                        res_line.extend(res_dict[cand])
+                        res_list.append(res_line)
+                res_list.sort(key=lambda x: -float(x[-1]))
+        answer = res_list[0][0] if res_list else ovv
+        correct_answer = mapp[ind][1]
+        if answer == correct_answer or answer.lower() == correct_answer.lower() : #lower
+            correct = True
+            total_pos += 1
+            if mapp[ind][0] != mapp[ind][1]:
+                correct_answers.append((ind,answer))
+                pos += 1
+        if verbose:
+            print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
+        results.append(res_list)
+    print 'Number of correct answers %s, Number of total correct answers %s' % (pos,total_pos)
+    return results,correct_answers
 
 def run(matrix1,feat_mat,slang,not_ovv =[], max_val = [1.0, 1.0, 1.0, 0.0, 1.0, 1.0], verbose=False, distance = 3):
     if not matrix1:
