@@ -104,7 +104,8 @@ import sys; sys.path.append("/Users/cagil/work/movvie/twitnorm/TwPipe/febrl-0.4.
 import sys ; sys.path.append("/home/cagil/repos/movvie/twitnorm/TwPipe/febrl-0.4.2/")
 sys.path.append("/usr/lib/python2.7/dist-packages/")
 for debian
-sys.path.append("/usr/lib/pymodules/python2.7/")
+import sys ; sys.path.append("/home/cagil/repos/virtuals/movvie/lib/python2.7/site-packages/febrl-0.4.2/") ; sys.path.append("/usr/lib/pymodules/python2.7/")
+
 
 import tools, analysis, constants,copy
 matrix1 = tools.load_from_file()
@@ -191,3 +192,6 @@ create graph from scratch
 argv = ['-i', 'test/snap.sample', '--database=test', '-m', '4']
 graphlib.main(argv)
 matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc,database='test')
+
+cp ~/Datasets/snap/splited/splited-10/dr test/snap2.sample
+argv = ['-i', 'test/snap2.sample', '--database=test2', '-m', '4']

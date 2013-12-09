@@ -23,7 +23,7 @@ chars = string.lowercase + string.digits + string.punctuation
 char_ind = [ord(x) for x in chars]
 char_map = dict(zip(chars,char_ind))
 CLIENT = MongoClient('localhost', 27017)
-DB = CLIENT['tweets']
+DB = CLIENT['tweets2']
 #client_tabi = MongoClient("79.123.176.205", 27017)
 try:
     client_shark = MongoClient("79.123.177.251", 27017)

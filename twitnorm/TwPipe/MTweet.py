@@ -52,6 +52,8 @@ class MTweet:
         except Exception, e:
             logging.error('[%d]'%self.completed+str(e),exc_info=True)
         logging.info('Finish processing [%d] tweets from : %s', self.completed, self.infile)
+        logging.info('Node count:%d Edge count:%d after processing %s',  self.nodes.count(), self.edges.count(), self.infile)
+
 
     # t.getTweet([("This", 'N',  0.979), ("is", 'N',  0.97), ("@ahterx", 'N',  0.979),
     #("^^", 'N',  0.979), ("my", 'N',  0.979), ("luv", 'N',  0.979)])
