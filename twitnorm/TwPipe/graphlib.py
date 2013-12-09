@@ -29,7 +29,6 @@ logging.basicConfig(format=FORMAT,filename='tweets.log',level=logging.DEBUG)
 
 # argv = ['-i', 'test/snap.sample', '--database=test', '-m', '4']
 def main(argv):
-    print argv
     infile = 'test/snap.sample'
     database = 'tweets'
     max_dis = 4

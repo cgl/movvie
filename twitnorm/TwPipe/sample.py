@@ -103,8 +103,10 @@ import sys; sys.path.append("/Users/cagil/work/movvie/twitnorm/TwPipe/febrl-0.4.
 
 import sys ; sys.path.append("/home/cagil/repos/movvie/twitnorm/TwPipe/febrl-0.4.2/")
 sys.path.append("/usr/lib/python2.7/dist-packages/")
+export PYTHONPATH=$PYTHONPATH:/home/cagil/repos/movvie/twitnorm/TwPipe/febrl-0.4.2/:/usr/lib/python2.7/dist-packages/
 for debian
 import sys ; sys.path.append("/home/cagil/repos/virtuals/movvie/lib/python2.7/site-packages/febrl-0.4.2/") ; sys.path.append("/usr/lib/pymodules/python2.7/")
+
 
 
 import tools, analysis, constants,copy
@@ -195,3 +197,10 @@ matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,anal
 
 cp ~/Datasets/snap/splited/splited-10/dr test/snap2.sample
 argv = ['-i', 'test/snap2.sample', '--database=test2', '-m', '4']
+
+db.edges.ensureIndex( { "to": 1, "to_tag": 1 ,"from_tag": 1 })
+db.edges.ensureIndex( { "from": 1, "from_tag": 1 ,"to_tag": 1 })
+db.edges.ensureIndex( { "from_tag": 1 })
+db.edges.ensureIndex( { "to_tag": 1 })
+
+db.nodes.ensureIndex( { "node": 1, "tag": 1 }, { unique: true } )

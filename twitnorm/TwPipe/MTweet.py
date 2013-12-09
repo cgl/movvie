@@ -29,7 +29,7 @@ class MTweet:
         for raw_tweet in raw_tweets:
             lo_rt.append(unicode(raw_tweet))
             number_of_tweets += 1
-            if number_of_tweets == 1000:
+            if number_of_tweets == 10000:
                 self.parse_raw_tweets(lo_rt)
                 number_of_tweets = 0
                 lo_rt = []
@@ -41,26 +41,21 @@ class MTweet:
         self.getTweets(lot,self.max_dis)
 
     def getTweets(self, lot, max_dis):
-        logging.info('CMUTagger has parsed the tweets from : %s',  self.infile)
         #lot = [[('example',  'N',  0.979),  ('tweet',  'V',  0.7763),  ('1',  '$',  0.9916)],
         #       [('example',  'N',  0.979),  ('tweet',  'V',  0.7713),  ('2',  '$',  0.5832)]]
-
         try:
             for tweet in lot:
                 self.getTweet(tweet,max_dis)
                 self.completed += 1
         except Exception, e:
             logging.error('[%d]'%self.completed+str(e),exc_info=True)
-        logging.info('Finish processing [%d] tweets from : %s', self.completed, self.infile)
-        logging.info('Node count:%d Edge count:%d after processing %s',  self.nodes.count(), self.edges.count(), self.infile)
-
+        logging.info('Node count:%d Edge count:%d after processing [%d] tweets from %s',
+                     self.nodes.count(), self.edges.count(),self.completed, self.infile)
 
     # t.getTweet([("This", 'N',  0.979), ("is", 'N',  0.97), ("@ahterx", 'N',  0.979),
     #("^^", 'N',  0.979), ("my", 'N',  0.979), ("luv", 'N',  0.979)])
     def getTweet(self, tweet,max_dis):
-        #tweet = [('example',  'N',  0.979),  ('tweet',  'V',  0.7763),  ('1',  '$',  0.9916)]
         words = []
-
         for word, tag, conf in tweet:
             word = word.lower()
 #            if not isvalid(word):

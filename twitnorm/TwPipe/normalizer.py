@@ -8,17 +8,17 @@ from  numpy import array
 import pdb
 import logging
 
-logger = logging.getLogger('norm_logger')
-logger.setLevel(logging.DEBUG)
+logger2 = logging.getLogger('norm_logger')
+logger2.setLevel(logging.DEBUG)
 # create file handler which logs even debug messages
-fh = logging.FileHandler('norm.log')
-fh.setLevel(logging.DEBUG)
+fh2 = logging.FileHandler('norm.log')
+fh2.setLevel(logging.DEBUG)
 # create formatter and add it to the handlers
 formatter = logging.Formatter('%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-fh.setFormatter(formatter)
+fh2.setFormatter(formatter)
 # add the handlers to logger
-logger.addHandler(fh)
-logger.propagate = False
+logger2.addHandler(fh2)
+logger2.propagate = False
 salient=0.001
 class Normalizer:
 
@@ -122,7 +122,7 @@ class Normalizer:
         return keys,score_matrix
 
     def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, neigh_tag, distance):
-        logger.info("%s %s: {'%s':'%s', '%s_tag': '%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (ovv_word,ovv_tag,neigh_position,neigh_node, neigh_position, neigh_tag, position , ovv_tag,distance))
+        logger2.debug("%s %s: {'%s':'%s', '%s_tag': '%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (ovv_word,ovv_tag,neigh_position,neigh_node, neigh_position, neigh_tag, position , ovv_tag,distance))
         candidates_q = self.edges.find({neigh_position:neigh_node, neigh_position+'_tag': neigh_tag,
                                         position+'_tag': ovv_tag,
                                         'dis': distance , 'weight' : { '$gt': 1 } })

@@ -45,7 +45,13 @@ def ensure_indexes(database='tweets'):
     db.edges.ensure_index([ ('from', 1) , ('from_tag', 1), ('to_tag', 1)] )
     db.edges.ensure_index('from_tag', 1)
     db.edges.ensure_index('to_tag', 1)
+    # db.nodes.ensureIndex( { "to": 1, "to_tag": 1 ,"from_tag": 1 })
+    # db.nodes.ensureIndex( { "from": 1, "from_tag": 1 ,"to_tag": 1 })
+    # db.nodes.ensureIndex( { "from_tag": 1 })
+    # db.nodes.ensureIndex( { "to_tag": 1 })
 
     db.nodes.ensure_index([ ('node', 1), ('tag', 1)], unique=True)
+    # db.nodes.ensureIndex( { "node": 1, "tag": 1 }, { unique: true } )
+
 if __name__ == "__main__":
     update_edges_tag()
