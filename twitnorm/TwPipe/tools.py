@@ -107,7 +107,7 @@ def pretty_max_min(res,feat_mat1):
 def get_node(word,tag=None,ovv=False):
     word = word.lower()
     if tag is None:
-        return [node for node in DB.nodes.find({'node':word, 'ovv': ovv })]
+        return [node for node in DB.nodes.find({'node':word, 'ovv': ovv }).sort("freq",-1)]
     else:
         return DB.nodes.find_one({'node':word, "tag":tag})
 

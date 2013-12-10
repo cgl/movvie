@@ -205,3 +205,9 @@ db.edges.ensureIndex( { "from_tag": 1 })
 db.edges.ensureIndex( { "to_tag": 1 })
 
 db.nodes.ensureIndex( { "node": 1, "tag": 1 }, { unique: true } )
+
+db_dict.dic.remove()
+tools.get_dict()
+tools.DB = tools.CLIENT['test2']
+matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc,database='test2')
+fms = analysis.add_slangs(matrix1,slang)

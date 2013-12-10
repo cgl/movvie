@@ -111,7 +111,7 @@ class Normalizer:
         return keys,score_matrix
 
     def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, neigh_tag, distance):
-        logging.debug("%s %s: {'%s':'%s', '%s_tag': '%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (ovv_word,ovv_tag,neigh_position,neigh_node, neigh_position, neigh_tag, position , ovv_tag,distance))
+        #logging.debug("%s %s: {'%s':'%s', '%s_tag': '%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (ovv_word,ovv_tag,neigh_position,neigh_node, neigh_position, neigh_tag, position , ovv_tag,distance))
         candidates_q = self.edges.find({neigh_position:neigh_node, neigh_position+'_tag': neigh_tag,
                                         position+'_tag': ovv_tag,
                                         'dis': distance , 'weight' : { '$gt': 1 } })

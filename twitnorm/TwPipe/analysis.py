@@ -19,7 +19,7 @@ ovvFunc = is_ill
 dic= enchant.Dict("en_US")
 units = ["zero", "one", "to", "three", "for",  "five",
     "six", "seven", "eight", "nine"]
-units_in_word = ["o","l","to", "e", "for" , "s",  "b",  "t", "ate", "g"]
+units_in_word = ["o",("one","l"),"to", "e", ("for","fore","a") , "s",  "b",  "t", "ate", "g"]
 pronouns = {u'2':u"to",u'w':u"with",u'4':u'for'}
 slang = tools.get_slangs()
 met_map = {}
@@ -314,7 +314,11 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
         if ovv != cand:
             cand = tools.get_reduced(ovv,count=1)
             add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
-            print "added %s %d" %(cand,ind)
+            print "added %s %d" % (cand,ind)
+        cand = replace_digits(ovv)
+        if ovv != cand:
+            add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
+            print "added %s %d" % (cand,ind)
     return fm
 
 def add_candidate(cands,cand,ovv,ovv_tag,slang_threshold):
@@ -344,8 +348,19 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,database='tweets'):
 def replace_digits(ovv_word):
     if ovv_word.isdigit() and len(ovv_word) == 1:
         ovv_word = units[int(ovv_word)]
-    elif ovv_word.isalnum():
-        ovv_word = re.sub("(-?\d+)|(\+1)", lambda m: units_in_word[int[m.group(0)]] if len(m.group(0)) == 1 else m.group(0), ovv_word)
+    else:
+        m = re.search("(-?\d+)|(\+1)", ovv_word)
+        if m:
+            #ovv_word = re.sub("(-?\d+)|(\+1)", lambda m: [units_in_word[int(m.group(0))] if len(m.group(0)) == 1 else m.group(0)], ovv_word
+            print ovv_word
+            trans = units_in_word[int(m.group(0))]
+            if trans.__class__ == str:
+                ovv_word = ovv_word.replace(m.group(0),trans)
+            else:
+                transes = [ovv_word.replace(m.group(0),t) for t in trans]
+                transes_scored = [(t,tools.get_node(t)[0]['freq'] if tools.get_node(t) else 0) for t in transes]
+                transes_scored.sort(key=lambda x: x[1])
+                ovv_word = transes_scored[-1][0]
     return ovv_word
 
 def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False, threshold=0.720513):
@@ -398,7 +413,7 @@ def run(matrix1,feat_mat,slang,not_ovv =[], max_val = [1.0, 1.0, 1.0, 0.0, 1.0, 
         not_ovv = [word[0] if word[0] == word[1] else '' for word in mapp ]
     if not feat_mat:
         fms = add_slangs(matrix1,slang)
-        fmd = add_from_dict(fms,mapp,distance,not_ovv=not_ovv)
+        fmd = add_from_dict(fms,matrix1,distance,not_ovv=not_ovv)
         fm_reduced = add_nom_verbs(fmd,mapp,slang_threshold=1)
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
     res,ans = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=0.720513)
