@@ -193,8 +193,7 @@ for node in db.nodes.find():
 create graph from scratch
 argv = ['-i', 'test/snap.sample', '--database=test', '-m', '4']
 graphlib.main(argv)
-(1*)
-matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc,database='test')
+
 
 cp ~/Datasets/snap/splited/splited-10/dr test/snap2.sample
 argv = ['-i', 'test/snap2.sample', '--database=test2', '-m', '4']
@@ -206,8 +205,15 @@ db.edges.ensureIndex( { "to_tag": 1 })
 
 db.nodes.ensureIndex( { "node": 1, "tag": 1 }, { unique: true } )
 
+tools.db_dict = tools.CLIENT['dictionary2']
+tools.db_tweets = tools.CLIENT['tweets2']
+tools.DB = tools.CLIENT['test2']
+(1*)
+matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc,database='test')
+(2)
+Yukarıda
+(3)
 db_dict.dic.remove()
 tools.get_dict()
-tools.DB = tools.CLIENT['test2']
-matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc,database='test2')
+(4)
 fms = analysis.add_slangs(matrix1,slang)

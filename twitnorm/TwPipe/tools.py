@@ -23,13 +23,9 @@ chars = string.lowercase + string.digits + string.punctuation
 char_ind = [ord(x) for x in chars]
 char_map = dict(zip(chars,char_ind))
 CLIENT = MongoClient('localhost', 27017)
-DB = CLIENT['tweets2']
-DB_dict = CLIENT['dictionary2']
-#client_tabi = MongoClient("79.123.176.205", 27017)
 try:
-#    client_shark = MongoClient("79.123.177.251", 27017)
-    db_tweets = DB #client_shark['tweets']
-    db_dict = DB_dict  # client_shark['dictionary']
+    db_tweets = CLIENT['tweets2']
+    db_dict = CLIENT['dictionary2']
 except:
     db_tweets  = None
 
@@ -107,9 +103,9 @@ def pretty_max_min(res,feat_mat1):
 def get_node(word,tag=None,ovv=False):
     word = word.lower()
     if tag is None:
-        return [node for node in DB.nodes.find({'node':word, 'ovv': ovv }).sort("freq",-1)]
+        return [node for node in db_tweets.nodes.find({'node':word, 'ovv': ovv }).sort("freq",-1)]
     else:
-        return DB.nodes.find_one({'node':word, "tag":tag})
+        return db_tweets.nodes.find_one({'node':word, "tag":tag})
 
 def get_tag(ind,word):
     return mapp[ind][2]
