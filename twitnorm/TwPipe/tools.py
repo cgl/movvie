@@ -320,7 +320,10 @@ def get_from_dict_met(word,met_map,met_dis=1):
             pass
         else:
             all_mets = set(db_dict.dic.distinct('met0')).union(set(db_dict.dic.distinct('met1')))
-            all_mets.remove(None)
+            try:
+                all_mets.remove(None)
+            except KeyError:
+                pass
             for met in all_mets:
                 if in_edit_dis(met_word,met,met_dis):
                     met_map[met_word] = met_map.get(met_word,[])
