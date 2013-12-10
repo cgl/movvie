@@ -207,9 +207,8 @@ db.nodes.ensureIndex( { "node": 1, "tag": 1 }, { unique: true } )
 
 tools.db_dict = tools.CLIENT['dictionary2']
 tools.db_tweets = tools.CLIENT['tweets2']
-tools.DB = tools.CLIENT['test2']
 (1*)
-matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc,database='test')
+matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc,database='tweets2')
 (2)
 Yukarıda
 (3)

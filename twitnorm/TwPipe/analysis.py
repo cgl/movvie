@@ -8,6 +8,7 @@ import CMUTweetTagger
 import enchant
 import tools
 import mlpy
+import numpy
 import re
 import copy
 import traceback
@@ -342,6 +343,11 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,database='tweets'):
                 keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
                 ovv_word_digited = replace_digits(ovv_word)
                 lo_candidates.append([(ovv_word_digited,ovv_tag),keys,score_matrix])
+            elif word[1] == "OOV":
+                lo_candidates.append([(word[0],ovv_tag),[word[0]],
+                                      [[[numpy.array([    9.93355,  4191.     ]), 'new|A'],
+                                        [numpy.array([  1.26120000e+00,   4.19100000e+03]), 'pix|N']]]
+                                  ])
     logger.info('Finished')
     return lo_candidates
 
