@@ -356,9 +356,8 @@ def replace_digits(ovv_word):
         ovv_word = units[int(ovv_word)]
     else:
         m = re.search("(-?\d+)|(\+1)", ovv_word)
-        if m:
+        if m and len(m.group(0)) == 1 :
             #ovv_word = re.sub("(-?\d+)|(\+1)", lambda m: [units_in_word[int(m.group(0))] if len(m.group(0)) == 1 else m.group(0)], ovv_word
-            print ovv_word
             trans = units_in_word[int(m.group(0))]
             if trans.__class__ == str:
                 ovv_word = ovv_word.replace(m.group(0),trans)
