@@ -17,10 +17,12 @@ is_ill = lambda x,y,z : True if x != z else False
 is_ovv = lambda x,y,z : True if y == 'OOV' else False
 ovvFunc = is_ill
 dic= enchant.Dict("en_US")
-units = ["", "one", "to", "three", "for",  "five",
+units = ["zero", "one", "to", "three", "for",  "five",
     "six", "seven", "eight", "nine"]
-pronouns = {u'2':u"to",u'w':u"with"}
+units_in_word = ["o","l","to", "e", "for" , "s",  "b",  "t", "ate", "g"]
+pronouns = {u'2':u"to",u'w':u"with",u'4':u'for'}
 slang = tools.get_slangs()
+met_map = {}
 
 import logging
 
@@ -79,18 +81,11 @@ def is_ovv(slang):
     print i," not ovv detected"
     return not_ovv
 
-def add_from_dict(fm,mapp,distance,not_ovv = is_ovv(slang)):
-    clean_words = tools.get_clean_words()
+def add_reduced_form(fm,mat,not_ovv = is_ovv(slang)):
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
-            cands = find_more_results(mapp[ind][0],mapp[ind][2],cands,clean_words,distance)
-    return fm
-
-def add_reduced_form(fm,mapp,not_ovv = is_ovv(slang)):
-    for ind,cands in enumerate(fm):
-        if not not_ovv[ind]:
-            ovv = mapp[ind][0]
-            ovv_tag = mapp[ind][2]
+            ovv = mat[ind][0][0]
+            ovv_tag = mat[ind][0][1]
             cand = tools.get_reduced(ovv)
             if ovv != cand and not cands.has_key(cand):
                 cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
@@ -101,8 +96,15 @@ def add_reduced_form(fm,mapp,not_ovv = is_ovv(slang)):
                 cands[cand] = get_score_line(u"i'm",0,ovv,ovv_tag)
     return fm
 
+def add_from_dict(fm,mat,distance,not_ovv = is_ovv(slang)):
+    clean_words = tools.get_clean_words()
+    for ind,cands in enumerate(fm):
+        if not not_ovv[ind]:
+            cands = find_more_results(mat[ind][0][0],mat[ind][0][1],cands,clean_words,distance)
+    return fm
+
 def find_more_results(ovv,ovv_tag,cand_dict,clean_words,distance,give_suggestions=True):
-    cands = tools.get_from_dict_met(ovv,{})
+    cands = tools.get_from_dict_met(ovv,met_map)
     cands_more = tools.get_from_dict_dis(ovv,ovv_tag,clean_words,distance)
     cands.extend(cands_more)
     cands = list(set(cands))
@@ -117,7 +119,7 @@ def find_more_results(ovv,ovv_tag,cand_dict,clean_words,distance,give_suggestion
 def iter_calc_lev(matrix,fm,mapp,not_ovv = is_ovv(slang),edit_dis=2,met_dis=1,verbose=False):
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
-            cands = get_candidates_from_graph(matrix[ind],mapp[ind][0],mapp[ind][2],cands,edit_dis,met_dis)
+            cands = get_candidates_from_graph(matrix[ind],matrix[ind][0][0], matrix[ind][0][1],cands,edit_dis,met_dis)
     return fm
 
 def get_candidates_from_graph(matrix,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
@@ -133,7 +135,7 @@ def get_candidates_from_graph(matrix,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
     return cand_dict
 
 def get_score_line(cand,sumof,ovv,ovv_tag):
-    node =  tools.get_node(cand.lower(),tag=ovv_tag)
+    node =  tools.get_node(cand,tag=ovv_tag)
     freq = freq_score(int(node['freq'])) if node else 0.
     line = [ #cand,
             sumof,                                # weight
@@ -161,21 +163,21 @@ def freq_score(freq):
     else:
         return 0
 
-def add_slangs(mat,mapp,slang,verbose=False):
+def add_slangs(mat,slang,verbose=False):
     res_mat = []
     for ind in range (0,len(mat)):
-        ovv = mat[ind][0]
+        ovv = mat[ind][0][0]
         ovv_reduced = re.sub(r'(.)\1+', r'\1\1', ovv).lower()
         cands = {}
         if slang.has_key(ovv_reduced):
             sl = slang.get(ovv_reduced)
             if len(sl.split(" ")) <=  1:
-                ovv_tag = mapp[ind][2]
+                ovv_tag =  mat[ind][0][1]
                 res_line = get_score_line(sl,0,ovv,ovv_tag)
                 res_line[4] = 1
                 cands[sl] = res_line
                 if verbose:
-                    print ind,ovv,"[",mapp[ind][1],"]",sl,cands[sl]
+                    print ind,ovv,sl,cands[sl]
         res_mat.append(cands)
     return res_mat
 
@@ -288,14 +290,7 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
     for ind,cands in enumerate(fm):
         ovv = mapp[ind][0]
         ovv_tag = mapp[ind][2]
-        if ovv_tag == "$" :
-            if ovv.isdigit():
-                cand = units[int(ovv[0])]
-                add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
-            else:
-                pass
-                print ind,ovv
-        elif ovv_tag == "L" :
+        if ovv_tag == "L" :
             if ovv.lower() == u"im":
                 cand = u"i'm"
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
@@ -306,6 +301,12 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
         elif ovv_tag == u"P":
             if pronouns.has_key(ovv):
                 cand = pronouns[ovv]
+                add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
+            else:
+                print ind,ovv,ovv_tag
+        elif ovv_tag == u"R":
+            if ovv == u"2":
+                cand = u"too"
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
             else:
                 print ind,ovv,ovv_tag
@@ -335,9 +336,17 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,database='tweets'):
                 ovv_word = word[0]
                 ovv_tag = tweet_pos_tagged[j][1]
                 keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
-                lo_candidates.append([ovv_word,keys,score_matrix])
+                ovv_word_digited = replace_digits(ovv_word)
+                lo_candidates.append([(ovv_word_digited,ovv_tag),keys,score_matrix])
     logger.info('Finished')
     return lo_candidates
+
+def replace_digits(ovv_word):
+    if ovv_word.isdigit() and len(ovv_word) == 1:
+        ovv_word = units[int(ovv_word)]
+    elif ovv_word.isalnum():
+        ovv_word = re.sub("(-?\d+)|(\+1)", lambda m: units_in_word[int[m.group(0)]] if len(m.group(0)) == 1 else m.group(0), ovv_word)
+    return ovv_word
 
 def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False, threshold=0.720513):
     results = []
@@ -388,7 +397,7 @@ def run(matrix1,feat_mat,slang,not_ovv =[], max_val = [1.0, 1.0, 1.0, 0.0, 1.0, 
     if not not_ovv:
         not_ovv = [word[0] if word[0] == word[1] else '' for word in mapp ]
     if not feat_mat:
-        fms = add_slangs(matrix1,mapp,slang)
+        fms = add_slangs(matrix1,slang)
         fmd = add_from_dict(fms,mapp,distance,not_ovv=not_ovv)
         fm_reduced = add_nom_verbs(fmd,mapp,slang_threshold=1)
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)

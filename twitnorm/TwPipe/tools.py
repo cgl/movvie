@@ -24,11 +24,12 @@ char_ind = [ord(x) for x in chars]
 char_map = dict(zip(chars,char_ind))
 CLIENT = MongoClient('localhost', 27017)
 DB = CLIENT['tweets2']
+DB_dict = CLIENT['dictionary2']
 #client_tabi = MongoClient("79.123.176.205", 27017)
 try:
-    client_shark = MongoClient("79.123.177.251", 27017)
-    db_tweets = client_shark['tweets']
-    db_dict = client_shark['dictionary']
+#    client_shark = MongoClient("79.123.177.251", 27017)
+    db_tweets = DB #client_shark['tweets']
+    db_dict = DB_dict  # client_shark['dictionary']
 except:
     db_tweets  = None
 
@@ -104,6 +105,7 @@ def pretty_max_min(res,feat_mat1):
     print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.2f %8.6f" % (maxes[0], maxes[1], maxes[2], maxes[3], maxes[4], maxes[5],maxes[6],)
 
 def get_node(word,tag=None,ovv=False):
+    word = word.lower()
     if tag is None:
         return [node for node in DB.nodes.find({'node':word, 'ovv': ovv })]
     else:
@@ -257,7 +259,7 @@ def get_dict():
     cursor = db_tweets.nodes.find({"ovv":False,"freq":{"$gt": 100}}).sort("freq",-1)
     print cursor.count()
     for node in cursor:
-        word = node['node'].split("|")[0]
+        word = node['node']
         if db_dict.dic.find_one({"ovv":False,"node":word}) is not None:
             continue
         else:
@@ -380,7 +382,7 @@ def get_clean_words():
         cursor = db_tweets.nodes.find({"ovv":False,"tag":tag,"freq":{"$gt": 20}}).sort("freq",-1)
         words[tag] = set()
         for node in cursor:
-            word = node['node'].split("|")[0]
+            word = node['node']
             words[tag].add(word)
     return words
 

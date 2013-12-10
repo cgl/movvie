@@ -162,9 +162,9 @@ tools.dump_to_file(mat_new,filename="matrix3.txt")
 
 import sys ; sys.path.append("/home/cagil/repos/movvie/twitnorm/TwPipe/febrl-0.4.2/") ; sys.path.append("/usr/lib/python2.7/dist-packages/")
 import tools, analysis, constants,copy
-
+(1*)
 matrix3 = tools.load_from_file(filename="matrix3.txt")
-
+(2)
 mapp = constants.mapping
 bos_ovv = [word[0] if word[0] == word[1] else '' for word in mapp ]
 slang = tools.get_slangs()
@@ -193,6 +193,7 @@ for node in db.nodes.find():
 create graph from scratch
 argv = ['-i', 'test/snap.sample', '--database=test', '-m', '4']
 graphlib.main(argv)
+(1*)
 matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc,database='test')
 
 cp ~/Datasets/snap/splited/splited-10/dr test/snap2.sample

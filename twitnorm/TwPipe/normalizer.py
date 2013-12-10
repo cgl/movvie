@@ -8,17 +8,6 @@ from  numpy import array
 import pdb
 import logging
 
-logger2 = logging.getLogger('norm_logger')
-logger2.setLevel(logging.DEBUG)
-# create file handler which logs even debug messages
-fh2 = logging.FileHandler('norm.log')
-fh2.setLevel(logging.DEBUG)
-# create formatter and add it to the handlers
-formatter = logging.Formatter('%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-fh2.setFormatter(formatter)
-# add the handlers to logger
-logger2.addHandler(fh2)
-logger2.propagate = False
 salient=0.001
 class Normalizer:
 
@@ -111,18 +100,18 @@ class Normalizer:
             neigh_tag = tag
             distance = len(froms) - ind
             cands_q = self.get_cands_with_weigh_freq(ovv, ovv_tag, 'to', 'from', neigh_node, neigh_tag, distance)
-            keys,score_matrix = self.write_scores(neigh_node,cands_q, keys, score_matrix)
+            keys,score_matrix = self.write_scores(neigh_node,neigh_tag,cands_q, keys, score_matrix)
         for ind,(word, tag, acc) in enumerate(tos):
 #            if tag not in [',','@']:
             neigh_node = word.strip()
             neigh_tag = tag
             distance = ind
             cands_q = self.get_cands_with_weigh_freq(ovv, ovv_tag, 'from', 'to', neigh_node, neigh_tag, distance)
-            keys,score_matrix = self.write_scores(neigh_node,cands_q,keys,score_matrix)
+            keys,score_matrix = self.write_scores(neigh_node,neigh_tag,cands_q,keys,score_matrix)
         return keys,score_matrix
 
     def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, neigh_tag, distance):
-        logger2.debug("%s %s: {'%s':'%s', '%s_tag': '%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (ovv_word,ovv_tag,neigh_position,neigh_node, neigh_position, neigh_tag, position , ovv_tag,distance))
+        logging.debug("%s %s: {'%s':'%s', '%s_tag': '%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (ovv_word,ovv_tag,neigh_position,neigh_node, neigh_position, neigh_tag, position , ovv_tag,distance))
         candidates_q = self.edges.find({neigh_position:neigh_node, neigh_position+'_tag': neigh_tag,
                                         position+'_tag': ovv_tag,
                                         'dis': distance , 'weight' : { '$gt': 1 } })
@@ -141,9 +130,9 @@ class Normalizer:
         return cands_q
 
     @staticmethod
-    def write_scores(neigh,cands_q,keys,score_matrix):
+    def write_scores(neigh,neigh_tag,cands_q,keys,score_matrix):
         for cand_q in cands_q:
-            new_scores = [array([cand_q['weight'],cand_q['freq']]),neigh]
+            new_scores = [array([cand_q['weight'],cand_q['freq']]),(neigh,neigh_tag)]
             if cand_q['cand']  not in keys:
                 keys.append(cand_q['cand'])
                 score_matrix.append([new_scores])
