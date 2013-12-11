@@ -371,7 +371,7 @@ def replace_digits(ovv_word):
 def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False, threshold=0.720513):
     results = []
     correct_answers = []
-    pos = 0
+    incorrect_answers = []
     total_pos = 1
     slang = tools.get_slangs()
     for ind in range (0,len(res_mat)):
@@ -398,12 +398,13 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
             total_pos += 1
             if mapp[ind][0] != mapp[ind][1]:
                 correct_answers.append((ind,answer))
-                pos += 1
+        else:
+            incorrect_answers.append((ind,answer))
         if verbose:
             print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
         results.append(res_list)
-    print 'Number of correct answers %s, Number of total correct answers %s' % (pos,total_pos)
-    return results,correct_answers
+    print 'Number of correct answers %s, incorrect answers %s, total correct answers %s' % (len(correct_answers),len(incorrect_answers),total_pos)
+    return results,correct_answers,incorrect_answers
 
 def run(matrix1,feat_mat,slang,not_ovv =[], max_val = [1.0, 1.0, 1.0, 0.0, 1.0, 1.0], verbose=False, distance = 3):
     if not matrix1:
