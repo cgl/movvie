@@ -171,7 +171,7 @@ def add_slangs(mat,slang,verbose=False):
         ovv_reduced = re.sub(r'(.)\1+', r'\1\1', ovv).lower()
         cands = {}
         if slang.has_key(ovv_reduced):
-            sl = slang.get(ovv_reduced)
+            sl = slang.get(ovv_reduced).lower()
             if len(sl.split(" ")) <=  1:
                 ovv_tag =  mat[ind][0][1]
                 res_line = get_score_line(sl,0,ovv,ovv_tag)

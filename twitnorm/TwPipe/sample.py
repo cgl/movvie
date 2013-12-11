@@ -168,7 +168,7 @@ matrix3 = tools.load_from_file(filename="matrix3.txt")
 mapp = constants.mapping
 bos_ovv = [word[0] if word[0] == word[1] else '' for word in mapp ]
 slang = tools.get_slangs()
-
+---------
 fms = analysis.add_slangs(matrix3,mapp,slang)
 distance = 2
 fmd = analysis.add_from_dict(fms,mapp,distance,not_ovv=bos_ovv)
@@ -209,10 +209,17 @@ tools.db_dict = tools.CLIENT['dictionary2']
 tools.db_tweets = tools.CLIENT['tweets2']
 (1*)
 matrix1 = analysis.calc_score_matrix(constants.pos_tagged,constants.results,analysis.ovvFunc,database='tweets2')
+------
 (2)
 Yukarıda
+------
 (3)
 db_dict.dic.remove()
 tools.get_dict()
 (4)
 fms = analysis.add_slangs(matrix1,slang)
+fmd = analysis.add_from_dict(fms,matrix1,distance,not_ovv=bos_ovv)
+
+fm_reduced = analysis.add_nom_verbs(copy.deepcopy(fmd),mapp,slang_threshold=1.2)
+feat_mat = analysis.iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv=bos_ovv)
+res,ans,incorrects = analysis.show_results(feat_mat, mapp, not_ovv = bos_ovv, max_val=[1., 1., 0.5, 0.0, 1.0, 0.5],threshold=1.3)
