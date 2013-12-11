@@ -377,7 +377,7 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
     for ind in range (0,len(res_mat)):
         correct = False
         ovv = mapp[ind][0]
-        if False: #not_ovv and not_ovv[ind]:
+        if not_ovv and not_ovv[ind]:
             res_list = [[not_ovv[ind],0,0,0,0,0,0]]
         else:
             res_dict = copy.deepcopy(res_mat[ind])
@@ -393,12 +393,12 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
                 res_list.sort(key=lambda x: -float(x[-1]))
         answer = res_list[0][0] if res_list else ovv
         correct_answer = mapp[ind][1]
-        if answer == correct_answer or answer.lower() == correct_answer.lower() : #lower
+        if not not_ovv[ind] and answer.lower() == correct_answer.lower() : #lower
             correct = True
             total_pos += 1
             if mapp[ind][0] != mapp[ind][1]:
                 correct_answers.append((ind,answer))
-        elif answer != ovv:
+        elif not not_ovv[ind] and answer != ovv:
             incorrect_answers.append((ind,answer))
         if verbose:
             print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
