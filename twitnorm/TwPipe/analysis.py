@@ -18,8 +18,7 @@ is_ill = lambda x,y,z : True if x != z else False
 is_ovv = lambda x,y,z : True if y == 'OOV' else False
 ovvFunc = is_ill
 dic= enchant.Dict("en_US")
-units = ["zero", "one", "to", "three", "for",  "five",
-    "six", "seven", "eight", "nine"]
+units = ["zero", "one", "to", "three", "for",  "five","six", "seven", "eight", "nine"]
 units_in_word = ["o",("one","l"),"to", "e", ("for","fore","a") , "s",  "b",  "t", "ate", "g"]
 pronouns = {u'2':u"to",u'w':u"with",u'4':u'for'}
 slang = tools.get_slangs()
@@ -406,25 +405,24 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
     print 'Number of correct answers %s, incorrect answers %s, total correct answers %s' % (len(correct_answers),len(incorrect_answers),total_pos)
     return results,correct_answers,incorrect_answers
 
-def run(matrix1,feat_mat,slang,not_ovv =[], max_val = [1.0, 1.0, 1.0, 0.0, 1.0, 1.0], verbose=False, distance = 3):
+def run(matrix1,fmd,feat_mat,slang,not_ovv, max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
     if not matrix1:
         matrix1 = tools.load_from_file()
     from constants import mapping as mapp
     #max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
     if not slang:
         slang = tools.get_slangs()
-    edit_dis=2
-    met_dis=1
     if not not_ovv:
         not_ovv = [word[0] if word[0] == word[1] else '' for word in mapp ]
-    if not feat_mat:
-        fms = add_slangs(matrix1,slang)
+    fms = add_slangs(matrix1,slang)
+    if not fmd:
         fmd = add_from_dict(fms,matrix1,distance,not_ovv=not_ovv)
-        fm_reduced = add_nom_verbs(fmd,mapp,slang_threshold=1)
+    fm_reduced = add_nom_verbs(fmd,mapp,slang_threshold=1)
+    if not feat_mat:
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
     res,ans = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=0.720513)
     index_list,nil,no_res = tools.top_n(res,not_ovv,verbose=verbose)
     tools.get_performance(len(ans),len(no_res))
     threshold = tools.get_score_threshold(index_list,res)
     tools.test_threshold(res,threshold)
-    return res,feat_mat
+    return [res,feat_mat,fmd,matrix1,ans,nil,no_res]
