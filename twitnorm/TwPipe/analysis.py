@@ -405,10 +405,10 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
     print 'Number of correct answers %s, incorrect answers %s, total correct answers %s' % (len(correct_answers),len(incorrect_answers),total_pos)
     return results,correct_answers,incorrect_answers
 
-def run(matrix1,fmd,feat_mat,slang,not_ovv, max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
+def run(matrix1,fmd,feat_mat,slang,not_ovv,max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
+    from constants import mapping as mapp, pos_tagged, results
     if not matrix1:
-        matrix1 = tools.load_from_file()
-    from constants import mapping as mapp
+        matrix1 = calc_score_matrix(pos_tagged,results,ovvFunc,database='tweets2')
     #max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
     if not slang:
         slang = tools.get_slangs()
