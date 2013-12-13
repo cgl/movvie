@@ -19,6 +19,7 @@ is_ovv = lambda x,y,z : True if y == 'OOV' else False
 ovvFunc = is_ill
 dic= enchant.Dict("en_US")
 units = ["zero", "one", "to", "three", "for",  "five","six", "seven", "eight", "nine"]
+units_in_oov = ["o","one","to","three","for","five","six", "seven", "eight", "nine"]
 units_in_word = ["o",("one","l"),"to", "e", ("for","fore","a") , "s",  "b",  "t", "ate", "g"]
 pronouns = {u'2':u"to",u'w':u"with",u'4':u'for'}
 slang = tools.get_slangs()
@@ -340,7 +341,8 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,database='tweets'):
                 ovv_word = word[0]
                 ovv_tag = tweet_pos_tagged[j][1]
                 keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
-                ovv_word_digited = replace_digits(ovv_word)
+                ovv_word_reduced = re.sub(r'(.)\1+', r'\1\1', ovv_word).lower()
+                ovv_word_digited = replace_digits(ovv_word_reduced)
                 lo_candidates.append([(ovv_word_digited,ovv_tag),keys,score_matrix])
             elif word[1] == "OOV":
                 lo_candidates.append([(word[0],ovv_tag),[word[0]],
@@ -357,7 +359,10 @@ def replace_digits(ovv_word):
         m = re.search("(-?\d+)|(\+1)", ovv_word)
         if m and len(m.group(0)) == 1 :
             #ovv_word = re.sub("(-?\d+)|(\+1)", lambda m: [units_in_word[int(m.group(0))] if len(m.group(0)) == 1 else m.group(0)], ovv_word
-            trans = units_in_word[int(m.group(0))]
+            trans = units_in_oov[int(m.group(0))]
+            ovv_word = ovv_word.replace(m.group(0),trans)
+    return ovv_word
+'''
             if trans.__class__ == str:
                 ovv_word = ovv_word.replace(m.group(0),trans)
             else:
@@ -365,7 +370,7 @@ def replace_digits(ovv_word):
                 transes_scored = [(t,tools.get_node(t)[0]['freq'] if tools.get_node(t) else 0) for t in transes]
                 transes_scored.sort(key=lambda x: x[1])
                 ovv_word = transes_scored[-1][0]
-    return ovv_word
+'''
 
 def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False, threshold=0.720513):
     results = []
