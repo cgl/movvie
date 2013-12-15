@@ -303,23 +303,17 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
             if pronouns.has_key(ovv):
                 cand = pronouns[ovv]
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
-            else:
-                print ind,ovv,ovv_tag
         elif ovv_tag == u"R":
             if ovv == u"2":
                 cand = u"too"
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
-            else:
-                print ind,ovv,ovv_tag
         cand = tools.get_reduced(ovv)
         if ovv != cand:
             cand = tools.get_reduced(ovv,count=1)
             add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
-            print "added %s %d" % (cand,ind)
         cand = replace_digits(ovv)
         if ovv != cand:
             add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
-            print "added %s %d" % (cand,ind)
     return fm
 
 def add_candidate(cands,cand,ovv,ovv_tag,slang_threshold):
