@@ -1,5 +1,7 @@
 import CMUTweetTagger
 from normalizer import Normalizer
+import traceback
+
 
 def han(numOfResults,infile = 'test/corpus.tweet'):
     results = []
@@ -26,6 +28,38 @@ def han(numOfResults,infile = 'test/corpus.tweet'):
                 lot.append(' '.join(tweet_text))
                 tweet = []
                 tweet_text = []
+    return lot, results
+
+def pennel(numOfResults,infile,reffile):
+    results = []
+    tweet = []
+    lot = []
+    tweet_text = []
+    import codecs
+    with codecs.open(infile) as pennel_hyp_file, codecs.open(reffile) as pennel_ref_file:
+        for  line in  pennel_hyp_file:
+            if len(lot) >= numOfResults:
+                break
+            try:
+                line = line.strip('\n').decode()
+                line_strip = line.split(' ')
+                correct_answer = pennel_ref_file.next().split(' ')[2]
+                for ind,word in enumerate(line_strip):
+                    if ind == 2:
+                        tweet.append((word,"OOV",correct_answer))
+                    elif word == "<s>" or word == "</s>":
+                        continue
+                    else:
+                        tweet.append((word,"IV",word))
+                    tweet_text.append(word)
+            except:
+                print line
+                print traceback.format_exc()
+
+            results.append(tweet)
+            lot.append(' '.join(tweet_text))
+            tweet = []
+            tweet_text = []
     return lot, results
 
 def bisi(numOfResults=548):

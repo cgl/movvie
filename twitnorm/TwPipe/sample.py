@@ -223,3 +223,34 @@ fmd = analysis.add_from_dict(fms,matrix1,distance,not_ovv=bos_ovv)
 fm_reduced = analysis.add_nom_verbs(copy.deepcopy(fmd),mapp,slang_threshold=1.2)
 feat_mat = analysis.iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv=bos_ovv)
 res,ans,incorrects = analysis.show_results(feat_mat, mapp, not_ovv = bos_ovv, max_val=[1., 1., 0.5, 0.0, 1.0, 0.5],threshold=1.3)
+
+--------
+
+tools.db_dict.dic.remove()
+tools.db_dict.dic.ensure_index('met0')
+tools.db_dict.dic.ensure_index('met1')
+tools.get_dict()
+set3 = analysis.run([],[],[],slang,bos_ovv,)
+tools.dump_to_file(set3[3],"matrix3_v2.txt")
+
+---------
+
+tweets_penn,results_penn = scoring.pennel(515, "test/trigram_data/ann1.trigrams.hyp","test/trigram_data/ann1.trigrams.ref")
+import CMUTweetTagger ; pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
+matrix1 = analysis.calc_score_matrix(pos_tagged_penn,results_penn,analysis.ovvFunc,database='tweets2')
+mapp_penn = construct_mapp()
+bos_ovv_penn = [word[0] if word[0] == word[1] else '' for word in mapp_penn ]
+
+set_penn = analysis.run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn)
+
+def construct_mapp():
+    mapp_penn = []
+    #matrix_penn = analysis.calc_score_matrix(pos_tagged_penn,results_penn,analysis.ovvFunc,database='tweets2')
+    tweets_penn,results_penn = scoring.pennel(515, "test/trigram_data/ann1.trigrams.hyp","test/trigram_data/ann1.trigrams.ref")
+    pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
+    for t_ind,tweet in enumerate(results_penn):
+        for w_ind,(w,st,cor) in enumerate(tweet):
+            mapp_penn.append((w,cor,pos_tagged_penn[t_ind][w_ind][1]))
+    return mapp_penn
+
+mapp = construct_mapp()
