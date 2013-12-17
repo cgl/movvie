@@ -253,6 +253,6 @@ tools.mapp = mapp
 
 mapp = construct_mapp()
 
-for rr in set1[8][1][1]:
+for rr in set_penn2[8][1][1]:
     print rr,mapp[rr]
     tools.pretty_top_n(res,rr,max_val,last=4)

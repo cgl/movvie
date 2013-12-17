@@ -122,11 +122,15 @@ def iter_calc_lev(matrix,fm,mapp,not_ovv = is_ovv(slang),edit_dis=2,met_dis=1,ve
 def get_candidates_from_graph(matrix_line,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
     filtered_cand_list = [cand for cand in matrix_line[1]
                           if cand_dict.has_key(cand) or tools.filter_cand(ovv,cand,edit_dis=edit_dis,met_dis=met_dis)]
-
-    for cand in filtered_cand_list:
+#    print len(matrix_line[1]), len(filtered_cand_list)
+    for cand in matrix_line[1]: #filtered_cand_list:
         sumof = 0.
         for a,b in matrix_line[2][matrix_line[1].index(cand)]:
             sumof += a[0]/a[1]
+        if sumof > 0.5 and tools.filter_cand(ovv,cand,edit_dis=edit_dis+1,met_dis=met_dis+1):
+            print ovv,cand,sumof
+        elif not tools.filter_cand(ovv,cand,edit_dis=edit_dis,met_dis=met_dis):
+            continue
         if not cand_dict.has_key(cand):
             cand_dict[cand] = get_score_line(cand,sumof,ovv,ovv_tag)
         else:
@@ -381,7 +385,7 @@ def calculate_score_penn(hyp_file,ref_file,threshold=1.3):
     set_penn = run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn,threshold=threshold)
     return set_penn, mapp_penn
 
-def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False, threshold=0.720513):
+def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, threshold=0.720513):
     results = []
     correct_answers = []
     incorrect_answers = []
