@@ -424,5 +424,5 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,slang_threshold=1.2,max_val = [1
     tools.get_performance(len(ans),len(no_res),len(incor),len([oov for oov in not_ovv if oov == '']))
     threshold = tools.get_score_threshold(index_list,res)
     tools.test_threshold(res,threshold)
-    return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res]
-    #        0   1         2    3        4    5      6    7
+    return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list]
+    #        0   1         2    3        4    5      6    7       8

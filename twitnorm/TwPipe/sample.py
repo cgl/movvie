@@ -130,6 +130,9 @@ for rr in index_list[1][1]:
     print rr
     tools.pretty_top_n(res,rr,max_val,last=4)
 
+for rr in index_list[1][1]:
+    print rr,mapp[rr]
+    tools.pretty_top_n(res,rr,max_val,last=4)
 
 last setup:
 slang =
@@ -230,8 +233,8 @@ tools.db_dict.dic.remove()
 tools.db_dict.dic.ensure_index('met0')
 tools.db_dict.dic.ensure_index('met1')
 tools.get_dict()
-set4 = analysis.run([],[],[],slang,bos_ovv,)
-tools.dump_to_file(set4[3],"matrix4_v2.txt")
+set5 = analysis.run([],[],[],slang,bos_ovv,)
+tools.dump_to_file(set5[3],"matrix5_v2.txt")
 
 ---------
 
@@ -239,9 +242,11 @@ tweets_penn,results_penn = scoring.pennel(515, "test/trigram_data/ann1.trigrams.
 import CMUTweetTagger ; pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
 matrix_penn = analysis.calc_score_matrix(pos_tagged_penn,results_penn,analysis.ovvFunc,database='tweets2')
 mapp_penn = construct_mapp()
+tools.mapp = mapp_penn
 bos_ovv_penn = ['' for word in mapp_penn ]
 
 set_penn = analysis.run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn)
+tools.mapp = mapp
 
 def construct_mapp():
     mapp_penn = []
@@ -253,5 +258,20 @@ def construct_mapp():
             if st == "OOV":
                 mapp_penn.append((w,cor,pos_tagged_penn[t_ind][w_ind][1]))
     return mapp_penn
+
+def calculate_score_penn(hyp_file,ref_file):
+    tweets_penn,results_penn = scoring.pennel(5000,hyp_file,ref_file)
+    pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
+    matrix_penn = analysis.calc_score_matrix(pos_tagged_penn,results_penn,analysis.ovvFunc,database='tweets2')
+    bos_ovv_penn = ['' for word in mapp_penn ]
+    mapp_penn = construct_mapp()
+    tools.mapp = mapp_penn
+    set_penn = analysis.run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn)
+    return set_penn
+
+    a = []
+    for t_ind,tweet in enumerate(results_penn):
+        if len(pos_tagged_penn[t_ind]) != len(results_penn[t_ind]):
+            print t_ind,pos_tagged_penn[t_ind],[t_ind]
 
 mapp = construct_mapp()
