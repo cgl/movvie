@@ -120,8 +120,10 @@ def iter_calc_lev(matrix,fm,mapp,not_ovv = is_ovv(slang),edit_dis=2,met_dis=1,ve
     return fm
 
 def get_candidates_from_graph(matrix_line,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
-    for cand in [cand for cand in matrix_line[1]
-                 if cand_dict.has_key(cand) or tools.filter_cand(ovv,cand,edit_dis=edit_dis,met_dis=met_dis)]:
+    filtered_cand_list = [cand for cand in matrix_line[1]
+                          if cand_dict.has_key(cand) or tools.filter_cand(ovv,cand,edit_dis=edit_dis,met_dis=met_dis)]
+
+    for cand in filtered_cand_list:
         sumof = 0.
         for a,b in matrix_line[2][matrix_line[1].index(cand)]:
             sumof += a[0]/a[1]
