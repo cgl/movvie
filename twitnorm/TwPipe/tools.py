@@ -100,6 +100,10 @@ def pretty_max_min(res,feat_mat1):
     print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.2f %8.6f" % (mins[0], mins[1], mins[2], mins[3], mins[4], mins[5], mins[6],)
     print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.2f %8.6f" % (maxes[0], maxes[1], maxes[2], maxes[3], maxes[4], maxes[5],maxes[6],)
 
+def pretty_incorrects(incor,mapp):
+    for ind,ans in incor:
+        print "%4d  %10s %10s %10s" %(ind, mapp[ind][0], mapp[ind][1], ans)
+
 def get_node(word,tag=None,ovv=False):
     word = word.lower()
     if tag is None:

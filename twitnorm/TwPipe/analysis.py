@@ -1,4 +1,4 @@
-from scoring import han
+from scoring import han,pennel
 import enchant
 from fuzzy import DMetaphone
 import normalizer
@@ -12,8 +12,8 @@ import numpy
 import re
 import copy
 import traceback
+import logging
 
-tweets, results = han(548)
 is_ill = lambda x,y,z : True if x != z else False
 is_ovv = lambda x,y,z : True if y == 'OOV' else False
 ovvFunc = is_ill
@@ -25,11 +25,6 @@ pronouns = {u'2':u"to",u'w':u"with",u'4':u'for'}
 slang = tools.get_slangs()
 met_map = {}
 
-import logging
-
-
-logger = logging.getLogger('analysis_logger')
-logger.setLevel(logging.DEBUG)
 # create file handler which logs even debug messages
 fh = logging.FileHandler('analysis.log')
 fh.setLevel(logging.DEBUG)
@@ -38,9 +33,10 @@ formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datef
 
 fh.setFormatter(formatter)
 # add the handlers to logger
-logger.addHandler(fh)
-logger.propagate = False
-#FORMAT = '%(asctime)-12s (%(process)d) %(message)s'
+root_logger = logging.getLogger()
+root_logger.propagate = False
+root_logger.addHandler(fh)
+#root_logger.disabled = True
 
 def main(index=False):
     results = han(548)[1]
@@ -197,7 +193,8 @@ def calculate_score(res_vec,dim,max_val):
         print res_vec
         print traceback.format_exc()
 
-def calc_each_neighbours_score(tweets_str, results, ovv):
+# tweets, results = han(548)
+def calc_each_neighbours_score(tweets_str, results, ovv,tweets):
     lo_tweets = CMUTweetTagger.runtagger_parse(tweets_str)
     lo_candidates = []
     norm = normalizer.Normalizer(lo_tweets,database='tweets')
@@ -324,7 +321,6 @@ def add_candidate(cands,cand,ovv,ovv_tag,slang_threshold):
 #--------------------------------------------------------------
 
 def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,database='tweets'):
-    logger.info('Started')
     lo_candidates = []
     norm = normalizer.Normalizer(lo_postagged_tweets,database=database)
     for tweet_ind in range(0,len(lo_postagged_tweets)):
@@ -343,7 +339,6 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,database='tweets'):
                                       [[[numpy.array([    9.93355,  4191.     ]), 'new|A'],
                                         [numpy.array([  1.26120000e+00,   4.19100000e+03]), 'pix|N']]]
                                   ])
-    logger.info('Finished')
     return lo_candidates
 
 def replace_digits(ovv_word):
@@ -365,6 +360,24 @@ def replace_digits(ovv_word):
                 transes_scored.sort(key=lambda x: x[1])
                 ovv_word = transes_scored[-1][0]
 '''
+
+def construct_mapp_penn(pos_tagged_penn, results_penn):
+    mapp_penn = []
+    for t_ind,tweet in enumerate(results_penn):
+        for w_ind,(word,stag,cor) in enumerate(tweet):
+            if stag == "OOV":
+                mapp_penn.append((word,cor,pos_tagged_penn[t_ind][w_ind][1]))
+    return mapp_penn
+
+def calculate_score_penn(hyp_file,ref_file,threshold=1.3):
+    tweets_penn,results_penn = pennel(5000,hyp_file,ref_file)
+    pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
+    matrix_penn = calc_score_matrix(pos_tagged_penn, results_penn, ovvFunc, database='tweets2')
+    mapp_penn = construct_mapp_penn(pos_tagged_penn, results_penn)
+    bos_ovv_penn = ['' for word in mapp_penn ]
+    tools.mapp = mapp_penn
+    set_penn = run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn,threshold=threshold)
+    return set_penn
 
 def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False, threshold=0.720513):
     results = []
@@ -404,7 +417,7 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
     print 'Number of correct answers %s, incorrect answers %s, total correct answers %s' % (len(correct_answers),len(incorrect_answers),total_pos)
     return results,correct_answers,incorrect_answers
 
-def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,slang_threshold=1.2,max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
+def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,threshold=1.3,slang_threshold=1,max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
     from constants import pos_tagged, results
     if not matrix1:
         matrix1 = calc_score_matrix(pos_tagged,results,ovvFunc,database='tweets2')
@@ -419,7 +432,7 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,slang_threshold=1.2,max_val = [1
     fm_reduced = add_nom_verbs(fmd,mapp,slang_threshold=slang_threshold)
     if not feat_mat:
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
-    res,ans,incor = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=1.3)
+    res,ans,incor = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
     index_list,nil,no_res = tools.top_n(res,not_ovv,verbose=verbose)
     tools.get_performance(len(ans),len(no_res),len(incor),len([oov for oov in not_ovv if oov == '']))
     threshold = tools.get_score_threshold(index_list,res)

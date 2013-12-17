@@ -126,9 +126,6 @@ res = analysis.show_results(feat_mat1,mapp, dim=[0.2, 0.2, 0.2, 0.2, 0., 0.2] , 
 
 doğru cevap birinci sırada gelenler
 
-for rr in index_list[1][1]:
-    print rr
-    tools.pretty_top_n(res,rr,max_val,last=4)
 
 for rr in index_list[1][1]:
     print rr,mapp[rr]
@@ -248,26 +245,6 @@ bos_ovv_penn = ['' for word in mapp_penn ]
 set_penn = analysis.run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn)
 tools.mapp = mapp
 
-def construct_mapp():
-    mapp_penn = []
-    #matrix_penn = analysis.calc_score_matrix(pos_tagged_penn,results_penn,analysis.ovvFunc,database='tweets2')
-    tweets_penn,results_penn = scoring.pennel(515, "test/trigram_data/ann1.trigrams.hyp","test/trigram_data/ann1.trigrams.ref")
-    pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
-    for t_ind,tweet in enumerate(results_penn):
-        for w_ind,(w,st,cor) in enumerate(tweet):
-            if st == "OOV":
-                mapp_penn.append((w,cor,pos_tagged_penn[t_ind][w_ind][1]))
-    return mapp_penn
-
-def calculate_score_penn(hyp_file,ref_file):
-    tweets_penn,results_penn = scoring.pennel(5000,hyp_file,ref_file)
-    pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
-    matrix_penn = analysis.calc_score_matrix(pos_tagged_penn,results_penn,analysis.ovvFunc,database='tweets2')
-    bos_ovv_penn = ['' for word in mapp_penn ]
-    mapp_penn = construct_mapp()
-    tools.mapp = mapp_penn
-    set_penn = analysis.run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn)
-    return set_penn
 
     a = []
     for t_ind,tweet in enumerate(results_penn):
@@ -275,3 +252,7 @@ def calculate_score_penn(hyp_file,ref_file):
             print t_ind,pos_tagged_penn[t_ind],[t_ind]
 
 mapp = construct_mapp()
+
+for rr in set1[8][1][1]:
+    print rr,mapp[rr]
+    tools.pretty_top_n(res,rr,max_val,last=4)
