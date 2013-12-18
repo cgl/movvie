@@ -119,6 +119,9 @@ def iter_calc_lev(matrix,fm,mapp,not_ovv = is_ovv(slang),edit_dis=2,met_dis=1,ve
             cands = get_candidates_from_graph(matrix[ind],matrix[ind][0][0], matrix[ind][0][1],cands,edit_dis,met_dis)
     return fm
 
+def add_weight(feat_mat,mapp,not_ovv):
+    pass
+
 def get_candidates_from_graph(matrix_line,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
     filtered_cand_list = [cand for cand in matrix_line[1]
                           if cand_dict.has_key(cand) or tools.filter_cand(ovv,cand,edit_dis=edit_dis,met_dis=met_dis)]
@@ -306,9 +309,8 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
             if ovv == u"2":
                 cand = u"too"
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
-        cand = tools.get_reduced(ovv)
-        if ovv != cand:
-            cand = tools.get_reduced(ovv,count=1)
+        cand = tools.get_reduced_alt(ovv)
+        if cand and ovv != cand:
             add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
         cand = replace_digits(ovv)
         if ovv != cand:
@@ -381,7 +383,7 @@ def calculate_score_penn(hyp_file,ref_file,threshold=1.3):
     set_penn = run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn,threshold=threshold)
     return set_penn, mapp_penn
 
-def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1.0, 1.0, 1.0, 0.0, 5.0, 1./1873142], verbose=False, threshold=0.720513):
+def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose = False, threshold = 0.9):
     results = []
     correct_answers = []
     incorrect_answers = []
@@ -434,6 +436,7 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,threshold=1.3,slang_threshold=1,
     fm_reduced = add_nom_verbs(fmd,mapp,slang_threshold=slang_threshold)
     if not feat_mat:
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
+        #feat_mat2 = add_weight(feat_mat,mapp,not_ovv)
     res,ans,incor = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
     index_list,nil,no_res = tools.top_n(res,not_ovv,verbose=verbose)
     tools.get_performance(len(ans),len(no_res),len(incor),len([oov for oov in not_ovv if oov == '']))

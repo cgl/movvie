@@ -350,6 +350,21 @@ def get_reduced(word,count=2):
         replace = r'\1'
     return re.sub(r'(.)\1+', replace, word.lower())
 
+def get_reduced_alt(word,count=2):
+    red1 = get_reduced(word)
+    red2 = get_reduced(word,count=1)
+    red1_node = db_tweets.nodes.find_one({'node':red1, 'freq' : {'$gt':100}})
+    red2_node = None
+    red2_freq = 0
+    red1_freq =  red1_node['freq'] if  red1_node else 0
+    if red1 != red2:
+        red2_node = db_tweets.nodes.find_one({'node':red2, 'freq' : {'$gt':100}})
+        red2_freq =  red2_node['freq'] if  red2_node else 0
+    if red1_node or red2_node:
+        return red1_node['node'] if red1_freq >= red2_freq else red2_node['node']
+    else:
+        return None
+
 def slang_analysis(slang):
     i = 0
     for tup in mapp:
@@ -423,3 +438,14 @@ def show_nth_index(ind,index_list,res,max_val,last=4):
     for rr in index_list[ind][1]:
         print rr,mapp[rr]
         pretty_top_n(res,rr,max_val,last=last)
+
+def create_extended_mapp(results,not_oov):
+    i = 0
+    mapp_ext = []
+    for ind,tweet in enumerate(results):
+        for word in tweet:
+            if word[1] == "OOV":
+                if not not_oov[i]:
+                    mapp_ext.append((ind,word[0]))
+                i += 1
+    return mapp_ext
