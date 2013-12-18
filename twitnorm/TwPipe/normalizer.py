@@ -112,6 +112,11 @@ class Normalizer:
 
     def get_cands_with_weigh_freq(self, ovv_word, ovv_tag, position, neigh_position, neigh_node, neigh_tag, distance):
         #logging.debug("%s %s: {'%s':'%s', '%s_tag': '%s', '%s_tag': '%s', 'dis':%d, 'weight' : { '$gt': 1 }}" % (ovv_word,ovv_tag,neigh_position,neigh_node, neigh_position, neigh_tag, position , ovv_tag,distance))
+        try:
+            neigh_node_freq = self.nodes.find_one({'node':neigh_node,'tag': neigh_tag, 'ovv':False })['freq']
+        except:
+            print neigh_node
+            return []
         candidates_q = self.edges.find({neigh_position:neigh_node, neigh_position+'_tag': neigh_tag,
                                         position+'_tag': ovv_tag,
                                         'dis': distance , 'weight' : { '$gt': 1 } })
@@ -127,6 +132,7 @@ class Normalizer:
             if(cand_node):
                 cands_q.append({'position': position, 'cand':cand, 'weight': node['weight'] ,
                                 'freq' : cand_node['freq']})
+#                                'freq' : cand_node['freq']})
         return cands_q
 
     @staticmethod
