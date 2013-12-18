@@ -311,7 +311,7 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
         cand = tools.get_reduced_alt(ovv)
         if cand and ovv != cand:
-            add_candidate(cands,cand,ovv,ovv_tag,slang_threshold/2)
+            add_candidate(cands,cand,ovv,ovv_tag,slang_threshold*0.8)
         cand = replace_digits(ovv)
         if ovv != cand:
             add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
