@@ -98,7 +98,7 @@ class Normalizer:
 #            if tag not in [',','@']:
             neigh_node = word.strip()
             neigh_tag = tag
-            distance = len(froms) - ind
+            distance = len(froms) - 1 - ind
             cands_q = self.get_cands_with_weigh_freq(ovv, ovv_tag, 'to', 'from', neigh_node, neigh_tag, distance)
             keys,score_matrix = self.write_scores(neigh_node,neigh_tag,cands_q, keys, score_matrix)
         for ind,(word, tag, acc) in enumerate(tos):
