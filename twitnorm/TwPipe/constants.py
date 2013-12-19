@@ -2162,7 +2162,9 @@ mapping = [[u'pix', u'pictures', 'N'],
  [u'freakin', u'freaking', 'R'],
  [u'thaann', u'than', 'P'],
  [u'c', u'c', 'N'],
- [u'o', u'o', 'P']]
+ [u'o', u'o', 'P'],
+ [u'u', u'you', 'O'],
+ [u'lol', u'lol', '!']]
 
 pos_tagged = [[('new', 'A', 0.9938), #0
   ('pix', 'N', 0.9639),
