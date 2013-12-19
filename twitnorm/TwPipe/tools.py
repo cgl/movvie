@@ -353,12 +353,14 @@ def get_reduced(word,count=2):
 def get_reduced_alt(word,count=2):
     red1 = get_reduced(word)
     red2 = get_reduced(word,count=1)
-    red1_node = db_tweets.nodes.find_one({'node':red1, 'freq' : {'$gt':100}})
+    if len(red2) == 1:
+        return None
+    red1_node = db_tweets.nodes.find_one({'node':red1, "ovv":False ,'freq' : {'$gt':100}})
     red2_node = None
     red2_freq = 0
     red1_freq =  red1_node['freq'] if  red1_node else 0
     if red1 != red2:
-        red2_node = db_tweets.nodes.find_one({'node':red2, 'freq' : {'$gt':100}})
+        red2_node = db_tweets.nodes.find_one({'node':red2, "ovv":False, 'freq' : {'$gt':100}})
         red2_freq =  red2_node['freq'] if  red2_node else 0
     if red1_node or red2_node:
         return red1_node['node'] if red1_freq >= red2_freq else red2_node['node']
@@ -396,11 +398,12 @@ def get_performance(correct,not_found,incorrect,total_not_ill):
 def get_clean_words():
     words = {}
     for tag in constants.tags:
-        cursor = db_tweets.nodes.find({"ovv":False,"tag":tag,"freq":{"$gt": 20}}).sort("freq",-1)
+        cursor = db_tweets.nodes.find({"ovv":False,"tag":tag,"freq":{"$gt": 100}}).sort("freq",-1)
         words[tag] = set()
         for node in cursor:
             word = node['node']
-            words[tag].add(word)
+            if len(word) > 2:
+                words[tag].add(word)
     return words
 
 def get_score_threshold(index_list,res):
