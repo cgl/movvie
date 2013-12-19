@@ -39,7 +39,7 @@ root_logger.addHandler(fh)
 #root_logger.disabled = True
 
 def main(index=False):
-    results = han(548)[1]
+    results = han(549)[1]
     ovv = lambda x,y : True if y == 'OOV' else False
     in_suggestions(results,ovv,index_count=index)
 
