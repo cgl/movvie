@@ -312,8 +312,8 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
         cand = tools.get_reduced_alt(ovv)
         if cand and ovv != cand:
             add_candidate(cands,cand,ovv,ovv_tag,slang_threshold*0.8)
-        cand = replace_digits(ovv)
-        if ovv != cand:
+        cand = tools.replace_digits_alt(ovv)
+        if cand and ovv != cand:
             add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
     return fm
 
@@ -336,7 +336,7 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,database='tweets'):
                 ovv_tag = tweet_pos_tagged[j][1]
                 keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
                 ovv_word_reduced = re.sub(r'(.)\1+', r'\1\1', ovv_word).lower()
-                ovv_word_digited = replace_digits(ovv_word_reduced)
+                ovv_word_digited = tools.replace_digits(ovv_word_reduced)
                 lo_candidates.append([(ovv_word_digited,ovv_tag),keys,score_matrix])
             elif word[1] == "OOV":
                 lo_candidates.append([(word[0],ovv_tag),[word[0]],
@@ -345,16 +345,7 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,database='tweets'):
                                   ])
     return lo_candidates
 
-def replace_digits(ovv_word):
-    if ovv_word.isdigit() and len(ovv_word) == 1:
-        ovv_word = units[int(ovv_word)]
-    else:
-        m = re.search("(-?\d+)|(\+1)", ovv_word)
-        if m and len(m.group(0)) == 1 :
-            #ovv_word = re.sub("(-?\d+)|(\+1)", lambda m: [units_in_word[int(m.group(0))] if len(m.group(0)) == 1 else m.group(0)], ovv_word
-            trans = units_in_oov[int(m.group(0))]
-            ovv_word = ovv_word.replace(m.group(0),trans)
-    return ovv_word
+
 '''
             if trans.__class__ == str:
                 ovv_word = ovv_word.replace(m.group(0),trans)

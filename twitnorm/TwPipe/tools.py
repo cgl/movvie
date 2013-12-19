@@ -367,6 +367,22 @@ def get_reduced_alt(word,count=2):
     else:
         return None
 
+def replace_digits(ovv_word):
+    if ovv_word.isdigit() and len(ovv_word) == 1:
+        ovv_word = units[int(ovv_word)]
+    else:
+        m = re.search("(-?\d+)|(\+1)", ovv_word)
+        if m and len(m.group(0)) == 1 :
+            #ovv_word = re.sub("(-?\d+)|(\+1)", lambda m: [units_in_word[int(m.group(0))] if len(m.group(0)) == 1 else m.group(0)], ovv_word
+            trans = units_in_oov[int(m.group(0))]
+            ovv_word = ovv_word.replace(m.group(0),trans)
+    return ovv_word
+
+def replace_digits_alt(oov_word):
+    digited = replace_digits(oov_word)
+    dig_node = db_tweets.nodes.find_one({'node':digited, "ovv":False, 'freq' : {'$gt':100}})
+    return digited if dig_node else None
+
 def slang_analysis(slang):
     i = 0
     for tup in mapp:
