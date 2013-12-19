@@ -15,6 +15,11 @@ import difflib
 import mlpy
 import enchant
 
+units = ["zero", "one", "to", "three", "for",  "five","six", "seven", "eight", "nine"]
+units_in_oov = ["o","one","to","three","for","five","six", "seven", "eight", "nine"]
+units_in_word = ["o",("one","l"),"to", "e", ("for","fore","a") , "s",  "b",  "t", "ate", "g"]
+pronouns = {u'2':u"to",u'w':u"with",u'4':u'for'}
+
 mapp = constants.mapping
 dic= enchant.Dict("en_US")
 vowels = ('a', 'e', 'i', 'o', 'u', 'y')

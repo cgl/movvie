@@ -18,10 +18,6 @@ is_ill = lambda x,y,z : True if x != z else False
 is_ovv = lambda x,y,z : True if y == 'OOV' else False
 ovvFunc = is_ill
 dic= enchant.Dict("en_US")
-units = ["zero", "one", "to", "three", "for",  "five","six", "seven", "eight", "nine"]
-units_in_oov = ["o","one","to","three","for","five","six", "seven", "eight", "nine"]
-units_in_word = ["o",("one","l"),"to", "e", ("for","fore","a") , "s",  "b",  "t", "ate", "g"]
-pronouns = {u'2':u"to",u'w':u"with",u'4':u'for'}
 slang = tools.get_slangs()
 met_map = {}
 
@@ -78,20 +74,6 @@ def is_ovv(slang):
     print i," not ovv detected"
     return not_ovv
 
-def add_reduced_form(fm,mat,not_ovv = is_ovv(slang)):
-    for ind,cands in enumerate(fm):
-        if not not_ovv[ind]:
-            ovv = mat[ind][0][0]
-            ovv_tag = mat[ind][0][1]
-            cand = tools.get_reduced(ovv)
-            if ovv != cand and not cands.has_key(cand):
-                cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
-            if ovv.isdigit() and not cands.has_key(units[int(ovv[0])]):
-                cand = units[int(ovv[0])]
-                cands[cand] = get_score_line(cand,0,ovv,ovv_tag)
-            if ovv_tag == "P" and ovv.lower() == u"im" and not cands.has_key(u"i'm"):
-                cands[cand] = get_score_line(u"i'm",0,ovv,ovv_tag)
-    return fm
 
 def add_from_dict(fm,mat,distance,not_ovv = is_ovv(slang)):
     clean_words = tools.get_clean_words()
@@ -302,8 +284,8 @@ def add_nom_verbs(fm,mapp,slang_threshold=1):
                 cand = u'continued'
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
         elif ovv_tag == u"P":
-            if pronouns.has_key(ovv):
-                cand = pronouns[ovv]
+            if tools.pronouns.has_key(ovv):
+                cand = tools.pronouns[ovv]
                 add_candidate(cands,cand,ovv,ovv_tag,slang_threshold)
         elif ovv_tag == u"R":
             if ovv == u"2":
