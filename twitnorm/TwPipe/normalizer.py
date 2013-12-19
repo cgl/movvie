@@ -115,7 +115,6 @@ class Normalizer:
         try:
             neigh_node_freq = self.nodes.find_one({'node':neigh_node,'tag': neigh_tag })['freq']
         except:
-            print neigh_node
             return []
         candidates_q = self.edges.find({neigh_position:neigh_node, neigh_position+'_tag': neigh_tag,
                                         position+'_tag': ovv_tag,
