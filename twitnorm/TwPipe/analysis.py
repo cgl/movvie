@@ -306,9 +306,10 @@ def add_candidate(cands,cand,ovv,ovv_tag,slang_threshold):
 
 #--------------------------------------------------------------
 
-def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,database='tweets'):
+def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,window_size, database='tweets'):
     lo_candidates = []
     norm = normalizer.Normalizer(lo_postagged_tweets,database=database)
+    norm.m = window_size/2
     for tweet_ind in range(0,len(lo_postagged_tweets)):
         tweet_pos_tagged = lo_postagged_tweets[tweet_ind]
         for j in range(0,len(tweet_pos_tagged)):

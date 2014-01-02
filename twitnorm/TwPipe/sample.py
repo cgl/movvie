@@ -256,3 +256,10 @@ mapp = construct_mapp()
 for rr in set1[8][1][1]:
     print rr,mapp[rr]
     tools.pretty_top_n(res,rr,max_val,last=4)
+
+----
+
+for ind,(setcurrent,mapp) in enumerate(set_penn_list):
+        bos_ovv = ['' for word in mapp ]
+        setcurrent = analysis.run(setcurrent[3],[],[],slang,bos_ovv,mapp,threshold=1.1)
+        set_penn_list[ind] = (setcurrent,mapp)
