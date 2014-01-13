@@ -350,7 +350,7 @@ def construct_mapp_penn(pos_tagged_penn, results_penn):
 def calculate_score_penn(hyp_file,ref_file,threshold=1.3):
     tweets_penn,results_penn = pennel(5000,hyp_file,ref_file)
     pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
-    matrix_penn = calc_score_matrix(pos_tagged_penn, results_penn, ovvFunc, database='tweets2')
+    matrix_penn = calc_score_matrix(pos_tagged_penn, results_penn, ovvFunc,2, database='tweets2')
     mapp_penn = construct_mapp_penn(pos_tagged_penn, results_penn)
     bos_ovv_penn = ['' for word in mapp_penn ]
     tools.mapp = mapp_penn
@@ -398,7 +398,7 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
 def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,threshold=1.3,slang_threshold=1,max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
     from constants import pos_tagged, results
     if not matrix1:
-        matrix1 = calc_score_matrix(pos_tagged,results,ovvFunc,database='tweets2')
+        matrix1 = calc_score_matrix(pos_tagged,results,ovvFunc,3,database='tweets2')
     #max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
     if not slang:
         slang = tools.get_slangs()

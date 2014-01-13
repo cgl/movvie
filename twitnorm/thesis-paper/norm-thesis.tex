@@ -72,23 +72,51 @@ Bir sayfa uzunluğunda özet gelecektir.
 %
 % Use a separate \sym command for each symbols definition.
 % First Latin symbols in alphabetical order
-
-\sym{$a_{ij}$}{Description of $a_{ij}$}
-\sym{$\mathbf{A}$}{State transition matrix of a hidden Markov model}
+\sym{$t_{distance}$}{Word Distance Threshold for Contextual Association}
+\sym{$t_{frequency}$}{Word Frequency Threshold}
+\sym{$o_i$}{$i^{th}$ OOV Token in the Given Input Text}
+\sym{$n_{j}$}{$j^{th}$ Neighbour of the OOV Token in the Given Input Text}
+\sym{$c_{k}$}{$k^{th}$ Candidate Word/Node for the OOV Token in the Given Input Text}
+\sym{$NL$}{Neighbor List}
+\sym{$EL$}{Edge List}
+\sym{$T_i$}{Tag of a Word}
+\sym{$CL$}{Candidate List}
+\sym{$t_{edit}$}{Edit Distance Threshold}
+\sym{$t_{phonetic}$}{Phonetic Edit Distance Threshold}
 % Then Greek symbols in alphabetical order
-\sym{}{}
-\sym{$\alpha$}{Blending parameter \textit{or} scale}
-\sym{$\beta_t(i)$}{Backward variable}
-\sym{$\Theta$}{Parameter set}
+\sym{$\lambda$}{Contextual Similarity Score Parameter}
+\sym{$\beta$}{Lexical Similarity Score Parameter}
 \sym{ }{}
-
 \end{symbols}
 
 \begin{abbreviations}
  % Abbreviations in alphabetical order
-\sym{POS}{Part of Speech Tag}
+\sym{STT}{Speech To Text}
+\sym{NLP}{Natural Language Processing}
 \sym{OOV}{Out of Vocabulary}
 \sym{IV}{In Vocabulary}
+\sym{POS}{Part of Speech Tag}
+\sym{SMS}{Short Messaging Service}
+\sym{MT}{Machine Translation}
+\sym{ED}{Edit Distance}
+\sym{LCS}{Longest Common Subsequence}
+\sym{LCSR}{Longest Common Subsequence Ratio}
+\sym{URL}{Uniform Resource Locator}
+\sym{CMU}{Carnegie Mellon University}
+\sym{L}{Nominal+verbal}
+\sym{V}{Verb}
+\sym{D}{Determiner}
+\sym{N}{Noun}
+\sym{P}{Preposition}
+\sym{A}{Adjective}
+\sym{C}{Punctuation}
+\sym{G}{Miscellaneous words}
+\sym{RT}{Retweet}
+\sym{CWA-Graph}{Contextual Word Association Graph}
+\sym{}{}
+\sym{}{}
+\sym{}{}
+\sym{}{}
 \end{abbreviations}
 
 
@@ -106,28 +134,27 @@ Lastly, when we also consider the usual scarcity of attention when people post m
 \label{tab:sentences}
 \begin{tabular}{|>{\itshape}p{7cm}|p{7cm}|}
 \hline
-Its a beautiful nite, lukin for smth fun to do, I think I wanna be w ma frnds. &
-It’s a beautiful night, looking for something fun to do, I think I want to be with my friends. \\
+\underline{Its} a beautiful \underline{nite}, \underline{lukin} for \underline{smth} fun to do, I think I \underline{wanna} be \underline{w} \underline{ma} \underline{frnds}. &
+\underline{It’s} a beautiful \underline{night}, \underline{looking} for \underline{something} fun to do, I think I \underline{want to} be \underline{with} \underline{my} \underline{friends}. \\
 \hline
-Dnt always follow da crowd, stand 4 wat u blv in &
-Don't always follow the crowd, stand for what you beleive in. \\
+\underline{Dnt} always follow \underline{da} crowd, stand \underline{4} \underline{wat} \underline{u} \underline{blv} in. &
+\underline{Don't} always follow \underline{the} crowd, stand \underline{for} \underline{what} \underline{you} \underline{beleive} in. \\
 \hline
-There r sm songs u don't want 2 listen 2 yl walking cos when u start dancing ppl won't knw y. &
-There are some songs you don't want to listen to while walking because when you start dancing people won't know why. \\
-\hline
-@Cloudy me tht go be sad wen the hangover hold me tmr! &
+@Cloudy me \underline{tht} go be sad \underline{wen} the hangover hold me \underline{tmr}! &
 
-@Cloudy me that going to be sad when the hangover hold me tomorrow! \\
+@Cloudy me \underline{that} going to be sad \underline{when} the hangover hold me \underline{tomorrow}! \\
 \hline
-I srsly need some legend of korra raight nao \#linplz &
-I seriously need some legend of korra right now \#linplz \\
+I \underline{srsly} need some legend of korra \underline{raight} \underline{nao} \#linplz &
+I \underline{seriously} need some legend of korra \underline{right} \underline{now} \#linplz \\
 \hline
-My landlady is askin me 4 money 2.. I dnt knw wat 2 do cos I didn't stay in d house.. &
-My landlady is asking me for money too.. I don’t know what to do cause I didn't stay in the house.. \\ \hline
-Wat was tht for u lil shit, dnt u draw on my enlgand &
-What was that for you little shit, don’t you draw on my England \\ \hline
-Hav guts to say wat u desire.. Dnt beat behind da bush!! And 1 mre thng no mre say u r people's man!! &
-Have guts to say what you desire.. Don’t beat behind the bush!! And one more thing no more say you are people's man!! \\
+\underline{Wat} was \underline{tht} for \underline{u} \underline{lil} shit, \underline{dnt} \underline{u} draw on my \underline{enlgand} &
+\underline{What} was \underline{that} for \underline{you} \underline{little} shit, \underline{don’t} \underline{you} draw on my \underline{England} \\ \hline
+Work \underline{f} a \underline{cos}, not for applause. Live life to \underline{exprss}, not to \underline{imprss} :) & Work \underline{for} a \underline{cause}, not for applause. Live life to \underline{express}, not to \underline{impress} :) \\
+\underline{Hav} guts to say \underline{wat} \underline{u} desire.. \underline{Dnt} beat behind \underline{da} bush!! And \underline{1} \underline{mre} \underline{thng} no \underline{mre} say \textbf{\underline{y}} \underline{r} people's man!! &
+\underline{Have} guts to say \underline{what} \underline{you} desire.. \underline{Don’t} beat behind \underline{the} bush!! And \underline{one} \underline{more} \underline{thing} no \underline{more} say \textbf{\underline{you}} \underline{are} people's man!! \\
+\hline
+There \underline{r} \underline{sm} songs \underline{u} don't want \underline{2} listen \underline{2} \underline{yl} walking \underline{cos} when \underline{u} start dancing \underline{ppl} won't \underline{knw} \textbf{\underline{y}}. &
+There \underline{are} \underline{some} songs \underline{you} don't want \underline{to} listen \underline{to} \underline{while} walking \underline{because} when \underline{you} start dancing \underline{people} won't \underline{know} \textbf{\underline{why}}. \\
 \hline
 \end{tabular}
 \end{table}
@@ -143,12 +170,13 @@ Text normalization is a preprocessing step to restore noisy words in text to the
 \textbf{Ill-formed word} & \textbf{Normalization} \\
 \hline
 ppl & people \\
-havent & haven't \\
 tmr &   tomorrow \\
+havent & haven't \\
 soooo &  so \\
-sooon &  soon \\
 raight & right \\
 raight & alright \\
+cos & because \\
+cos & cause \\
 \hline
 \end{tabular}
 \end{minipage}
@@ -159,12 +187,13 @@ raight & alright \\
 \textbf{Ill-formed word} & \textbf{Normalization} \\
 \hline
 r  &  are \\
+n &      and \\
 mor &    more \\
 doin &   doing \\
-n &      and \\
-friiied &  fried \\
 finge &  finger \\
+tnks  & thanks \\
 makeing & making \\
+friiied &  fried \\
 \hline
 \end{tabular}
 \end{minipage}
@@ -173,12 +202,12 @@ makeing & making \\
 
 Every OOV word should not be considered for normalization. Social text is continuously evolving with new words and named entities that are not in the vocabularies of the systems~\cite{DBLP:conf/acl/HassanM13}. For example \textit{iPhone, WikiLeaks or tokenizing} have not taken their places in dictionaries yet, so they are OOV words, but they shouldn't be normalized to any other canonical word. In addition, an OOV word can sometimes lexically fit an IV word~(Ex:~\textit{tanks} is both an IV word and an OOV word with the canonical form \textit{thanks}).
 
-The OOV tokens that should be considered for normalization are referred to as ill-formed words. Ill-formed words can be normalized to different conanical words depending on the context of the text. For example, if we look at last two examples in Table~\ref{tab:sentences}, we see that ``y'' is normalized in the first as ``why'' and as ``you'' in the latter. Another example would be ``cos'', it has two common canonical forms ``cause'' and ``because''.
+The OOV tokens that should be considered for normalization are referred to as ill-formed words. Ill-formed words can be normalized to different canonical words depending on the context of the text. For example, if we look at last two examples in Table~\ref{tab:sentences}, we see that ``y'' is normalized in the first as ``why'' and as ``you'' in the latter. Another example would be ``cos'', it has two common canonical forms ``cause'' and ``because''.
 %The task of recognizing which tokens are OOV, and which of those are ill-formed are beyond the scope of this paper.
 
 In~\cite{Choudhury:2007:IMS:1326044.1326048} Choudhury et al.~proposes that OOV words observed in noisy text can be classified into two groups, unintentional and intentional errors. The unintentional errors are caused by~(1) pressing of the wrong key,~(2) pressing of a key more than the desired number of times,~(3) deletion of a character or~(4) inadequate knowledge of spelling. As for the intentional errors, they can be categorized into four categories: character deletion(``tlk'' for ``talk'', ``msg'' for ``message'', ``tomoro'' for ``tomorrow'', ``mob'' for ``mobile''), phonetic substitution~(``nite'' for ``night'', ``bk'' for ``back'', ``u'' for ``you'', ``m8'' for ``mate''), abbreviations~(``btw'' for ``by the way'', ``kgp'' for ``Kharagpur'') and non-standard usage~(``wanna'' for ``want to'', ``betta'' for ``better'', ``sumfin'' for ``something'', ``b/c'' for ``because'').
 
-In this paper, we propose a graph based text normalization method that utilizes both contextual and grammatical features of social text. The contextual information of words is modeled by a word association graph that is created from a large social media text corpus. The graph represents the relative positions of the words in the social media text messages and their Part-of-Speech~(POS) tags. The lexical similarity features among the words are modeled using the longest common subsequence ratio and edit distance that encode the surface similarity and the double metaphone algorithm that encodes the phonetic similarity. The proposed approach is unsupervised, which is an important advantage over supervised systems, given the continuously evolving language in the social media domain. The same OOV word may have different appropriate normalizations depending on the context of the input text message. Recently proposed dictionary-based text normalization systems perform dictionary look-up and always normalize the same OOV word to the same IV word regardless of the context of the input text ~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/HassanM13}. On the other hand, the proposed approach does not only make use of the general context information in a large corpus of social media text, but it also makes use of the context of the OOV word in the input text message. Thus, an OOV word can be normalized to different IV words depending on the context of the input text. Another strength of the proposed system is that it achieves the state-of-the art precision scores, without sacrificing from recall.
+In this thesis, we propose a graph based text normalization method that utilizes both contextual and grammatical features of social text. The contextual information of words is modeled by a word association graph that is created from a large social media text corpus. The graph represents the relative positions of the words in the social media text messages and their Part-of-Speech~(POS) tags. The lexical similarity features among the words are modeled using the longest common subsequence ratio and edit distance that encode the surface similarity and the double metaphone algorithm that encodes the phonetic similarity. The proposed approach is unsupervised, which is an important advantage over supervised systems, given the continuously evolving language in the social media domain. The same OOV word may have different appropriate normalizations depending on the context of the input text message. Recently proposed dictionary-based text normalization systems perform dictionary look-up and always normalize the same OOV word to the same IV word regardless of the context of the input text ~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/HassanM13}. On the other hand, the proposed approach does not only make use of the general context information in a large corpus of social media text, but it also makes use of the context of the OOV word in the input text message. Thus, an OOV word can be normalized to different IV words depending on the context of the input text. Another strength of the proposed system is that it achieves the state-of-the art precision scores, without sacrificing from recall.
 
 \chapter{RELATED WORK}
 \label{chapter:related}
@@ -212,7 +241,7 @@ Hassan and Menezes, 2013 generated a normalization equivalence lexicon using Mar
 
 %In our model we made use of both lexical, contextual and shallow properties of the noisy text which makes use of a weighted token co-occurrence graph.
 
-In this paper, we propose a graph based approach that models both contextual and lexical similarity features among an OOV word that requires normalization and candidate IV words. A high level overview of our system is shown in Figure~\ref{fig:overview}. An input text is first preprocessed by tokenizing and Part-Of-Speech~(POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features which are extracted from a pre-generated directed word association graph, as well as lexical similarity features. Lexical similarity features are based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach are explained in the following sub-sections.
+In this thesis, we propose a graph based approach that models both contextual and lexical similarity features among an OOV word that requires normalization and candidate IV words. A high level overview of our system is shown in Figure~\ref{fig:overview}. An input text is first preprocessed by tokenizing and Part-Of-Speech~(POS) tagging. If the text contains an OOV word, the normalization candidates are chosen by making use of the contextual features which are extracted from a pre-generated directed word association graph, as well as lexical similarity features. Lexical similarity features are based on edit distance, longest common subsequence ratio, and double metaphone distance. In addition, a slang dictionary is used as an external resource to enrich the normalization candidate set. The details of the approach are explained in the following sub-sections.
 
 %%% FIGURE
 \begin{figure}[htb]
@@ -286,7 +315,7 @@ A node is defined with four properties: \textit{id, oov, freq} and \textit{tag}.
 
 \begin{figure}[htb]
 \begin{center}
-\includegraphics[scale=0.6]{fig/graph}
+\includegraphics[scale=0.7]{fig/graph}
 \caption{Portion of the word association graph for the sample sentence in Table~\ref{tab:postagged}.~(d: distance, w: edge weight)}
 \label{fig:graph}
 \end{center}
@@ -383,19 +412,22 @@ The edges in $EL(o_i)$ are filtered by the relative distance of $n_{j}$ to $o_i$
 
 In addition to distance based filtering, POS tag based filtering is also performed on the edges in $EL(o_i)$. Each candidate node should have the same POS tag with the corresponding OOV token. For the OOV token $o_i$ that has the POS tag $T_i$, all the edges that include candidates with a tag other than $T_i$ are removed from the edge list $EL(o_{i})$. Thus, $EL(o_{i})$ only contains edges where candidate nodes are tagged as $T_i$.
 
- Explain Figure~\ref{fig:edgeWeight}.
+Figure~\ref{fig:edgeWeight} represents a portion from the graph where you can see the neighbours  and candidates of the OOV node ``beatiful''. In the sample sentence in Table~\ref{tab:postagged} there is two OOV token to be normalized, $o_1=w$ and $o_2=beatiful$. The neighbour list of $o_2$, $NL(o_2)$ includes  $n_1=with$, $n_2=a$ and $n_3=smile$. For each neighbor in the $NL(o_2)$, the candidate nodes~($c_1=broken$, $c_2=nice$, $c_3=new$, $c_4=beautiful$, $c_5=big$, $c_6=nice$, $c_7=great$) are extracted, you can see from the Figure, there is 11 lines representing the edges between the neighbors of the OOV token and the candidate nodes. These are representative edges in the $EL(o_2)$. Each member of the edge list has the same tag (A for Adjective) as the OOV node ``beatiful'' and each has the same distance to the neighbor node they are connected as the OOV node. We are simply looking for the best replacements using the distance and POS tag properties.
 
 \begin{figure}[htb]
 \begin{center}
 \includegraphics[scale=0.5]{fig/edgeWeight}
-\caption{$NL(beatiful) = with, a, smile$; $EL(beatiful)=(with,broken,edgeWeight=3),~(with,nice,edgeWeight=5)~...~(great,smile,edgeWeight=20)$}
+\caption{A portion of the graph that includes the OOV token ``beatiful'', its neighbors and the candidate nodes that each neighbor is connected to. Thick lines shows the edge list with relative weights.}
 \label{fig:edgeWeight}
 \end{center}
 \end{figure}
 
 Each edge in $EL(o_i)$ consists of a neighbor node $n_j$, a candidate node $c_k$ and an edge weight $edgeWeight(n_j,c_k)$. The edge weight, represents the likelihood or the strength of association between the neighbor node $n_j$ and the candidate node $c_k$. As described in the previous section the edge weights are computed based on the frequency of co-occurrence of two tokens, as well as the confidence scores of their POS tags.
+
+The edge weights of the edges in $EL(o_2)$ is shown in Figure~\ref{fig:edgeWeight}. The edges that is connected to the OOV neighbor ``w'' has smaller edge weights such as 3,5,26. On the other hand the edges that includes stop common words like the one between node ``a'' and ``new'' is 24388. This indicates that those words are non OOV and more common words, and they co-occur very often in the same form (``a new'').
+
 %As shown in Eq~\ref{eq:ew}, we assume that the direction of the edge between two tokens doesn't affect the strength of association between them~(i.e. the edge weight $w$).
-Although this edge weight metric is reasonable for identifying the most likely canonical form for the OOV word $o_i$, it has the drawback of favoring words with high frequencies like the stop words. Therefore, we normalize the edge weight $edgeWeight(n_j,c_k)$ with the frequency of the candidate node $c_k$ as shown in Eq~\ref{eq:ew_norm}.
+Although this edge weight metric is reasonable for identifying the most likely canonical form for the OOV word $o_i$, it has the drawback of favoring words with high frequencies like these common words or stop words. Therefore, to avoid overrated words and get contextually relative candidates, we normalize the edge weight $edgeWeight(n_j,c_k)$ with the frequency of the candidate node $c_k$ as shown in Eq~\ref{eq:ew_norm}.
 
 \begin{equation}
 edgeWeightNormalized(n_j,c_k) = edgeWeight(n_j,c_k) / frequency(c_k)
@@ -405,13 +437,14 @@ edgeWeightNormalized(n_j,c_k) = edgeWeight(n_j,c_k) / frequency(c_k)
 $Eq~\ref{eq:ew_norm}$ provides a metric that captures contextual similarity based on binary associations.
 %However we need more than binary relatedness to achive a comprehensive contextual coverage.
 In order to achieve a more comprehensive contextual coverage, a contextual similarity feature is built based on the sum of the binary association scores of several neighbors. As shown in Equation~\ref{eq:wscore1}, for a candidate node $c_k$ the total edge weight score is the sum of the normalized edge weight scores $edgeWeightNormalized(n_j,c_k)$, which are the edge weights coming from the different neighbors of the OOV token $o_i$. We expect this contextual similarity feature to favor and identify the candidates which are (1) related to many neighbors, and (2) have a high association score with each neighbor.
-
-Explain~(~e.g.~Figure\ref{fig:contextscores}).
-
 \begin{equation}
 edgeWeightScore(o_i,c_k) = \sum_{(n_j,c_k) or (c_k,n_j) \in EL(o_i)}{edgeWeightNormalized(n_j,c_k)} \\\\
 \label{eq:wscore1}
 \end{equation}
+
+Figure~\ref{fig:contextscores} includes the top three candidates sorted by their scores. The candidate node ``beautiful'', $c_4$, has a frequency of 17900. Both three neighbors were paired in the edge list with it with the weights 2, 2918 and 305 respectively~(Figure~\ref{fig:edgeWeight}). After normalizing the edge weight by the frequency of the candidate node  $c_4$, sum of those normalized weights gives us the edge weight score of the candidate node: $edgeWeightScore(o_2,c_4) = 0.18$.
+
+
 
 \begin{figure}[htb]
 \begin{center}
@@ -434,14 +467,31 @@ Hereby, we have the candidate list $CL(o_{i})$ for the OOV token $o_i$ that incl
 
 \section{Lexical Similarity}
 
-Following the prior work in~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/HassanM13}, our lexical similarity features are based on edit distance~\cite{levenshtein1966bcc}, double metaphone~(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132}, and longest common subsequence ratio (LCSR)~\cite{Contractor:2010:UCN:1944566.1944588}.
+Following the prior work in~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/HassanM13}, our lexical similarity features are based on edit distance~\cite{levenshtein1966bcc}, double metaphone~(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132}, and a similarity function~\cite{Contractor:2010:UCN:1944566.1944588} which is based on Longest Common Subsequence Ratio (LCSR)~\cite{melamed1999bitext}.
 
-Following the tradition that is inspired from~\cite{Kaufmann2010} before lexical similarity calculations, any repetitions of characters three or more times in OOV tokens are reduced to two (e.g. \emph{goooood} is reduced to \emph{good}). Then, the edit distance, phonetic edit distance, and LCSR between each candidate in $CL(o_{i})$ and the OOV token $o_i$ are calculated. Edit distance and phonetic edit distance are used to filter the candidates. Any candidate in $CL(o_{i})$ with an edit distance greater than $t_{edit}$ and phonetic edit distance greater than $t_{phonetic}$ to $o_i$ has been removed from the candidate list $CL(o_{i})$.
+Edit distance or in other words Levenshtein distance between two words is defined as the minimum number of single character changes such as insertion, deletion and substitution to convert one word into another. Edit distance has major application in NLP especially in the spell checking.
 
-For the remaining candidates, the total lexical similarity score (Eq~\ref{eq:lexscore}) is calculated using LCSR and edit distance score\footnote{an approximate string comparison measure (between 0.0 and 1.0) using the edit distance \url{https://sourceforge.net/projects/febrl/}}. Since the main lexical feature is LCSR, it is assigned twice the weight of the edit distance score. Since some social media text messages are extremely short and contain several OOV words, they do not provide sufficient context, i.e., IV neighbors, to enable the extraction of good candidates from the word association graph. Therefore, we extended the candidate list obtained through contextual similarity as described in the previous section, by including all the tokens in the word association graph that satisfy the edit distance and phonetic edit distance criteria. We also incorporated candidates from external resources, in other words from a slang dictionary and a transliteration table of numbers and pronouns (Table ~\ref{tab:transliteral}). If a token occurs in the slang dictionary or in the transliteration table it is assigned an external score of $1$, otherwise it is assigned an external score of $0$.
+Double metaphone is an extended word edit distance measure, that not only considers the characters but also the English pronunciations of the words. Like the Soundex algorithm, metaphone algorithm~\cite{philips1990hanging} encodes words. Similar sounding words, in other words phoneticly similar words shares the same keys in these encodings. Metaphone in an extended and more accurate version of Soundex. Double metaphone came out 10 years later than the metaphone and is called the second generation of the metaphone algorithm. It returns two keys instead of presenting a more valid coverage for some irregularities.
+
+The cost function we are using is defined by Contractor et al., 2010~\cite{Contractor:2010:UCN:1944566.1944588}, as the ratio between LCSR of two words and their Edit Distance(ED) cost. You can see the LCSR and cost function shown in Eq~\ref{eq:lcsr} and Eq~\ref{eq:lcsr_cont}. In our case we calculate the similarity cost of the candidate word and the OOV word by dividing their LCSR value to the Edit Distance between them. From now on we will refer to the simCost in Eq~\ref{eq:lcsr_cont} as $LCSR\_ED$.
 
 \begin{equation}
-lexSimScore(o_i,c_k) = \beta LCSR(o_i,c_k) + \frac{\beta} 2 editDistScore(o_i,c_k) + \beta externalScore(o_i,c_k)
+LCSR(o_j,c_k) = \frac{lenght(LCS(o_j,c_k))}{max(length(o_j),length(c_k))}
+\label{eq:lcsr}
+\end{equation}
+
+
+\begin{equation}
+simCost (o_j,c_k) = \frac{LCSR(o_j,c_k)}{ED(o_j,c_k))}
+\label{eq:lcsr_cont}
+\end{equation}
+
+Following the tradition that is inspired from~\cite{Kaufmann2010} before lexical similarity calculations, any repetitions of characters three or more times in OOV tokens are reduced to two (e.g. \emph{goooood} is reduced to \emph{good}). Then, the edit distance, phonetic edit distance, and $LCSR\_ED$ between each candidate in $CL(o_{i})$ and the OOV token $o_i$ are calculated. Edit distance and phonetic edit distance are used to filter the candidates. Any candidate in $CL(o_{i})$ with an edit distance greater than $t_{edit}$ and phonetic edit distance greater than $t_{phonetic}$ to $o_i$ has been removed from the candidate list $CL(o_{i})$.
+
+For the remaining candidates, the total lexical similarity score (Eq~\ref{eq:lexscore}) is calculated using $LCSR\_ED$ and edit distance score\footnote{an approximate string comparison measure (between 0.0 and 1.0) using the edit distance \url{https://sourceforge.net/projects/febrl/}}. Since the main lexical feature is $LCSR\_ED$, it is assigned twice the weight of the edit distance score. Since some social media text messages are extremely short and contain several OOV words, they do not provide sufficient context, i.e., IV neighbors, to enable the extraction of good candidates from the word association graph. Therefore, we extended the candidate list obtained through contextual similarity as described in the previous section, by including all the tokens in the word association graph that satisfy the edit distance and phonetic edit distance criteria. We also incorporated candidates from external resources, in other words from a slang dictionary and a transliteration table of numbers and pronouns (Table ~\ref{tab:transliteral}). If a token occurs in the slang dictionary or in the transliteration table it is assigned an external score of $1$, otherwise it is assigned an external score of $0$.
+
+\begin{equation}
+lexSimScore(o_i,c_k) = \beta LCSR\_ED(o_i,c_k) + \frac{\beta} 2 editDistScore(o_i,c_k) + \beta externalScore(o_i,c_k)
 \label{eq:lexscore}
 \end{equation}
 
@@ -535,7 +585,7 @@ as well as the results of recent studies that used the same data set for evaluat
   \label{tab:results}
 \end{table}
 
-Our CWA-Graph approach achieves the best f measure ($82.20$) and precision ($85.50$) among the recent previous studies. The high precision value is obtained without compromising much from recall ($79.20$), our precision is the second best among others. The F-score ($82.09$) obtained by Yang et al.'s system is very close to ours and the second best F-score, which on the other hand, has a lower precision than our approach~\cite{DBLP:conf/emnlp/YangE13}.
+Our CWA-Graph approach achieves the best f measure ($82.20$) and precision ($85.50$) among the recent previous studies. The high precision value is obtained without compromising much from recall ($79.20$), our precision is the second best among others. The F-score ($82.09$) obtained by Yang et al.'s system is close to ours and the second best F-score, which on the other hand, has a lower precision than our approach~\cite{DBLP:conf/emnlp/YangE13}.
 
 The earlier work we compare our system with, assumes that the words to be normalized are given in advance. We also made the same assumption. However unlike other systems (\cite{DBLP:conf/emnlp/YangE13,liu2012broad,Han:2011:LNS:2002472.2002520}), our system does not propose a normalization, if there are no candidates that are lexically similar, grammatically correct and contextually close enough. For this reason, we managed to achieve a higher precision compared to the other systems. Besides, we made sure that the candidates have a minimum similarity either contextual, lexical, external or some degree of each feature. Table~\ref{tab:thresholds} shows that our approach can obtain even higher values of precision by tuning the system threshold (i.e.~the minimum score in Equation~\ref{eq:candscore} to return a token as a candidate canonical form of an OVV token).
 
@@ -595,7 +645,7 @@ Considering twitter's limit on message lenght and users' tendency of using url a
 \label{tab:windows}
 \end{table}
 
-Table~\ref{tab:resultspennell} show the results of our system on the trigram SMS-like dataset. Without no differences in our system or on the parameters, we were able to improve results of Pennell et. al.~\cite{pennell2011character}.
+Table~\ref{tab:resultspennell} show the results of our system on the trigram SMS-like dataset. Without any modification to our system or to the parameters, we were able to improve results of Pennell et. al.~\cite{pennell2011character}.
 
 \begin{table}[thb]
   \caption{Results obtained on the trigram SMS-like dataset.}
