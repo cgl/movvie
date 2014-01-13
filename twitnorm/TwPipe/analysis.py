@@ -355,6 +355,7 @@ def calculate_score_penn(hyp_file,ref_file,threshold=1.3):
     bos_ovv_penn = ['' for word in mapp_penn ]
     tools.mapp = mapp_penn
     set_penn = run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn,threshold=threshold)
+    tools.mapp = constants.mapping
     return set_penn, mapp_penn
 
 
