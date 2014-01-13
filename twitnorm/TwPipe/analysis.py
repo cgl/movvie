@@ -357,6 +357,7 @@ def calculate_score_penn(hyp_file,ref_file,threshold=1.3):
     set_penn = run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn,threshold=threshold)
     return set_penn, mapp_penn
 
+
 def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose = False, threshold = 0.9):
     results = []
     correct_answers = []
