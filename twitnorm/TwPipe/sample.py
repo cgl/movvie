@@ -223,6 +223,14 @@ fmd = analysis.add_from_dict(fms,matrix1,distance,not_ovv=bos_ovv)
 fm_reduced = analysis.add_nom_verbs(copy.deepcopy(fmd),mapp,slang_threshold=1.2)
 feat_mat = analysis.iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv=bos_ovv)
 res,ans,incorrects = analysis.show_results(feat_mat, mapp, not_ovv = bos_ovv, max_val=[1., 1., 0.5, 0.0, 1.0, 0.5],threshold=1.3)
+------------
+
+Han temiz bir başlangıç
+mapp = constants.mapping ; bos_ovv = [word[0] if word[0] == word[1] else '' for word in mapp ] ; slang = tools.get_slangs()
+
+setcurrent = analysis.run([],[],[],slang,bos_ovv,mapp,threshold=1.5)
+
+setcurrent = analysis.run(setcurrent[3],setcurrent[2],setcurrent[1],slang,bos_ovv,mapp,threshold=1.5)
 
 --------
 
@@ -241,7 +249,7 @@ matrix_penn = analysis.calc_score_matrix(pos_tagged_penn,results_penn,analysis.o
 mapp_penn = construct_mapp()
 tools.mapp = mapp_penn
 bos_ovv_penn = ['' for word in mapp_penn ]
-
+na
 set_penn = analysis.run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn)
 tools.mapp = mapp
 
@@ -263,3 +271,10 @@ for ind,(setcurrent,mapp) in enumerate(set_penn_list):
         bos_ovv = ['' for word in mapp ]
         setcurrent = analysis.run(setcurrent[3],[],[],slang,bos_ovv,mapp,threshold=1.1)
         set_penn_list[ind] = (setcurrent,mapp)
+
+----
+
+different graph sizes
+
+matrix2 = tools.load_from_file("matrix2_v2.txt")
+set2 = analysis.run(matrix2,[],[],slang,bos_ovv,)

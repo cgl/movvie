@@ -334,7 +334,7 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,window_size, database=
                 ovv_word = ovv_word.replace(m.group(0),trans)
             else:
                 transes = [ovv_word.replace(m.group(0),t) for t in trans]
-                transes_scored = [(t,tools.get_node(t)[0]['freq'] if tools.get_node(t) else 0) for t in transes]
+                transes_scored = [(t,tools.get_node(t)[0]['freq'] if tools.get_node(t) else 0) for (t in transes]
                 transes_scored.sort(key=lambda x: x[1])
                 ovv_word = transes_scored[-1][0]
 '''
@@ -400,7 +400,8 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
 def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,threshold=1.3,slang_threshold=1,max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
     from constants import pos_tagged, results
     if not matrix1:
-        matrix1 = calc_score_matrix(pos_tagged,results,ovvFunc,3,database='tweets2')
+        window_size = 7
+        matrix1 = calc_score_matrix(pos_tagged,results,ovvFunc,window_size,database='tweets2')
     #max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
     if not slang:
         slang = tools.get_slangs()
