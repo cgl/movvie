@@ -329,7 +329,7 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,window_size, database=
     return lo_candidates
 
 
-'''
+    '''
             if trans.__class__ == str:
                 ovv_word = ovv_word.replace(m.group(0),trans)
             else:
@@ -337,7 +337,7 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,window_size, database=
                 transes_scored = [(t,tools.get_node(t)[0]['freq'] if tools.get_node(t) else 0) for (t in transes]
                 transes_scored.sort(key=lambda x: x[1])
                 ovv_word = transes_scored[-1][0]
-'''
+    '''
 
 def construct_mapp_penn(pos_tagged_penn, results_penn):
     mapp_penn = []
