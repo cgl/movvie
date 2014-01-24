@@ -2,12 +2,8 @@ from scoring import han,pennel
 import enchant
 from fuzzy import DMetaphone
 import normalizer
-import soundex
-import Levenshtein
 import CMUTweetTagger
-import enchant
 import tools
-import mlpy
 import numpy
 import re
 import copy
@@ -42,11 +38,7 @@ def main(index=False):
 if __name__ == "__main__ ":
     main()
 
-def is_ill_formed():
-    from constants import mapping as mapp
-    pass
-
-def is_ovv(slang):
+def detect_ovv(slang):
     from constants import mapping as mapp
     not_ovv= []
     for ind in range (0,len(mapp)):
@@ -75,7 +67,7 @@ def is_ovv(slang):
     return not_ovv
 
 
-def add_from_dict(fm,mat,distance,not_ovv = is_ovv(slang)):
+def add_from_dict(fm,mat,distance,not_ovv = detect_ovv(slang)):
     clean_words = tools.get_clean_words()
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
@@ -95,7 +87,7 @@ def find_more_results(ovv,ovv_tag,cand_dict,clean_words,distance,give_suggestion
             cand_dict[cand] = get_score_line(cand,0,ovv,ovv_tag)
     return cand_dict
 
-def iter_calc_lev(matrix,fm,mapp,not_ovv = is_ovv(slang),edit_dis=2,met_dis=1,verbose=False):
+def iter_calc_lev(matrix,fm,mapp,not_ovv = detect_ovv(slang),edit_dis=2,met_dis=1,verbose=False):
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
             cands = get_candidates_from_graph(matrix[ind],matrix[ind][0][0], matrix[ind][0][1],cands,edit_dis,met_dis)
@@ -264,8 +256,6 @@ def repeat_check(results,ovv):
 
 
 def check(results,ovv,method):
-    pos = 0
-    neg = 0
     for tweet in results:
         for word in tweet:
             if ovv(word[0],word[1]):
@@ -347,7 +337,7 @@ def construct_mapp_penn(pos_tagged_penn, results_penn):
                 mapp_penn.append((word,cor,pos_tagged_penn[t_ind][w_ind][1]))
     return mapp_penn
 
-def calculate_score_penn(hyp_file,ref_file,threshold=1.3):
+def calculate_score_penn(hyp_file,ref_file,threshold=1.5):
     tweets_penn,results_penn = pennel(5000,hyp_file,ref_file)
     pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
     window_size = 5
@@ -361,12 +351,11 @@ def calculate_score_penn(hyp_file,ref_file,threshold=1.3):
     return set_penn, mapp_penn
 
 
-def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose = False, threshold = 0.9):
+def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose = False, threshold = 1.5):
     results = []
     correct_answers = []
     incorrect_answers = []
     total_pos = 1
-    slang = tools.get_slangs()
     for ind in range (0,len(res_mat)):
         correct = False
         ovv = mapp[ind][0]
@@ -399,9 +388,9 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
     print 'Number of correct answers %s, incorrect answers %s, total correct answers %s' % (len(correct_answers),len(incorrect_answers),total_pos)
     return results,correct_answers,incorrect_answers
 
-def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,threshold=1.3,slang_threshold=1,max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
-    from constants import pos_tagged, results
+def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,threshold=1.5,slang_threshold=1,max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
     if not matrix1:
+        from constants import pos_tagged, results
         window_size = 7
         matrix1 = calc_score_matrix(pos_tagged,results,ovvFunc,window_size,database='tweets2')
     #max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
@@ -417,7 +406,7 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,threshold=1.3,slang_threshold=1,
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
         #feat_mat2 = add_weight(feat_mat,mapp,not_ovv)
     res,ans,incor = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
-    index_list,nil,no_res = tools.top_n(res,not_ovv,verbose=verbose)
+    index_list,nil,no_res = tools.top_n(res,not_ovv,mapp,verbose=verbose)
     tools.get_performance(len(ans),len(no_res),len(incor),len([oov for oov in not_ovv if oov == '']))
     threshold = tools.get_score_threshold(index_list,res)
     tools.test_threshold(res,threshold)

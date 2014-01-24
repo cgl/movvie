@@ -7,9 +7,8 @@ from numpy import array
 import pickle
 import Levenshtein
 import soundex
-from stringcmp import editdist_edits, editdist, editex, lcs as LCS
+from stringcmp import editdist_edits, editdist, editex
 from fuzzy import DMetaphone
-from pymongo import MongoClient
 import string
 import difflib
 import mlpy
@@ -20,7 +19,7 @@ units_in_oov = ["o","one","to","three","for","five","six", "seven", "eight", "ni
 units_in_word = ["o",("one","l"),"to", "e", ("for","fore","a") , "s",  "b",  "t", "ate", "g"]
 pronouns = {u'2':u"to",u'w':u"with",u'4':u'for'}
 
-mapp = constants.mapping
+#mapp = constants.mapping
 dic= enchant.Dict("en_US")
 vowels = ('a', 'e', 'i', 'o', 'u', 'y')
 dims = ['weight', 'lcsr', 'distance', "com chars", "slang", "freq", "result"]
@@ -54,7 +53,7 @@ def spell_check(word):
     else:
         return False
 
-def top_n(res,not_ovv,n=100,verbose=False):
+def top_n(res,not_ovv,mapp,n=100,verbose=False):
     in_top_n = 0
     total_ill = 0
     index_list = {}
@@ -90,7 +89,7 @@ def top_n(res,not_ovv,n=100,verbose=False):
                 print  [ (b,a,res[b][a][0]) for b in index_list[a][1]]
     return index_list,not_in_list, no_result
 
-def pretty_top_n(res,ind_word,max_val,last=10):
+def pretty_top_n(res,ind_word,mapp,max_val,last=10):
     ind = ind_word
     ovv = mapp[ind_word][0]+"|"+mapp[ind_word][2]
     print "%10.10s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s %10.6s Current res" % (ovv, dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],dims[6])
@@ -98,8 +97,8 @@ def pretty_top_n(res,ind_word,max_val,last=10):
         vec = [round(a,4) for a in array(vec_pre[1:len(max_val)+1]) * array(max_val)]
         print "%10.10s %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f %10.6f"  % (vec_pre[0],vec[0],vec[1],vec[2],vec[3],vec[4],vec[5],vec_pre[-1],sum(vec))
 
-def pretty_max_min(res,feat_mat1):
-    maxes = max_values(res)
+def pretty_max_min(res,feat_mat1,mapp):
+    maxes = max_values(res,mapp)
     mins = min_values(res)
     print "%8.8s %8.8s %8.8s %8.8s %8.8s %8.8s %8.8s " % (dims[0], dims[1], dims[2], dims[3], dims[4], dims[5],dims[6],)
     print "%8.6f %8.6f %8.6f %8.6f %8.6f %8.2f %8.6f" % (mins[0], mins[1], mins[2], mins[3], mins[4], mins[5], mins[6],)
@@ -116,10 +115,10 @@ def get_node(word,tag=None,ovv=False):
     else:
         return db_tweets.nodes.find_one({'node':word, "tag":tag})
 
-def get_tag(ind,word):
+def get_tag(ind,word,mapp):
     return mapp[ind][2]
 
-def max_values(res):
+def max_values(res,mapp):
     correct_results = []
     for ind in range(0,len(res)):
         if res[ind]:
@@ -129,7 +128,7 @@ def max_values(res):
     arr = array(correct_results)
     return [round(val,6) for val in arr.max(axis=0)]
 
-def min_values(res):
+def min_values(res,mapp):
     correct_results = []
     for ind in range(0,len(res)):
         if res[ind]:
@@ -225,7 +224,7 @@ def filter_cand(ovv,cand,edit_dis=2,met_dis=1):
     try:
         t_c_check = in_edit_dis(ovv.encode('ascii',"ignore"),cand,edit_dis)
         t_p_check = metaphone_distance_filter(ovv.encode('ascii',"ignore"),cand,met_dis)
-    except Exception, e:
+    except Exception:
         return False
     return t_c_check and t_p_check
 
@@ -314,7 +313,7 @@ def find_slang(nil,slang):
 def in_edit_dis(word1,word2,dis):
     try:
         return sum(editdist_edits(word1,word2)[1]) <= dis
-    except IndexError, i:
+    except IndexError:
         return False
 
 
@@ -388,7 +387,7 @@ def replace_digits_alt(oov_word):
     dig_node = db_tweets.nodes.find_one({'node':digited, "ovv":False, 'freq' : {'$gt':100}})
     return digited if dig_node else None
 
-def slang_analysis(slang):
+def slang_analysis(slang,mapp):
     i = 0
     for tup in mapp:
         multi = False
@@ -436,7 +435,6 @@ def get_score_threshold(index_list,res):
     return min(scores)
 
 def freq_zero_correct_answers(index_list,res,threshold):
-    scores = []
     kucukler = []
     for ans_ind in index_list.keys():
         for res_ind in index_list[ans_ind][1]:
@@ -458,10 +456,10 @@ def test_threshold(res,threshold):
                 buyukler += 1
     print "There is %d result below and %d result above the threshold" %(kucukler,buyukler)
 
-def show_nth_index(ind,index_list,res,max_val,last=4):
+def show_nth_index(ind,index_list,res,mapp,max_val,last=4):
     for rr in index_list[ind][1]:
         print rr,mapp[rr]
-        pretty_top_n(res,rr,max_val,last=last)
+        pretty_top_n(res,rr,mapp,max_val,last=last)
 
 def create_extended_mapp(results,not_oov):
     i = 0

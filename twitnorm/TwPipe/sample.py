@@ -278,3 +278,21 @@ different graph sizes
 
 matrix2 = tools.load_from_file("matrix2_v2.txt")
 set2 = analysis.run(matrix2,[],[],slang,bos_ovv,)
+
+---------
+
+different weights
+
+for lam in map(lambda x: x/10,range(0,11)):
+    for beta in map(lambda x: x/10,range(0,11)):
+        max_val = [1., 1., lam , 0.0, 1, beta]
+        print("%f : %f" %(lam,beta))
+        setcurrent = analysis.run(setcurrent[3],setcurrent[2],setcurrent[1],slang,bos_ovv,mapp,max_val = max_val,threshold=1.5)
+        print("**********************")
+
+for beta in [0.5]:
+    for lam in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+        max_val = [1., 1., lam , 0.0, 1, beta]
+        print("%f : %f" %(lam,beta))
+        aaa = analysis.run(set_penn5[3],set_penn5[2],set_penn5[1],slang,bos_ovv_penn5,mapp_penn5,max_val = max_val, threshold=1.5)
+        print("**********************")
