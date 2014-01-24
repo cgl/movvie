@@ -165,14 +165,14 @@ def add_slangs(mat,slang,verbose=False):
         res_mat.append(cands)
     return res_mat
 
-def calculate_score(res_vec,dim,max_val):
+def calculate_score(res_vec,max_val):
     try:
-        score  = dim[0] * res_vec[0] * max_val[0]  # weight
-        score += dim[1] * res_vec[1] * max_val[1]  # lcsr
-        score += dim[2] * res_vec[2] * max_val[2]  # distance
-        score += dim[3] * res_vec[3] * max_val[3]  # common letter
-        score += dim[4] * res_vec[4] * max_val[4]  # slang
-        score += dim[5] * res_vec[5] * max_val[5]  # freq
+        score  =  res_vec[0] * max_val[0]  # weight
+        score +=  res_vec[1] * max_val[1]  # lcsr
+        score +=  res_vec[2] * max_val[2]  # distance
+        score +=  res_vec[3] * max_val[3]  # common letter
+        score +=  res_vec[4] * max_val[4]  # slang
+        score +=  res_vec[5] * max_val[5]  # freq
         return score
     except IndexError, i:
         print res_vec,i
@@ -350,7 +350,8 @@ def construct_mapp_penn(pos_tagged_penn, results_penn):
 def calculate_score_penn(hyp_file,ref_file,threshold=1.3):
     tweets_penn,results_penn = pennel(5000,hyp_file,ref_file)
     pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
-    matrix_penn = calc_score_matrix(pos_tagged_penn, results_penn, ovvFunc,2, database='tweets2')
+    window_size = 5
+    matrix_penn = calc_score_matrix(pos_tagged_penn, results_penn, ovvFunc, window_size, database='tweets2')
     mapp_penn = construct_mapp_penn(pos_tagged_penn, results_penn)
     bos_ovv_penn = ['' for word in mapp_penn ]
     tools.mapp = mapp_penn
@@ -360,7 +361,7 @@ def calculate_score_penn(hyp_file,ref_file,threshold=1.3):
     return set_penn, mapp_penn
 
 
-def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose = False, threshold = 0.9):
+def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose = False, threshold = 0.9):
     results = []
     correct_answers = []
     incorrect_answers = []
@@ -376,7 +377,7 @@ def show_results(res_mat,mapp, not_ovv = [],dim = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
             res_list = []
             if res_dict:
                 for res_ind,cand in enumerate(res_dict):
-                    score = calculate_score(res_dict[cand],dim,max_val)
+                    score = calculate_score(res_dict[cand],max_val)
                     if score >= threshold and cand != ovv:
                         res_dict[cand].append(round(score,7))
                         res_line = [cand]

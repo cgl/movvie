@@ -46,7 +46,7 @@
 \examinerii{Assist. Prof.~Gülşen Cebiroğlu Eryiğit}
 %\examineriv{}
 %\examinerv{}
-\dateofapproval{10.01.2014}
+\dateofapproval{14.01.2014}
 
 \begin{document}
 \setlength{\abovedisplayskip}{1cm}
@@ -78,10 +78,10 @@ Bir sayfa uzunluğunda özet gelecektir.
 %
 % Use a separate \sym command for each symbols definition.
 % First Latin symbols in alphabetical order
-\sym{$CL(o_{i})$}{Candidate List of $o_i$}
+\sym{$\text{CL}(o_{i})$}{Candidate List of $o_i$}
 \sym{$c_{k}$}{$k^{th}$ Candidate Word/Node for the OOV Token in the Given Input Text}
-\sym{$EL(o_i)$}{Edge List of $o_i$}
-\sym{$NL(o_i)$}{Neighbor List of $o_i$}
+\sym{$\text{EL}(o_i)$}{Edge List of $o_i$}
+\sym{$\text{NL}(o_i)$}{Neighbor List of $o_i$}
 \sym{$n_{j}$}{$j^{th}$ Neighbour of the OOV Token in the Given Input Text}
 \sym{$o_i$}{$i^{th}$ OOV Token in the Given Input Text}
 \sym{$t_{distance}$}{Word Distance Threshold for Contextual Association}
@@ -92,8 +92,8 @@ Bir sayfa uzunluğunda özet gelecektir.
 \sym{ }{}
 \sym{ }{}
 % Then Greek symbols in alphabetical order
-\sym{$\lambda$}{Contextual Similarity Score Parameter}
-\sym{$\beta$}{Lexical Similarity Score Parameter}
+\sym{$\lambda$}{Contextual Similarity Minor Score Parameter}
+\sym{$\beta$}{Lexical Similarity Minor Score Parameter}
 
 \end{symbols}
 
@@ -395,7 +395,7 @@ The directionality of the edges is based  on the sequence of words in the text m
 
 Our graph based contextual similarity method is based on the assumption that an IV word that is the canonical form of an OOV word appears in the same context with the corresponding OOV word. In other words, the two nodes in the graph share several neighbors that co-occur within the same distances to the corresponding two words in social media text. We also assume that an OOV word and its canonical form should have the same POS tag.
 
-Given an input text for normalization, the next step after preprocessing is finding the normalization candidates for each OOV token in the input text. For each ill-formed OOV token $o_i$ in the input text, first the list of tokens that co-occur with $o_i$ in the input text and their positional distances to $o_i$ are extracted.  This list is called the neighbor list of token $o_i$, i.e.,  $NL(o_i)$. Table~\ref{tab:neigh} shows a sample neighbor list for the OOV token beatiful$|$A from the sample sentence in Table~\ref{tab:postagged}.
+Given an input text for normalization, the next step after preprocessing is finding the normalization candidates for each OOV token in the input text. For each ill-formed OOV token $o_i$ in the input text, first the list of tokens that co-occur with $o_i$ in the input text and their positional distances to $o_i$ are extracted.  This list is called the neighbor list of token $o_i$, i.e.,  $\text{NL}(o_i)$. Table~\ref{tab:neigh} shows a sample neighbor list for the OOV token beatiful$|$A from the sample sentence in Table~\ref{tab:postagged}.
 
 \begin{table}[hbt]
 \caption{Example neighbor list for the OOV node beatiful$|$A.}
@@ -411,13 +411,13 @@ Given an input text for normalization, the next step after preprocessing is find
 \label{tab:neigh}
 \end{table}
 
-For each neighbor node $n_{j}$ in $NL$, the word association graph is traversed, and the edges from or to the node $n_{j}$ are extracted. The resulting edge list $EL(o_i)$ has edges in the form of~($n_{j}$, $c_{k}$) or~($c_{k}$, $n_{j}$), where $c_{k}$ is a candidate canonical form of the OOV word $o_i$.
+For each neighbor node $n_{j}$ in $\text{NL}$, the word association graph is traversed, and the edges from or to the node $n_{j}$ are extracted. The resulting edge list $\text{EL}(o_i)$ has edges in the form of~($n_{j}$, $c_{k}$) or~($c_{k}$, $n_{j}$), where $c_{k}$ is a candidate canonical form of the OOV word $o_i$.
 Here the neighbor node $n_{j}$ can be an OOV node, but the candidate node $c_{k}$ is chosen among the IV nodes.
-The edges in $EL(o_i)$ are filtered by the relative distance of $n_{j}$ to $o_i$ as given in the $NL(o_i)$. Any edge between  $n_{j}$ and $c_{k}$, whose distance is not the same as the distance between $n_{j}$ and $o_i$ is removed.
+The edges in $\text{EL}(o_i)$ are filtered by the relative distance of $n_{j}$ to $o_i$ as given in the $\text{NL}(o_i)$. Any edge between  $n_{j}$ and $c_{k}$, whose distance is not the same as the distance between $n_{j}$ and $o_i$ is removed.
 
-In addition to distance based filtering, POS tag based filtering is also performed on the edges in $EL(o_i)$. Each candidate node should have the same POS tag with the corresponding OOV token. For the OOV token $o_i$ that has the POS tag $T_i$, all the edges that include candidates with a tag other than $T_i$ are removed from the edge list $EL(o_{i})$. Thus, $EL(o_{i})$ only contains edges where candidate nodes are tagged as $T_i$.
+In addition to distance based filtering, POS tag based filtering is also performed on the edges in $\text{EL}(o_i)$. Each candidate node should have the same POS tag with the corresponding OOV token. For the OOV token $o_i$ that has the POS tag $T_i$, all the edges that include candidates with a tag other than $T_i$ are removed from the edge list $\text{EL}(o_{i})$. Thus, $\text{EL}(o_{i})$ only contains edges where candidate nodes are tagged as $T_i$.
 
-Figure~\ref{fig:edgeWeight} represents a portion from the graph where you can see the neighbours  and candidates of the OOV node ``beatiful''. In the sample sentence in Table~\ref{tab:postagged} there is two OOV token to be normalized, $o_1=w$ and $o_2=beatiful$. The neighbour list of $o_2$, $NL(o_2)$ includes  $n_1=with$, $n_2=a$ and $n_3=smile$. For each neighbor in the $NL(o_2)$, the candidate nodes~($c_1=broken$, $c_2=nice$, $c_3=new$, $c_4=beautiful$, $c_5=big$, $c_6=nice$, $c_7=great$) are extracted. As shown in Figure~\ref{fig:edgeWeight}, there are 11 lines representing the edges between the neighbors of the OOV token and the candidate nodes. These are representative edges in the $EL(o_2)$. Each member of the edge list has the same tag (A for Adjective) as the OOV node ``beatiful'' and each has the same distance to the neighbor node they are connected as the OOV node. We are simply looking for the best replacements using the distance and POS tag properties.
+Figure~\ref{fig:edgeWeight} represents a portion from the graph where you can see the neighbours  and candidates of the OOV node ``beatiful''. In the sample sentence in Table~\ref{tab:postagged} there is two OOV token to be normalized, $o_1=w$ and $o_2=beatiful$. The neighbour list of $o_2$, $\text{NL}(o_2)$ includes  $n_1=with$, $n_2=a$ and $n_3=smile$. For each neighbor in the $\text{NL}(o_2)$, the candidate nodes~($c_1=broken$, $c_2=nice$, $c_3=new$, $c_4=beautiful$, $c_5=big$, $c_6=nice$, $c_7=great$) are extracted. As shown in Figure~\ref{fig:edgeWeight}, there are 11 lines representing the edges between the neighbors of the OOV token and the candidate nodes. These are representative edges in the $\text{EL}(o_2)$. Each member of the edge list has the same tag (A for Adjective) as the OOV node ``beatiful'' and each has the same distance to the neighbor node they are connected as the OOV node. We are simply looking for the best replacements using the distance and POS tag properties.
 
 \begin{figure}[htb]
 \begin{center}
@@ -427,12 +427,12 @@ Figure~\ref{fig:edgeWeight} represents a portion from the graph where you can se
 \end{center}
 \end{figure}
 
-Each edge in $EL(o_i)$ consists of a neighbor node $n_j$, a candidate node $c_k$ and an edge weight $edgeWeight(n_j,c_k)$. The edge weight represents the likelihood or the strength of association between the neighbor node $n_j$ and the candidate node $c_k$. As described in the previous section the edge weights are computed based on the frequency of co-occurrence of two tokens, as well as the confidence scores of their POS tags.
+Each edge in $\text{EL}(o_i)$ consists of a neighbor node $n_j$, a candidate node $c_k$ and an edge weight $\text{edgeWeight}(n_j,c_k)$. The edge weight represents the likelihood or the strength of association between the neighbor node $n_j$ and the candidate node $c_k$. As described in the previous section the edge weights are computed based on the frequency of co-occurrence of two tokens, as well as the confidence scores of their POS tags.
 
-The edge weights of the edges in $EL(o_2)$ are shown in Figure~\ref{fig:edgeWeight}. The edges that are connected to the OOV neighbor ``w'' have smaller edge weights such as 3,5,26. On the other hand, the edges that are connected to common words have higher edge weight~(e.g.~the edge weight of the edge between nodes ``a'' and ``new'' is 24388). This indicates that those words are non OOV and more common words, and they co-occur very often in the same form (``a new'').
+The edge weights of the edges in $\text{EL}(o_2)$ are shown in Figure~\ref{fig:edgeWeight}. The edges that are connected to the OOV neighbor ``w'' have smaller edge weights such as 3,5,26. On the other hand, the edges that are connected to common words have higher edge weight~(e.g.~the edge weight of the edge between nodes ``a'' and ``new'' is 24388). This indicates that those words are non OOV and more common words, and they co-occur very often in the same form (``a new'').
 
 %As shown in Equation~\ref{eq:ew}, we assume that the direction of the edge between two tokens doesn't affect the strength of association between them~(i.e. the edge weight $w$).
-Although this edge weight metric is reasonable for identifying the most likely canonical form for the OOV word $o_i$, it has the drawback of favoring words with high frequencies like these common words or stop words. Therefore, to avoid overrated words and get contextually relative candidates, we normalize the edge weight $edgeWeight(n_j,c_k)$ with the frequency of the candidate node $c_k$ as shown in Equation~\ref{eq:ew_norm}.
+Although this edge weight metric is reasonable for identifying the most likely canonical form for the OOV word $o_i$, it has the drawback of favoring words with high frequencies like these common words or stop words. Therefore, to avoid overrated words and get contextually relative candidates, we normalize the edge weight $\text{edgeWeight}(n_j,c_k)$ with the frequency of the candidate node $c_k$ as shown in Equation~\ref{eq:ew_norm}.
 \begin{equation}
 edgeWeightNormalized(n_j,c_k) = edgeWeight(n_j,c_k) / frequency(c_k)
 \label{eq:ew_norm}
@@ -440,13 +440,13 @@ edgeWeightNormalized(n_j,c_k) = edgeWeight(n_j,c_k) / frequency(c_k)
 
 Equation~\ref{eq:ew_norm} provides a metric that captures contextual similarity based on binary associations.
 %However we need more than binary relatedness to achive a comprehensive contextual coverage.
-In order to achieve a more comprehensive contextual coverage, a contextual similarity feature is built based on the sum of the binary association scores of several neighbors. As shown in Equation~\ref{eq:wscore1}, for a candidate node $c_k$ the total edge weight score is the sum of the normalized edge weight scores $edgeWeightNormalized(n_j,c_k)$, which are the edge weights coming from the different neighbors of the OOV token $o_i$. We expect this contextual similarity feature to favor and identify the candidates which are (1) related to many neighbors, and (2) have a high association score with each neighbor.
+In order to achieve a more comprehensive contextual coverage, a contextual similarity feature is built based on the sum of the binary association scores of several neighbors. As shown in Equation~\ref{eq:wscore1}, for a candidate node $c_k$ the total edge weight score is the sum of the normalized edge weight scores $\text{edgeWeightNormalized}(n_j,c_k)$, which are the edge weights coming from the different neighbors of the OOV token $o_i$. We expect this contextual similarity feature to favor and identify the candidates which are (1) related to many neighbors, and (2) have a high association score with each neighbor.
 \begin{equation}
-edgeWeightScore(o_i,c_k) = \sum_{(n_j,c_k) or (c_k,n_j) \in EL(o_i)}{edgeWeightNormalized(n_j,c_k)} \\\\
+\text{edgeWeightScore}(o_i,c_k) = \sum_{(n_j,c_k) \text{or} (c_k,n_j) \in \text{EL}(o_i)}{\text{edgeWeightNormalized}(n_j,c_k)} \\\\
 \label{eq:wscore1}
 \end{equation}
 
-Figure~\ref{fig:contextscores} includes the top three candidates sorted by their scores. The candidate node ``beautiful'', $c_4$, has a frequency of 17900. Both three neighbors were paired in the edge list with it with the weights 2, 2918 and 305 respectively~(Figure~\ref{fig:edgeWeight}). After normalizing the edge weight by the frequency of the candidate node  $c_4$, sum of those normalized weights gives us the edge weight score of the candidate node: $edgeWeightScore(o_2,c_4) = 0.18$.
+Figure~\ref{fig:contextscores} includes the top three candidates sorted by their scores. The candidate node ``beautiful'', $c_4$, has a frequency of 17900. Both three neighbors were paired in the edge list with it with the weights 2, 2918 and 305 respectively~(Figure~\ref{fig:edgeWeight}). After normalizing the edge weight by the frequency of the candidate node  $c_4$, sum of those normalized weights gives us the edge weight score of the candidate node: $\text{edgeWeightScore}(o_2,c_4) = 0.18$.
 
 \begin{figure}[htb]
 \begin{center}
@@ -458,13 +458,13 @@ Figure~\ref{fig:contextscores} includes the top three candidates sorted by their
 
 Our word association graph includes both OOV and IV tokens, and our OOV detection depends on the spellchecker which fails to identify some OOV tokens that have the same spelling with an IV word. In order to propose better canonical forms, the frequencies of the normalization candidates in the social media corpus have also been incorporated to the contextual similarity feature. Nodes with higher frequencies lead to tokens that are in their most likely grammatical forms.
 
-The final contextual similarity of the token $o_i$ and the candidate $c_k$ is the weighted sum of the total edge weight score and the frequency score of the candidate~(See Equation~\ref{eq:contscore}). The frequency score of the candidate is a real number between 0 and 1. It is proportional to the frequency of the candidate with respect to the frequencies of the other candidates in the corpus. Since the total edge weight score is our primary contextual resource, the weight of the frequency feature is set as half of the weight of the total edge weight score.
+The final contextual similarity of the token $o_i$ and the candidate $c_k$ is the weighted sum of the total edge weight score and the frequency score of the candidate~(See Equation~\ref{eq:contscore}). The frequency score of the candidate is a real number between 0 and 1. It is proportional to the frequency of the candidate with respect to the frequencies of the other candidates in the corpus. Since the total edge weight score is our primary contextual resource, we may want to favor edge weight score. For that reason we give the frequency score a weight $\lambda \leq 1$ to be able to limit its effect to the total contextual similarity score.
 \begin{equation}
-contextSimScore(o_i,c_k) = \lambda edgeWeightScore(o_i,c_k) + \frac{\lambda} 2 freqScore(c_k)
+\text{contextSimScore}(o_i,c_k) = \text{edgeWeightScore}(o_i,c_k) + \lambda * \text{freqScore}(c_k)
 \label{eq:contscore}
 \end{equation}
 
-Hereby, we have the candidate list $CL(o_{i})$ for the OOV token $o_i$ that includes all the unique candidates in $EL(o_{i})$ and their contextual similarity scores calculated.
+Hereby, we have the candidate list $\text{CL}(o_{i})$ for the OOV token $o_i$ that includes all the unique candidates in $\text{EL}(o_{i})$ and their contextual similarity scores calculated.
 
 \section{Lexical Similarity}
 
@@ -476,18 +476,19 @@ Double metaphone is an extended word edit distance measure, that not only consid
 
 It returns two keys instead of presenting a more valid coverage for some irregularities. % fix and give more detail
 
-The cost function we are using is defined by Contractor \textit{et al.}, 2010~\cite{Contractor:2010:UCN:1944566.1944588}, as the ratio between LCSR of two words and their Edit Distance(ED) cost. You can see the LCSR and cost function shown in Equation~\ref{eq:lcsr} and Equation~\ref{eq:lcsr_cont}. In our case we calculate the similarity cost of the candidate word and the OOV word by dividing their LCSR value to the Edit Distance between them. From now on we will refer to the simCost in Equation~\ref{eq:lcsr_cont} as $LCSR\_ED$.
+The cost function we are using is defined by Contractor \textit{et al.}, 2010~\cite{Contractor:2010:UCN:1944566.1944588}, as the ratio between LCSR of two words and their Edit Distance(ED) cost. You can see the LCSR and cost function shown in Equation~\ref{eq:lcsr} and Equation~\ref{eq:lcsr_cont}. In our case we calculate the similarity cost of the candidate word and the OOV word by dividing their LCSR value to the Edit Distance between them. From now on we will refer to the simCost in Equation~\ref{eq:lcsr_cont} as $\text{LCSR\_ED}$.
 \begin{align}
-LCSR(o_j,c_k) &= \frac{lenght(LCS(o_j,c_k))}{max(length(o_j),length(c_k))} \label{eq:lcsr}      \\
-simCost (o_j,c_k) &= \frac{LCSR(o_j,c_k)}{ED(o_j,c_k)} \label{eq:lcsr_cont}
+\text{LCSR}(o_j,c_k) &= \frac{lenght(\text{LCS}(o_j,c_k))}{\text{max}(\text{length}(o_j),\text{length}(c_k))} \label{eq:lcsr}      \\
+\text{simCost} (o_j,c_k) &= \frac{\text{LCSR}(o_j,c_k)}{\text{ED}(o_j,c_k)} \label{eq:lcsr_cont}
 \end{align}
-Following the tradition that is inspired from~\cite{Kaufmann2010} before lexical similarity calculations, any repetitions of characters three or more times in OOV tokens are reduced to two (e.g. \emph{goooood} is reduced to \emph{good}). Then, the edit distance, phonetic edit distance, and $LCSR\_ED$ between each candidate in $CL(o_{i})$ and the OOV token $o_i$ are calculated. Edit distance and phonetic edit distance are used to filter the candidates. Any candidate in $CL(o_{i})$ with an edit distance greater than $t_{edit}$ and phonetic edit distance greater than $t_{phonetic}$ to $o_i$ has been removed from the candidate list $CL(o_{i})$.
+Following the tradition that is inspired from~\cite{Kaufmann2010} before lexical similarity calculations, any repetitions of characters three or more times in OOV tokens are reduced to two (e.g. \emph{goooood} is reduced to \emph{good}). Then, the edit distance, phonetic edit distance, and $\text{LCSR\_ED}$ between each candidate in $\text{CL}(o_{i})$ and the OOV token $o_i$ are calculated. Edit distance and phonetic edit distance are used to filter the candidates. Any candidate in $\text{CL}(o_{i})$ with an edit distance greater than $t_{edit}$ and phonetic edit distance greater than $t_{phonetic}$ to $o_i$ has been removed from the candidate list $\text{CL}(o_{i})$.
 
-For the remaining candidates, the total lexical similarity score (Equation~\ref{eq:lexscore}) is calculated using $LCSR\_ED$ and edit distance score\footnote{an approximate string comparison measure (between 0.0 and 1.0) using the edit distance \url{https://sourceforge.net/projects/febrl/}}. Since the main lexical feature is $LCSR\_ED$, it is assigned twice the weight of the edit distance score. Since some social media text messages are extremely short and contain several OOV words, they do not provide sufficient context, i.e., IV neighbors, to enable the extraction of good candidates from the word association graph. Therefore, we extended the candidate list obtained through contextual similarity as described in the previous section, by including all the tokens in the word association graph that satisfy the edit distance and phonetic edit distance criteria. We also incorporated candidates from external resources, in other words from a slang dictionary and a transliteration table of numbers and pronouns (Table ~\ref{tab:transliteral}). If a token occurs in the slang dictionary or in the transliteration table it is assigned an external score of $1$, otherwise it is assigned an external score of $0$.
+For the remaining candidates, the total lexical similarity score (Equation~\ref{eq:lexscore}) is calculated using $\text{LCSR\_ED}$ and edit distance score\footnote{an approximate string comparison measure (between 0.0 and 1.0) using the edit distance \url{https://sourceforge.net/projects/febrl/}}. Similar to contextual similarity score, here we have one main lexical similarty feature and one minor lexical similarity feature. The major lexical similarity feature is $\text{LCSR\_ED}$ and edit distance score is the minor. We assigned a weight $\beta \leq 1$ to the edit distance score to be able to lower its weight while calculating the total lexical similarty score.
 \begin{equation}
-lexSimScore(o_i,c_k) = \beta LCSR\_ED(o_i,c_k) + \frac{\beta} 2 editDistScore(o_i,c_k) + \beta externalScore(o_i,c_k)
+\text{lexSimScore}(o_i,c_k) = \text{LCSR\_ED}(o_i,c_k) + \beta * \text{editDistScore}(o_i,c_k)
 \label{eq:lexscore}
 \end{equation}
+\par Since some social media text messages are extremely short and contain several OOV words, they do not provide sufficient context, i.e., IV neighbors, to enable the extraction of good candidates from the word association graph. Therefore, we extended the candidate list obtained through contextual similarity as described in the previous section, by including all the tokens in the word association graph that satisfy the edit distance and phonetic edit distance criteria. We also incorporated candidates from external resources, in other words from a slang dictionary and a transliteration table of numbers and pronouns (Table ~\ref{tab:transliteral}). If a token occurs in the slang dictionary or in the transliteration table it is assigned an external score of $1$, otherwise it is assigned an external score of $0$.
 
 \begin{table}[ht]
   \caption{Transliteration Candidates extended from~\cite{Gouws:2011:CBL:2021109.2021113}.}
@@ -526,9 +527,12 @@ lexSimScore(o_i,c_k) = \beta LCSR\_ED(o_i,c_k) + \frac{\beta} 2 editDistScore(o_
 %pronouns = {u'2':u"to",u'w':u"with"}
 %\end{verbatim}
 
-As shown in Equation\ref{eq:candscore}, the final score of a candidate IV token $c_k$ for an OOV token $o_i$ is the sum of its lexical similarity score and contextual similarity score with respect to $o_i$.
+As shown in Equation~\ref{eq:candscore}, the final score of a candidate IV token $c_k$ for an OOV token $o_i$ is the sum of its lexical similarity score, contextual similarity score and external score with respect to $o_i$.
 \begin{equation}
-candScore(o_i,c_k) = lexSimScore(o_i,c_k) + contextSimScore(o_i,c_k)
+\begin{aligned}
+\text{candScore}(o_i,c_k) = ~ & \text{lexSimScore}(o_i,c_k) + \text{contextSimScore}(o_i,c_k) \\
+& + \text{externalScore}(o_i,c_k)
+\end{aligned}
 \label{eq:candscore}
 \end{equation}
 
