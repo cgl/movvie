@@ -405,10 +405,14 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,threshold=1.5,slang_threshold=1,
     if not feat_mat:
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
         #feat_mat2 = add_weight(feat_mat,mapp,not_ovv)
-    res,ans,incor = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
-    index_list,nil,no_res = tools.top_n(res,not_ovv,mapp,verbose=verbose)
-    tools.get_performance(len(ans),len(no_res),len(incor),len([oov for oov in not_ovv if oov == '']))
-    threshold = tools.get_score_threshold(index_list,res)
-    tools.test_threshold(res,threshold)
-    return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list]
+    try:
+        res,ans,incor = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
+        index_list,nil,no_res = tools.top_n(res,not_ovv,mapp,verbose=verbose)
+        tools.get_performance(len(ans),len(no_res),len(incor),len([oov for oov in not_ovv if oov == '']))
+        threshold = tools.get_score_threshold(index_list,res)
+        tools.test_threshold(res,threshold)
+        return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list]
+    except:
+        print(traceback.format_exc())
+        return [res, feat_mat, fmd, matrix1]
     #        0   1         2    3        4    5      6    7       8

@@ -20,7 +20,7 @@
 % Me added
 \usepackage{subfig}
 \let\belowcaptionskip\abovecaptionskip
-\usepackage{color,url,tabularx,amsmath}
+\usepackage{color,tabularx,amsmath}
 \newcommand\fxbox[1]{\center{\framebox[1.1\width][c]{\strut#1}}}
 \newcommand\mxbox[1]{\center{\makebox[1.1\width][c]{\strut#1}}}
 
@@ -174,7 +174,6 @@ There \underline{are} \underline{some} songs \underline{you} don't want \underli
 \begin{table}[tbhp]
 \caption{Sample noisy tokens and their normalized forms.}
 \centering
-\begin{minipage}[c]{.49\linewidth}
 \begin{tabular}[h]{|p{3.3cm}|p{3cm}|}
 \hline
 \textbf{Ill-formed word} & \textbf{Normalization} \\
@@ -187,14 +186,6 @@ raight & right \\ \hline
 raight & alright \\ \hline
 cos & because \\ \hline
 cos & cause \\ \hline
-\end{tabular}
-\end{minipage}
-\begin{minipage}[c]{.49\linewidth}
-\centering
-\begin{tabular}[h]{|p{3.3cm}|p{3cm}|}
-\hline
-\textbf{Ill-formed word} & \textbf{Normalization} \\
-\hline
 r  &  are \\ \hline
 n &      and \\ \hline
 mor &    more \\ \hline
@@ -204,7 +195,6 @@ tnks  & thanks \\ \hline
 makeing & making \\ \hline
 friiied &  fried \\ \hline
 \end{tabular}
-\end{minipage}
 \label{tab:normalizations}
 \end{table}
 
@@ -392,6 +382,7 @@ The directionality of the edges is based  on the sequence of words in the text m
 
 
 \section{Graph Based Contextual Similarity}
+\label{sec:consim}
 
 Our graph based contextual similarity method is based on the assumption that an IV word that is the canonical form of an OOV word appears in the same context with the corresponding OOV word. In other words, the two nodes in the graph share several neighbors that co-occur within the same distances to the corresponding two words in social media text. We also assume that an OOV word and its canonical form should have the same POS tag.
 
@@ -467,6 +458,7 @@ The final contextual similarity of the token $o_i$ and the candidate $c_k$ is th
 Hereby, we have the candidate list $\text{CL}(o_{i})$ for the OOV token $o_i$ that includes all the unique candidates in $\text{EL}(o_{i})$ and their contextual similarity scores calculated.
 
 \section{Lexical Similarity}
+\label{sec:lexsim}
 
 Following the prior work in~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/HassanM13}, our lexical similarity features are based on edit distance~\cite{levenshtein1966bcc}, double metaphone~(phonetic edit distance)~\cite{Philips:2000:DMS:349124.349132}, and a similarity function~\cite{Contractor:2010:UCN:1944566.1944588} which is based on Longest Common Subsequence Ratio (LCSR)~\cite{melamed1999bitext}.
 
@@ -474,25 +466,30 @@ Edit distance or in other words Levenshtein distance between two words is define
 
 Double metaphone is an extended word edit distance measure, that not only considers the characters but also the English pronunciations of the words. Like the Soundex algorithm, metaphone algorithm~\cite{philips1990hanging} encodes words. Similar sounding words, in other words phoneticly similar words shares the same keys in these encodings. Metaphone is an extended and more accurate version of Soundex. Double metaphone came out 10 years later than the metaphone and is called the second generation of the metaphone algorithm.
 
-It returns two keys instead of presenting a more valid coverage for some irregularities. % fix and give more detail
+It returns two keys instead, presenting a more valid coverage for some irregularities. % fix and give more detail
 
 The cost function we are using is defined by Contractor \textit{et al.}, 2010~\cite{Contractor:2010:UCN:1944566.1944588}, as the ratio between LCSR of two words and their Edit Distance(ED) cost. You can see the LCSR and cost function shown in Equation~\ref{eq:lcsr} and Equation~\ref{eq:lcsr_cont}. In our case we calculate the similarity cost of the candidate word and the OOV word by dividing their LCSR value to the Edit Distance between them. From now on we will refer to the simCost in Equation~\ref{eq:lcsr_cont} as $\text{LCSR\_ED}$.
 \begin{align}
-\text{LCSR}(o_j,c_k) &= \frac{lenght(\text{LCS}(o_j,c_k))}{\text{max}(\text{length}(o_j),\text{length}(c_k))} \label{eq:lcsr}      \\
+\text{LCSR}(o_j,c_k) &= \frac{length(\text{LCS}(o_j,c_k))}{\text{max}(\text{length}(o_j),\text{length}(c_k))} \label{eq:lcsr}      \\
 \text{simCost} (o_j,c_k) &= \frac{\text{LCSR}(o_j,c_k)}{\text{ED}(o_j,c_k)} \label{eq:lcsr_cont}
 \end{align}
 Following the tradition that is inspired from~\cite{Kaufmann2010} before lexical similarity calculations, any repetitions of characters three or more times in OOV tokens are reduced to two (e.g. \emph{goooood} is reduced to \emph{good}). Then, the edit distance, phonetic edit distance, and $\text{LCSR\_ED}$ between each candidate in $\text{CL}(o_{i})$ and the OOV token $o_i$ are calculated. Edit distance and phonetic edit distance are used to filter the candidates. Any candidate in $\text{CL}(o_{i})$ with an edit distance greater than $t_{edit}$ and phonetic edit distance greater than $t_{phonetic}$ to $o_i$ has been removed from the candidate list $\text{CL}(o_{i})$.
 
-For the remaining candidates, the total lexical similarity score (Equation~\ref{eq:lexscore}) is calculated using $\text{LCSR\_ED}$ and edit distance score\footnote{an approximate string comparison measure (between 0.0 and 1.0) using the edit distance \url{https://sourceforge.net/projects/febrl/}}. Similar to contextual similarity score, here we have one main lexical similarty feature and one minor lexical similarity feature. The major lexical similarity feature is $\text{LCSR\_ED}$ and edit distance score is the minor. We assigned a weight $\beta \leq 1$ to the edit distance score to be able to lower its weight while calculating the total lexical similarty score.
+For the remaining candidates, the total lexical similarity score (Equation~\ref{eq:lexscore}) is calculated using $\text{LCSR\_ED}$ and edit distance score\footnote{an approximate string comparison measure (between 0.0 and 1.0) using the edit distance https://sourceforge.net/projects/febrl/}. Similar to contextual similarity score, here we have one main lexical similarity feature and one minor lexical similarity feature. The major lexical similarity feature is $\text{LCSR\_ED}$ and edit distance score is the minor. We assigned a weight $\beta \leq 1$ to the edit distance score to be able to lower its weight while calculating the total lexical similarity score.
 \begin{equation}
 \text{lexSimScore}(o_i,c_k) = \text{LCSR\_ED}(o_i,c_k) + \beta * \text{editDistScore}(o_i,c_k)
 \label{eq:lexscore}
 \end{equation}
-\par Since some social media text messages are extremely short and contain several OOV words, they do not provide sufficient context, i.e., IV neighbors, to enable the extraction of good candidates from the word association graph. Therefore, we extended the candidate list obtained through contextual similarity as described in the previous section, by including all the tokens in the word association graph that satisfy the edit distance and phonetic edit distance criteria. We also incorporated candidates from external resources, in other words from a slang dictionary and a transliteration table of numbers and pronouns (Table ~\ref{tab:transliteral}). If a token occurs in the slang dictionary or in the transliteration table it is assigned an external score of $1$, otherwise it is assigned an external score of $0$.
+
+\section{External Score}
+
+ Since some social media text messages are extremely short and contain several OOV words, they do not provide sufficient context, i.e., IV neighbors, to enable the extraction of good candidates from the word association graph. Therefore, we extended the candidate list obtained through contextual similarity as described in the previous section, by including all the tokens in the word association graph that satisfy the edit distance and phonetic edit distance criteria. We also incorporated candidates from external resources, in other words from a slang dictionary and a transliteration table of numbers and pronouns (Table~\ref{tab:transliteral}). If a candidate occurs in the slang dictionary or in the transliteration table as a correspondence to its OOV word, it is assigned an external score of $1$, otherwise it is assigned an external score of $0$.
+
+The transliterations are first used in Gouws \textit{et al.}'s work~\cite{Gouws:2011:CBL:2021109.2021113}. The transliteration table they have built has only numbers in common with ours. Among the token and the transliteration we also have the POS tag information in use which was not available in their system~(Table~\ref{tab:transliteral}).
 
 \begin{table}[ht]
   \caption{Transliteration Candidates extended from~\cite{Gouws:2011:CBL:2021109.2021113}.}
-  \begin{minipage}[c]{0.5\linewidth}
+  \centering
     \begin{tabular}[l]{|l|l|l|}
     \hline
     \textbf{token} & \textbf{tag} & \textbf{Transliteration} \\\hline
@@ -503,12 +500,6 @@ For the remaining candidates, the total lexical similarity score (Equation~\ref{
     5 & ``\$'' & ``five'' \\\hline
     6 & ``\$'' & ``six'' \\\hline
     7 & ``\$'' & ``seven'' \\\hline
-  \end{tabular}
-\end{minipage}
-  \begin{minipage}[c]{0.5\linewidth}
-    \begin{tabular}[l]{|l|l|l|}
-    \hline
-    \textbf{token} & \textbf{tag} & \textbf{Transliteration} \\\hline
     8 & ``\$'' & ``eight'' \\\hline
     9 & ``\$'' & ``nine'' \\\hline
     0 & ``\$'' & ``zero'' \\\hline
@@ -517,15 +508,38 @@ For the remaining candidates, the total lexical similarity score (Equation~\ref{
     ``im'' & ``L''  & ``I'm'' \\\hline
     ``cont'' & ``\textasciitilde''  & ``continued'' \\\hline
   \end{tabular}
-  \end{minipage}
 \label{tab:transliteral}
 \end{table}
 
-%\begin{verbatim}
-%units = ["", "one", "to", "three", "for",
-%         "five", "six", "seven", "eight", "nine"]
-%pronouns = {u'2':u"to",u'w':u"with"}
-%\end{verbatim}
+The external score favors the well known interpretations of common OOV words. However unlike the dictionary based methodologies, our system does not return the corresponding unabbreviated word in the slang dictionary or in the transliteration table directly. Only an external score gets assigned and the candidate still needs to compete with other candidates which may have higher contextual similarities and one of those contextually more similar candidates may be returned as the correct normalization instead of the candidate found equivalent to the OOV word in the slang dictionary (or in the transliteration table).
+
+Some example entries from slang dictionary are shown in Table~\ref{tab:slang}. First and third examples from the table present why choosing directly the equivalent word in the dictionary as the correct normalization is a bad idea. The first word from the table is ``2''. It has widely used as an abbreviation for the word ``too'', however it is also used in place of the word ``to'' as well. Likely ``bc'' can be normalized as ``back'' or ``because'' depending on the context of the sentence. That is why we do not return the corresponding candidate words directly but only increase their score using the external score metric. Other examples from Table~\ref{tab:slang} may give some idea about the overall content of the slang dictionary.
+
+\begin{table}[ht]
+  \caption{Some entries from the slang dictionary at http://www.noslang.com/}
+  \centering
+    \begin{tabular}[l]{|l|l|}
+    \hline
+    \textbf{slang} & \textbf{correspondence} \\\hline
+    ``2'' & ``too'' \\\hline
+    ``acc'' & ``account'' \\\hline
+    ``bc'' & `` because'' \\\hline
+    ``cr'' & ``can't remember'' \\\hline
+    ``dmi'' & ``don't mention it'' \\\hline
+    ``dupe'' & ``duplicate'' \\\hline
+    ``gfx'' & ``graphics'' \\\hline
+    ``h/e'' & ``however'' \\\hline
+    ``h4kz0r5'' & ``hackers'' \\\hline
+    ``iag'' & ``it's all good'' \\\hline
+    ``indie''  & ``independent'' \\\hline
+    ``j00'' & ``you'' \\\hline
+    ``nemore'' & ``anymore''  \\\hline
+    ``y'' & ``why'' \\\hline
+  \end{tabular}
+\label{tab:slang}
+\end{table}
+
+\section{Overall Scoring}
 
 As shown in Equation~\ref{eq:candscore}, the final score of a candidate IV token $c_k$ for an OOV token $o_i$ is the sum of its lexical similarity score, contextual similarity score and external score with respect to $o_i$.
 \begin{equation}
@@ -540,7 +554,8 @@ As shown in Equation~\ref{eq:candscore}, the final score of a candidate IV token
 \label{sec:experiments}
 
 \section{Data sets}
-We used the LexNorm1.1 dataset~\cite{Han:2011:LNS:2002472.2002520} and Pennell \textit{et al.}'s trigram dataset~\cite{pennell2011character} to evaluate our proposed approach. LexNorm1.1 contains $549$ tweets with $1184$ manually annotated ill-formed OOV tokens. It has been used by recent text normalization studies for evaluation, which enables us to directly compare our performance results with results obtained by the recent previous work. Trigram dataset on the other hand is an SMS-like corpus collected from twitter status updates sent via SMS.\@ The dataset does not include the complete tweet text but trigrams from tweets and one OOV word in each trigram is annotated. In total 4661 twitter status messages and 7769 tokens are annotated, previous work has used 80 \% for training and the rest as test set, similarly we used the same 20 \% of the dataset as test set to be able to report our results on the same basis as previous work.
+\label{sec:datasets}
+We used the LexNorm1.1 dataset~\cite{Han:2011:LNS:2002472.2002520} and Pennell \textit{et al.}'s trigram dataset~\cite{pennell2011character,Pennell2014256} to evaluate our proposed approach. LexNorm1.1 contains $549$ tweets with $1184$ manually annotated ill-formed OOV tokens. It has been used by recent text normalization studies for evaluation, which enables us to directly compare our performance results with results obtained by the recent previous work. Trigram dataset on the other hand is an SMS-like corpus collected from twitter status updates sent via SMS.\@ The dataset does not include the complete tweet text but trigrams from tweets and one OOV word in each trigram is annotated. In total 4661 twitter status messages and 7769 tokens are annotated, previous work has used 80 \% for training and the rest as test set, similarly we used the same 20 \% of the dataset as test set to be able to report our results on the same basis as previous work.
 
 \section{Graph Generation}
 We used a large corpus of social media text to construct our word association graph. We extracted 1.5 GB of English tweets from Stanford's 476 million Twitter Dataset~\cite{DBLP:conf/wsdm/YangL11}. The language identification of tweets was performed by using the langid.py Python library~\cite{Lui:2012:LOL:2390470.2390475, Baldwin:2010:LIL:1857999.1858026}.
@@ -556,6 +571,33 @@ After tokenization, we removed the tokens that were POS tagged as mention~(e.g. 
 While extending the candidate set with lexical features we use ${t_{edit}\leq 2}~\vee~{t_{phonetic} \leq 1}$ to keep up with the settings in Han \textit{et al.}~\cite{Han:2011:LNS:2002472.2002520}. In other words, IV words that are within 2 character edit distance of a given OOV word or 1 character edit distance of a given OOV word under phonemic transcription were chosen as lexical similarity candidates.
 
 \section{Evaluation Metrics}
+
+The main evaluation metrics we have been used in this thesis are precision, recall and f-measure. We run our text normalization method on our two test sets that is introduced in Section~\ref{sec:datasets} and calculated each metric regarding to following definitions.
+
+Precision~(Equation~\ref{eq:precision}) calculates the proportion of correctly normalized words among the keys that we could produce a normalization for. Recall~(Equation~\ref{eq:recall}) shows the amount of correct normalizations over the words that requires normalization. The main metric that we consider while evaluating the performance of our system is F-Measure~(Equation~\ref{eq:f-score}) which is the harmonic mean of precision and recall values.
+
+\begin{equation}
+\text{Precision} = \frac{ \text{\# of correctly normalized words}}{ \text{\# of normalized words}}
+\label{eq:precision}
+\end{equation}
+
+\begin{equation}
+\text{Recall} = \frac{\text{\# of correctly normalized words}}{\text{\# of words requires normalization}}
+\label{eq:recall}
+\end{equation}
+
+\begin{equation}
+\text{F-Measure} = \frac{2 * \text{Precision} * \text{Recall} }{\text{Precision} + \text{Recall}}
+\label{eq:f-score}
+\end{equation}
+
+\section{Weighting Minor Contextual and Lexical Metrics}
+
+As described in Section~\ref{sec:consim} and~\ref{sec:lexsim} both contextual and lexical similarity is calculated using two metrics, one major and one minor. The major contextual similarity metric is the edge weight score of the candidates and the major lexical similarity metric is the LCSR which is shown to perform good on finding lexical similarity~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/HassanM13}. For the minor metrics frequency score and edit distance score we introduced $\lambda$ and $\beta$ parameters respectively to be able to tune their contribution to the overall ranking.
+
+
+Our approach on ranking contextually similar candidates based on graph based contextual similarity
+
 
 \chapter{RESULTS AND ANALYSIS}
 
@@ -579,10 +621,10 @@ as well as the results of recent studies that used the same data set for evaluat
   \label{tab:results}
 \end{table}
 
-Our CWA-Graph approach achieves the best f measure ($82.20$) and precision ($85.50$) among the recent previous studies. The high precision value is obtained without compromising much from recall ($79.20$), our precision is the second best among others. The F-score ($82.09$) obtained by Yang \textit{et al.}'s system is close to ours and the second best F-score, which on the other hand, has a lower precision than our approach~\cite{DBLP:conf/emnlp/YangE13}.
+Our CWA-Graph approach achieves the best F-measure ($82.20$) and precision ($85.50$) among the recent previous studies. The high precision value is obtained without compromising much from recall ($79.20$). Our recall is the second best among others. The F-score ($82.09$) obtained by Yang \textit{et al.}'s system is close to ours and the second best F-score, which on the other hand, has a lower precision than our approach~\cite{DBLP:conf/emnlp/YangE13}.
 
 The earlier work we compare our system with, assumes that the words to be normalized are given in advance. We also made the same assumption. However unlike other systems (\cite{DBLP:conf/emnlp/YangE13,liu2012broad,Han:2011:LNS:2002472.2002520}), our system does not propose a normalization, if there are no candidates that are lexically similar, grammatically correct and contextually close enough. For this reason, we managed to achieve a higher precision compared to the other systems. Besides, we made sure that the candidates have a minimum similarity either contextual, lexical, external or some degree of each feature. Table~\ref{tab:thresholds} shows that our approach can obtain even higher values of precision by tuning the system threshold (i.e.~the minimum score in Equation~\ref{eq:candscore} to return a token as a candidate canonical form of an OVV token).
-
+\\
 \begin{table}[thb]
   \caption{Comparison of results for different threshold values.}
   \centering
@@ -666,6 +708,7 @@ Table~\ref{tab:resultspennell} show the results of our system on the trigram SMS
   \label{tab:resultspennell}
 \end{table}
 
+
 \chapter{CONCLUSION AND FUTURE WORK}
 
 We presented an unsupervised graph based approach for contextual text normalization. We compared our approach with the recent social media text normalization systems and achieved state-of-the-art precision and F-measure scores.
@@ -680,6 +723,7 @@ Except for the double metaphone algorithm that encodes the phonetic similarities
 %\chapter{APPLICATION}
 %The appendices start here.
 %\cite{*}
+%\bibliographystyle{plain}
 \bibliographystyle{styles/fbe_tez_v11}
 \bibliography{sentic}
 

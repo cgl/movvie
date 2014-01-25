@@ -234,6 +234,15 @@ setcurrent = analysis.run(setcurrent[3],setcurrent[2],setcurrent[1],slang,bos_ov
 
 --------
 
+Pennel temiz bir başlangıç
+
+set_penn5,mapp_penn5 = analysis.calculate_score_penn("test/trigram_data/ann5.trigrams.hyp","test/trigram_data/ann5.trigrams.ref",threshold=1.5)
+
+bos_ovv_penn5 = ['' for word in mapp_penn5 ] ; slang = tools.get_slangs()
+
+bb = analysis.run(set_penn5[3],set_penn5[2],set_penn5[1],slang,bos_ovv_penn5,mapp_penn5,threshold=1.5)
+--------
+
 tools.db_dict.dic.remove()
 tools.db_dict.dic.ensure_index('met0')
 tools.db_dict.dic.ensure_index('met1')
@@ -243,23 +252,6 @@ tools.dump_to_file(set5[3],"matrix5_v2.txt")
 
 ---------
 
-tweets_penn,results_penn = scoring.pennel(515, "test/trigram_data/ann1.trigrams.hyp","test/trigram_data/ann1.trigrams.ref")
-import CMUTweetTagger ; pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
-matrix_penn = analysis.calc_score_matrix(pos_tagged_penn,results_penn,analysis.ovvFunc,database='tweets2')
-mapp_penn = construct_mapp()
-tools.mapp = mapp_penn
-bos_ovv_penn = ['' for word in mapp_penn ]
-na
-set_penn = analysis.run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn)
-tools.mapp = mapp
-
-
-    a = []
-    for t_ind,tweet in enumerate(results_penn):
-        if len(pos_tagged_penn[t_ind]) != len(results_penn[t_ind]):
-            print t_ind,pos_tagged_penn[t_ind],[t_ind]
-
-mapp = construct_mapp()
 
 for rr in set1[8][1][1]:
     print rr,mapp[rr]
