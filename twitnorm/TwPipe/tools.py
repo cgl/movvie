@@ -36,13 +36,13 @@ except:
 def build_mappings(results,pos_tagged):
     mapp = []
     for i in range(0,len(results)):
-        for (word_ind ,(a,b,c)) in enumerate(constants.results[i]):
-            if b == 'OOV':
+        for (word_ind ,(org_word,w_type,ann_word)) in enumerate(constants.results[i]):
+            if w_type == 'OOV':
                 tag = pos_tagged[i][word_ind][1]
                 acc = pos_tagged[i][word_ind][2]
-                mapp.append([a,c,tag,acc])
+                mapp.append([org_word,ann_word,tag,acc])
     return mapp
-pos_tagged = build_mappings(constants.results,constants.pos_tagged)
+#ann_and_pos_tag = build_mappings(constants.results,constants.pos_tagged)
 
 
 def spell_check(word):
@@ -53,7 +53,7 @@ def spell_check(word):
     else:
         return False
 
-def top_n(res,not_ovv,mapp,n=100,verbose=False):
+def top_n(res,not_ovv,mapp,ann_and_pos_tag,n=100,verbose=False):
     in_top_n = 0
     total_ill = 0
     index_list = {}
@@ -79,9 +79,9 @@ def top_n(res,not_ovv,mapp,n=100,verbose=False):
                     index_list_n[1].append(res_ind)
                     index_list[cor_ind] = index_list_n
                 else:
-                    not_in_list.append((res_ind,ovv,correct_answer,mapp[res_ind][2],pos_tagged[res_ind][3]))
+                    not_in_list.append((res_ind,ovv,correct_answer,mapp[res_ind][2],ann_and_pos_tag[res_ind][3]))
             else:
-                no_result.append((res_ind,ovv,correct_answer,mapp[res_ind][2],pos_tagged[res_ind][3]))
+                no_result.append((res_ind,ovv,correct_answer,mapp[res_ind][2],ann_and_pos_tag[res_ind][3]))
     print 'Out of %d normalization, we^ve %d of those correct normalizations in our list with indexes \n %s' % (total_ill, in_top_n,[(a, index_list[a][0]) for a in index_list])
     if verbose:
         for a in index_list:

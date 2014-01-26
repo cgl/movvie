@@ -9,6 +9,7 @@ import re
 import copy
 import traceback
 import logging
+import constants
 
 is_ill = lambda x,y,z : True if x != z else False
 is_ovv = lambda x,y,z : True if y == 'OOV' else False
@@ -344,11 +345,8 @@ def calculate_score_penn(hyp_file,ref_file,threshold=1.5):
     matrix_penn = calc_score_matrix(pos_tagged_penn, results_penn, ovvFunc, window_size, database='tweets2')
     mapp_penn = construct_mapp_penn(pos_tagged_penn, results_penn)
     bos_ovv_penn = ['' for word in mapp_penn ]
-    tools.mapp = mapp_penn
-    set_penn = run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn,threshold=threshold)
-    from constants import mapping as mapp
-    tools.mapp = mapp
-    return set_penn, mapp_penn
+    set_penn = run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn,results_penn,pos_tagged_penn,threshold=threshold)
+    return set_penn, mapp_penn, results_penn, pos_tagged_penn
 
 
 def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose = False, threshold = 1.5):
@@ -388,9 +386,10 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
     print 'Number of correct answers %s, incorrect answers %s, total correct answers %s' % (len(correct_answers),len(incorrect_answers),total_pos)
     return results,correct_answers,incorrect_answers
 
-def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,threshold=1.5,slang_threshold=1,max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
+def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,results = constants.results,
+        pos_tagged = constants.pos_tagged, threshold=1.5,slang_threshold=1,
+        max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
     if not matrix1:
-        from constants import pos_tagged, results
         window_size = 7
         matrix1 = calc_score_matrix(pos_tagged,results,ovvFunc,window_size,database='tweets2')
     #max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
@@ -405,14 +404,15 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,threshold=1.5,slang_threshold=1,
     if not feat_mat:
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
         #feat_mat2 = add_weight(feat_mat,mapp,not_ovv)
-    try:
         res,ans,incor = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
-        index_list,nil,no_res = tools.top_n(res,not_ovv,mapp,verbose=verbose)
+    try:
+        ann_and_pos_tag = tools.build_mappings(results,pos_tagged)
+        index_list,nil,no_res = tools.top_n(res,not_ovv,mapp,ann_and_pos_tag,verbose=verbose)
         tools.get_performance(len(ans),len(no_res),len(incor),len([oov for oov in not_ovv if oov == '']))
         threshold = tools.get_score_threshold(index_list,res)
         tools.test_threshold(res,threshold)
         return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list]
+        #        0   1         2    3        4    5      6    7       8
     except:
         print(traceback.format_exc())
-        return [res, feat_mat, fmd, matrix1]
-    #        0   1         2    3        4    5      6    7       8
+        return [res, feat_mat, fmd, matrix1, ans, incor]

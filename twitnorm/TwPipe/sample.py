@@ -236,11 +236,20 @@ setcurrent = analysis.run(setcurrent[3],setcurrent[2],setcurrent[1],slang,bos_ov
 
 Pennel temiz bir başlangıç
 
-set_penn5,mapp_penn5 = analysis.calculate_score_penn("test/trigram_data/ann5.trigrams.hyp","test/trigram_data/ann5.trigrams.ref",threshold=1.5)
+set_penn5,mapp_penn5, results_penn, pos_tagged_penn = analysis.calculate_score_penn("test/trigram_data/ann5.trigrams.hyp","test/trigram_data/ann5.trigrams.ref",threshold=1.5)
 
 bos_ovv_penn5 = ['' for word in mapp_penn5 ] ; slang = tools.get_slangs()
 
-bb = analysis.run(set_penn5[3],set_penn5[2],set_penn5[1],slang,bos_ovv_penn5,mapp_penn5,threshold=1.5)
+bb = analysis.run(set_penn5[3],set_penn5[2],set_penn5[1],slang,bos_ovv_penn5,mapp_penn5, results = results_penn, pos_tagged = pos_tagged_penn, threshold=1.5)
+
+devamı:
+
+lam = 0.5 ; beta = 0.5 ; max_val = [1., 1., lam , 0.0, 1, beta]
+
+for rr in set_penn5[8][1][1]:
+        print(rr,mapp_penn5[rr])
+        tools.pretty_top_n(set_penn5[0],rr,mapp_penn5,max_val,last=4)
+
 --------
 
 tools.db_dict.dic.remove()
@@ -255,7 +264,7 @@ tools.dump_to_file(set5[3],"matrix5_v2.txt")
 
 for rr in set1[8][1][1]:
     print rr,mapp[rr]
-    tools.pretty_top_n(res,rr,max_val,last=4)
+    tools.pretty_top_n(res,rr,mapp,max_val,last=4)
 
 ----
 
