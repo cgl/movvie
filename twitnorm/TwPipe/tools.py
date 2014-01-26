@@ -36,7 +36,7 @@ except:
 def build_mappings(results,pos_tagged):
     mapp = []
     for i in range(0,len(results)):
-        for (word_ind ,(org_word,w_type,ann_word)) in enumerate(constants.results[i]):
+        for (word_ind ,(org_word,w_type,ann_word)) in enumerate(results[i]):
             if w_type == 'OOV':
                 tag = pos_tagged[i][word_ind][1]
                 acc = pos_tagged[i][word_ind][2]
