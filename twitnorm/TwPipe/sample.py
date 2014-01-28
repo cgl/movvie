@@ -242,6 +242,8 @@ bos_ovv_penn5 = ['' for word in mapp_penn5 ] ; slang = tools.get_slangs()
 
 bb = analysis.run(set_penn5[3],set_penn5[2],set_penn5[1],slang,bos_ovv_penn5,mapp_penn5, results = results_penn, pos_tagged = pos_tagged_penn, threshold=1.5)
 
+analysis.run(set_penn_tr[3],[],[],slang,bos_ovv_penn_tr,mapp_penn_tr, results = results_penn_tr, pos_tagged = pos_tagged_penn,threshold=1.5)
+
 devamı:
 
 lam = 0.5 ; beta = 0.5 ; max_val = [1., 1., lam , 0.0, 1, beta]
@@ -291,9 +293,17 @@ for lam in map(lambda x: x/10,range(0,11)):
         setcurrent = analysis.run(setcurrent[3],setcurrent[2],setcurrent[1],slang,bos_ovv,mapp,max_val = max_val,threshold=1.5)
         print("**********************")
 
-for beta in [0.5]:
-    for lam in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+for beta in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]:
+    for lam in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,1]:
         max_val = [1., 1., lam , 0.0, 1, beta]
         print("%f : %f" %(lam,beta))
-        aaa = analysis.run(set_penn5[3],set_penn5[2],set_penn5[1],slang,bos_ovv_penn5,mapp_penn5,max_val = max_val, threshold=1.5)
+        aaa = analysis.run(set_penn5[3],set_penn5[2],set_penn5[1],slang,bos_ovv_penn5,mapp_penn5,results = results_penn, pos_tagged = pos_tagged_penn, max_val = max_val, threshold=1.5)
+        print("**********************")
+
+
+for lam in map(lambda x: x/10,range(0,11)):
+    for beta in map(lambda x: x/10,range(0,11)):
+        max_val = [1., 1., lam , 0.0, 1, beta]
+        print("%f : %f" %(lam,beta))
+        set_penn_tr2 = analysis.run(set_penn_tr[3],set_penn_tr[2],set_penn_tr[1],slang,bos_ovv_penn_tr,mapp_penn_tr, results = results_penn_tr, pos_tagged = pos_tagged_penn, max_val = max_val, threshold=1.5)
         print("**********************")

@@ -18,7 +18,12 @@
 %\includeonly{introduction} % To only process the given file
 
 % Me added
-\usepackage{subfig}
+
+%\usepackage{subfig}
+\usepackage[labelsep=period]{caption}
+%\usepackage[subfigure]{tocloft}
+%\renewcommand{\cfttabpresnum}{Table }
+%\renewcommand{\cftfigfont}{Figure }
 \let\belowcaptionskip\abovecaptionskip
 \usepackage{color,tabularx,amsmath}
 \newcommand\fxbox[1]{\center{\framebox[1.1\width][c]{\strut#1}}}
@@ -32,8 +37,8 @@
 \newtheorem{cor}[thm]{Corollary}
 % COVER PAGE
 \title{\uppercase{Text Normalization Using Lexical and Contextual Features}}
-\turkcebaslik{\uppercase{Kelime ve Bağlam Bilgisi Temelli Metin Normalizasyonu}}
-\degree{B.S., Computer Science, Bilgi University, 2007}
+\turkcebaslik{KELİME VE BAĞLAM BİLGİSİ TEMELLİ METİN NORMALİZASYONU}
+\degree{B.S., Computer Science, Istanbul Bilgi University, 2007}
 \author{Çağıl Uluşahin Sönmez}
 \program{Computer Engineering}
 \subyear{2014}
@@ -56,7 +61,18 @@
 \makemstitle % M.S. thesis
 \makeapprovalpage
 \begin{acknowledgements}
-Acknowledgements come here...
+I would like to express my deep gratitude to my master thesis supervisor Assist. Prof.~Arzucan Özgür. I have learned many things since I became her student. Her positiveness and encouragement made me complete all those tasks that once seemed impossible. Without her support and guidance I would not be able to complete this thesis successfully.
+
+I would also like to thank my committee members Prof.~Tunga Güngör and Assist. Prof.~Gülşen Cebiroğlu Eryiğit for kindly accepting to be in my thesis committee and for their contribution and support to this work. I also thank my academic advisor Prof.~Fatih Alagöz for his valuable guidance during my master education.
+
+I would like to express my appreciation to Bilgi University Computer Science Department faculty members. Your touch in my path of life and education is priceless, thank you for being a part of my life for such a long time. At each step of my life I always remember and appreciate each and everyone of you, your guidance and support.
+
+I am also thankful for the help and support I have received from my fellow graduate students Arda Çelebi, Haşim Sak, Ahmet Yıldırım and Onur Güngör.
+
+My family is always believed in me and supported me. I am deeply grateful to my mother, father and brother for supporting me and my decisions in each way possible. I would like to thank my mother in law and father in law for their support and love. I consider myself lucky for having such a wonderful family.
+
+At the end I would like express appreciation to my beloved husband Ahter Sönmez who spent sleepless nights with and was always my support in every possible moments. Your advice on both research as well as on my career have been priceless. Words fail to express my gratitude to you.
+
 \end{acknowledgements}
 \begin{abstract}
 The informal nature of social media text, renders it very difficult to be automatically processed by natural language processing tools. Text normalization, which corresponds to restoring the noisy words to their canonical forms, provides a solution to this challenge.
@@ -68,7 +84,11 @@ The lexical features are obtained by using the longest common subsequence ratio 
 Our results show that it achieves state-of-the-art F-score performance on a standard data set. In addition, the system can be tuned to achieve very high precision without sacrificing much from recall.
 \end{abstract}
 \begin{ozet}
-Bir sayfa uzunluğunda özet gelecektir.
+Sosyal medya metinlerinde kullanılan dilin bozukluğu bu metinleri doğal dil işleme araçları ile otomatik olarak işlemeyi çok zorlaştırmakta. Bu bozuk metinleri düzeltip kitap biçimlerine dönüştürme bir diğer deyişle metin normalizasyonu, bu soruna bir çözüm ortaya koymaktadır.
+Bu çalışmada, sosyal metinlerin sözcüksel ve içeriksel özelliklerinin yanısıra dibilgisi özelliklerinden de faydalanılan gözetimsiz bir metin normalizasyonu yaklaşımı sunuyoruz.
+İçeriksel ve dilbilgisel özellikler, büyük ve etiketlenmemiş bir sosyal medya derlemi kullanarak oluşturduğumuz kelime ilişkilendirme çizgesi yardımı ile hesaplanıyor. Bu çizge, kelimelerin metin içerisinde birbirleriyle olan konum ilişkilerini ve cümle öğe bilgilerini (part-of-speech) içermektedir.
+Sözcüksel özellikleri bulmada kelimelerin en uzun ortak altdizileri ve birbirine dönüşme uzaklıkları gibi yazım benzerlikleri yanısıra double metaphone gibi ses bilimsel benzerlikleri göz önünde bulunduran yöntemlerden faydalanıldı. Yakın zamanda sıkça kullanılan sözlük bazlı çalışmaların aksine, önerdiğimiz yaklaşım metin normalizasyonunu düzeltilecek metnin içeriğini göz önünde bulundurarak uygulamaktadır.
+Standart veri seti üzerinde daha önce elde edilmemiş sonuçlara ulaşan sistemimiz farklı parametreler kullanılarak doğruluk~(recall) degerinden ödün vermeden çok daha yüksek duyarlık~(precision) değerlerine ulaşabilmektedir.
 \end{ozet}
 \tableofcontents
 \listoffigures
@@ -92,8 +112,8 @@ Bir sayfa uzunluğunda özet gelecektir.
 \sym{ }{}
 \sym{ }{}
 % Then Greek symbols in alphabetical order
-\sym{$\lambda$}{Contextual Similarity Minor Score Parameter}
-\sym{$\beta$}{Lexical Similarity Minor Score Parameter}
+\sym{$\beta$}{Contextual Similarity Minor Score Parameter}
+\sym{$\lambda$}{Lexical Similarity Minor Score Parameter}
 
 \end{symbols}
 
@@ -210,11 +230,17 @@ In this thesis, we propose a graph based text normalization method that utilizes
 \chapter{RELATED WORK}
 \label{chapter:related}
 
-Early work on text normalization mostly made use of the noisy channel model. The first work that had a significant performance improvement over the previous research was by Brill and Moore, 2000~\cite{Brill:2000:IEM:1075218.1075255}. They proposed a novel noisy channel model for spell checking based on string to string edits. Their error model depended on probabilistic modeling of sub-string transformations. Toutanova \textit{et al.}, 2002 improved this approach by extending the error model with phonetic similarities over words~\cite{Toutanova:2002:PMI:1073083.1073109}.
+Early work on text normalization mostly made use of the noisy channel model. The first work that had a significant performance improvement over the previous research was by Brill and Moore, 2000~\cite{Brill:2000:IEM:1075218.1075255}. They proposed a novel noisy channel model for spell checking based on string to string edits. Their model depended on probabilistic modeling of sub-string transformations. They ran their experiments first using error model in isolation assuming that each word in dictionary has uniform probability. Results showed that longer the word their character level noisy model performs better. When they use a trigram language model that they built using Brown corpus  instead of the uniform distribution, their results improves 22 \%.
 
-Choudhury \textit{et al.}, 2007 developed a supervised Hidden Markov Model based approach for normalizing Short Message Service~(SMS) Texts~\cite{Choudhury:2007:IMS:1326044.1326048}. Cook and Stevenson, 2009 have extended this model by introducing an unsupervised noisy channel model~\cite{Cook:2009:UMT:1642011.1642021}. Rather than using one generic model for all word formations as in Choudhury \textit{et al.}, 2007, they used a mixture model in which each different word formation type was modeled explicitly. Aw \textit{et al.}, 2006 proposed a phrase-based statistical machine translation~(MT) model for the normalization task~\cite{Aw:2006:PSM:1273073.1273078}. They defined the problem as translating the SMS language to the English language. Pennell and Liu, 2011~\cite{pennell2011character} on the other hand, proposed a character level MT system, that is robust to new abbreviations.
+Toutanova \textit{et al.}, 2002 improved this approach by extending the error model with phonetic similarities over words~\cite{Toutanova:2002:PMI:1073083.1073109}. They have extended a model that learns rules to predict the pronunciation of a single letter in the word depending on the neighbouring letters in the word. Among those extensions are the using a trigram model phone sequence language model and fourgram vowel sequence language model to re-rank top n results, explicit distinction between middle of the word versus start and end of the word and interpolating the model with the letter based model of Brill and Moore, 2000's~\cite{Brill:2000:IEM:1075218.1075255}. Their extended and combined model substantially reduced the error rate of Brill \textit{et al.}'s model, and performed best at 3-Best results.
 
-The down side of these methods were:~(1) they did not consider contextual features and~(2) each of them assumed that tokens have unique normalizations. However, that is not the case for the normalization task. The OOV tokens are ambiguous and without contextual information it is not possible to build models that can disambiguate transformations correctly.
+Choudhury \textit{et al.}, 2007 developed a supervised Hidden Markov Model based approach for normalizing Short Message Service~(SMS) Texts~\cite{Choudhury:2007:IMS:1326044.1326048}. Cook and Stevenson, 2009 have extended this model by introducing an unsupervised noisy channel model~\cite{Cook:2009:UMT:1642011.1642021}. Rather than using one generic model for all word formations as in Choudhury \textit{et al.}, 2007, they used a mixture model in which each different word formation type was modeled explicitly.
+
+The down side of these methods were:~(i) they did not consider contextual features and~(ii) each of them assumed that tokens have unique normalizations. However, that is not the case for the normalization task. The OOV tokens are ambiguous and without contextual information it is not possible to build models that can disambiguate transformations correctly.
+
+Aw \textit{et al.}, 2006 proposed a phrase-based statistical machine translation~(MT) model for the normalization task~\cite{Aw:2006:PSM:1273073.1273078}. They defined the problem as translating the SMS language to the English language and based their model on two submodels: a word based language model and a phrase base lexical mapping model~(channel model). Their phase base model is an extended noisy channel model which does many word to many word mappings such as ``ysnite'' $\rightarrow$ ''yesterday night''. Their system also benefits from the input context and they argue that the strenght of their model is in its ability to disambiguate mapping as in ``2'' to ``two'' or ``to'' and ``w'' to ``with'' or ``who''. Making use of the whole conversation, this is the closest approach to ours in the mean of contextual sensivity/coverage.
+
+Pennell and Liu, 2011~\cite{pennell2011character} on the other hand, proposed a character level MT system, that is robust to new abbreviations. Their system is a two phase one, on the first phase character level trained MT model used to recognize common used abbreviations and to produce word hypotheses~(making use of CMU lexicon) and in the latter phase a trigram language model is used to choose a hypothesis that fits into context. They also use a reordering moel and a word length penalty while scoring the assigned translation.
 
 Another drawback of supervised models is that they require annotated data, which is not readily available and difficult to create for social media text normalization~\cite{DBLP:conf/emnlp/YangE13}.
 
@@ -225,7 +251,8 @@ Gouws \textit{et al.}, 2011 on the other hand, proposed an approach that depende
 Liu \textit{et al.}, 2012 proposed a broad coverage normalization system, which integrates an extended noisy channel model, that is based on enhanced letter transformations, visual priming, string and phonetic similarity~\cite{liu2012broad}. They try to improve the performance of the top $n$ normalization candidates by integrating human perspective modeling.
 Yang and Eisenstein, 2013 introduced an unsupervised log linear model for text normalization~\cite{DBLP:conf/emnlp/YangE13}. Their joint statistical approach uses local context based on language modeling and surface similarity. Along with dictionary based models, Yang and Eisenstein's model have obtained a significant improvement on the performance of text normalization systems.
 
-Hassan and Menezes, 2013 generated a normalization equivalence lexicon using Markov random walks on a contextual similarity lattice~\cite{DBLP:conf/acl/HassanM13}. Our approach is different from theirs in several ways. First, our system makes use of the context of the OOV word in the input text, whereas their system is a dictionary-based method that always produces the same normalization to a given OOV word, regardless of its context in the input text. Besides the tokens themselves, we make use of the POS tags in creating the graph as well as the relative positions of the words in the social media text. Hassan and Menezes, 2013 create a bipartite graph, that is relatively more conservative in modeling the context of words. Context of a word is modeled as a window of words of size five. That is, two words to the right of a word and two words to the left of a word constitute the context of a word together. Even if one word is not the same, the context is considered to be different. On the other hand, in our graph, each neighboring token contributes to the context information of a word, which leads to both a higher recall and a higher precision.
+Hassan and Menezes, 2013 generated a normalization equivalence lexicon using Markov random walks on a contextual similarity lattice~\cite{DBLP:conf/acl/HassanM13}. Our approach is different from theirs in several ways. First, our system makes use of the context of the OOV word in the input text, whereas their system is a dictionary-based method that always produces the same normalization to a given OOV word, regardless of its context in the input text. Besides the tokens themselves, we make use of the POS tags in creating the graph as well as the relative positions of the words in the social media text. Hassan and Menezes, 2013 create a bipartite graph, that is relatively more conservative in modeling the context of words. Context of a word is modeled as a window of words of size five. That is, two words to the right of a word and two words to the left of a word constitute the context of a word together. Even if one word is not the same, the context is considered to be different. On the other hand, in our graph, each neighboring token contributes to the context information of a word, which leads to both a higher recall and a higher precision. One other difficulty in their approach that it requires a big clean corpus of English sentences, which is only avaliable commercially.
+
 %We select the most likely IV candidates for an OOV word by considering the strength of associations between the neighbors of the OOV word in the input text, as well as the tokens %in the graph that are strongly associated with these neighbors in the similar contextual and grammatical context.
 %One of the biggest difference between our system and theirs is that they make use of a huge clean vocabulary.
 
@@ -266,14 +293,13 @@ Let's$_{\textcolor{red}{L}}$ & start$_{\textcolor{red}V}$ & this$_{\textcolor{re
 \end{tabular}
 \label{tab:postagged}
 \end{table}
-
-
+\newpage
 As shown in Table~\ref{tab:postags}, after preprocessing, each token is assigned a POS tag with a confidence score between 0 and 1. Later, we use these confidence scores in calculating the edge weights in our context graph. Note that even though the words \emph{w} and\emph{ beatiful} are misspelled, they are tagged correctly by the tagger, with lower confidence scores though.
 
 \begin{table}[htbp]
 \caption{Sample POS tagger output obtained by using CMU Ark Tagger~\cite{owoputi2013improved,Gimpel:2011:PTT:2002736.2002747}.}
 \begin{minipage}{.5\linewidth}
-\begin{tabular}[h]{|l>{\itshape}lr|}
+\begin{tabular}[h]{|l|>{\itshape}l|r|}
  \hline
 Token & POS tag & Tag confidence \\
  \hline
@@ -288,7 +314,7 @@ smile & Noun & 0.9712 \\
 \end{tabular}
 \end{minipage}
 \begin{minipage}{.5\linewidth}
-\begin{tabular}[h]{|l>{\itshape}lr|}
+\begin{tabular}[h]{|l|>{\itshape}l|r|}
  \hline
 Token & POS tag & Tag confidence \\
  \hline
@@ -355,7 +381,7 @@ An edge is created between two nodes in the graph, if the corresponding word pai
 \vskip\baselineskip % Leave a vertical skip below the figure
 \label{fig:direction}
 \end{figure}
-
+\newpage
 The directionality of the edges is based  on the sequence of words in the text messages in the corpus~(see Figure~\ref{fig:direction}). In other words, an edge between two nodes is directed from the earlier seen token towards the later seen token. For example, Table~\ref{tab:edges} and Figure~\ref{fig:edges} show the edges that would be derived from a text including the phrase ``with a beautiful smile''. The \textit{from} property indicates the first word and \textit{to} is the latter in the phrase. The direction and the distance together represent a unique triplet. For each pair of nodes with a specific distance there is an edge with a positive weight, if the two nodes are related. Each co-occurrence of two related nodes increases the weight of the edge between them with an average of the nodes' POS tag confidence scores in the text message considered. If we are to expand the graph with the example phrase shown in Table~\ref{tab:edges}, the weight of the edge with distance $2$ from the node \emph{with$|$P}  to the node  \emph{smile$|$N} would increase by $(0.9963+0.9712)/2$, since the confidence score of the POS tag for the token \emph{with} is  $0.9963$ and the confidence score of the POS tag of the token \emph{smile} is $0.9712$ as shown in Table~\ref{tab:postags}.
 %using the given POS tags and accuracies from Table~\ref{tab:postags}, the increase in the weights would be respectively $0.9963+0.9712/2$, $0.998+0.9712/2$ and %$0.9971+0.9712/2$.
 
@@ -431,7 +457,7 @@ edgeWeightNormalized(n_j,c_k) = edgeWeight(n_j,c_k) / frequency(c_k)
 
 Equation~\ref{eq:ew_norm} provides a metric that captures contextual similarity based on binary associations.
 %However we need more than binary relatedness to achive a comprehensive contextual coverage.
-In order to achieve a more comprehensive contextual coverage, a contextual similarity feature is built based on the sum of the binary association scores of several neighbors. As shown in Equation~\ref{eq:wscore1}, for a candidate node $c_k$ the total edge weight score is the sum of the normalized edge weight scores $\text{edgeWeightNormalized}(n_j,c_k)$, which are the edge weights coming from the different neighbors of the OOV token $o_i$. We expect this contextual similarity feature to favor and identify the candidates which are (1) related to many neighbors, and (2) have a high association score with each neighbor.
+In order to achieve a more comprehensive contextual coverage, a contextual similarity feature is built based on the sum of the binary association scores of several neighbors. As shown in Equation~\ref{eq:wscore1}, for a candidate node $c_k$ the total edge weight score is the sum of the normalized edge weight scores $\text{edgeWeightNormalized}(n_j,c_k)$, which are the edge weights coming from the different neighbors of the OOV token $o_i$. We expect this contextual similarity feature to favor and identify the candidates which are (i) related to many neighbors, and (ii) have a high association score with each neighbor.
 \begin{equation}
 \text{edgeWeightScore}(o_i,c_k) = \sum_{(n_j,c_k) \text{or} (c_k,n_j) \in \text{EL}(o_i)}{\text{edgeWeightNormalized}(n_j,c_k)} \\\\
 \label{eq:wscore1}
@@ -449,9 +475,9 @@ Figure~\ref{fig:contextscores} includes the top three candidates sorted by their
 
 Our word association graph includes both OOV and IV tokens, and our OOV detection depends on the spellchecker which fails to identify some OOV tokens that have the same spelling with an IV word. In order to propose better canonical forms, the frequencies of the normalization candidates in the social media corpus have also been incorporated to the contextual similarity feature. Nodes with higher frequencies lead to tokens that are in their most likely grammatical forms.
 
-The final contextual similarity of the token $o_i$ and the candidate $c_k$ is the weighted sum of the total edge weight score and the frequency score of the candidate~(See Equation~\ref{eq:contscore}). The frequency score of the candidate is a real number between 0 and 1. It is proportional to the frequency of the candidate with respect to the frequencies of the other candidates in the corpus. Since the total edge weight score is our primary contextual resource, we may want to favor edge weight score. For that reason we give the frequency score a weight $\lambda \leq 1$ to be able to limit its effect to the total contextual similarity score.
+The final contextual similarity of the token $o_i$ and the candidate $c_k$ is the weighted sum of the total edge weight score and the frequency score of the candidate~(See Equation~\ref{eq:contscore}). The frequency score of the candidate is a real number between 0 and 1. It is proportional to the frequency of the candidate with respect to the frequencies of the other candidates in the corpus. Since the total edge weight score is our primary contextual resource, we may want to favor edge weight score. For that reason we give the frequency score a weight $\beta \leq 1$ to be able to limit its effect to the total contextual similarity score.
 \begin{equation}
-\text{contextSimScore}(o_i,c_k) = \text{edgeWeightScore}(o_i,c_k) + \lambda * \text{freqScore}(c_k)
+\text{contextSimScore}(o_i,c_k) = \text{edgeWeightScore}(o_i,c_k) + \beta * \text{freqScore}(c_k)
 \label{eq:contscore}
 \end{equation}
 
@@ -464,9 +490,7 @@ Following the prior work in~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/Has
 
 Edit distance or in other words Levenshtein distance between two words is defined as the minimum number of single character changes such as insertion, deletion and substitution to convert one word into another. Edit distance has major application in NLP especially in the spell checking.
 
-Double metaphone is an extended word edit distance measure, that not only considers the characters but also the English pronunciations of the words. Like the Soundex algorithm, metaphone algorithm~\cite{philips1990hanging} encodes words. Similar sounding words, in other words phoneticly similar words shares the same keys in these encodings. Metaphone is an extended and more accurate version of Soundex. Double metaphone came out 10 years later than the metaphone and is called the second generation of the metaphone algorithm.
-
-It returns two keys instead, presenting a more valid coverage for some irregularities. % fix and give more detail
+Double metaphone is an extended word edit distance measure, that not only considers the characters but also the English pronunciations of the words. Like the Soundex algorithm, metaphone algorithm~\cite{philips1990hanging} encodes words. Similar sounding words, in other words phoneticly similar words shares the same keys in these encodings. Metaphone is an extended and more accurate version of Soundex. Double metaphone came out 10 years later than the metaphone and is called the second generation of the metaphone algorithm. Double metaphone produces two keys instead of one, presenting a more valid coverage for some irregularities. % fix and give more detail
 
 The cost function we are using is defined by Contractor \textit{et al.}, 2010~\cite{Contractor:2010:UCN:1944566.1944588}, as the ratio between LCSR of two words and their Edit Distance(ED) cost. You can see the LCSR and cost function shown in Equation~\ref{eq:lcsr} and Equation~\ref{eq:lcsr_cont}. In our case we calculate the similarity cost of the candidate word and the OOV word by dividing their LCSR value to the Edit Distance between them. From now on we will refer to the simCost in Equation~\ref{eq:lcsr_cont} as $\text{LCSR\_ED}$.
 \begin{align}
@@ -475,9 +499,9 @@ The cost function we are using is defined by Contractor \textit{et al.}, 2010~\c
 \end{align}
 Following the tradition that is inspired from~\cite{Kaufmann2010} before lexical similarity calculations, any repetitions of characters three or more times in OOV tokens are reduced to two (e.g. \emph{goooood} is reduced to \emph{good}). Then, the edit distance, phonetic edit distance, and $\text{LCSR\_ED}$ between each candidate in $\text{CL}(o_{i})$ and the OOV token $o_i$ are calculated. Edit distance and phonetic edit distance are used to filter the candidates. Any candidate in $\text{CL}(o_{i})$ with an edit distance greater than $t_{edit}$ and phonetic edit distance greater than $t_{phonetic}$ to $o_i$ has been removed from the candidate list $\text{CL}(o_{i})$.
 
-For the remaining candidates, the total lexical similarity score (Equation~\ref{eq:lexscore}) is calculated using $\text{LCSR\_ED}$ and edit distance score\footnote{an approximate string comparison measure (between 0.0 and 1.0) using the edit distance https://sourceforge.net/projects/febrl/}. Similar to contextual similarity score, here we have one main lexical similarity feature and one minor lexical similarity feature. The major lexical similarity feature is $\text{LCSR\_ED}$ and edit distance score is the minor. We assigned a weight $\beta \leq 1$ to the edit distance score to be able to lower its weight while calculating the total lexical similarity score.
+For the remaining candidates, the total lexical similarity score (Equation~\ref{eq:lexscore}) is calculated using $\text{LCSR\_ED}$ and edit distance score\footnote{an approximate string comparison measure (between 0.0 and 1.0) using the edit distance https://sourceforge.net/projects/febrl/}. Similar to contextual similarity score, here we have one main lexical similarity feature and one minor lexical similarity feature. The major lexical similarity feature is $\text{LCSR\_ED}$ and edit distance score is the minor. We assigned a weight $\lambda \leq 1$ to the edit distance score to be able to lower its weight while calculating the total lexical similarity score.
 \begin{equation}
-\text{lexSimScore}(o_i,c_k) = \text{LCSR\_ED}(o_i,c_k) + \beta * \text{editDistScore}(o_i,c_k)
+\text{lexSimScore}(o_i,c_k) = \text{LCSR\_ED}(o_i,c_k) + \lambda * \text{editDistScore}(o_i,c_k)
 \label{eq:lexscore}
 \end{equation}
 
@@ -516,7 +540,7 @@ The external score favors the well known interpretations of common OOV words. Ho
 Some example entries from slang dictionary are shown in Table~\ref{tab:slang}. First and third examples from the table present why choosing directly the equivalent word in the dictionary as the correct normalization is a bad idea. The first word from the table is ``2''. It has widely used as an abbreviation for the word ``too'', however it is also used in place of the word ``to'' as well. Likely ``bc'' can be normalized as ``back'' or ``because'' depending on the context of the sentence. That is why we do not return the corresponding candidate words directly but only increase their score using the external score metric. Other examples from Table~\ref{tab:slang} may give some idea about the overall content of the slang dictionary.
 
 \begin{table}[ht]
-  \caption{Some entries from the slang dictionary at http://www.noslang.com/}
+  \caption{Some entries from the slang dictionary at http://www.noslang.com/.}
   \centering
     \begin{tabular}[l]{|l|l|}
     \hline
@@ -591,38 +615,6 @@ Precision~(Equation~\ref{eq:precision}) calculates the proportion of correctly n
 \label{eq:f-score}
 \end{equation}
 
-\section{Weighting Minor Contextual and Lexical Metrics}
-
-As described in Section~\ref{sec:consim} and~\ref{sec:lexsim} both contextual and lexical similarity is calculated using two metrics, one major and one minor. The major contextual similarity metric is the edge weight score of the candidates and the major lexical similarity metric is the LCSR which is shown to perform good on finding lexical similarity~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/HassanM13}. For the minor metrics frequency score and edit distance score we introduced $\lambda$ and $\beta$ parameters respectively to be able to tune their contribution to the overall ranking.
-
-
-Our approach on ranking contextually similar candidates based on graph based contextual similarity
-
-\begin{figure}[htb]
-\begin{center}
-\includegraphics[width=\linewidth]{fig/lambdaandbeta}
-\caption{.}
-\label{fig:graph}
-\end{center}
-\end{figure}
-
-\begin{figure}[htb]
-\begin{center}
-\includegraphics[width=\linewidth]{fig/lambdasforbeta05}
-\caption{.}
-\label{fig:graph}
-\end{center}
-\end{figure}
-
-\begin{figure}[htb]
-\begin{center}
-\includegraphics[width=\linewidth]{fig/lambdas_han_penn}
-\caption{.}
-\label{fig:graph}
-\end{center}
-\end{figure}
-
-
 \chapter{RESULTS AND ANALYSIS}
 
 The results obtained by our proposed Contextual Word Association Graph (CWA-Graph) system on the LexNorm1.1 dataset,
@@ -637,7 +629,7 @@ as well as the results of recent studies that used the same data set for evaluat
     \hline
     Han and Baldwin, 2011 & 75.30 & 75.30 & 75.30 \\\hline
     Liu \textit{et al.}, 2011 & 84.13 & 78.38 & 81.15 \\\hline
-    Hassan \textit{et al.}, 2013 & 85.37 & 56.40 & 69.93 \\\hline
+    Hassan and Menezes, 2013 & 85.37 & 56.40 & 69.93 \\\hline
     Yang \textit{et al.}, 2013 & 82.09 & 82.09 & 82.09 \\\hline
     CWA-Graph   & 85.50 & 79.20 & 82.20 \\
     \hline
@@ -647,16 +639,32 @@ as well as the results of recent studies that used the same data set for evaluat
 
 Our CWA-Graph approach achieves the best F-measure ($82.20$) and precision ($85.50$) among the recent previous studies. The high precision value is obtained without compromising much from recall ($79.20$). Our recall is the second best among others. The F-score ($82.09$) obtained by Yang \textit{et al.}'s system is close to ours and the second best F-score, which on the other hand, has a lower precision than our approach~\cite{DBLP:conf/emnlp/YangE13}.
 
-The earlier work we compare our system with, assumes that the words to be normalized are given in advance. We also made the same assumption. However unlike other systems (\cite{DBLP:conf/emnlp/YangE13,liu2012broad,Han:2011:LNS:2002472.2002520}), our system does not propose a normalization, if there are no candidates that are lexically similar, grammatically correct and contextually close enough. For this reason, we managed to achieve a higher precision compared to the other systems. Besides, we made sure that the candidates have a minimum similarity either contextual, lexical, external or some degree of each feature. Table~\ref{tab:thresholds} shows that our approach can obtain even higher values of precision by tuning the system threshold (i.e.~the minimum score in Equation~\ref{eq:candscore} to return a token as a candidate canonical form of an OVV token).
+
+Table~\ref{tab:resultspennell} show the results of our system on the trigram SMS-like dataset. Without any modification to our system or to the parameters, we were able to improve results of Pennell \textit{et al.}~\cite{pennell2011character}.
+
+\begin{table}[thb]
+  \caption{Results obtained on the trigram SMS-like dataset.}
+  \centering
+  \begin{tabular}[t]{|l|c|c|c|}
+    \hline
+    \textbf{Method} & \textbf{Precision} & \textbf{Recall} & \textbf{F-measure} \\
+    \hline
+    Pennell \textit{et al.}, 2011 & 69.70 & 69.70 & 69.70 \\\hline
+    CWA-Graph   &  \textbf{77.5} & \textbf{67.7}  &  \textbf{72.3} \\\hline
+  \end{tabular}
+  \label{tab:resultspennell}
+\end{table}
+
+The earlier work we compare our system with, assumes that the words to be normalized are given in advance. We also made the same assumption. However unlike other systems\cite{DBLP:conf/emnlp/YangE13,liu2012broad,Han:2011:LNS:2002472.2002520}, our system does not propose a normalization if there are no candidates that are lexically similar, grammatically correct and contextually close enough. For this reason, we managed to achieve a higher precision compared to the other systems. Besides, we made sure that the candidates have a minimum similarity either contextual, lexical, external or some degree of each feature. The results shown at Table~\ref{tab:thresholds} and Table~\ref{tab:thresholdspenn} show that our approach can obtain even higher values of precision by tuning the system threshold (i.e.~the minimum score in Equation~\ref{eq:candscore} to return a token as a candidate canonical form of an OVV token).
 \\
 \begin{table}[thb]
-  \caption{Comparison of results for different threshold values.}
+  \caption{Comparison of results for different threshold values on LexNorm1.1.}
   \centering
   \begin{tabular}[th]{|l|c|c|c|}
     \hline
     \textbf{Threshold} & \textbf{Precision} & \textbf{Recall} & \textbf{F-measure} \\
     \hline
-    $\leq$ 1 & 81.2 &	80.8 &	81 \\\hline
+    $\leq$ 1 & 81.2 &	80.8 &	81.0 \\\hline
     1.1 & 81.5 & 80.8 &	81.2 \\\hline
     1.2 & 82.2 &	80.7 &	81.4 \\\hline
     1.3 & 83.7 &	80.2 &	81.9 \\\hline
@@ -664,11 +672,34 @@ The earlier work we compare our system with, assumes that the words to be normal
     1.5 & \textbf{85.5} &  \textbf{79.2} &  \textbf{82.2} \\\hline
     1.6 & 88.8	& 75.1	& 81.4 \\\hline
     1.7	& 91.1	& 72.8	& 80.9 \\\hline
-    1.8	& 92.3	& 67.6	& 78 \\\hline
+    1.8	& 92.3	& 67.6	& 78.0 \\\hline
     2	& 94.1	& 56.4	& 70.5 \\
     \hline
   \end{tabular}
 \label{tab:thresholds}
+\end{table}
+
+\begin{table}[thb]
+  \caption{Comparison of results for different threshold values on trigram dataset.}
+  \centering
+  \begin{tabular}[th]{|l|c|c|c|}
+    \hline
+    \textbf{Threshold} & \textbf{Precision} & \textbf{Recall} & \textbf{F-measure} \\
+    \hline
+    $\leq$ 0.8 &	72.2 & 68.9  &	70.5 \\\hline
+    1   & 72.1 & 68.8 &	70.4 \\\hline
+    1.1 & 72.6 & 68.8 &	70.7 \\\hline
+    1.2 & 73.1 & 68.8 &	70.9 \\\hline
+    1.3 & 74.3 & 68.2 & 71.1 \\\hline
+    1.4 & 75.5 & 67.8 &	71.4 \\\hline
+    1.5 &  \textbf{77.5}  & \textbf{67.7} &  \textbf{72.3} \\\hline
+    1.6 & 80.8	& 64.8	& 71.9 \\\hline
+    1.7	& 83.3	& 58.4	& 68.7 \\\hline
+    1.8	& 86.1	& 52.1	& 64.9 \\\hline
+    1.9	& 87.6	& 45.4	& 59.8 \\    \hline
+    2.1	& 91.2	& 33.8	& 49.3 \\    \hline
+  \end{tabular}
+\label{tab:thresholdspenn}
 \end{table}
 
 We also test our system on different window sizes. The window size is defined by the number of total neighbours of an OOV word in the given text. When we run our system with a contextual association threshold $t_{distance}=3$, which means two words are considered as contextually associated, if they are within a maximum word distance of 3 in the text, 3 words to the left and 3 words to the right are taken into account for finding contextually similar candidates. For example when we look at the first example in Table~\ref{tab:windowsize}, the $t_{distance}$ is set to 3 and  for the OOV word ``w'', the window size is 7. On the other hand, in the second example, OOV word ``beatiful'' has 3 neighbors on the left but only one neighbour on the right, ending up with a window size 5 when the maximum window size set to 7. Thus the window size is defined by our threshold is only a maximum value, since the OOV word may or may not have enough neighbors to fit the maximum window size. From now on we will refer to maximum window size as just window size.
@@ -702,7 +733,7 @@ We also test our system on different window sizes. The window size is defined by
 
 Considering twitter's limit on message lenght and users' tendency of using url and long hastags but short texts, the optimal window size is as expected relatively small. As shown in Table~\ref{tab:windows}, the system achives best results with a window size of 7. This is also the setup we have used for our experiments. With higher window sizes OOV tokens get context information from outer word phrases which include contextually less relevant words. Choosing a smaller window size shortens the execution time, but on the other hand this results in missing some important contextual information.
 
-\begin{table}[thb]
+\begin{table}[htb]
   \caption{Comparison of results for different window sizes.}
   \centering
   \begin{tabular}[th]{|l|c|c|c|}
@@ -717,29 +748,67 @@ Considering twitter's limit on message lenght and users' tendency of using url a
 \label{tab:windows}
 \end{table}
 
-Table~\ref{tab:resultspennell} show the results of our system on the trigram SMS-like dataset. Without any modification to our system or to the parameters, we were able to improve results of Pennell \textit{et al.}~\cite{pennell2011character}.
+As described in Section~\ref{sec:consim} and~\ref{sec:lexsim} both contextual and lexical similarity is calculated using two metrics, one major and one minor. The major contextual similarity metric is the edge weight score of the candidates and the major lexical similarity metric is the LCSR which is shown to perform good on finding lexical similarity~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/HassanM13}. For the minor metrics frequency score and edit distance score we introduced $\beta$ and $\lambda$ parameters respectively to be able to tune their contribution to the overall ranking.
 
-\begin{table}[thb]
-  \caption{Results obtained on the trigram SMS-like dataset.}
-  \centering
-  \begin{tabular}[t]{|l|c|c|c|}
-    \hline
-    \textbf{Method} & \textbf{Precision} & \textbf{Recall} & \textbf{F-measure} \\
-    \hline
-    Pennell \textit{et al.}, 2011 & 69.70 & 69.70 & 69.70 \\\hline
-    CWA-Graph   & 78.20 & 68.50 & 73.10 \\\hline
-  \end{tabular}
-  \label{tab:resultspennell}
-\end{table}
+We made experiments with different $\lambda$ and $\beta$ values. In Figure~\ref{fig:lambeta}, performance of the system for different values of $\lambda$ and $\beta$ tested on Lexnorm1.1 can be seen. The experiments showed us $\beta = 0.5$ in the range of  $0.3 \leq \lambda \leq 1$ for Lexnorm1.1 (Figure~\ref{fig:lambeta}) and a narrower range of $0.8 \leq \lambda \leq 1$ for trigram dataset give the best results.
 
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=\linewidth]{fig/lambdasandbetas}
+\caption{Results on LexNorm1.1 for different $\lambda$ and $\beta$ values.}
+\label{fig:lambeta}
+\end{center}
+\end{figure}
+
+We choose $\beta = 0.5$ and $\lambda = 0.5$ values in our main system. However it is possible to increase these results using higher $\lambda$ values (Figure~\ref{fig:lambdas}).
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=\linewidth]{fig/lambdasforbeta05}
+\caption{Results on LexNorm1.1 for $\beta = 0.5$  and $0 \leq \lambda \leq 1.0$.}
+\label{fig:lambdas}
+\end{center}
+\end{figure}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=\linewidth]{fig/lambdas_han_penn}
+\caption{Results on LexNorm1.1 and trigram dataset for $\beta = 0.5$  and $0.4 \leq \lambda \leq 0.9$.}
+\label{fig:lamhanpenn}
+\end{center}
+\end{figure}
 
 \chapter{CONCLUSION AND FUTURE WORK}
 
-We presented an unsupervised graph based approach for contextual text normalization. We compared our approach with the recent social media text normalization systems and achieved state-of-the-art precision and F-measure scores.
+In this thesis, we present an unsupervised graph based approach for contextual text normalization. The proposed approach can analyze grammatical and contextual information from the noisy input text. The task of normalization is highly dependent on understanding and capturing the dynamics of informal nature of noisy text. Our word association graph is built using a large unlabeled social media corpus. It helps to derive contextual and grammatical analysis on both clean and noisy data.
 
-The proposed approach can analyze grammatical and contextual information from the noisy input text. The task of normalization is highly dependent on understanding and capturing the dynamics of informal nature of noisy text. Our word association graph is built using a large unlabeled social media corpus. It helps to derive contextual and grammatical analysis on both clean and noisy data.
+It is important to emphesize the difference between using corpus based contextual information and using contextual information of the input text~(input context). We use corpus based contextual information for building our CWA graph. The graph encodes the context information of words with regard to other words they are contextually associated with. Given an input text that includes an OOV word to normalize, each neighbouring word in the input text gives us context information that we can associate the OOV word with candidates. We use this input based context information to find correct normalization of the OOV word using contextual associations.
 
-Except for the double metaphone algorithm that encodes the phonetic similarities among words in English, the proposed approach is highly language independent. As future work, we will apply our system to different languages.
+It is quite correct to say that using input context to find the correct normalization of OOV words is the major advantage of our system. Many other systems use the corpus based contextual information to find the normalizations, however this approach is lead by statistical information, in other words it finds which IV word the OOV word is normalized to statistically. However, using input context to find normalizations helps us find the correct normalization, not statistically the dominant one.  That way we can use statictical information to connect/associate the words and use input context to associate the correct normalization with the OOV word.
+
+We compared our approach with the recent social media text normalization systems and achieved state-of-the-art precision and F-measure scores. We reported our results on two dataset. The first was the standart text normalization dataset derived from Twitter. Our results on this dataset showed that our system can serve as a high precision text normalization system which is highly preferable as an NLP preprocessing step~\cite{DBLP:conf/acl/HassanM13}. When reaching minimum 10 \% higher precision than other systems, our system can score higher recall than the system with the second best precision score after our system~\cite{DBLP:conf/acl/HassanM13}. It can obviously reach really high precision scores without losing too much from our recall.
+
+
+The second dataset we tested our approach is a SMS-like trigram dataset. This tests showed that the CWA-Graph can perform good on SMS data as well. However the trigram nature of the dataset resulted in input texts which are very limited with regard to contextual information. The experiments we ran on this dataset with different minor metric parameters also showed that the dataset is dependent on lexical similarity metrics. The reason behind this bias is the lack of enough contextual information. On the other hand our system performed quite good using this contextual information even though it is limited because the SMS-like nature of the dataset makes it rich on abbreviations. Abbreaviations are difficult to normalize using only lexical features due to the higher edit distance values. Not filtering candidates with higher degree of lexical distances results in huge lists of candidates~\cite{Han:2011:LNS:2002472.2002520}, which makes it harder to choose right candidates. Overall although being around 8 \% lower than standard data set, the performance of our system on SMS-like data is reasonably high.
+
+The two lexical metrics we have been used have been already shown to perform good on normalization task~\cite{Han:2011:LNS:2002472.2002520,DBLP:conf/acl/HassanM13}. However LCSR was a better approach than the simple edit distance score. Depending on this assumption we choose one major metric for both lexical and contextual similarity calculations and lowered the weight of the second metric~(minor metric). When we run tests with different weightings of the minor metrics, the results showed us three important output.
+\begin{itemize}
+\item The minor metrics are increasing the performance of the system.
+\item The system performs best for the values of weights that are closer to 0.5.
+\item The system does not perform better when weights are 1 than they are smaller than 1.
+\end{itemize}
+
+That showed that lowering the contribution of these minor metrics increases the overall performance of normalization task both contextually and lexically. Whereas the absence of these minor metrics or making them also the major metrics by assigning the weights as 1 leads to loss in performance.
+
+Except for the double metaphone algorithm that encodes the phonetic similarities among words in English, the proposed approach is highly language independent. The system does not require a clean corpus, to build the whole system publicly avaliable social text and tools are enough.
+
+As future work, OOV detection can be added to the system. A graph based approach can be proposed to detect OOV words or overall performance of system to decide which word to normalize and which word not to can be increased.
+
+Another task to do next could be integrating the normalization system into an application. This way we can measure how well the normalization system performs as a preprocessing step in NLP applications.
+
+Last item in our future work list is adopting the system to be able to work on another language. This way we can test the advantages our system on other languages and difficulties performing normalization task in a language other than English.
+
+
 % \nocite{NewEntry1,NewEntry2,NewEntry3,NewEntry4,NewEntry5,
 % NewEntry6,
 % NewEntry7,NewEntry8,NewEntry9,NewEntry10,NewEntry11,NewEntry12}
@@ -752,27 +821,3 @@ Except for the double metaphone algorithm that encodes the phonetic similarities
 \bibliography{sentic}
 
 \end{document}
-
-
-\begin{table}[tbhp]
-\caption{Sample tokenized, POS tagged sentence and the corresponding nodes and edges in the word association graph.(L:nominal+verbal, V:verb, D:determiner, N:noun, A:adjective, C:punctuation).}
-\begin{minipage}[c]{\linewidth}
-\fxbox{
-Let's$_{\textcolor{red}{L}}$ start$_{\textcolor{red}V}$ this$_{\textcolor{red}D}$ morning$_{\textcolor{red}N}$ w$_{\textcolor{red}P}$ a$_{\textcolor{red}D}$ beatiful$_{\textcolor{red}A}$ smile$_{\textcolor{red}N}$.$_{\textcolor{red}C}$
- }\par
-\vspace{5mm}
-\end{minipage}
-\begin{minipage}[c]{\linewidth}
-\begin{tabular}[h]{l|l}
-Tokens & Let's, start, this, morning, w, a, beatiful, smile,~. \\
-\hline
-Nodes & Let's$|$L, start$|$V, this$|$D, morning$|$N, w$|$P, a$|$D, beatiful$|$A, smile$|$N, ,$|$C \\
-\hline
-Edges & \{Let's$|$L, start$|$V , distance:0\},\{Let's$|$L, this$|$D, distance:1\}, \\
-& ... \\
-& \{a$|$D, beatiful$|$A, distance:0\}, \{a$|$D, smile$|$N, distance:1\}, \\
-& \{beatiful$|$A, smile$|$N, distance:0\} \\
-\end{tabular}
-\end{minipage}
-\label{tab:graph}
-\end{table}
