@@ -300,6 +300,13 @@ for beta in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]:
         aaa = analysis.run(set_penn5[3],set_penn5[2],set_penn5[1],slang,bos_ovv_penn5,mapp_penn5,results = results_penn, pos_tagged = pos_tagged_penn, max_val = max_val, threshold=1.5)
         print("**********************")
 
+for beta in [ 0.5]:
+    for lam in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,1]:
+        max_val = [1., 1., lam , 0.0, 1, beta]
+        print("%f : %f" %(lam,beta))
+        aaa = analysis.run(set_penn5[3],set_penn5[2],set_penn5[1],slang,bos_ovv_penn5,mapp_penn5,results = results_penn, pos_tagged = pos_tagged_penn, max_val = max_val, threshold=1.5)
+        print("**********************")
+
 
 for lam in map(lambda x: x/10,range(0,11)):
     for beta in map(lambda x: x/10,range(0,11)):
