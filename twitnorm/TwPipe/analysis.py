@@ -297,7 +297,7 @@ def add_candidate(cands,cand,ovv,ovv_tag,slang_threshold):
 
 #--------------------------------------------------------------
 
-def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,window_size, database='tweets'):
+def calc_score_matrix(lo_postagged_tweets,results,ovv_fun,window_size, database='tweets'):
     lo_candidates = []
     norm = normalizer.Normalizer(lo_postagged_tweets,database=database)
     norm.m = window_size/2
@@ -305,7 +305,7 @@ def calc_score_matrix(lo_postagged_tweets,results,ovvFunc,window_size, database=
         tweet_pos_tagged = lo_postagged_tweets[tweet_ind]
         for j in range(0,len(tweet_pos_tagged)):
             word = results[tweet_ind][j]
-            if ovvFunc(word[0],word[1],word[2]):
+            if ovv_fun(word[0],word[1],word[2]):
                 ovv_word = word[0]
                 ovv_tag = tweet_pos_tagged[j][1]
                 keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
@@ -338,11 +338,11 @@ def construct_mapp_penn(pos_tagged_penn, results_penn):
                 mapp_penn.append((word,cor,pos_tagged_penn[t_ind][w_ind][1]))
     return mapp_penn
 
-def calculate_score_penn(hyp_file,ref_file,threshold=1.5):
+def calculate_score_penn(hyp_file,ref_file, ovv_fun = ovvFunc, threshold=1.5):
     tweets_penn,results_penn = pennel(5000,hyp_file,ref_file)
     pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
     window_size = 5
-    matrix_penn = calc_score_matrix(pos_tagged_penn, results_penn, ovvFunc, window_size, database='tweets2')
+    matrix_penn = calc_score_matrix(pos_tagged_penn, results_penn, ovv_fun, window_size, database='tweets2')
     mapp_penn = construct_mapp_penn(pos_tagged_penn, results_penn)
     bos_ovv_penn = ['' for word in mapp_penn ]
     set_penn = run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn,results_penn,pos_tagged_penn,threshold=threshold)
@@ -388,10 +388,11 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
 
 def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,results = constants.results,
         pos_tagged = constants.pos_tagged, threshold=1.5,slang_threshold=1,
-        max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2):
+        max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2,
+        ovv_fun = ovvFunc):
     if not matrix1:
         window_size = 7
-        matrix1 = calc_score_matrix(pos_tagged,results,ovvFunc,window_size,database='tweets2')
+        matrix1 = calc_score_matrix(pos_tagged,results,ovv_fun,window_size,database='tweets2')
     #max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
     if not slang:
         slang = tools.get_slangs()
