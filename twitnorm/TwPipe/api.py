@@ -192,6 +192,7 @@ def calc_score_matrix(lo_postagged_tweets,ovv_fun,window_size, database='tweets'
         tweet_pos_tagged = lo_postagged_tweets[tweet_ind]
         for j in range(0,len(tweet_pos_tagged)):
             word = tweet_pos_tagged[tweet_ind][j]
+            print(len(word),tweet_ind,j)
             if ovv_fun(word[0],word[1],word[2]):
                 ovv_word = word[0]
                 ovv_tag = tweet_pos_tagged[j][1]
@@ -218,7 +219,7 @@ def test_detection(index,oov_fun):
     results = constants.results[index:index+1]
     matrix1 = calc_score_matrix(pos_tagged,oov_fun,7,database='tweets2')
     mapp = construct_mapp(pos_tagged, results, oov_fun)
-    all_oov =  ['' for word in mapp ]
+    all_oov =  ['' for word in pos_tagged ]
     print(pos_tagged)
     set_oov_detect = run(matrix1,[],[],slang,all_oov,mapp)
     for found in set_oov_detect[0]:
@@ -254,7 +255,7 @@ def run(tweets, slang, not_ovv, threshold=1.5, slang_threshold=1,
     if not slang:
         slang = tools.get_slangs()
     fms = add_slangs(matrix1,slang)
-    fmd = add_from_dict(fms,matrix1,distance,not_ovv)
+    fmd = add_from_dict(fms, matrix1, distance, not_ovv)
     fm_reduced = add_nom_verbs(fmd,pos_tagged,slang_threshold=slang_threshold)
     feat_mat = iter_calc_lev(matrix1,fm_reduced,pos_tagged, not_ovv =not_ovv)
     res = calc_results(feat_mat, pos_tagged, max_val = max_val, threshold = threshold)
