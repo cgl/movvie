@@ -67,7 +67,7 @@ def find_more_results(ovv,ovv_tag,cand_dict,clean_words,distance,give_suggestion
             cand_dict[cand] = get_score_line(cand,0,ovv,ovv_tag)
     return cand_dict
 
-def iter_calc_lev(matrix,fm,mapp,not_ovv = detect_ovv(slang),edit_dis=2,met_dis=1,verbose=False):
+def iter_calc_lev(matrix,fm,not_ovv = detect_ovv(slang),edit_dis=2,met_dis=1,verbose=False):
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
             cands = get_candidates_from_graph(matrix[ind],matrix[ind][0][0], matrix[ind][0][1],cands,edit_dis,met_dis)
@@ -192,7 +192,6 @@ def calc_score_matrix(lo_postagged_tweets,ovv_fun,window_size, database='tweets'
         tweet_pos_tagged = lo_postagged_tweets[tweet_ind]
         for j in range(0,len(tweet_pos_tagged)):
             word = tweet_pos_tagged[j]
-            print(len(word),tweet_ind,j)
             if ovv_fun(word[0],word[1],word[2]):
                 ovv_word = word[0]
                 ovv_tag = tweet_pos_tagged[j][1]
@@ -206,9 +205,9 @@ def calc_score_matrix(lo_postagged_tweets,ovv_fun,window_size, database='tweets'
 #                                        [numpy.array([ 1.26120, 4.1910]), 'pix|N']]]])
     return lo_candidates
 
-def construct_mapp(pos_tagged, results,oov_fun):
+def construct_mapp(pos_tagged,oov_fun):
     mapp = []
-    for t_ind,tweet in enumerate(results):
+    for t_ind,tweet in enumerate(pos_tagged):
         for w_ind,(word,stag,cor) in enumerate(tweet):
             if oov_fun(word,stag,cor):
                 mapp.append((word,cor,pos_tagged[t_ind][w_ind][1]))
@@ -248,15 +247,16 @@ def calc_results(res_mat,not_ovv, max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], thresh
     return results
 
 def run(tweets, slang, not_ovv, threshold=1.5, slang_threshold=1,
-        max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], distance = 2, ovv_fun = ovvFunc):
+        max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], distance = 2, oov_fun = ovvFunc):
     pos_tagged = CMUTweetTagger.runtagger_parse(tweets)
     window_size = 7
-    matrix1 = calc_score_matrix(pos_tagged,ovv_fun, window_size,database='tweets2')
+    matrix1 = calc_score_matrix(pos_tagged, oov_fun, window_size,database='tweets2')
     if not slang:
         slang = tools.get_slangs()
     fms = add_slangs(matrix1,slang)
     fmd = add_from_dict(fms, matrix1, distance, not_ovv)
-    fm_reduced = add_nom_verbs(fmd,pos_tagged,slang_threshold=slang_threshold)
-    feat_mat = iter_calc_lev(matrix1,fm_reduced,pos_tagged, not_ovv =not_ovv)
+    mapp = construct_mapp(pos_tagged,oov_fun)
+    fm_reduced = add_nom_verbs(fmd,mapp ,slang_threshold=slang_threshold)
+    feat_mat = iter_calc_lev(matrix1,fm_reduced, not_ovv =not_ovv)
     res = calc_results(feat_mat, pos_tagged, max_val = max_val, threshold = threshold)
     return res
