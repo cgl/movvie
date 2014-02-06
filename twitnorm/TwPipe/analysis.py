@@ -397,8 +397,9 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
         if not not_ovv[ind] and answer.lower() == correct_answer.lower() : #lower
             correct = True
             total_pos += 1
-            correct_answers.append((ind,answer))
-        elif not not_ovv[ind]:
+            if mapp[ind][0] != mapp[ind][1]:
+                correct_answers.append((ind,answer))
+        elif not not_ovv[ind] and answer != ovv:
             incorrect_answers.append((ind,answer))
         if verbose:
             print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
