@@ -386,7 +386,7 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
             if res_dict:
                 for res_ind,cand in enumerate(res_dict):
                     score = calculate_score(res_dict[cand],max_val)
-                    if score >= threshold and cand != ovv:
+                    if score >= threshold:
                         res_dict[cand].append(round(score,7))
                         res_line = [cand]
                         res_line.extend(res_dict[cand])
@@ -397,9 +397,8 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
         if not not_ovv[ind] and answer.lower() == correct_answer.lower() : #lower
             correct = True
             total_pos += 1
-            if mapp[ind][0] != mapp[ind][1]:
-                correct_answers.append((ind,answer))
-        elif not not_ovv[ind] and answer != ovv:
+            correct_answers.append((ind,answer))
+        elif not not_ovv[ind]:
             incorrect_answers.append((ind,answer))
         if verbose:
             print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
