@@ -191,7 +191,7 @@ def calc_score_matrix(lo_postagged_tweets,ovv_fun,window_size, database='tweets'
     for tweet_ind in range(0,len(lo_postagged_tweets)):
         tweet_pos_tagged = lo_postagged_tweets[tweet_ind]
         for j in range(0,len(tweet_pos_tagged)):
-            word = tweet_pos_tagged[tweet_ind][j]
+            word = tweet_pos_tagged[j]
             print(len(word),tweet_ind,j)
             if ovv_fun(word[0],word[1],word[2]):
                 ovv_word = word[0]
