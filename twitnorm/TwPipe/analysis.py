@@ -348,6 +348,27 @@ def calculate_score_penn(hyp_file,ref_file, ovv_fun = ovvFunc, threshold=1.5):
     set_penn = run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn,results_penn,pos_tagged_penn,threshold=threshold)
     return set_penn, mapp_penn, results_penn, pos_tagged_penn
 
+def construct_mapp(pos_tagged, results,oov_fun):
+    mapp = []
+    for t_ind,tweet in enumerate(results):
+        for w_ind,(word,stag,cor) in enumerate(tweet):
+            if oov_fun(word,stag,cor):
+                mapp.append((word,cor,pos_tagged[t_ind][w_ind][1]))
+    return mapp
+
+def test_detection(index,oov_fun):
+    pos_tagged = constants.pos_tagged[index:index+1]
+    results = constants.results[index:index+1]
+    matrix1 = calc_score_matrix(pos_tagged,results,oov_fun,7,database='tweets2')
+    mapp = construct_mapp(pos_tagged, results, oov_fun)
+    all_oov =  ['' for word in mapp ]
+    print(pos_tagged)
+    set_oov_detect = run(matrix1,[],[],slang,all_oov,mapp)
+    for found in set_oov_detect[0]:
+        if found and len(found[0]) > 0:
+            print(found[0][0])
+    return set_oov_detect
+
 
 def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose = False, threshold = 1.5):
     results = []
@@ -412,8 +433,8 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,results = constants.results,
         tools.get_performance(len(ans),len(no_res),len(incor),len([oov for oov in not_ovv if oov == '']))
         threshold = tools.get_score_threshold(index_list,res)
         tools.test_threshold(res,threshold)
-        return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list]
-        #        0   1         2    3        4    5      6    7       8
+        return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list, mapp]
+        #        0   1         2    3        4    5      6    7       8           9
     except:
         print(traceback.format_exc())
         return [res, feat_mat, fmd, matrix1, ans, incor]
