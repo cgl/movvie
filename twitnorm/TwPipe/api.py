@@ -217,7 +217,7 @@ def test_detection(index,oov_fun):
     pos_tagged = constants.pos_tagged[index:index+1]
     results = constants.results[index:index+1]
     matrix1 = calc_score_matrix(pos_tagged,oov_fun,7,database='tweets2')
-    mapp = construct_mapp(pos_tagged, results, oov_fun)
+    mapp = construct_mapp(pos_tagged, oov_fun)
     all_oov =  ['' for word in pos_tagged ]
     print(pos_tagged)
     set_oov_detect = run(matrix1,[],[],slang,all_oov,mapp)
@@ -246,7 +246,7 @@ def calc_results(res_mat,not_ovv, max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], thresh
         results.append(res_list)
     return results
 
-def run(tweets, slang, not_ovv, threshold=1.5, slang_threshold=1,
+def run(tweets, slang, not_oov, threshold=1.5, slang_threshold=1,
         max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], distance = 2, oov_fun = ovvFunc):
     pos_tagged = CMUTweetTagger.runtagger_parse(tweets)
     window_size = 7
@@ -254,9 +254,9 @@ def run(tweets, slang, not_ovv, threshold=1.5, slang_threshold=1,
     if not slang:
         slang = tools.get_slangs()
     fms = add_slangs(matrix1,slang)
-    fmd = add_from_dict(fms, matrix1, distance, not_ovv)
+    fmd = add_from_dict(fms, matrix1, distance, not_oov)
     mapp = construct_mapp(pos_tagged,oov_fun)
     fm_reduced = add_nom_verbs(fmd,mapp ,slang_threshold=slang_threshold)
-    feat_mat = iter_calc_lev(matrix1,fm_reduced, not_ovv =not_ovv)
-    res = calc_results(feat_mat, pos_tagged, max_val = max_val, threshold = threshold)
+    feat_mat = iter_calc_lev(matrix1,fm_reduced, not_ovv = not_oov)
+    res = calc_results(feat_mat, not_oov, max_val = max_val, threshold = threshold)
     return res
