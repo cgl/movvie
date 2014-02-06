@@ -357,16 +357,16 @@ def construct_mapp(pos_tagged, results,oov_fun):
     return mapp
 
 def test_detection(index,oov_fun):
-    pos_tagged = constants.pos_tagged[index:index+1]
-    results = constants.results[index:index+1]
+    if index:
+        pos_tagged = constants.pos_tagged[index:index+1]
+        results = constants.results[index:index+1]
+    else:
+        pos_tagged = constants.pos_tagged
+        results = constants.results
     matrix1 = calc_score_matrix(pos_tagged,results,oov_fun,7,database='tweets2')
     mapp = construct_mapp(pos_tagged, results, oov_fun)
     all_oov =  ['' for word in mapp ]
-    print(pos_tagged)
     set_oov_detect = run(matrix1,[],[],slang,all_oov,mapp)
-    for found in set_oov_detect[0]:
-        if found and len(found[0]) > 0:
-            print(found[0][0])
     return set_oov_detect
 
 
