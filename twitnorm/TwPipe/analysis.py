@@ -395,15 +395,17 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
                 res_list.sort(key=lambda x: -float(x[-1]))
         answer = res_list[0][0] if res_list else ovv
         correct_answer = mapp[ind][1]
+        if answer.lower() == correct_answer.lower():
+            total_pos += 1
         if answer != ovv:
             if answer.lower() == correct_answer.lower() : #lower
                 correct = True
-                total_pos += 1
                 correct_answers.append((ind,answer))
             else:
                 incorrect_answers.append((ind,answer))
         elif ovv != correct_answer:
             miss.append((ind,answer))
+
         if verbose:
             print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
         results.append(res_list)
