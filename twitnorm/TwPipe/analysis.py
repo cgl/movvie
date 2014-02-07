@@ -375,7 +375,8 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
     correct_answers = []
     incorrect_answers = []
     miss = []
-    total_pos = 1
+    total_pos = 0
+    incorrected_correct_word = 0
     for ind in range (0,len(res_mat)):
         correct = False
         ovv = mapp[ind][0]
@@ -403,14 +404,16 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
                 correct_answers.append((ind,answer))
             else:
                 incorrect_answers.append((ind,answer))
+                if ovv == correct_answer:
+                    incorrected_correct_word +=1
         elif ovv != correct_answer:
             miss.append((ind,answer))
 
         if verbose:
             print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
         results.append(res_list)
-    print 'Number of correct answers %s, incorrect answers %s, total correct answers %s/%s' % (
-        len(correct_answers),len(incorrect_answers),total_pos,len(mapp))
+    print 'Number of correct normalizations %s, incorrect normalizations %s, changed correct token %s, total correct token ratio %s/%s' % (
+        len(correct_answers),len(incorrect_answers),incorrected_correct_word,total_pos,len(mapp))
     return results,correct_answers,incorrect_answers, miss
 
 def run(matrix1,fmd,feat_mat,slang,not_ovv,results = constants.results,
