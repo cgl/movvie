@@ -374,6 +374,7 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
     results = []
     correct_answers = []
     incorrect_answers = []
+    miss = []
     total_pos = 1
     for ind in range (0,len(res_mat)):
         correct = False
@@ -394,18 +395,20 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
                 res_list.sort(key=lambda x: -float(x[-1]))
         answer = res_list[0][0] if res_list else ovv
         correct_answer = mapp[ind][1]
-        if not not_ovv[ind] and answer.lower() == correct_answer.lower() : #lower
-            correct = True
-            total_pos += 1
-            if mapp[ind][0] != mapp[ind][1]:
+        if answer != ovv:
+            if answer.lower() == correct_answer.lower() : #lower
+                correct = True
+                total_pos += 1
                 correct_answers.append((ind,answer))
-        elif not not_ovv[ind] and answer != ovv:
-            incorrect_answers.append((ind,answer))
+            else:
+                incorrect_answers.append((ind,answer))
+        elif ovv != correct_answer:
+            miss.append((ind,answer))
         if verbose:
             print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
         results.append(res_list)
     print 'Number of correct answers %s, incorrect answers %s, total correct answers %s' % (len(correct_answers),len(incorrect_answers),total_pos)
-    return results,correct_answers,incorrect_answers
+    return results,correct_answers,incorrect_answers, miss
 
 def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,results = constants.results,
         pos_tagged = constants.pos_tagged, threshold=1.5,slang_threshold=1,
@@ -426,11 +429,13 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,results = constants.results,
     if not feat_mat:
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
         #feat_mat2 = add_weight(feat_mat,mapp,not_ovv)
-    res,ans,incor = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
+    res,ans,incor, miss = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
     try:
         ann_and_pos_tag = tools.build_mappings(results,pos_tagged,oov_fun)
         index_list,nil,no_res = tools.top_n(res,not_ovv,mapp,ann_and_pos_tag,verbose=verbose)
-        tools.get_performance(len(ans),len(no_res),len(incor),len([oov for oov in not_ovv if oov == '']))
+        num_of_normed_words = len(ans) + len(incor)
+        num_of_words_req_norm = len(filter(lambda x: x[0] != x[1], mapp))
+        tools.get_performance(len(ans),len(miss),len(incor), num_of_normed_words, num_of_words_req_norm)
         threshold = tools.get_score_threshold(index_list,res)
         tools.test_threshold(res,threshold)
         return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list, mapp]
