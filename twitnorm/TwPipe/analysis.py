@@ -410,10 +410,11 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
     print 'Number of correct answers %s, incorrect answers %s, total correct answers %s' % (len(correct_answers),len(incorrect_answers),total_pos)
     return results,correct_answers,incorrect_answers, miss
 
-def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,results = constants.results,
+def run(matrix1,fmd,feat_mat,slang,not_ovv,results = constants.results,
         pos_tagged = constants.pos_tagged, threshold=1.5,slang_threshold=1,
         max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2,
         oov_fun = ovvFunc):
+    mapp = construct_mapp(pos_tagged, results, oov_fun)
     if not matrix1:
         window_size = 7
         matrix1 = calc_score_matrix(pos_tagged,results,oov_fun,window_size,database='tweets2')
