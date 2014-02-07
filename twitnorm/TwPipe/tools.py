@@ -408,9 +408,9 @@ def slang_analysis(slang,mapp):
         print "%s [%s] :\t %s , %r, %r, %r" %(tup[0],tup[1],sl,multi,ill,correct_answer)
     print "Corrected %d word" %i
 
-def get_performance(correct,not_found,incorrect,total_normalized_words):
+def get_performance(correct,not_found,incorrect,total_normalized_words,num_of_words_req_norm):
     recall = float(correct)/total_normalized_words
-    precision = float(correct)/(total_normalized_words - not_found)
+    precision = float(correct)/num_of_words_req_norm
     fmeasure = 2 * precision * recall / (precision+recall)
     print "Correct: %d , Not Found: %d, Incorrect: %d " %(correct, not_found,incorrect)
     print "Recall: %f , Precision:%f , FMeasure:%f" %(round(recall,3),round(precision,3),round(fmeasure,3))
