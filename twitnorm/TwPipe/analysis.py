@@ -428,7 +428,7 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,results = constants.results,
         #feat_mat2 = add_weight(feat_mat,mapp,not_ovv)
     res,ans,incor = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
     try:
-        ann_and_pos_tag = tools.build_mappings(results,pos_tagged)
+        ann_and_pos_tag = tools.build_mappings(results,pos_tagged,oov_fun)
         index_list,nil,no_res = tools.top_n(res,not_ovv,mapp,ann_and_pos_tag,verbose=verbose)
         tools.get_performance(len(ans),len(no_res),len(incor),len([oov for oov in not_ovv if oov == '']))
         threshold = tools.get_score_threshold(index_list,res)

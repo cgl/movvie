@@ -127,7 +127,7 @@ class Normalizer:
             if len(cand) < 2:
                 continue
             # get frequencies of candidates
-            cand_node = self.nodes.find_one({'node':cand,'tag': ovv_tag, 'ovv':False })
+            cand_node = self.nodes.find_one({'node':cand,'tag': ovv_tag, 'ovv':False ,'freq': { '$gt': 8 } })
             if(cand_node):
                 cands_q.append({'position': position, 'cand':cand, 'weight': node['weight'] ,
                                 'freq' : cand_node['freq']})

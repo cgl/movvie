@@ -33,11 +33,11 @@ try:
 except:
     db_tweets  = None
 
-def build_mappings(results,pos_tagged):
+def build_mappings(results,pos_tagged,oov_fun):
     mapp = []
     for i in range(0,len(results)):
         for (word_ind ,(org_word,w_type,ann_word)) in enumerate(results[i]):
-            if w_type == 'OOV':
+            if oov_fun(org_word,w_type,ann_word):
                 tag = pos_tagged[i][word_ind][1]
                 acc = pos_tagged[i][word_ind][2]
                 mapp.append([org_word,ann_word,tag,acc])
