@@ -410,10 +410,10 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
 def run(matrix1,fmd,feat_mat,slang,not_ovv,mapp,results = constants.results,
         pos_tagged = constants.pos_tagged, threshold=1.5,slang_threshold=1,
         max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2,
-        ovv_fun = ovvFunc):
+        oov_fun = ovvFunc):
     if not matrix1:
         window_size = 7
-        matrix1 = calc_score_matrix(pos_tagged,results,ovv_fun,window_size,database='tweets2')
+        matrix1 = calc_score_matrix(pos_tagged,results,oov_fun,window_size,database='tweets2')
     #max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
     if not slang:
         slang = tools.get_slangs()
