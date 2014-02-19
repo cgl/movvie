@@ -439,8 +439,8 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,results = constants.results,
         tools.get_performance(len(ans),len(miss),len(incor), num_of_normed_words, num_of_words_req_norm)
         threshold = tools.get_score_threshold(index_list,res)
         tools.test_threshold(res,threshold)
-        return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list, mapp]
-        #        0   1         2    3        4    5      6    7       8           9
+        return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list, mapp, miss]
+        #        0   1         2    3        4    5      6    7       8           9     10
     except:
         print(traceback.format_exc())
         return [res, feat_mat, fmd, matrix1, ans, incor]
