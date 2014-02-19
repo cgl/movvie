@@ -13,10 +13,8 @@ import constants
 
 is_ill = lambda x,y,z : True if x != z else False
 is_ovv = lambda x,y,z : True if y == 'OOV' else False
-ovvFunc = is_ill
-dic= enchant.Dict("en_US")
-slang = tools.get_slangs()
-met_map = {}
+OOVFUNC = is_ill
+SLANG = tools.get_slangs()
 
 # create file handler which logs even debug messages
 fh = logging.FileHandler('analysis.log')
@@ -39,15 +37,15 @@ def main(index=False):
 if __name__ == "__main__ ":
     main()
 
-def detect_ovv(slang):
-    from constants import mapping as mapp
-    not_ovv= []
+# Bu fonksiyon ne iş yapıyor belli değil
+def detect_ovv(slang,mapp):
+    not_ovv = []
     for ind in range (0,len(mapp)):
         ovv = mapp[ind][0]
-        ovv_reduced = re.sub(r'(.)\1+', r'\1', ovv).lower()
+        ovv_reduced = tools.get_reduced_alt(ovv) or ovv
         if slang.has_key(ovv_reduced):
-            sl = slang.get(ovv) or slang.get(ovv_reduced)
-            if len(sl.split(" ")) >  1:
+            s_word = slang.get(ovv) or slang.get(ovv_reduced)
+            if len(s_word.split(" ")) >  1:
                 not_ovv.append(ovv)
             else:
                 not_ovv.append('')
@@ -63,12 +61,12 @@ def detect_ovv(slang):
     for ind,words in enumerate(mapp):
         if words[0] == words[1]:
             if not not_ovv[ind]:
-                i+=1
+                i += 1
     print i," not ovv detected"
     return not_ovv
 
 
-def add_from_dict(fm,mat,distance,not_ovv = detect_ovv(slang)):
+def add_from_dict(fm, mat, distance, not_ovv):
     clean_words = tools.get_clean_words()
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
@@ -76,7 +74,7 @@ def add_from_dict(fm,mat,distance,not_ovv = detect_ovv(slang)):
     return fm
 
 def find_more_results(ovv,ovv_tag,cand_dict,clean_words,distance,give_suggestions=True):
-    cands = tools.get_from_dict_met(ovv,met_map)
+    cands = tools.get_from_dict_met(ovv,{})
     cands_more = tools.get_from_dict_dis(ovv,ovv_tag,clean_words,distance)
     cands.extend(cands_more)
     cands = list(set(cands))
@@ -88,14 +86,11 @@ def find_more_results(ovv,ovv_tag,cand_dict,clean_words,distance,give_suggestion
             cand_dict[cand] = get_score_line(cand,0,ovv,ovv_tag)
     return cand_dict
 
-def iter_calc_lev(matrix,fm,mapp,not_ovv = detect_ovv(slang),edit_dis=2,met_dis=1,verbose=False):
+def iter_calc_lev(matrix, fm, not_ovv ,edit_dis=2,met_dis=1,verbose=False):
     for ind,cands in enumerate(fm):
         if not not_ovv[ind]:
             cands = get_candidates_from_graph(matrix[ind],matrix[ind][0][0], matrix[ind][0][1],cands,edit_dis,met_dis)
     return fm
-
-def add_weight(feat_mat,mapp,not_ovv):
-    pass
 
 def get_candidates_from_graph(matrix_line,ovv,ovv_tag,cand_dict,edit_dis,met_dis):
     filtered_cand_list = [cand for cand in matrix_line[1]
@@ -144,7 +139,7 @@ def add_slangs(mat,slang,verbose=False):
     res_mat = []
     for ind in range (0,len(mat)):
         ovv = mat[ind][0][0]
-        ovv_reduced = re.sub(r'(.)\1+', r'\1\1', ovv).lower()
+        ovv_reduced = tools.get_reduced_alt(ovv) or ovv
         cands = {}
         if slang.has_key(ovv_reduced):
             sl = slang.get(ovv_reduced).lower()
@@ -309,7 +304,7 @@ def calc_score_matrix(lo_postagged_tweets,results,ovv_fun,window_size, database=
                 ovv_word = word[0]
                 ovv_tag = tweet_pos_tagged[j][1]
                 keys,score_matrix = norm.get_candidates_scores(tweet_pos_tagged,ovv_word,ovv_tag)
-                ovv_word_reduced = re.sub(r'(.)\1+', r'\1\1', ovv_word).lower()
+                ovv_word_reduced = tools.get_reduced_alt(ovv_word) or ovv_word
                 ovv_word_digited = tools.replace_digits(ovv_word_reduced)
                 lo_candidates.append([(ovv_word_digited,ovv_tag),keys,score_matrix])
             elif word[1] == "OOV":
@@ -338,14 +333,14 @@ def construct_mapp_penn(pos_tagged_penn, results_penn):
                 mapp_penn.append((word,cor,pos_tagged_penn[t_ind][w_ind][1]))
     return mapp_penn
 
-def calculate_score_penn(hyp_file,ref_file, ovv_fun = ovvFunc, threshold=1.5):
+def calculate_score_penn(hyp_file,ref_file, ovv_fun = OOVFUNC, threshold=1.5):
     tweets_penn,results_penn = pennel(5000,hyp_file,ref_file)
     pos_tagged_penn = CMUTweetTagger.runtagger_parse(tweets_penn)
     window_size = 5
     matrix_penn = calc_score_matrix(pos_tagged_penn, results_penn, ovv_fun, window_size, database='tweets2')
     mapp_penn = construct_mapp_penn(pos_tagged_penn, results_penn)
     bos_ovv_penn = ['' for word in mapp_penn ]
-    set_penn = run(matrix_penn,[],[],slang,bos_ovv_penn,mapp_penn,results_penn,pos_tagged_penn,threshold=threshold)
+    set_penn = run(matrix_penn,[],[],SLANG,bos_ovv_penn,results = results_penn, pos_tagged = pos_tagged_penn,oov_fun = ovv_fun, threshold=threshold)
     return set_penn, mapp_penn, results_penn, pos_tagged_penn
 
 def construct_mapp(pos_tagged, results,oov_fun):
@@ -366,9 +361,8 @@ def test_detection(index,oov_fun):
     matrix1 = calc_score_matrix(pos_tagged,results,oov_fun,7,database='tweets2')
     mapp = construct_mapp(pos_tagged, results, oov_fun)
     all_oov =  ['' for word in mapp ]
-    set_oov_detect = run(matrix1,[],[],slang,all_oov,mapp)
+    set_oov_detect = run(matrix1,[],[],SLANG,all_oov,results = results, pos_tagged = pos_tagged, oov_fun = oov_fun)
     return set_oov_detect
-
 
 def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose = False, threshold = 1.5):
     results = []
@@ -405,7 +399,7 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
             else:
                 incorrect_answers.append((ind,answer))
                 if ovv == correct_answer:
-                    incorrected_correct_word +=1
+                    incorrected_correct_word += 1
         elif ovv != correct_answer:
             miss.append((ind,answer))
 
@@ -419,7 +413,7 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
 def run(matrix1,fmd,feat_mat,slang,not_ovv,results = constants.results,
         pos_tagged = constants.pos_tagged, threshold=1.5,slang_threshold=1,
         max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose=False, distance = 2,
-        oov_fun = ovvFunc):
+        oov_fun = OOVFUNC):
     mapp = construct_mapp(pos_tagged, results, oov_fun)
     if not matrix1:
         window_size = 7
@@ -431,10 +425,10 @@ def run(matrix1,fmd,feat_mat,slang,not_ovv,results = constants.results,
         not_ovv = [word[0] if word[0] == word[1] else '' for word in mapp ]
     fms = add_slangs(matrix1,slang)
     if not fmd:
-        fmd = add_from_dict(fms,matrix1,distance,not_ovv=not_ovv)
+        fmd = add_from_dict(fms,matrix1,distance,not_ovv)
     fm_reduced = add_nom_verbs(fmd,mapp,slang_threshold=slang_threshold)
     if not feat_mat:
-        feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv =not_ovv)
+        feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv)
         #feat_mat2 = add_weight(feat_mat,mapp,not_ovv)
     res,ans,incor, miss = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
     try:

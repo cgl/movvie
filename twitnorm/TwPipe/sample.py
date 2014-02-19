@@ -314,3 +314,11 @@ for lam in map(lambda x: x/10,range(0,11)):
         print("%f : %f" %(lam,beta))
         set_penn_tr2 = analysis.run(set_penn_tr[3],set_penn_tr[2],set_penn_tr[1],slang,bos_ovv_penn_tr,mapp_penn_tr, results = results_penn_tr, pos_tagged = pos_tagged_penn, max_val = max_val, threshold=1.5)
         print("**********************")
+
+
+-------------
+
+DETECTION
+
+oov_fun_1 = lambda x,y,z : False if y in ["@","E","U","#",",","G"] else True
+set_oov_detect_1 = analysis.test_detection(None,oov_fun_1)

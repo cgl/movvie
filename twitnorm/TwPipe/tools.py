@@ -357,7 +357,7 @@ def get_reduced(word,count=2):
 def get_reduced_alt(word,count=2):
     red1 = get_reduced(word)
     red2 = get_reduced(word,count=1)
-    if len(red2) == 1:
+    if len(red2) == 1: # ??
         return None
     red1_node = db_tweets.nodes.find_one({'node':red1, "ovv":False ,'freq' : {'$gt':100}})
     red2_node = None
