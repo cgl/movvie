@@ -409,11 +409,13 @@ def slang_analysis(slang,mapp):
     print "Corrected %d word" %i
 
 # tools.get_performance(len(ans),len(miss),len(incor), num_of_normed_words, num_of_words_req_norm)
-def get_performance(correct,not_found,incorrect,total_normalized_words,num_of_words_req_norm):
+def get_performance(correct,incorrect,fp):
+    total_normalized_words = correct + fp
+    num_of_words_req_norm = correct + incorrect
     recall = float(correct)/total_normalized_words
     precision = float(correct)/num_of_words_req_norm
     fmeasure = 2 * precision * recall / (precision+recall)
-    print "Correct: %d , Not Found: %d, Incorrect: %d , Req Norm: %d" %(correct, not_found,incorrect,num_of_words_req_norm)
+    print "Correct: %d , Incorrect: %d , Total Norm: %d, Req Norm: %d" %(correct, incorrect, total_normalized_words, num_of_words_req_norm)
     print "Recall: %f , Precision:%f , FMeasure:%f" %(round(recall,3),round(precision,3),round(fmeasure,3))
 
 def get_clean_words():

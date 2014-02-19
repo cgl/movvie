@@ -366,11 +366,12 @@ def test_detection(index,oov_fun):
 
 def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0.5], verbose = False, threshold = 1.5):
     results = []
-    correct_answers = []
-    incorrect_answers = []
+    correct_answers = [] # True Positive
+    incorrect_answers = [] # False Negative
     miss = []
     total_pos = 0
-    incorrected_correct_word = 0
+    incorrectly_corrected_word = 0 # False Positive
+    correctly_unchanged = [] # True Negative
     for ind in range (0,len(res_mat)):
         correct = False
         ovv = mapp[ind][0]
@@ -392,23 +393,26 @@ def show_results(res_mat,mapp, not_ovv = [], max_val = [1., 1., 0.5, 0.0, 1.0, 0
         correct_answer = mapp[ind][1]
         if answer.lower() == correct_answer.lower():
             total_pos += 1
-        if answer != ovv:
-            if answer.lower() == correct_answer.lower() : #lower
+        if answer != ovv: # ppl --> people , people --> ppl, ppl --> apple
+            if answer.lower() == correct_answer.lower() : # tp: ppl --> people
                 correct = True
                 correct_answers.append((ind,answer))
             else:
+                if ovv == correct_answer: # fp: people --> ppl
+                    incorrectly_corrected_word += 1
+                else:                     # fn: ppl --> apple
+                    incorrect_answers.append((ind,answer))
+        else: # people --> people , ppl --> ppl
+            if ovv != correct_answer: # fn: ppl  --> ppl
                 incorrect_answers.append((ind,answer))
-                if ovv == correct_answer:
-                    incorrected_correct_word += 1
-        elif ovv != correct_answer:
-            miss.append((ind,answer))
-
+            else:                     # tn: people --> people
+                correctly_unchanged.append((ind,answer))
         if verbose:
             print '%d. %s | %s [%s] :%s' % (ind, 'Found' if correct else '', mapp[ind][0],mapp[ind][1],res_list[0][0])
         results.append(res_list)
     print 'Number of correct normalizations %s, incorrect normalizations %s, changed correct token %s, total correct token ratio %s/%s' % (
-        len(correct_answers),len(incorrect_answers),incorrected_correct_word,total_pos,len(mapp))
-    return results,correct_answers,incorrect_answers, miss
+        len(correct_answers),len(incorrect_answers),incorrectly_corrected_word,total_pos,len(mapp))
+    return results,correct_answers,incorrect_answers, incorrectly_corrected_word, correctly_unchanged
 
 def calc_mat(results = constants.results, pos_tagged = constants.pos_tagged, oov_fun = OOVFUNC):
     window_size = 7
@@ -432,16 +436,16 @@ def run(matrix1,fmd,feat_mat,not_ovv,results = constants.results,
     if not feat_mat:
         feat_mat = iter_calc_lev(matrix1,fm_reduced,mapp,not_ovv)
         #feat_mat2 = add_weight(feat_mat,mapp,not_ovv)
-    res,ans,incor, miss = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
+    res,ans,incor, fp, tn = show_results(feat_mat, mapp, not_ovv = not_ovv, max_val=max_val,threshold=threshold)
     try:
         ann_and_pos_tag = tools.build_mappings(results,pos_tagged,oov_fun)
         index_list,nil,no_res = tools.top_n(res,not_ovv,mapp,ann_and_pos_tag,verbose=verbose)
         num_of_normed_words = len(ans) + len(incor)
         num_of_words_req_norm = len(filter(lambda x: x[0] != x[1], mapp))
-        tools.get_performance(len(ans),len(miss),len(incor), num_of_normed_words, num_of_words_req_norm)
+        tools.get_performance(len(ans),len(incor),fp)
         threshold = tools.get_score_threshold(index_list,res)
         tools.test_threshold(res,threshold)
-        return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list, mapp, miss]
+        return [res, feat_mat, fmd, matrix1, ans, incor, nil, no_res, index_list, mapp, tn]
         #        0   1         2    3        4    5      6    7       8           9     10
     except:
         print(traceback.format_exc())
