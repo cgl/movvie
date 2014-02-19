@@ -307,11 +307,11 @@ def calc_score_matrix(lo_postagged_tweets,results,ovv_fun,window_size, database=
                 ovv_word_reduced = tools.get_reduced_alt(ovv_word) or ovv_word
                 ovv_word_digited = tools.replace_digits(ovv_word_reduced)
                 lo_candidates.append([(ovv_word_digited,ovv_tag),keys,score_matrix])
-            elif word[1] == "OOV":
-                lo_candidates.append([(word[0],ovv_tag),[word[0]],
-                                      [[[numpy.array([    9.93355,  4191.     ]), 'new|A'],
-                                        [numpy.array([  1.26120000e+00,   4.19100000e+03]), 'pix|N']]]
-                                  ])
+            #elif word[1] == "OOV":
+            #    lo_candidates.append([(word[0],ovv_tag),[word[0]],
+            #                          [[[numpy.array([    9.93355,  4191.     ]), 'new|A'],
+            #                            [numpy.array([  1.26120000e+00,   4.19100000e+03]), 'pix|N']]]
+            #                      ])
     return lo_candidates
 
 
@@ -427,8 +427,6 @@ def run(matrix1,fmd,feat_mat,not_ovv,results = constants.results,
     if not matrix1:
         matrix1 = calc_mat(results = results, pos_tagged = pos_tagged, oov_fun = oov_fun)
     #max_val=[1.0, 1.0, 1.0, 1.0, 5.0, 1./1873142]
-    if not not_ovv:
-        not_ovv = [word[0] if word[0] == word[1] else '' for word in mapp ]
     fms = add_slangs(matrix1,SLANG)
     if not fmd:
         fmd = add_from_dict(fms,matrix1,distance,not_ovv)
