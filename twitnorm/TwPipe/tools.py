@@ -412,8 +412,8 @@ def slang_analysis(slang,mapp):
 def get_performance(correct,incorrect,fp):
     total_normalized_words = correct + fp
     num_of_words_req_norm = correct + incorrect
-    recall = float(correct)/total_normalized_words
-    precision = float(correct)/num_of_words_req_norm
+    recall = float(correct)/num_of_words_req_norm
+    precision = float(correct)/total_normalized_words
     fmeasure = 2 * precision * recall / (precision+recall)
     print "Correct: %d , Incorrect: %d , Total Norm: %d, Req Norm: %d" %(correct, incorrect, total_normalized_words, num_of_words_req_norm)
     print "Recall: %f , Precision:%f , FMeasure:%f" %(round(recall,3),round(precision,3),round(fmeasure,3))
