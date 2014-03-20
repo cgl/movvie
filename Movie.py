@@ -17,11 +17,16 @@ class Movie:
         # default IMDb rating is the mean value of [0.0, 10.0]
         self.rating = rating
         self.reviews = []
-        locale.setlocale(locale.LC_ALL,'tr_TR.UTF-8')
-    
+        try:
+            locale.setlocale(locale.LC_ALL,'tr_TR.UTF-8')
+        except Exception:
+            try:
+                locale.setlocale(locale.LC_ALL, 'tr_TR.utf8')
+            except Exception as e:
+                print("An error occurred: %s " % e)
     def add_review(self,review,star,tarih):
         self.reviews.append({'body': review, 'star': star, 'tarih': tarih})
-        
+
     def persist(self):
         try:
             date = datetime.datetime.strptime(self.date, "%d/%m/%Y").strftime("%Y-%m-%m")
@@ -30,7 +35,7 @@ class Movie:
         except ValidationError:
             date = datetime.datetime.today().strftime("%Y-%m-%m")
 
-        try:            
+        try:
             m,c = Movvie.objects.get_or_create(movvie_id=self.id,title=self.title,release_date=date,url=self.url,rating=self.rating)
             if c:
                 m.save()
@@ -46,12 +51,12 @@ class Movie:
                     Review.objects.create(movie_id=m.pk,body=r['body'],date=date,rating=r['star'])
                 except UnicodeDecodeError:
                     print "UnicodeDecodeError"
-                
+
         except IntegrityError:
             print "IntegrityError: column movvie_id is not unique %d" % self.id
-        
 
-    def persist2(self, dbname = "movie.db"):        
+
+    def persist2(self, dbname = "movie.db"):
         con = sqlite.connect(dbname)
         try:
             query = """INSERT INTO Movie(`movieID`,`title`, `date`, `url`, `rating`) VALUES (%d, '%s' , '%s', '%s', %f)""" % (self.id , self.title.replace("'", "_"), self.date ,self.url,self.rating)
