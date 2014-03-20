@@ -7,8 +7,8 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 
-from graphlib import Reader,Tweet,MTweet
-import networkx as nx
+# from graphlib import Reader,Tweet,MTweet
+# import networkx as nx
 
 class SimpleTest(TestCase):
     def test_basic_addition(self):
@@ -17,6 +17,7 @@ class SimpleTest(TestCase):
         """
         self.assertEqual(1 + 1, 2)
 
+'''
     def test_graphlib_mongo(self):
         T = MTweet(database='test_database')
         T.nodes.remove()
@@ -27,7 +28,6 @@ class SimpleTest(TestCase):
         print T.edges.count()
         return T.nodes.find_one({'weight':0}) is None
 
-'''
 def old_test_graphlib(self):
         T = Tweet()
         T.getTweets('test/snap.sample')
