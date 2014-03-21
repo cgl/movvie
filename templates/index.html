@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+-->
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Logistix by FCT</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<link href="{% static "default.css" %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+	<h1>Logistix</h1>
+	<h2>By Free CSS Templates</h2>
+</div>
+<!-- end #header -->
+<div id="menu">
+	<ul>
+		<li class="first"><a href="#" accesskey="1" title="">About Us</a></li>
+		<li><a href="#" accesskey="2" title="">Our Services</a></li>
+		<li><a href="#" accesskey="3" title="">Our Products</a></li>
+		<li><a href="#" accesskey="4" title="">Customer Support</a></li>
+		<li><a href="#" accesskey="5" title="">Contact Us</a></li>
+	</ul>
+</div>
+<!-- end #menu -->
+<div id="content">
+  <div id="posts">
+    <div class="post">
+      <h2 class="title">Welcome to Logistix!</h2>
+      <div class="story">
+	<p><strong>Logistix</strong> is a free template from <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a> released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>. The  photo is from <a href="http://www.pdphoto.org/">PDPhoto.org</a>. You're free to use it for both commercial or personal use. I only ask that you link back to my site in some way. <em><strong>Enjoy :)</strong></em></p>
+      </div>
+    </div>
+    <div class="post">
+      <h2 class="title">A Few Examples of Common Tags</h2>
+      <div class="story">
+	<p><strong></strong>Here is the list of the movies.</p>
+	{% if movs %}
+	  <div id="listed">
+            <ul>
+                {% for mov in movs %}
+                <li><a href="{{ mov.url }}">{{ mov.title }}</a></li>
+                {% endfor %}
+            </ul>
+	  </div>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <!-- end #posts -->
+  <div id="links">
+		<ul>
+			<li>
+				<h2>News &amp; Updates</h2>
+				<ul>
+					<li><a href="#">February 2007</a> <i>(22)</i></li>
+					<li><a href="#">January 2007</a> <i>(31)</i></li>
+					<li><a href="#">December 2006</a> <i>(31)</i></li>
+					<li><a href="#">November 2006</a> <i>(30)</i></li>
+					<li><a href="#">October 2006</a> <i>(31)</i></li>
+				</ul>
+			</li>
+			<li>
+				<h2>Lorem Ipsum Dolor</h2>
+				<ul>
+					<li><a href="#">Donec Dictum Metus</a></li>
+					<li><a href="#">Etiam Rhoncus Volutpat</a></li>
+					<li><a href="#">Integer Gravida Nibh</a></li>
+					<li><a href="#">Maecenas Luctus Lectus</a></li>
+					<li><a href="#">Mauris Vulputate Dolor Nibh</a></li>
+					<li><a href="#">Nulla Luctus Eleifend</a></li>
+					<li><a href="#">Posuere Augue Sit Nisl</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<!-- end #links -->
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<!-- end #content -->
+<div id="footer">
+	<p id="legal">Copyright &copy; 2007 Logistix. Designed by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a></p>
+</div>
+<!-- end #footer -->
+</body>
+</html>

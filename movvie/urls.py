@@ -6,7 +6,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'movvie.views.home', name='home'),
+    url(r'^main/', include('main.urls')),
+    url(r'^$', 'main.views.index', name='index'),
+
     # url(r'^movvie/', include('movvie.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
