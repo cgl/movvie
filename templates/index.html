@@ -1,36 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
--->
-{% load static %}
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Logistix by FCT</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-
-<link href="{% static "default.css" %}" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<div id="header">
-	<h1>Logistix</h1>
-	<h2>By Free CSS Templates</h2>
-</div>
-<!-- end #header -->
-<div id="menu">
-	<ul>
-		<li class="first"><a href="main/" accesskey="1" title="">Movies</a></li>
-		<li><a href="#" accesskey="2" title="">Tweets</a></li>
-		<li><a href="#" accesskey="3" title="">Our Products</a></li>
-		<li><a href="#" accesskey="4" title="">Customer Support</a></li>
-		<li><a href="#" accesskey="5" title="">Contact Us</a></li>
-	</ul>
-</div>
-<!-- end #menu -->
+{% extends 'base.html' %}
+{% block content %}
 <div id="content">
   <div id="posts">
     <div class="post">
@@ -88,9 +57,4 @@ Released for free under a Creative Commons Attribution 2.5 License
 	<div style="clear: both;">&nbsp;</div>
 </div>
 <!-- end #content -->
-<div id="footer">
-	<p id="legal">Copyright &copy; 2007 Logistix. Designed by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a></p>
-</div>
-<!-- end #footer -->
-</body>
-</html>
+{% endblock %}

@@ -169,6 +169,10 @@ a:hover {
 	font-size: 14px;
 }
 
+p.colored{
+    background : #D1D1D1;
+}
+
 /* MOVIES */
 #listed {
 	float: left;
