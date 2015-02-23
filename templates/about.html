@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+{% block content %}
+
+<script>
+function copyText(dd)
+{
+var my_li = $(this).parent();
+alert(my_li[0]);
+my_li.getElementsByTagName('p')[1].innerHTML = my_li.getElementsByTagName('p')[0].innerHTML;
+
+}
+</script>
+<div id="content">
+  <div id="posts">
+    <div class="post">
+      <h2 class="title">About</h2>
+      <div class="story">
+	<p><strong></strong>About us</p>
+	  <div id="listed">
+            <ul>
+                    <li><p> About 1</p>
+		     <p> </p>
+		    </li>
+
+                    <li><p> About 2</p>
+		     <p> </p>
+		    </li>
+            </ul>
+	  </div>
+      </div>
+    </div>
+  </div>
+  <!-- end #posts -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<!-- end #content -->
+{% endblock %}
