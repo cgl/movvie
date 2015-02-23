@@ -24,11 +24,6 @@ DATABASES = {
 
 import os,sys
 
-sys.path.append("/home/cagil/repos/movvie/twitnorm/TwPipe/febrl-0.4.2/")
-sys.path.append("/usr/lib/python2.7/dist-packages/")
-sys.path.append("/usr/lib/pymodules/python2.7/")
-sys.path.append("/home/cagil/repos/virtuals/movvie/local/lib/python2.7/site-packages/CWA-Normalizer/")
-
 SETTINGS_DIR = os.path.dirname(__file__)
 PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
 PROJECT_PATH = os.path.abspath(PROJECT_PATH)

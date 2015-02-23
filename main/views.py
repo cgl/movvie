@@ -35,9 +35,6 @@ def tweets(request):
                                context_instance=RequestContext(request))
 from django.utils import simplejson
 
-
-import sys ; sys.path.append("/home/cagil/repos/movvie/twitnorm/TwPipe/febrl-0.4.2/") ; sys.path.append("/usr/lib/python2.7/dist-packages/") ; sys.path.append("/usr/lib/pymodules/python2.7/")
-
 def campaign_json_inner(camp_id,start,limit):
     response = urllib2.urlopen('http://direnaj-staging.cmpe.boun.edu.tr/statuses/filter?skip=0&auth_user_id=direnaj&auth_password=tamtam&campaign_id=%s&limit=%s&skip=%s' % (camp_id,limit,start))
     camp_json = json.load(response)
