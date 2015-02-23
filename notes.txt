@@ -1,0 +1,1 @@
+export PYTHONPATH=$PYTHONPATH:/home/cagil/repos/virtuals/movvie/lib/python2.7/site-packages/febrl-0.4.2/
