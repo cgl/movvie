@@ -23,16 +23,16 @@ my_li.getElementsByTagName('p')[1].innerHTML = my_li.getElementsByTagName('p')[0
             <ul>
 	        {% if camps %}
                   {% for camp in camps %}
-                    <li><a href="{% url "campaign" camp.id %}">{{ camp.desc }}</a></li>
+                    <li><a href="{% url "campaign2" camp.id %}">{{ camp.desc }}</a></li>
                   {% endfor %}
 		{% elif tweets %}
 
                   {% for tweet in tweets %}
                     <li><p>{{ tweet.text }}</p> <br>
-		     <p class="colored">  {{ tweet.normalized_text }}</p>
+		     <p class="colored">  {{ tweet.text }}</p>
 		    </li>
                   {% endfor %}
-		    
+
 		{% else %}
 		    <strong>There are no categories present.</strong>
 		{% endif %}

@@ -26,13 +26,17 @@ def about(request):
 @cache_page(60 * 45)
 def tweets(request):
     print("tweetsssss")
-    response = urllib2.urlopen('http://direnaj-staging.cmpe.boun.edu.tr/campaigns/list?auth_user_id=direnaj&auth_password=tamtam')
-    #response = urllib2.urlopen('http://direnaj-staging.cmpe.boun.edu.tr/campaigns/filter?auth_user_id=direnaj&auth_password=tamtam&limit=10&skip=0')
+    campaign_list_url = 'http://direnaj-staging.cmpe.boun.edu.tr/campaigns/list?auth_user_id=direnaj&auth_password=tamtam'
+    response = urllib2.urlopen(campaign_list_url)
+    #campaign_filter_url = 'http://direnaj-staging.cmpe.boun.edu.tr/campaigns/filter?auth_user_id=direnaj&auth_password=tamtam&limit=10&skip=0'
+    #response = urllib2.urlopen()
     camp_json = json.load(response)
-    campaigns =  [{'id':ins['campaign_id'], 'desc':ins['description'] if ins['description'] != "bos" else ins['query_terms'] } for ins in camp_json]
+    campaigns =  [{'id':ins['campaign_id'], 'desc':ins['description']} for ins in camp_json if ins['campaign_id'].lower().rfind("deneme") < 0 and ins['description'] not in (u'',u'bos')]
+    campaigns.reverse()
     return render_to_response('tweets.html',
-                              {"camps": campaigns},
+                              {"camps": campaigns[0:20]},
                                context_instance=RequestContext(request))
+
 from django.utils import simplejson
 
 def campaign_json_inner(camp_id,start,limit):
@@ -41,6 +45,10 @@ def campaign_json_inner(camp_id,start,limit):
     print(analysis.normalize("hello I am hre"))
     tweets =  [{'text' : tweet_json['tweet']['text'], 'normalized_text' : analysis.normalize(tweet_json['tweet']['text'])} for tweet_json in camp_json['results']]
     return tweets
+
+def campaign_default(request,camp_id):
+    return campaign(request,camp_id,0,10)
+
 @cache_page(60 * 4500)
 def campaign(request,camp_id,start,limit):
     #response = urllib2.urlopen('http://direnaj-staging.cmpe.boun.edu.tr/statuses/filter?skip=0&auth_user_id=direnaj&auth_password=tamtam&campaign_id=%s&limit=100' % camp_id)
@@ -55,4 +63,3 @@ def campaign(request,camp_id,start,limit):
 def campaign_json(request,camp_id,start,limit):
     tweets = campaign_json_inner(camp_id,start,limit)
     return HttpResponse(simplejson.dumps(tweets), mimetype='application/json')
-
