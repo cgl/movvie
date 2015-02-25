@@ -13,6 +13,11 @@ urlpatterns = patterns('',
 
     url(r'tweets/campaign/(?P<camp_id>\w+)/(?P<start>\d+)/(?P<limit>\d+)/$', views.campaign, name='campaign'),
     url(r'tweets/campaign/(?P<camp_id>\w+)/json/(?P<start>\d+)/(?P<limit>\d+)/$', views.campaign_json, name='campaign_json'),
+
+#AJAX
+    url(r'^norm/$', views.norm_text , name='normalize'),
+
+
     # ex: /polls/5/
 #    url(r'^(?P<poll_id>\d+)/$', views.detail, name='detail'),
     # ex: /polls/5/results/

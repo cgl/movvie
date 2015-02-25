@@ -7,7 +7,7 @@ import urllib2, json
 from django.views.decorators.cache import cache_page
 import sys
 
-import analysis
+import standalone
 
 def index(request):
     return HttpResponse("Hello, world. You're at the poll index.")
@@ -66,3 +66,18 @@ def campaign(request,camp_id,start,limit):
 def campaign_json(request,camp_id,start,limit):
     tweets = campaign_json_inner(camp_id,start,limit)
     return HttpResponse(simplejson.dumps(tweets), mimetype='application/json')
+
+
+def norm_text(request):
+    vars = {}
+    print("about to norm")
+    if request.method == 'POST':
+        user = request.user
+        text = request.POST.get('norm_text', None)
+        print("***"+text)
+        try:
+            standalone.main(text)
+        except:
+            print("Error")
+    return HttpResponse(simplejson.dumps({}),
+                    mimetype='application/javascript')

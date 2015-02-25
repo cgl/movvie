@@ -1,18 +1,36 @@
 {% extends 'base.html' %}
 {% block head %}
+<script>
+$(document).ready(function() {
+    // JQuery code to be added in here.
 
+    $('#norm').click(function(){
+      $.ajax({
+               type: "POST",
+               url: "{% url "normalize" %}",
+               data: {'norm_text': $(this).attr('name'), 'csrfmiddlewaretoken': '{{csrf_token}}'},
+               dataType: "text",
+               success: function(response) {
+                      alert('You liked this')
+                },
+                error: function(rs, e) {
+                       alert(rs.responseText);
+                }
+          });
+    })
+});
+</script>
 {% endblock %}
 {% block content %}
-
 <script>
 function copyText(dd)
 {
 var my_li = $(this).parent();
 alert(my_li.children('p').eq(0).text());
 my_li.getElementsByTagName('p')[1].innerHTML = my_li.getElementsByTagName('p')[0].innerHTML;
-
 }
 </script>
+
 <div id="content">
   <div id="posts">
     <div class="post">
@@ -30,6 +48,7 @@ my_li.getElementsByTagName('p')[1].innerHTML = my_li.getElementsByTagName('p')[0
                   {% for tweet in tweets %}
                     <li><p>{{ tweet.text }}</p> <br>
 		     <p class="colored">  {{ tweet.text }}</p>
+		     <input type="button" id="norm" name="{{ tweet.text }}" value="Normalize" />
 		    </li>
                   {% endfor %}
 
