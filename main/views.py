@@ -78,6 +78,7 @@ def norm_text(request):
         try:
             standalone.main(text)
         except:
-            print("Error")
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            print(exc_value)
     return HttpResponse(simplejson.dumps({}),
                     mimetype='application/javascript')
