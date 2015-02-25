@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.http import HttpResponse
 import urllib2, json
 from django.views.decorators.cache import cache_page
-import sys
+import sys,traceback
 
 import standalone
 
@@ -69,16 +69,31 @@ def campaign_json(request,camp_id,start,limit):
 
 
 def norm_text(request):
-    vars = {}
+    normed_text = ""
     print("about to norm")
     if request.method == 'POST':
-        user = request.user
+        #user = request.user
         text = request.POST.get('norm_text', None)
         print("***"+text)
         try:
-            standalone.main(text)
+            obj = standalone.main(text)
+            print("Number of OOV token %d " % len(obj.oov_tokens))
+            normed_text = " ".join([word for word,_,_ in obj.normalization])
         except:
-            exc_type, exc_value, exc_traceback = sys.exc_info()
-            print(exc_value)
-    return HttpResponse(simplejson.dumps({}),
+            traceback.print_exc()
+    print("Normalization completed")
+    return HttpResponse(simplejson.dumps({"normalization":normed_text}),
                     mimetype='application/javascript')
+
+"""
+Traceback (most recent call last):
+  File "/home/cagil/repos/movvie/main/views.py", line 79, in norm_text
+    obj = standalone.main(text)
+  File "/home/cagil/repos/CWA-Normalizer/standalone.py", line 12, in main
+    tweet_obj.print_normalized()
+  File "/home/cagil/repos/CWA-Normalizer/standalone.py", line 96, in print_normalized
+    print(" ".join(output))
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xe2 in position 0: ordinal not in range(128)
+Done
+[25/Feb/2015 19:37:03] "POST /main/norm/ HTTP/1.1" 200 35
+"""

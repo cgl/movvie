@@ -10,8 +10,8 @@ $(document).ready(function() {
                url: "{% url "normalize" %}",
                data: {'norm_text': $(this).attr('name'), 'csrfmiddlewaretoken': '{{csrf_token}}'},
                dataType: "text",
-               success: function(response) {
-                      alert('You liked this')
+               success: function(data) {
+                      alert('Normalization Completed: '+ data)
                 },
                 error: function(rs, e) {
                        alert(rs.responseText);
