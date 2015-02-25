@@ -6,7 +6,7 @@ from main import views
 urlpatterns = patterns('',
     # ex: /polls/
     url(r'movies/$', views.all, name='all'),
-    url(r'tweets/$', views.tweets, name='get_tweets'),
+    url(r'tweets/$', views.get_campaigns, name='get_tweets'),
     url(r'about/$', views.about, name='about'),
     url(r'tweets/campaign/(?P<camp_id>\w+)/$', views.campaign_default , name='campaign2', ),
 #    url(r'tweets/campaign/(?P<camp_id>\w+)/$', views.campaign_json, name='campaign_json'),

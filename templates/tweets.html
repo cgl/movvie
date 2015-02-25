@@ -16,9 +16,9 @@ my_li.getElementsByTagName('p')[1].innerHTML = my_li.getElementsByTagName('p')[0
 <div id="content">
   <div id="posts">
     <div class="post">
-      <h2 class="title">A Few Examples of Tweets</h2>
+      <h2 class="title">A Few Examples of {{ title }}</h2>
       <div class="story">
-	<p><strong></strong>Here is the list of the tweets.</p>
+	<p><strong></strong>Here is the list of {{ title|lower }}.</p>
 	  <div id="listed">
             <ul>
 	        {% if camps %}
