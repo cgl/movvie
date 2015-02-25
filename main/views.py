@@ -42,8 +42,8 @@ from django.utils import simplejson
 def campaign_json_inner(camp_id,start,limit):
     response = urllib2.urlopen('http://direnaj-staging.cmpe.boun.edu.tr/statuses/filter?skip=0&auth_user_id=direnaj&auth_password=tamtam&campaign_id=%s&limit=%s&skip=%s' % (camp_id,limit,start))
     camp_json = json.load(response)
-    print(analysis.normalize("hello I am hre"))
-    tweets =  [{'text' : tweet_json['tweet']['text'], 'normalized_text' : analysis.normalize(tweet_json['tweet']['text'])} for tweet_json in camp_json['results']]
+    print("hello I am hre")
+    tweets =  [{'text' : tweet_json['tweet']['text']} for tweet_json in camp_json['results']]
     return tweets
 
 def campaign_default(request,camp_id):
