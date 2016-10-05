@@ -96,4 +96,6 @@ Traceback (most recent call last):
 UnicodeDecodeError: 'ascii' codec can't decode byte 0xe2 in position 0: ordinal not in range(128)
 Done
 [25/Feb/2015 19:37:03] "POST /main/norm/ HTTP/1.1" 200 35
+
+to do fix normalization of second and later tweets
 """
